@@ -15,5 +15,6 @@ export const primeRoutes = new Map([
     ])
   }],
   ['/glossary', 'Glossary'],
-  ['/blog', 'Blog']
+  ['/blog', 'Blog'],
+  ['/about', 'About']
 ])
