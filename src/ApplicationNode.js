@@ -1,4 +1,5 @@
 import React from 'react'
+import {Provider} from 'react-redux'
 import {
   BrowserRouter as Router,
   Route,
@@ -6,18 +7,22 @@ import {
 } from 'react-router-dom'
 
 import Header from './components/Header'
-import Page from './Pages/Page'
+import PageContainer from './containers/PageContainer'
+import store from './services/store'
+import './services/bluebirdConfig'
 
 const ApplicationNode = () => (
-  <Router>
-    <Header />
-    <Switch>
-      <Route exact path="/" component={Page} />
-      <Route exact path="/:page" component={Page} />
-      <Route exact path="/:page/:topic" component={Page} />
-      {/* <Route component={NotFound} /> */}
-    </Switch>
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={PageContainer} />
+        <Route exact path="/:page" component={PageContainer} />
+        <Route exact path="/:page/:topic" component={PageContainer} />
+        {/* <Route component={NotFound} /> */}
+      </Switch>
+    </Router>
+  </Provider>
 )
 
 export default ApplicationNode

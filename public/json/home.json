@@ -1,0 +1,10 @@
+{
+  "header": "Home",
+  "components": [{
+    "type": "image",
+    "url": "/img/your-style-01.jpg"
+  }, {
+    "type": "text",
+    "text": "Lorem ipsum dolor sit amet."
+  }]
+}

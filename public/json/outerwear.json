@@ -1,0 +1,10 @@
+{
+  "header": "Outerwear",
+  "components": [{
+    "type": "image",
+    "url": "/img/outerwear-01.jpg"
+  }, {
+    "type": "text",
+    "text": "Lorem ipsum dolor sit amet."
+  }]
+}

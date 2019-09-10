@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-import {primeRoutes} from '../../../constants'
+import {PRIME_ROUTES} from '../../../constants'
 
 const HeadNavigation = () => {
   const renderLinks = (routes, previousPath = '') => {
@@ -29,7 +29,7 @@ const HeadNavigation = () => {
   }
 
   return (
-    <nav>{renderLinks(primeRoutes)}</nav>
+    <nav>{renderLinks(PRIME_ROUTES)}</nav>
   )
 }
 

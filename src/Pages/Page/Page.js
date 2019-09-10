@@ -1,17 +1,33 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {shape, string} from 'prop-types'
+
+import {componentRenderer} from '../../utils'
 
 const propTypes = {
   location: shape({
     pathname: string.isRequired
   }).isRequired
+  // TODO: add header, components
 }
 
-class Page extends Component {
-  render() {
-    const pathname = this.props.location.pathname
+class Page extends PureComponent {
+  componentDidMount() {
+    this.props.fetchPageData(this.props.location.pathname)
+  }
 
-    return <h1>{pathname}</h1>
+  componentDidUpdate(prevProps) {
+    if(this.props.location !== prevProps.location) {
+      this.props.fetchPageData(this.props.location.pathname)
+    }
+  }
+
+  render() {
+    return (
+      <>
+        <h1>{this.props.header}</h1>
+        {this.props.components.length && componentRenderer(this.props.components)}
+      </>
+    )
   }
 }
 

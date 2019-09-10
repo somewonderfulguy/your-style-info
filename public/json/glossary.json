@@ -1,0 +1,7 @@
+{
+  "header": "Glossary",
+  "components": [{
+    "type": "text",
+    "text": "Lorem ipsum dolor sit amet."
+  }]
+}

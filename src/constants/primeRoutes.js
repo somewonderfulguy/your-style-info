@@ -1,4 +1,4 @@
-export const primeRoutes = new Map([
+export const PRIME_ROUTES = new Map([
   ['/', 'Home'],
   ['/outerwear', {
     name: 'Outerwear',
