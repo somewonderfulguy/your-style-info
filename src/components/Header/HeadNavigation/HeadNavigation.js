@@ -1,7 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 
+import LinkExtended from '../../LinkExtended'
 import {PRIME_ROUTES} from '../../../constants'
+import styles from './HeadNavigation.module.css'
 
 const HeadNavigation = () => {
   const renderLinks = (routes, previousPath = '') => {
@@ -15,9 +16,9 @@ const HeadNavigation = () => {
           
           return (
             <li key={path}>
-              <Link to={path}>
+              <LinkExtended to={path} activeClassName={styles.active}>
                 {typeof value === 'string' ? value : value.name}
-              </Link>
+              </LinkExtended>
               {typeof value !== 'string' && (
                 <div className="sub-menu">{renderLinks(value.routes, path)}</div>
               )}
