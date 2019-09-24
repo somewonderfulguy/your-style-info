@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react'
 import {array, shape, string} from 'prop-types'
 
 import {componentRenderer} from '../../utils'
+import styles from './Page.module.css'
 
 const propTypes = {
   location: shape({
@@ -16,6 +17,7 @@ const defaultProps = {
   components: []
 }
 
+//TODO double check, do I even need PureComponent
 class Page extends PureComponent {
   componentDidMount() {
     this.props.fetchPageData(this.props.location.pathname)
@@ -29,7 +31,7 @@ class Page extends PureComponent {
 
   render() {
     return (
-      <article>
+      <article className={styles.page}>
         <h1>{this.props.header}</h1>
         {/* TODO the article must be separated by <section> tags - each section should be represented with header */}
         {this.props.components.length && componentRenderer(this.props.components)}
