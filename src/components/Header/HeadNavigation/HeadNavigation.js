@@ -6,8 +6,8 @@ import {PRIME_ROUTES} from '../../../constants'
 import styles from './HeadNavigation.module.css'
 
 const HeadNavigation = () => {
-  const [isSubMenuVisible, setIsSubMenuVisible] = useState(true)
-  const [subMenuContent, setSubMenuContent] = useState(PRIME_ROUTES.get('/clothes').routes)
+  const [isSubMenuVisible, setIsSubMenuVisible] = useState(false)
+  const [subMenuContent, setSubMenuContent] = useState(null)
 
   const renderLinks = (routes, previousPath = '') => {
     const keys = [...routes.keys()]
