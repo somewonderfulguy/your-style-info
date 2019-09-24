@@ -1,0 +1,27 @@
+.header {
+  padding-top: 50px;
+}
+
+.hgroup {
+  max-width: 1400px;
+  padding-left: 100px;
+  margin: 0 auto 40px;
+}
+
+.title {
+  font-family: 'Inconsolata', monospace;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: darkgray;
+}
+
+.langContainer {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+}

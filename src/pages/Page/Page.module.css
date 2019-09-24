@@ -1,0 +1,12 @@
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 100px;
+
+  text-align: justify;
+}
+
+.page img {
+  display: block;
+  margin: 0 auto;
+}

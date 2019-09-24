@@ -1,27 +1,52 @@
-import React from 'react'
+import React, {useState} from 'react'
 
+import SubMenu from './SubMenu'
 import LinkExtended from '../../LinkExtended'
 import {PRIME_ROUTES} from '../../../constants'
 import styles from './HeadNavigation.module.css'
 
 const HeadNavigation = () => {
+  const [isSubMenuVisible, setIsSubMenuVisible] = useState(true)
+  const [subMenuContent, setSubMenuContent] = useState(PRIME_ROUTES.get('/clothes').routes)
+
   const renderLinks = (routes, previousPath = '') => {
     const keys = [...routes.keys()]
     const values = [...routes.values()]
 
-    return  (
-      <ul>
+    return (
+      <ul className={styles.list}>
         {values.map((value, i) => {
           const path = previousPath + keys[i]
+          const isWithSubmenu = value.name
+
+          // TODO: temp until all menu items will be active - delete, when it happens
+          if(value === 'inactive') {
+            return (
+              <li key={path} className={styles.listItemInactive}>
+                {keys[i]}
+              </li>
+            )
+          }
           
           return (
-            <li key={path}>
-              <LinkExtended to={path} activeClassName={styles.active}>
-                {typeof value === 'string' ? value : value.name}
+            <li
+              key={path}
+              className={styles.listItem}
+              onMouseEnter={isWithSubmenu && (() => {
+                setIsSubMenuVisible(true)
+                setSubMenuContent(value.routes)
+              })}
+              onMouseLeave={isWithSubmenu && (() => {
+                setIsSubMenuVisible(false)
+              })}
+            >
+              <LinkExtended
+                to={path}
+                className={styles.link}
+                activeClassName={styles.activeLink}
+              >
+                {isWithSubmenu ? value.name : value}
               </LinkExtended>
-              {typeof value !== 'string' && (
-                <div className="sub-menu">{renderLinks(value.routes, path)}</div>
-              )}
             </li>
           )
         })}
@@ -30,7 +55,22 @@ const HeadNavigation = () => {
   }
 
   return (
-    <nav>{renderLinks(PRIME_ROUTES)}</nav>
+    <nav>
+      <div className={styles.menuContainer}>
+        <div className={styles.menu}>
+          {renderLinks(PRIME_ROUTES)}
+        </div>
+      </div>
+      {(isSubMenuVisible && subMenuContent) && (
+        <div
+          className={styles.subMenuContainer}
+          onMouseEnter={() => setIsSubMenuVisible(true)}
+          onMouseLeave={() => setIsSubMenuVisible(false)}
+        >
+          <SubMenu pathTitlePairs={subMenuContent} />
+        </div>
+      )}
+    </nav>
   )
 }
 
