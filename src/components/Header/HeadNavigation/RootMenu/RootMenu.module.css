@@ -1,0 +1,27 @@
+.list {list-style-type: none;}
+
+.listItem {
+  display: inline-block;
+  transition: background-color .5s;
+  border-bottom: 1px solid #adadad;
+}
+
+.listItem:hover {background-color: #f0f0f0;}
+
+.listItemInactive {
+  composes: listItem;
+  color: lightgray;
+  cursor: default;
+  padding: 15px;
+}
+
+.listItemInactive:hover {
+  background-color: transparent;
+}
+
+.link {
+  display: block;
+  padding: 15px;
+}
+
+.activeLink {font-weight: 900;}

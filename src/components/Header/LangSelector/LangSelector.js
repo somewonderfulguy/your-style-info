@@ -1,3 +1,5 @@
+//TODO move to /component (level up)
+
 import React from 'react'
 import {useTranslation} from 'react-i18next'
 

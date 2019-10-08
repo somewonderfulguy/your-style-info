@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {array, shape, string} from 'prop-types'
 
-import {componentRenderer} from '../../utils'
+import {componentRenderer} from '../../helpers'
 import styles from './Page.module.css'
 
 const propTypes = {
@@ -17,7 +17,7 @@ const defaultProps = {
   components: []
 }
 
-//TODO double check, do I even need PureComponent
+//TODO double check, do I even need PureComponent (upd better convert to functional components)
 class Page extends PureComponent {
   componentDidMount() {
     this.props.fetchPageData(this.props.location.pathname)
