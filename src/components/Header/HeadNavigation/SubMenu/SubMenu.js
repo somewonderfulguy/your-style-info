@@ -5,12 +5,11 @@ import LinkExtended from '../../../LinkExtended'
 import styles from './SubMenu.module.css'
 
 const propTypes = {
-  pathTitlePairs: instanceOf(Map),
+  pathTitlePairs: instanceOf(Map).isRequired,
   basePath: string
 }
 
 const defaultProps = {
-  pathTitlePairs: new Map(),
   basePath: ''
 }
 

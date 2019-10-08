@@ -13,7 +13,6 @@ const HeadNavigation = () => {
     basePath: ''
   })
 
-  const toggle = isSubMenuVisible && !!subMenuContent
   const {opacity} = useSpring({
     config: {
       mass: 1,
@@ -24,7 +23,7 @@ const HeadNavigation = () => {
       opacity: 0,
       visibility: 'hidden'
     },
-    opacity: toggle ? 1 : 0
+    opacity: isSubMenuVisible ? 1 : 0
   })
 
   return (
