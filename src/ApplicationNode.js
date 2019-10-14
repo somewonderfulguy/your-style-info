@@ -13,6 +13,7 @@ import Footer from './components/Footer'
 import store from './services/store'
 import './services/i18n'
 import './services/bluebird'
+import './services/resizeObserverPolyfill'
 
 import './assets/styles/common-styles.css'
 import './assets/styles/fonts.css'

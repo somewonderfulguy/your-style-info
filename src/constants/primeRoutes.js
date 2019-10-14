@@ -29,7 +29,15 @@ export const PRIME_ROUTES = new Map([
       ['/socks', 'Socks']
     ])
   }],
-  ['Grooming', 'inactive'],
+  //['Grooming', 'inactive'],
+  ['/grooming', {
+    name: 'Grooming',
+    routes: new Map([
+      ['/hair-care', 'Hair care'],
+      ['/face-skin-care', 'Face skin care'],
+      ['/hands-care', 'Hands and nails care']
+    ])
+  }],
   ['Brands & stores', 'inactive'],
   ['/glossary', 'Glossary'],
   ['About', 'inactive']

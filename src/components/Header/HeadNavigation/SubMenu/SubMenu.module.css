@@ -9,6 +9,10 @@
 
 .subMenu img {width: 250px;}
 
+/*.listContainer {
+
+}*/
+
 .list {
   list-style-type: none;
   
@@ -16,5 +20,10 @@
   grid-template-rows: repeat(6, min-content);
   grid-auto-flow: column;
   grid-auto-columns: 250px;
-  gap: 15px; /* MIND THE GAP BETWEEN THE TRAIN AND THE PLATFORM! */
+}
+
+.listItem {margin-bottom: 15px;}
+.listItem:last-child,
+.listItem:nth-child(6n) {
+  margin: 0;
 }

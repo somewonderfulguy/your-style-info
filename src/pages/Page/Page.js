@@ -34,7 +34,7 @@ class Page extends PureComponent {
       <article className={styles.page}>
         <h1>{this.props.header}</h1>
         {/* TODO the article must be separated by <section> tags - each section should be represented with header */}
-        {this.props.components.length && componentRenderer(this.props.components)}
+        {!!this.props.components.length && componentRenderer(this.props.components)}
       </article>
     )
   }

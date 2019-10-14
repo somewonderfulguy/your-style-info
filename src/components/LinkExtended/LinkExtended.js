@@ -48,7 +48,7 @@ class LinkExtended extends Component {
   }
 
   render() {
-    const {to, activeClassName, className, children, location: {pathname}} = this.props
+    const {to, activeClassName, className, children, location: {pathname}, customAttrs: props} = this.props
     const isActive = pathname === to
 
     return (
@@ -57,7 +57,7 @@ class LinkExtended extends Component {
           {children}
         </span>
       ) : (
-        <a href={to} onClick={this.onClick} className={className}>
+        <a href={to} onClick={this.onClick} className={className} {...props}>
           {children}
         </a>
       )
