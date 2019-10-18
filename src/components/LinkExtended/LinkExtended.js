@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {arrayOf, func, node, oneOfType, shape, string} from 'prop-types'
+import {arrayOf, bool, func, node, object, oneOfType, shape, string} from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
@@ -14,15 +14,19 @@ const propTypes = {
       node
   ]),
   className: string,
+  customAttrs: object,
   history: shape({push: func}).isRequired,
+  inactive: bool,
   location: shape({pathname: string}).isRequired,
-  to: string,
+  to: string
 }
 
 const defaultProps = {
   activeClassName: '',
   children: <></>,
   className: '',
+  customAttrs: {},
+  inactive: false,
   to: '/'
 }
 
@@ -48,11 +52,21 @@ class LinkExtended extends Component {
   }
 
   render() {
-    const {to, activeClassName, className, children, location: {pathname}, customAttrs: props} = this.props
-    const isActive = pathname === to
+    const {
+      activeClassName,
+      children,
+      className,
+      inactive,
+      location: {pathname},
+      customAttrs: props,
+      to
+    } = this.props
+    const isCurrent = pathname === to
+
+    if(inactive) return children
 
     return (
-      isActive ? (
+      isCurrent ? (
         <span className={activeClassName}>
           {children}
         </span>

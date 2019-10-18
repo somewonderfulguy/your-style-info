@@ -1,36 +1,69 @@
-import React, {useReducer, useState} from 'react'
+import React, {useReducer} from 'react'
 import {animated, config, useSpring} from 'react-spring'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
 import {PRIME_ROUTES} from '../../../constants'
-import {useResizeObserver} from '../../../helpers/hooks'
+import {useResizeObserver} from '../../../helpers/hooks' // TODO -- use debounce
 import styles from './HeadNavigation.module.css'
 
-// DO I NEED REDUCER????????????
-// can I replace prevIsOpen with usePrevious?
-// can I replace openNowAndBefore with just a variable?
 const openMenuInitialState = {
   isOpen: false,
   prevIsOpen: false,
   openNowAndBefore: false
 }
 
+const subMenuContentInitialState = {
+  content: {},
+  basePath: '',
+  mainThumbnailUrl: null,
+  subItemThumbnailUrl: null
+}
+
 const openMenuReducer = (state, action) => ({
   isOpen: action,
   prevIsOpen: state.isOpen,
-  openNowAndBefore: state.isOpen === action
+  openNowAndBefore: state.isOpen && action
 })
+
+const subMenuContentReducer = (state, action) => {
+  switch(action.type) {
+    case 'set-submenu':
+      return {
+        content: action.content,
+        basePath: action.basePath,
+        mainThumbnailUrl: action.mainThumbnailUrl || null,
+        subItemThumbnailUrl: null
+      }
+    case 'set-sumItemThumbnail':
+      return {...state, subItemThumbnailUrl: action.subItemThumbnailUrl}
+    default:
+      return state
+  }
+}
 
 const HeadNavigation = () => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
+  const [subMenuContent, setSubMenuContent] = useReducer(subMenuContentReducer, subMenuContentInitialState)
 
-  const [subMenuContent, setSubMenuContent] = useState({
-    pathTitlePairs: new Map(),
-    basePath: ''
-  })
+  const setSubMenu = (content, basePath, mainThumbnailUrl = null) => 
+    setSubMenuContent({
+      type: 'set-submenu',
+      content,
+      basePath,
+      mainThumbnailUrl
+    })
 
-  // drop-down fade-in-out animation
+  const setSubItemThumbnail = (subItemThumbnailUrl = null) => 
+    setSubMenuContent({
+      type: 'set-submenu',
+      subItemThumbnailUrl
+    })
+
+  // DO NOT DELETE UNTIL YOU FINISH!!!
+  //console.log(subMenuContent)
+
+  // drop-down fade-in-out
   const {opacity} = useSpring({
     config: {
       mass: 1,
@@ -44,22 +77,22 @@ const HeadNavigation = () => {
     opacity: openMenuState.isOpen ? 1 : 0
   })
 
-  // drop-down menu height animation
+  // drop-down menu height
   const [bindResizeObserver, {height: heightElem}] = useResizeObserver()
   const {height} = useSpring({
-    config: openMenuState.openNowAndBefore ? config.default : {duration: 0}, // TODO I did not needed this before!
+    config: openMenuState.openNowAndBefore ? config.default : {duration: 0},
     from: {height: 'auto'},
     to: {height: openMenuState.isOpen ? heightElem : 'auto'}
   })
 
   return (
-    <nav>
+    <>
       <div className={styles.menuWrapper}>
         <div className={styles.menuContainer}>
           <RootMenu
             routes={PRIME_ROUTES}
             setShowMenu={setMenuOpen}
-            setSubMenuContent={setSubMenuContent}
+            setSubMenu={setSubMenu}
           />
         </div>
       </div>
@@ -68,20 +101,24 @@ const HeadNavigation = () => {
         style={{
           opacity,
           visibility: opacity.interpolate(o => o > 0.3 ? 'visible' : 'hidden'),
-          height
+          height,
+          minHeight: 160 // TODO when release put real value
         }}
         className={styles.subMenuContainer}
-        onMouseLeave={() => setMenuOpen(false)}
+        //onMouseLeave={() => setMenuOpen(false)}
       >
+        {/* TODO try to put it either animated.div or SubMenu */}
         <div ref={bindResizeObserver} submenupersist="1">
           <SubMenu
-            pathTitlePairs={subMenuContent.pathTitlePairs}
+            content={subMenuContent.content}
             basePath={subMenuContent.basePath}
             isOpen={openMenuState.isOpen}
+            prevOpenProp={openMenuState.prevIsOpen}
+            openNowAndBefore={openMenuState.openNowAndBefore}
           />
         </div>
       </animated.div>
-    </nav>
+    </>
   )
 }
 

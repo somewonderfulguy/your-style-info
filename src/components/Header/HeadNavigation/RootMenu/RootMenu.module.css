@@ -15,9 +15,7 @@
   padding: 15px;
 }
 
-.listItemInactive:hover {
-  background-color: transparent;
-}
+.listItemInactive:hover {background-color: transparent;}
 
 .link {
   display: block;

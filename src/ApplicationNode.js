@@ -22,6 +22,7 @@ import styles from './ApplicationNode.module.css'
 const ApplicationNode = () => (
   <Provider store={store}>
     <Router>
+      {/* TODO put these styles on #root so no excessive nesting happened */}
       <div className={styles.rootGrid}>
         <Header />
         <main>
