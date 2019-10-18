@@ -54,11 +54,11 @@ const HeadNavigation = () => {
       mainThumbnailUrl
     })
 
-  const setSubItemThumbnail = (subItemThumbnailUrl = null) => 
+  /*const setSubItemThumbnail = (subItemThumbnailUrl = null) => 
     setSubMenuContent({
       type: 'set-submenu',
       subItemThumbnailUrl
-    })
+    })*/
 
   // DO NOT DELETE UNTIL YOU FINISH!!!
   //console.log(subMenuContent)

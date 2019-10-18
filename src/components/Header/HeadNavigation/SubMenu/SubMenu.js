@@ -19,40 +19,28 @@ const defaultProps = {
 
 // TODO fix: opacity tranistions from 0 to 1 when user opens first time - must be fixed, fade in/out when user goes to the closest menu item with drop-down
 const SubMenu = ({content, basePath, isOpen}) => {
-  // --- might be replaced with prop from parent ---
-  const prevOpen = usePrevious(isOpen)
+  const prevOpen = usePrevious(isOpen) // --- might be replaced with prop from parent ---
+
+  // old transitions clean up
+  const transitionCancelArray = React.useRef([])
+  transitionCancelArray.current.forEach((item, idx) => idx > 1 && item())
+  transitionCancelArray.current.splice(2)
 
   // fade out / in
-  //SHOULD I MOVE TRANSITION UPPER?
   const transitions = useTransition(content, basePath, {
-    // TODO FIX NEEDED if you set 14000ms as duration and try to open menu many times you will notice that a lot of DOM models will be opened
-    // either cancel animation for old blocks or set display: none; to all of them (better to cancel)
     config: {duration: isOpen && prevOpen ? 400 : 0}, // --- isOpen && prevOpen might be replaced with prop from parent ---
     from: {opacity: 0},
-    enter: {opacity: 1},
+    enter: item => async (next, cancel) => {
+      transitionCancelArray.current = [cancel, ...transitionCancelArray.current]
+      await next({opacity: 1})
+    },
     leave: {opacity: 0}
-
-    // TODO might be used this way, bugs are spotted, so maybe even needed to use functions with await, try to implement this way
-    /*enter: [
-      {opacity: 0},
-      {opacity: 0},
-      {opacity: 0},
-      {opacity: 1},
-    ],
-    leave: [
-      {opacity: 1},
-      {opacity: 0},
-      {opacity: 0},
-      {opacity: 0},
-    ]*/
   })
 
   // transform animation
   const {transform} = useSpring({
     from: {transform: `translate3d(0, -10px, 0)`},
-    to: {
-      transform: `translate3d(0, ${isOpen ? 0 : -10}px, 0)`
-    }
+    to: {transform: `translate3d(0, ${isOpen ? 0 : -10}px, 0)`}
   })
 
   const renderList = content => {

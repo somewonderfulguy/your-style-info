@@ -30,7 +30,8 @@ const defaultProps = {
   to: '/'
 }
 
-//TODO the scroll event as well as route changing must happen after content loaded - refactor later
+// TODO convert to functional component
+// TODO the scroll event as well as route changing must happen after content loaded - refactor later
 class LinkExtended extends Component {
   onScrollEnd = () => {
     this.props.history.push(this.props.to)
