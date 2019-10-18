@@ -9,7 +9,6 @@ import styles from './HeadNavigation.module.css'
 
 const openMenuInitialState = {
   isOpen: false,
-  prevIsOpen: false,
   openNowAndBefore: false
 }
 
@@ -22,7 +21,6 @@ const subMenuContentInitialState = {
 
 const openMenuReducer = (state, action) => ({
   isOpen: action,
-  prevIsOpen: state.isOpen,
   openNowAndBefore: state.isOpen && action
 })
 
@@ -59,9 +57,6 @@ const HeadNavigation = () => {
       type: 'set-submenu',
       subItemThumbnailUrl
     })*/
-
-  // DO NOT DELETE UNTIL YOU FINISH!!!
-  //console.log(subMenuContent)
 
   // drop-down fade-in-out
   const {opacity} = useSpring({
@@ -113,7 +108,6 @@ const HeadNavigation = () => {
             content={subMenuContent.content}
             basePath={subMenuContent.basePath}
             isOpen={openMenuState.isOpen}
-            prevOpenProp={openMenuState.prevIsOpen}
             openNowAndBefore={openMenuState.openNowAndBefore}
           />
         </div>

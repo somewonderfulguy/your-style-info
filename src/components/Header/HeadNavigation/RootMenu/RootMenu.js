@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {func, object} from 'prop-types'
 
 import LinkExtended from '../../../LinkExtended'
@@ -47,35 +47,8 @@ const RootMenu = ({routes, setShowMenu, setSubMenu}) => {
       })}
     </ul>
   )
-  // styles.listItemInactive
-
-  //const paths = [...routes.keys()]
-  //const titleOrSubcontent = [...routes.values()]
-
-  /*return (
-    <ul className={styles.list}>
-      {titleOrSubcontent.map((value, i) => {
-        return (
-          <li
-            onMouseEnter={isWithSubmenu && (() => {
-              setShowMenu(true)
-              setSubMenu({
-                pathTitlePairs: value.routes,
-                basePath: path
-              })
-            })}
-            onMouseLeave={e => {
-              if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') {return}
-              setShowMenu(false)
-            }}
-          >
-          </li>
-        )
-      })}
-    </ul>
-  )*/
 }
 
 RootMenu.propTypes = propTypes
 
-export default React.memo(RootMenu)
+export default memo(RootMenu)

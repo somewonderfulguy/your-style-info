@@ -1,26 +1,24 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {bool, object, string} from 'prop-types'
 import {animated, useSpring, useTransition} from 'react-spring'
 
 import LinkExtended from '../../../LinkExtended'
-import {usePrevious} from '../../../../helpers/hooks'
 import styles from './SubMenu.module.css'
 
 const propTypes = {
   content: object,
   basePath: string,
-  isOpen: bool
+  isOpen: bool,
+  openNowAndBefore: bool
 }
 
 const defaultProps = {
   basePath: '',
-  isOpen: false
+  isOpen: false,
+  openNowAndBefore: false
 }
 
-// TODO fix: opacity tranistions from 0 to 1 when user opens first time - must be fixed, fade in/out when user goes to the closest menu item with drop-down
-const SubMenu = ({content, basePath, isOpen}) => {
-  const prevOpen = usePrevious(isOpen) // --- might be replaced with prop from parent ---
-
+const SubMenu = ({content, basePath, isOpen, openNowAndBefore}) => {
   // old transitions clean up
   const transitionCancelArray = React.useRef([])
   transitionCancelArray.current.forEach((item, idx) => idx > 1 && item())
@@ -28,7 +26,7 @@ const SubMenu = ({content, basePath, isOpen}) => {
 
   // fade out / in
   const transitions = useTransition(content, basePath, {
-    config: {duration: isOpen && prevOpen ? 400 : 0}, // --- isOpen && prevOpen might be replaced with prop from parent ---
+    config: {duration: openNowAndBefore ? 400 : 0},
     from: {opacity: 0},
     enter: item => async (next, cancel) => {
       transitionCancelArray.current = [cancel, ...transitionCancelArray.current]
@@ -109,4 +107,4 @@ const SubMenu = ({content, basePath, isOpen}) => {
 SubMenu.propTypes = propTypes
 SubMenu.defaultProps = defaultProps
 
-export default React.memo(SubMenu)
+export default memo(SubMenu)
