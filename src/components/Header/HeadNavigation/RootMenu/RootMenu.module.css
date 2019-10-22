@@ -1,4 +1,8 @@
-.list {list-style-type: none;}
+.list {
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+}
 
 .listItem {
   display: inline-block;

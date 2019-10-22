@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {arrayOf, bool, func, node, object, oneOfType, shape, string} from 'prop-types'
+import {arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
@@ -10,11 +10,10 @@ import {debounce} from '../../utils/debounce'
 const propTypes = {
   activeClassName: string,
   children: oneOfType([
-      arrayOf(node),
-      node
+    arrayOf(node),
+    node
   ]),
   className: string,
-  customAttrs: object,
   history: shape({push: func}).isRequired,
   inactive: bool,
   location: shape({pathname: string}).isRequired,
@@ -25,7 +24,6 @@ const defaultProps = {
   activeClassName: '',
   children: <></>,
   className: '',
-  customAttrs: {},
   inactive: false,
   to: '/'
 }
@@ -59,12 +57,13 @@ class LinkExtended extends Component {
       className,
       inactive,
       location: {pathname},
-      customAttrs: props,
-      to
+      to,
+      staticContext,
+      ...props
     } = this.props
     const isCurrent = pathname === to
 
-    if(inactive) return children
+    if(inactive) return <span className={className}>{children}</span>
 
     return (
       isCurrent ? (

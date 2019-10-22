@@ -1,9 +1,9 @@
-.menuWrapper {
+.rootMenuContainer {
   border-top: 1px solid #adadad;
   position: relative;
 }
 
-.menuWrapper:after {
+.rootMenuContainer:after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -14,16 +14,10 @@
   z-index: -1;
 }
 
-.menuContainer {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-left: 85px;
-}
-
 .subMenuContainer {
   width: 100%;
+  min-height: 230px;
   position: absolute;
   border-bottom: 1px solid #adadad;
   background-color: rgba(255, 255, 255, .95);
-  /* backdrop-filter: saturate(180%) blur(20px); */
 }

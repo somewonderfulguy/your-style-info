@@ -5,7 +5,20 @@ export const PRIME_ROUTES = {
   },
   '/guides-topics': {
     name: 'Generic topics & guides',
+    thumbnail: '/img/thumbs/steve.jpg',
     sub: {
+      '/colors-how-to': {
+        name: 'How to combine colors',
+        thumbnail: '/img/thumbs/colors.jpg'
+      },
+      '/how-to-travel': {
+        name: 'How to travel',
+        thumbnail: '/img/thumbs/bond.jpg'
+      },
+      '/black-white-tie': {
+        name: 'Black and white tie',
+        thumbnail: '/img/thumbs/black-tie.jpg'
+      },
       '/body-types': {
         name: 'Body types',
         inactive: true
@@ -13,59 +26,48 @@ export const PRIME_ROUTES = {
       '/color-types': {
         name: 'Color types',
         inactive: true
-      },
-      '/colors-how-to': {
-        name: 'How to combine colors',
-        inactive: true
-      },
-      '/black-white-tie': {
-        name: 'Black and white tie',
-        thumbnail: '/public/img/thumbs/black-tie.jpg'
-      },
-      '/how-to-travel': {
-        name: 'How to travel',
-        inactive: true
       }
     }
   },
   '/clothes': {
     name: 'Clothes & Accessories',
-    thumbnail: '/public/img/thumbs/wardrobe.jpg',
+    thumbnail: '/img/thumbs/wardrobe.jpg',
     sub: {
       '/suits-jackets-vests': {
         name: 'Suits, jackets, vests',
-        thumbnail: '/public/img/thumbs/suits.jpg'
+        thumbnail: '/img/thumbs/suits.jpg'
       },
       '/shirts': {
-        name: 'Shirts'
+        name: 'Shirts',
+        thumbnail: '/img/thumbs/shirt.jpg'
       },
-      '/pantology': {
-        name: 'Pants & Shorts'
+      '/knitwear': {
+        name: 'Knitwear',
+        thumbnail: '/img/thumbs/knitwear.jpg'
       },
       '/shoes': {
         name: 'Shoes',
-        thumbnail: '/public/img/thumbs/shoes.jpg'
+        thumbnail: '/img/thumbs/shoes.jpg'
       },
       '/outerwear': {
         name: 'Outerwear',
-        thumbnail: '/public/img/thumbs/jacket.jpg'
+        thumbnail: '/img/thumbs/jacket.jpg'
       },
       '/accessories': {
         name: 'Accessories',
-        thumbnail: '/public/img/thumbs/accessories.jpg'
+        thumbnail: '/img/thumbs/accessories.jpg'
       },
       '/materials-and-fabrics': {
         name: 'Fabrics & materials',
-        thumbnail: '/public/img/thumbs/cotton.jpg'
+        thumbnail: '/img/thumbs/cotton.jpg'
       },
       '/patterns': {
-        name: 'Patterns'
+        name: 'Patterns',
+        thumbnail: '/img/thumbs/pattern.jpg'
       },
       '/care': {
-        name: 'Care'
-      },
-      '/t-shirts': {
-        name: 'T-shirts'
+        name: 'Care',
+        thumbnail: '/img/thumbs/steamer.jpg'
       },
       '/underwear': {
         name: 'Underwear',
@@ -79,18 +81,15 @@ export const PRIME_ROUTES = {
   },
   '/grooming': {
     name: 'Grooming',
-    thumbnail: '/public/img/thumbs/grooming.png',
+    thumbnail: '/img/thumbs/grooming.png',
     sub: {
-      '/hair-care': {
-        name: 'Body types'
-      },
       '/face-skin-care': {
         name: 'Face skin care',
-        thumbnail: '/public/img/thumbs/skin-care.jpg'
+        thumbnail: '/img/thumbs/skin-care.jpg'
       },
       '/hands-care': {
         name: 'Hands and nails care',
-        thumbnail: '/public/img/thumbs/manicure-set.jpeg'
+        thumbnail: '/img/thumbs/manicure-set.jpeg'
       }
     }
   },

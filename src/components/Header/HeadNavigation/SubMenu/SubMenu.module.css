@@ -1,34 +1,19 @@
 .subMenu {
-  max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 0 40px 100px;
+  padding: 30px 0;
 
   display: block;
   width: 700px;
-}
-
-.subMenu img {width: 250px;}
-
-.list {
-  list-style-type: none;
   
-  display: grid;
-  grid-template-rows: repeat(6, min-content);
-  grid-auto-flow: column;
-  grid-auto-columns: 250px;
+  position: relative;
 }
 
-.listItem {
-  margin-bottom: 15px;
-  cursor: default;
-  color: lightgray;
+.listContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
 }
-.listItem:last-child,
-.listItem:nth-child(6n) {
-  margin: 0;
-}
-
-.listContainer {display: flex;}
 
 .listContainer + .listContainer + .listContainer {
   display: none;

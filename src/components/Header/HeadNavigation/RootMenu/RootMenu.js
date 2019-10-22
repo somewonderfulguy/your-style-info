@@ -26,19 +26,24 @@ const RootMenu = ({routes, setShowMenu, setSubMenu}) => {
             key={path}
             onMouseEnter={sub && (() => {
               setShowMenu(true)
-              setSubMenu(sub, path, thumbnail)
+              setSubMenu({
+                content: sub,
+                basePath: path,
+                mainThumbnailUrl: thumbnail
+              })
             })}
             onMouseLeave={e => {
-              if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') {return}
+              if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
               setShowMenu(false)
             }}
+            submenupersist={!!sub ? 1 : 0}
           >
             <LinkExtended
               to={path}
-              className={styles.link}
+              className={inactive ? '' : styles.link}
               activeClassName={styles.activeLink}
-              customAttrs={{submenupersist: !!sub ? 1 : 0}}
               inactive={inactive}
+              submenupersist={!!sub ? 1 : 0}
             >
               {name}
             </LinkExtended>
