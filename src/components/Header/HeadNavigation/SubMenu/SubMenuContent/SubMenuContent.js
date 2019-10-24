@@ -1,24 +1,27 @@
 import React, {Fragment, memo, useState, useRef} from 'react'
-import {object, string} from 'prop-types'
+import {bool, object, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
 import LinkExtended from '../../../../LinkExtended'
+import {usePrevious} from '../../../../../helpers/hooks'
 import styles from './SubMenuContent.module.css'
 
 const propTypes = {
   menuItems: object.isRequired,
   basePath: string,
   mainThumbnail: object,
+  isOpen: bool
 }
 
 const defaultProps = {
   basePath: '',
-  mainThumbnail: null
+  mainThumbnail: null,
+  isOpen: false
 }
 
-const SubMenuContent = ({menuItems, basePath, mainThumbnail}) => {
-
+const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
   const [subItemThumbnail, setSubItemThumbnail] = useState(null)
+  const prevOpen = usePrevious(isOpen)
 
   // old transitions clean up
   const transitionCancelArray = useRef([])
@@ -26,7 +29,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail}) => {
   transitionCancelArray.current.splice(2)
 
   const transitions = useTransition(subItemThumbnail || mainThumbnail, item => item && item.url, {
-    config: {duration: 200},
+    config: {duration: isOpen !== prevOpen ? 0 : 200},
     from: {opacity: 0},
     enter: () => async (next, cancel) => {
       transitionCancelArray.current.unshift(cancel)

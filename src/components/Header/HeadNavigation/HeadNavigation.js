@@ -31,6 +31,8 @@ const subMenuContentReducer = (state, {content, basePath, mainThumbnail}) => ({
 
 const HeadNavigation = () => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
+
+  // TODO use useState
   const [subMenuContent, setSubMenuContent] = useReducer(subMenuContentReducer, subMenuContentInitialState)
 
   // drop-down fade-in-out

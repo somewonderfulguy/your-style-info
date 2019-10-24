@@ -78,8 +78,8 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
             <SubMenuContent
               menuItems={item}
               mainThumbnail={mainThumbnail}
+              isOpen={isOpen}
               basePath={basePath}
-              openNowAndBefore={openNowAndBefore}
             />
           </animated.div>
         )
