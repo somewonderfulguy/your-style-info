@@ -10,17 +10,17 @@ const propTypes = {
   basePath: string,
   isOpen: bool,
   openNowAndBefore: bool,
-  mainThumbnailUrl: string
+  mainThumbnail: object
 }
 
 const defaultProps = {
   basePath: '',
   isOpen: false,
   openNowAndBefore: false,
-  mainThumbnailUrl: null
+  mainThumbnail: null
 }
 
-const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnailUrl}) => {
+const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) => {
   // old transitions clean up
   const transitionCancelArray = React.useRef([])
   transitionCancelArray.current.forEach((item, idx) => idx >= 1 && item())
@@ -77,7 +77,7 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnailUrl}
           >
             <SubMenuContent
               menuItems={item}
-              mainThumbnailUrl={mainThumbnailUrl}
+              mainThumbnail={mainThumbnail}
               basePath={basePath}
               openNowAndBefore={openNowAndBefore}
             />

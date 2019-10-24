@@ -8,23 +8,24 @@ import styles from './SubMenuContent.module.css'
 const propTypes = {
   menuItems: object.isRequired,
   basePath: string,
-  mainThumbnailUrl: string,
+  mainThumbnail: object,
 }
 
 const defaultProps = {
   basePath: '',
-  mainThumbnailUrl: null
+  mainThumbnail: null
 }
 
-const SubMenuContent = ({menuItems, basePath, mainThumbnailUrl}) => {
-  const [subItemThumbnailUrl, setSubItemThumbnailUrl] = useState(null)
+const SubMenuContent = ({menuItems, basePath, mainThumbnail}) => {
+
+  const [subItemThumbnail, setSubItemThumbnail] = useState(null)
 
   // old transitions clean up
   const transitionCancelArray = useRef([])
   transitionCancelArray.current.forEach((item, idx) => idx >= 1 && item())
   transitionCancelArray.current.splice(2)
 
-  const transitions = useTransition(subItemThumbnailUrl || mainThumbnailUrl, null, {
+  const transitions = useTransition(subItemThumbnail || mainThumbnail, item => item && item.url, {
     config: {duration: 200},
     from: {opacity: 0},
     enter: () => async (next, cancel) => {
@@ -51,8 +52,8 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnailUrl}) => {
               to={basePath + paths[i]}
               inactive={inactive}
               className={styles.link}
-              onMouseEnter={() => thumbnail && setSubItemThumbnailUrl(thumbnail)}
-              onMouseLeave={() => thumbnail && setSubItemThumbnailUrl(null)}
+              onMouseEnter={() => thumbnail && setSubItemThumbnail(thumbnail)}
+              onMouseLeave={() => thumbnail && setSubItemThumbnail(null)}
             >
               {name}
             </LinkExtended>
@@ -72,10 +73,12 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnailUrl}) => {
         <Fragment key={key}>
           <div className={styles.heightFill} /> 
           <animated.img
-            src={item}
-            style={props}
+            // TODO item.lowres to be added
+            src={(item && item.url)}
             className={styles.image}
-            alt=""
+            // BACKGROUND expected to be in preloader
+            style={{...props, background: (item && item.background) || '#7d7d7d4c'}}
+            alt={(item && item.alt) || ''}
           />
         </Fragment>
       ))}

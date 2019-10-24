@@ -29,7 +29,7 @@ const RootMenu = ({routes, setShowMenu, setSubMenu}) => {
               setSubMenu({
                 content: sub,
                 basePath: path,
-                mainThumbnailUrl: thumbnail
+                mainThumbnail: thumbnail
               })
             })}
             onMouseLeave={e => {

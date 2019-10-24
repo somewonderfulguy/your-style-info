@@ -15,7 +15,7 @@ const openMenuInitialState = {
 const subMenuContentInitialState = {
   content: {},
   basePath: '',
-  mainThumbnailUrl: null
+  mainThumbnail: null
 }
 
 const openMenuReducer = (state, action) => ({
@@ -23,10 +23,10 @@ const openMenuReducer = (state, action) => ({
   openNowAndBefore: state.isOpen && action
 })
 
-const subMenuContentReducer = (state, {content, basePath, mainThumbnailUrl}) => ({
+const subMenuContentReducer = (state, {content, basePath, mainThumbnail}) => ({
   content,
   basePath,
-  mainThumbnailUrl: mainThumbnailUrl || null
+  mainThumbnail: mainThumbnail || null
 })
 
 const HeadNavigation = () => {
@@ -83,7 +83,7 @@ const HeadNavigation = () => {
             openNowAndBefore={openMenuState.openNowAndBefore}
             content={subMenuContent.content}
             basePath={subMenuContent.basePath}
-            mainThumbnailUrl={subMenuContent.mainThumbnailUrl}
+            mainThumbnail={subMenuContent.mainThumbnail}
           />
         </div>
       </animated.div>
