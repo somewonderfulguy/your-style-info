@@ -183,8 +183,7 @@ export const PRIME_ROUTES = {
     inactive: true
   },
   '/glossary': {
-    name: 'Glossary',
-    inactive: true
+    name: 'Glossary'
   },
   '/mixed': {
     name: 'Mixed',

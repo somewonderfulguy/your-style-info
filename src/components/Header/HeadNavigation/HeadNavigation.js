@@ -12,28 +12,22 @@ const openMenuInitialState = {
   openNowAndBefore: false
 }
 
-const subMenuContentInitialState = {
-  content: {},
-  basePath: '',
-  mainThumbnail: null
-}
-
 const openMenuReducer = (state, action) => ({
   isOpen: action,
   openNowAndBefore: state.isOpen && action
 })
 
-const subMenuContentReducer = (state, {content, basePath, mainThumbnail}) => ({
-  content,
-  basePath,
-  mainThumbnail: mainThumbnail || null
-})
-
 const HeadNavigation = () => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
-  // TODO use useState
-  const [subMenuContent, setSubMenuContent] = useReducer(subMenuContentReducer, subMenuContentInitialState)
+  const [subMenuContent, setSubMenuContent] = React.useState({
+    content: {},
+    basePath: '',
+    mainThumbnail: null,
+    activeMenuItem: null
+  })
+
+  const clearActiveMenuItem = () => setSubMenuContent({...subMenuContent, activeMenuItem: null})
 
   // drop-down fade-in-out
   const {opacity} = useSpring({
@@ -64,6 +58,8 @@ const HeadNavigation = () => {
           routes={PRIME_ROUTES}
           setShowMenu={setMenuOpen}
           setSubMenu={setSubMenuContent}
+          activeMenuItem={subMenuContent.activeMenuItem}
+          clearActiveMenuItem={clearActiveMenuItem}
         />
       </div>
 
@@ -77,6 +73,7 @@ const HeadNavigation = () => {
         onMouseLeave={e => {
           if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
           setMenuOpen(false)
+          clearActiveMenuItem()
         }}
       >
         <div ref={bindResizeObserver}>

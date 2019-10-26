@@ -1,5 +1,5 @@
 import React, {memo} from 'react'
-import {func, object} from 'prop-types'
+import {func, object, string} from 'prop-types'
 
 import LinkExtended from '../../../LinkExtended'
 import styles from './RootMenu.module.css'
@@ -7,10 +7,17 @@ import styles from './RootMenu.module.css'
 const propTypes = {
   routes: object.isRequired,
   setShowMenu: func.isRequired,
-  setSubMenu: func.isRequired
+  setSubMenu: func.isRequired,
+  activeMenuItem: string,
+  clearActiveMenuItem: func
 }
 
-const RootMenu = ({routes, setShowMenu, setSubMenu}) => {
+const defaultProps = {
+  activeMenuItem: null,
+  clearActiveMenuItem: () => {}
+}
+
+const RootMenu = ({routes, setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem}) => {
   const paths = Object.keys(routes)
   const menuItems = Object.values(routes)
 
@@ -20,21 +27,27 @@ const RootMenu = ({routes, setShowMenu, setSubMenu}) => {
         const path = paths[idx]
         const {name, sub, inactive, thumbnail} = item
 
+        const className = inactive 
+          ? styles.listItemInactive
+          : styles.listItem + (activeMenuItem === name ? ` ${styles.listItemActive}` : '')
+
         return (
           <li
-            className={inactive ? styles.listItemInactive : styles.listItem}
+            className={className}
             key={path}
-            onMouseEnter={sub && (() => {
-              setShowMenu(true)
+            onMouseEnter={() => {
+              sub && setShowMenu(true)
               setSubMenu({
-                content: sub,
-                basePath: path,
-                mainThumbnail: thumbnail
+                content: sub || {},
+                basePath: sub ? path : '',
+                mainThumbnail: sub ? thumbnail : null,
+                activeMenuItem: name
               })
-            })}
+            }}
             onMouseLeave={e => {
               if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
               setShowMenu(false)
+              clearActiveMenuItem()
             }}
             submenupersist={!!sub ? 1 : 0}
           >
@@ -55,5 +68,6 @@ const RootMenu = ({routes, setShowMenu, setSubMenu}) => {
 }
 
 RootMenu.propTypes = propTypes
+RootMenu.defaultProps = defaultProps
 
 export default memo(RootMenu)

@@ -10,7 +10,8 @@
   border-bottom: 1px solid #adadad;
 }
 
-.listItem:hover {background-color: #f0f0f0;}
+.listItemActive {background-color: #f0f0f0;}
+.listItemActive .link {color: #0a4fff;}
 
 .listItemInactive {
   composes: listItem;
@@ -26,4 +27,8 @@
   padding: 15px;
 }
 
-.activeLink {font-weight: 900;}
+.activeLink {
+  composes: listItemInactive;
+  color: black;
+  margin-bottom: -1px;
+}
