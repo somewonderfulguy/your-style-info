@@ -67,9 +67,7 @@ class LinkExtended extends Component {
 
     return (
       isCurrent ? (
-        <span className={activeClassName}>
-          {children}
-        </span>
+        <span className={activeClassName} {...props}>{children}</span>
       ) : (
         <a href={to} onClick={this.onClick} className={className} {...props}>
           {children}

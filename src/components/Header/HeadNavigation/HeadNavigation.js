@@ -3,7 +3,8 @@ import {animated, config, useSpring} from 'react-spring'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
-import {PRIME_ROUTES} from '../../../constants'
+import {ROOT_MENU_THUMBS, PRIME_ROUTES} from '../../../constants'
+import {imgPreload} from '../../../utils'
 import {useResizeObserver} from '../../../helpers/hooks' // TODO -- use debounce
 import styles from './HeadNavigation.module.css'
 
@@ -28,6 +29,9 @@ const HeadNavigation = () => {
   })
 
   const clearActiveMenuItem = () => setSubMenuContent({...subMenuContent, activeMenuItem: null})
+
+  // preload root thumbs
+  React.useEffect(() => {imgPreload(ROOT_MENU_THUMBS)}, [])
 
   // drop-down fade-in-out
   const {opacity} = useSpring({
