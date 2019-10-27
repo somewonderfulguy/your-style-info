@@ -30,6 +30,12 @@ const HeadNavigation = () => {
 
   const clearActiveMenuItem = () => setSubMenuContent({...subMenuContent, activeMenuItem: null})
 
+  const closeMenu = e => {
+    if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
+    setMenuOpen(false)
+    clearActiveMenuItem()
+  }
+
   // preload root thumbs
   React.useEffect(() => {imgPreload(ROOT_MENU_THUMBS)}, [])
 
@@ -65,6 +71,9 @@ const HeadNavigation = () => {
           activeMenuItem={subMenuContent.activeMenuItem}
           clearActiveMenuItem={clearActiveMenuItem}
         />
+        
+        {/* MS Edge fix - absolutely positioned bottom border */}
+        <div className={styles.borderBottom} submenupersist="1" onMouseLeave={e => closeMenu(e)} />
       </div>
 
       <animated.div
@@ -74,13 +83,9 @@ const HeadNavigation = () => {
           height
         }}
         className={styles.subMenuContainer}
-        onMouseLeave={e => {
-          if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
-          setMenuOpen(false)
-          clearActiveMenuItem()
-        }}
+        onMouseLeave={e => closeMenu(e)}
       >
-        <div ref={bindResizeObserver}>
+        <div ref={bindResizeObserver} submenupersist="1">
           <SubMenu
             isOpen={openMenuState.isOpen}
             openNowAndBefore={openMenuState.openNowAndBefore}

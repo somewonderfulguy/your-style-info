@@ -7,7 +7,6 @@
 .listItem {
   display: inline-block;
   transition: background-color .5s;
-  border-bottom: 1px solid #adadad;
 }
 
 .listItemActive {background-color: #f0f0f0;}
