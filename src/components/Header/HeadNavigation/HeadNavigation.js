@@ -69,9 +69,10 @@ const HeadNavigation = () => {
           setShowMenu={setMenuOpen}
           setSubMenu={setSubMenuContent}
           activeMenuItem={activeMenuItem}
+          setActiveMenuItem={setActiveMenuItem}
           clearActiveMenuItem={clearActiveMenuItem}
         />
-        
+
         {/* MS Edge fix - absolutely positioned bottom border */}
         <div className={styles.borderBottom} submenupersist="1" onMouseLeave={e => closeMenu(e)} />
       </div>

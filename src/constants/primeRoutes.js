@@ -165,32 +165,11 @@ export const PRIME_ROUTES = {
     inactive: true
   },
   '/glossary': {
-    name: 'Glossary'
+    name: 'Glossary',
+    inactive: true
   },
   '/mixed': {
     name: 'Mixed',
-    thumbnail: {
-      url: '/img/thumbs/grooming.png',
-      alt: 'David Beckham checks his face',
-      background: '#727272'
-    },
-    sub: {
-      '/face-skin-care': {
-        name: 'Face skin care',
-        thumbnail: {
-          url: '/img/thumbs/facecare.png',
-          alt: 'Aesop cosmetics',
-          background: '#81705b'
-        }
-      },
-      '/hands-care': {
-        name: 'Hands and nails care',
-        thumbnail: {
-          url: '/img/thumbs/manicure-set.png',
-          alt: 'Manicure set',
-          background: '#978960'
-        }
-      }
-    }
+    inactive: true
   }
 }

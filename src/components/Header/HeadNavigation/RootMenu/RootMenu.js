@@ -9,15 +9,17 @@ const propTypes = {
   setShowMenu: func.isRequired,
   setSubMenu: func.isRequired,
   activeMenuItem: string,
+  setActiveMenuItem: func,
   clearActiveMenuItem: func
 }
 
 const defaultProps = {
   activeMenuItem: null,
+  setActiveMenuItem: () => {},
   clearActiveMenuItem: () => {}
 }
 
-const RootMenu = ({routes, setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem}) => {
+const RootMenu = ({routes, setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem}) => {
   const paths = Object.keys(routes)
   const menuItems = Object.values(routes)
 
@@ -43,9 +45,8 @@ const RootMenu = ({routes, setShowMenu, setSubMenu, activeMenuItem, clearActiveM
                   basePath: path,
                   mainThumbnail: thumbnail,
                 })
-              } else {
-                
               }
+              setActiveMenuItem(name)
             }}
             onMouseLeave={e => {
               if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
