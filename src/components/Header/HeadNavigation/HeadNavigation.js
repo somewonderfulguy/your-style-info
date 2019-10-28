@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react'
+import React, {useEffect, useReducer, useState} from 'react'
 import {animated, config, useSpring} from 'react-spring'
 
 import RootMenu from './RootMenu'
@@ -21,14 +21,14 @@ const openMenuReducer = (state, action) => ({
 const HeadNavigation = () => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
-  const [subMenuContent, setSubMenuContent] = React.useState({
+  const [subMenuContent, setSubMenuContent] = useState({
     content: {},
     basePath: '',
-    mainThumbnail: null,
-    activeMenuItem: null
+    mainThumbnail: null
   })
 
-  const clearActiveMenuItem = () => setSubMenuContent({...subMenuContent, activeMenuItem: null})
+  const [activeMenuItem, setActiveMenuItem] = useState(null)
+  const clearActiveMenuItem = () => setActiveMenuItem(null)
 
   const closeMenu = e => {
     if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
@@ -37,7 +37,7 @@ const HeadNavigation = () => {
   }
 
   // preload root thumbs
-  React.useEffect(() => {imgPreload(ROOT_MENU_THUMBS)}, [])
+  useEffect(() => {imgPreload(ROOT_MENU_THUMBS)}, [])
 
   // drop-down fade-in-out
   const {opacity} = useSpring({
@@ -68,7 +68,7 @@ const HeadNavigation = () => {
           routes={PRIME_ROUTES}
           setShowMenu={setMenuOpen}
           setSubMenu={setSubMenuContent}
-          activeMenuItem={subMenuContent.activeMenuItem}
+          activeMenuItem={activeMenuItem}
           clearActiveMenuItem={clearActiveMenuItem}
         />
         

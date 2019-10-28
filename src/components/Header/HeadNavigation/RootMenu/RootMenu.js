@@ -36,13 +36,16 @@ const RootMenu = ({routes, setShowMenu, setSubMenu, activeMenuItem, clearActiveM
             className={className}
             key={path}
             onMouseEnter={() => {
-              sub && setShowMenu(true)
-              setSubMenu({
-                content: sub || {},
-                basePath: sub ? path : '',
-                mainThumbnail: sub ? thumbnail : null,
-                activeMenuItem: name
-              })
+              if(sub) {
+                setShowMenu(true)
+                setSubMenu({
+                  content: sub,
+                  basePath: path,
+                  mainThumbnail: thumbnail,
+                })
+              } else {
+                
+              }
             }}
             onMouseLeave={e => {
               if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
