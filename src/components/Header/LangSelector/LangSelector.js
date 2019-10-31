@@ -1,4 +1,4 @@
-//TODO move to /component (level up)
+//TODO move to /component folder (level up)
 
 import React from 'react'
 import {useTranslation} from 'react-i18next'
