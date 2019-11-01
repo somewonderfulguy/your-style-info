@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {animated, useSpring, useSprings} from 'react-spring'
 import {useTranslation} from 'react-i18next'
 
 import {useStickyNavBar} from './hooks'
+import {ScreenWidthContext} from '../../ApplicationNode'
 import HeadNavigation from './HeadNavigation'
 import LangSelector from './LangSelector'
 import styles from './Header.module.css'
 
 const Header = () => {
+  const screenWidth = useContext(ScreenWidthContext)
   const {t} = useTranslation('', {useSuspense: false})
 
   // animated header appearing
@@ -52,7 +54,12 @@ const Header = () => {
         style={{opacity: springs[2].opacity, top: isFixed ? top : 'initial'}}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}
       >
-        <HeadNavigation />
+        {screenWidth > 1024 ? (
+          <HeadNavigation />
+        ) : (
+          <div>Mobile menu</div>
+        )}
+        
       </animated.nav>
 
       <div className={styles.langContainer}>
