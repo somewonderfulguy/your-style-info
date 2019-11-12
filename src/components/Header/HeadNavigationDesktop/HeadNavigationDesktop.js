@@ -6,7 +6,7 @@ import SubMenu from './SubMenu'
 import {ROOT_MENU_THUMBS, PRIME_ROUTES} from '../../../constants'
 import {imgPreload} from '../../../utils'
 import {useResizeObserver} from '../../../helpers/hooks' // TODO -- use debounce
-import styles from './HeadNavigation.module.css'
+import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {
   isOpen: false,

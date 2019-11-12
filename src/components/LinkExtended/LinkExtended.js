@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
@@ -28,53 +28,51 @@ const defaultProps = {
   to: '/'
 }
 
-// TODO convert to functional component
 // TODO the scroll event as well as route changing must happen after content loaded - refactor later
-class LinkExtended extends Component {
-  onScrollEnd = () => {
-    this.props.history.push(this.props.to)
-    window.removeEventListener('scroll', this.debouncedOnScrollEnd)
+const LinkExtended = ({
+  history,
+  activeClassName,
+  children,
+  className,
+  inactive,
+  location: {pathname},
+  to,
+  staticContext,
+  ...rest
+}) => {
+  const onScrollEnd = () => {
+    history.push(to)
+    window.removeEventListener('scroll', debouncedOnScrollEnd)
   }
-  debouncedOnScrollEnd = debounce(this.onScrollEnd, SCROLL_TOP_DURATION)
 
-  onClick = e => {
+  const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
+
+  const onClick = e => {
     e.preventDefault()
 
     const isNoScrollNeeded = document.documentElement.scrollTop === 0
     
     if(isNoScrollNeeded) {
-      this.props.history.push(this.props.to)
+      history.push(to)
     } else {
       scroll.scrollToTop({duration: SCROLL_TOP_DURATION})
-      window.addEventListener('scroll', this.debouncedOnScrollEnd)
+      window.addEventListener('scroll', debouncedOnScrollEnd)
     }
   }
 
-  render() {
-    const {
-      activeClassName,
-      children,
-      className,
-      inactive,
-      location: {pathname},
-      to,
-      staticContext,
-      ...props
-    } = this.props
-    const isCurrent = pathname === to
+  const isCurrent = pathname === to
 
-    if(inactive) return <span className={className}>{children}</span>
+  if(inactive) return <span className={className}>{children}</span>
 
-    return (
-      isCurrent ? (
-        <span className={activeClassName} {...props}>{children}</span>
-      ) : (
-        <a href={to} onClick={this.onClick} className={className} {...props}>
-          {children}
-        </a>
-      )
+  return (
+    isCurrent ? (
+      <span className={activeClassName} {...rest}>{children}</span>
+    ) : (
+      <a href={to} onClick={onClick} className={className} {...rest}>
+        {children}
+      </a>
     )
-  }
+  )
 }
 
 LinkExtended.propTypes = propTypes

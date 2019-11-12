@@ -4,7 +4,8 @@ import {useTranslation} from 'react-i18next'
 
 import {useStickyNavBar} from './hooks'
 import {ScreenWidthContext} from '../../ApplicationNode'
-import HeadNavigation from './HeadNavigation'
+import HeadNavigationDesktop from './HeadNavigationDesktop'
+import HeadNavigationMobile from './HeadNavigationMobile'
 import LangSelector from './LangSelector'
 import styles from './Header.module.css'
 
@@ -54,10 +55,11 @@ const Header = () => {
         style={{opacity: springs[2].opacity, top: isFixed ? top : 'initial'}}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}
       >
+        {/* TODO BUG - doesn't work properly */}
         {screenWidth > 1024 ? (
-          <HeadNavigation />
+          <HeadNavigationDesktop />
         ) : (
-          <div>Mobile menu</div>
+          <HeadNavigationMobile />
         )}
         
       </animated.nav>
