@@ -76,10 +76,8 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
         <Fragment key={key}>
           <div className={styles.heightFill} /> 
           <animated.img
-            // TODO item.lowres to be added
             src={(item && item.url)}
             className={styles.image}
-            // BACKGROUND expected to be in preloader
             style={{...props, background: (item && item.background) || '#7d7d7d4c'}}
             alt={(item && item.alt) || ''}
           />

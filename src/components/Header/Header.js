@@ -6,7 +6,7 @@ import {useStickyNavBar} from './hooks'
 import {ScreenWidthContext} from '../../ApplicationNode'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
 import HeadNavigationMobile from './HeadNavigationMobile'
-import LangSelector from './LangSelector'
+import LangSelector from '../LangSelector'
 import styles from './Header.module.css'
 
 const Header = () => {
@@ -55,7 +55,7 @@ const Header = () => {
         style={{opacity: springs[2].opacity, top: isFixed ? top : 'initial'}}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}
       >
-        {/* TODO BUG - doesn't work properly */}
+        {/* FIXME - doesn't work properly */}
         {screenWidth > 1024 ? (
           <HeadNavigationDesktop />
         ) : (

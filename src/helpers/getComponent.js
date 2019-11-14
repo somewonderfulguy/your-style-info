@@ -14,7 +14,5 @@ export const getComponent = (type, props, idx) => {
     default:
       console.warn(`Unknown feature name provided ${type}`)
       return null
-      //TODO: either delete or implement that component
-      //return <UnknownFeature {...props} />
   }
 }

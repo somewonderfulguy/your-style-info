@@ -18,7 +18,6 @@ import './services/resizeObserverPolyfill'
 
 import './assets/styles/common-styles.css'
 import './assets/styles/fonts.css'
-import styles from './ApplicationNode.module.css'
 
 export const ScreenWidthContext = createContext()
 
@@ -29,19 +28,16 @@ const ApplicationNode = () => {
     <ScreenWidthContext.Provider value={width}>
       <Provider store={store}>
         <Router>
-          {/* TODO put these styles on #root so no excessive nesting happened */}
-          <div className={styles.rootGrid}>
-            <Header />
-            <main>
-              <Switch>
-                <Route exact path="/:page" component={PageContainer} />
-                <Route exact path="/:page/:topic" component={PageContainer} />
-                <Route render={() => <Redirect to="/outerwear/trench-coat" />} />
-                {/* TODO <Route component={NotFound} /> */}
-              </Switch>
-            </main>
-            <Footer />
-          </div>
+          <Header />
+          <main>
+            <Switch>
+              <Route exact path="/:page" component={PageContainer} />
+              <Route exact path="/:page/:topic" component={PageContainer} />
+              <Route render={() => <Redirect to="/outerwear/trench-coat" />} />
+              {/* TODO <Route component={NotFound} /> */}
+            </Switch>
+          </main>
+          <Footer />
         </Router>
       </Provider>
     </ScreenWidthContext.Provider>
