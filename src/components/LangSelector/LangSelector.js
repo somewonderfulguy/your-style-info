@@ -1,9 +1,7 @@
-//TODO move to /component (level up)
-
 import React from 'react'
 import {useTranslation} from 'react-i18next'
 
-import {LANGUAGES} from '../../../constants/languages'
+import {LANGUAGES} from '../../constants/languages'
 
 const LangSelector = () => {
   const [, i18n] = useTranslation('', {useSuspense: false})

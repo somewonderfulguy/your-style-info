@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {arrayOf, func, node, oneOfType, shape, string} from 'prop-types'
+import React from 'react'
+import {arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
@@ -10,59 +10,69 @@ import {debounce} from '../../utils/debounce'
 const propTypes = {
   activeClassName: string,
   children: oneOfType([
-      arrayOf(node),
-      node
+    arrayOf(node),
+    node
   ]),
   className: string,
   history: shape({push: func}).isRequired,
+  inactive: bool,
   location: shape({pathname: string}).isRequired,
-  to: string,
+  to: string
 }
 
 const defaultProps = {
   activeClassName: '',
   children: <></>,
   className: '',
+  inactive: false,
   to: '/'
 }
 
-//TODO the scroll event as well as route changing must happen after content loaded - refactor later
-class LinkExtended extends Component {
-  onScrollEnd = () => {
-    this.props.history.push(this.props.to)
-    window.removeEventListener('scroll', this.debouncedOnScrollEnd)
+// TODO the scroll event as well as route changing must happen after content loaded - refactor later
+const LinkExtended = ({
+  history,
+  activeClassName,
+  children,
+  className,
+  inactive,
+  location: {pathname},
+  to,
+  staticContext,
+  ...rest
+}) => {
+  const onScrollEnd = () => {
+    history.push(to)
+    window.removeEventListener('scroll', debouncedOnScrollEnd)
   }
-  debouncedOnScrollEnd = debounce(this.onScrollEnd, SCROLL_TOP_DURATION)
 
-  onClick = e => {
+  const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
+
+  const onClick = e => {
     e.preventDefault()
 
     const isNoScrollNeeded = document.documentElement.scrollTop === 0
     
     if(isNoScrollNeeded) {
-      this.props.history.push(this.props.to)
+      history.push(to)
     } else {
       scroll.scrollToTop({duration: SCROLL_TOP_DURATION})
-      window.addEventListener('scroll', this.debouncedOnScrollEnd)
+      window.addEventListener('scroll', debouncedOnScrollEnd)
     }
   }
 
-  render() {
-    const {to, activeClassName, className, children, location: {pathname}} = this.props
-    const isActive = pathname === to
+  const isCurrent = pathname === to
 
-    return (
-      isActive ? (
-        <span className={activeClassName}>
-          {children}
-        </span>
-      ) : (
-        <a href={to} onClick={this.onClick} className={className}>
-          {children}
-        </a>
-      )
+  if(inactive) return <span className={className}>{children}</span>
+
+  return (
+    isCurrent ? (
+      <span className={activeClassName} {...rest}>{children}</span>
+    ) : (
+      <a href={to} onClick={onClick} className={className} {...rest}>
+        {children}
+      </a>
     )
-  }
+  )
 }
 
 LinkExtended.propTypes = propTypes

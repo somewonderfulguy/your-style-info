@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react'
-import {array, shape, string} from 'prop-types'
+import React, {useEffect} from 'react'
+import {array, func, shape, string} from 'prop-types'
 
 import {componentRenderer} from '../../helpers'
 import styles from './Page.module.css'
@@ -9,7 +9,8 @@ const propTypes = {
     pathname: string.isRequired
   }).isRequired,
   header: string,
-  components: array
+  components: array,
+  fetchPageData: func.isRequired
 }
 
 const defaultProps = {
@@ -17,27 +18,17 @@ const defaultProps = {
   components: []
 }
 
-//TODO double check, do I even need PureComponent (upd better convert to functional components)
-class Page extends PureComponent {
-  componentDidMount() {
-    this.props.fetchPageData(this.props.location.pathname)
-  }
+const Page = ({location, header, components, fetchPageData}) => {
+  useEffect(() => {
+    fetchPageData(location.pathname)
+  }, [fetchPageData, location])
 
-  componentDidUpdate(prevProps) {
-    if(this.props.location !== prevProps.location) {
-      this.props.fetchPageData(this.props.location.pathname)
-    }
-  }
-
-  render() {
-    return (
-      <article className={styles.page}>
-        <h1>{this.props.header}</h1>
-        {/* TODO the article must be separated by <section> tags - each section should be represented with header */}
-        {this.props.components.length && componentRenderer(this.props.components)}
-      </article>
-    )
-  }
+  return (
+    <article className={styles.page}>
+      <h1>{header}</h1>
+      {!!components.length && componentRenderer(components)}
+    </article>
+  )
 }
 
 Page.propTypes = propTypes

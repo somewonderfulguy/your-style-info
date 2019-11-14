@@ -1,7 +1,7 @@
 ### File structure
 
-- `helpers` ─ folder for code snippets very dependent on the application architecture and therefore `helpers` contains `hooks`.<br>
-- `utils` ─ folder for small functions, project independent<br>
+`helpers` ─ folder for code snippets very dependent on the application architecture and therefore `helpers` contains `hooks`.<br>
+`utils` ─ folder for small functions, project independent.<br>
 <br>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

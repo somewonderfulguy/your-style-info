@@ -1,0 +1,33 @@
+.list {
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+}
+
+.listItem {
+  display: inline-block;
+  transition: background-color .5s;
+}
+
+.listItemActive {background-color: #f0f0f0;}
+.listItemActive .link {color: #0a4fff;}
+
+.listItemInactive {
+  composes: listItem;
+  color: lightgray;
+  cursor: default;
+  padding: 15px;
+}
+
+.listItemInactive:hover {background-color: transparent;}
+
+.link {
+  display: block;
+  padding: 15px;
+}
+
+.activeLink {
+  composes: listItemInactive;
+  color: black;
+  margin-bottom: -1px;
+}

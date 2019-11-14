@@ -1,11 +1,12 @@
-import React from 'react'
+/*import React from 'react'
 
 import LinkExtended from '../../LinkExtended'
 import {PRIME_ROUTES} from '../../../constants'
-import styles from './FooterNavigation.module.css'
+import styles from './FooterNavigation.module.css'*/
 
 const FooterNavigation = () => {
-  const renderLinks = routes => {
+  return null
+  /*const renderLinks = routes => {
     const keys = [...routes.keys()]
     const values = [...routes.values()]
 
@@ -22,7 +23,7 @@ const FooterNavigation = () => {
     <nav>
       <ul>{renderLinks(PRIME_ROUTES)}</ul>
     </nav>
-  )
+  )*/
 }
 
 export default FooterNavigation

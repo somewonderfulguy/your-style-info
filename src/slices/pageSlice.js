@@ -17,7 +17,6 @@ const pageSlice = createSlice({
 
 pageSlice.effects = {
   fetchPageData: path => (
-    //TODO convert to Promise ?
     async dispatch => {
       const response = await getPageData(path)
       const json = await response.json()

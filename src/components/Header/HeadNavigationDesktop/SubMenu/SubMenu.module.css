@@ -1,0 +1,20 @@
+.subMenu {
+  margin: 0 auto;
+  padding: 30px 0;
+
+  display: block;
+  width: 700px;
+  
+  position: relative;
+}
+
+.listContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+
+.listContainer + .listContainer + .listContainer {
+  display: none;
+}
