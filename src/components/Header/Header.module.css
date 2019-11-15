@@ -1,12 +1,14 @@
 .header {
-  padding-top: 50px;
+  padding-top: 10px;
   position: relative;
 }
 
-.hgroup {
-  max-width: 1400px;
-  padding-left: 100px;
-  margin: 0 auto 40px;
+@media(min-width: 1025px) {
+  .hgroup {
+    max-width: 1400px;
+    padding-left: 100px;
+    margin: 0 auto 40px;
+  }
 }
 
 .title {
@@ -21,9 +23,9 @@
 }
 
 .langContainer {
-  position: absolute;
-  top: 10px;
-  right: 25px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 25px 10px 25px;
 }
 
 .navContainer {
@@ -33,14 +35,35 @@
   background-color: rgba(255, 255, 255, .95);
 }
 
-@media(max-width: 1024px) {
-  .navContainer {
-    top: 0; /* FIXME doesn't work due to inline styles (react-spring animation) */
-  }
-}
-
 .fixedNavContainer {
   composes: navContainer;
   position: fixed;
   top: -1px;
+}
+
+@media(max-width: 1024px) {
+  /* tablet & mobile layour change */
+  .header {
+    display: grid;
+    grid-template-columns: 75px 1fr 75px;
+    grid-auto-flow: dense;
+  }
+  .navContainer {
+    grid-column: 1;
+    position: initial;
+  }
+  .hgroup {grid-column: 2;}
+  .langContainer {grid-column: 3;}
+
+  /* */
+  .header {
+    padding: 0;
+    border-bottom: 1px solid lightgray;
+  }
+  .hgroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .subtitle {display: none;}
 }

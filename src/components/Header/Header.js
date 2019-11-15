@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useRef} from 'react'
 import {animated, useSpring, useSprings} from 'react-spring'
 import {useTranslation} from 'react-i18next'
 
@@ -9,9 +9,11 @@ import HeadNavigationMobile from './HeadNavigationMobile'
 import LangSelector from '../LangSelector'
 import styles from './Header.module.css'
 
+// TODO refactor appearing logic - separate for desktop and mobile
 const Header = () => {
   const screenWidth = useContext(ScreenWidthContext)
   const {t} = useTranslation('', {useSuspense: false})
+  const headerDomRef = useRef(null)
 
   // animated header appearing
   const springs = useSprings(3, [...Array(3)].map((i, n) => ({
@@ -38,8 +40,14 @@ const Header = () => {
     top: isShown ? -1 : navbarHeight * -1
   })
 
+  const paddingDesktop = screenWidth > 1024 ? {paddingBottom: navbarHeight} : {}
+
   return (
-    <header className={styles.header} style={{paddingBottom: navbarHeight}}>
+    <header className={styles.header} style={paddingDesktop} ref={headerDomRef}>
+      <div className={styles.langContainer}>
+        {(screenWidth > 1024) && <LangSelector />}
+      </div>
+
       <div className={styles.hgroup}>
         <animated.h1 className={styles.title} style={springs[0]}>
           Your Style
@@ -59,14 +67,10 @@ const Header = () => {
         {screenWidth > 1024 ? (
           <HeadNavigationDesktop />
         ) : (
-          <HeadNavigationMobile />
+          <HeadNavigationMobile menuHeight={headerDomRef.current ? headerDomRef.current.offsetHeight : 0} />
         )}
         
       </animated.nav>
-
-      <div className={styles.langContainer}>
-        <LangSelector />
-      </div>
     </header>
   )
 }

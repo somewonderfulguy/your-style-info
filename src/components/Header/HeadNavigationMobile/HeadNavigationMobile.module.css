@@ -1,0 +1,19 @@
+.hamburgerContainer {
+  margin: 15px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.mobileMenuContainer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-bottom: 1px lightgray solid;
+}
+
+.lining {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
