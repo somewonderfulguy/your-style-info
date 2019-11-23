@@ -39,6 +39,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
   })
 
   const renderList = menuItems => {
+    // TODO - use Object.entries instead
     const paths = Object.keys(menuItems)
     const values = Object.values(menuItems)
 

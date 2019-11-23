@@ -1,0 +1,33 @@
+.menuWrapper {padding: 10px;}
+
+.listItem {
+  height: 23px;
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  border-top: 1px solid lightgray;
+  margin: 0 20px;
+  padding-bottom: 5px;
+}
+
+.lineLink {
+  composes: line;
+  padding-left: 23px;
+}
+
+.subItemLine {
+  composes: line;
+  border: none;
+  margin: 0 29px;
+  padding: 0;
+  font-size: 85%;
+  height: 30px;
+}
+.subItemLine:last-child {margin-bottom: 23px;}
+
+.menuWrapper > div:first-child > .line {border-top: none;}

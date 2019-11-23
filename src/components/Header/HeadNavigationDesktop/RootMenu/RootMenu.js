@@ -20,6 +20,7 @@ const defaultProps = {
 }
 
 const RootMenu = ({routes, setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem}) => {
+  // TODO - use Object.entries intead
   const paths = Object.keys(routes)
   const menuItems = Object.values(routes)
 

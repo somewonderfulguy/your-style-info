@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {number} from 'prop-types'
 import {useSpring, animated, config} from 'react-spring'
+import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
 
 import HamburgerIcon from './HamburgerIcon'
 import MobileMenu from './MobileMenu'
@@ -11,6 +12,7 @@ const defaultProps = {menuHeight: 0}
 
 const HeadNavigationMobile = ({menuHeight}) => {
   const [isOpen, setIsOpen] = useState(false)
+  const subMenuRef = useRef(null)
 
   // animating menu height
   const {bottom} = useSpring({
@@ -23,6 +25,21 @@ const HeadNavigationMobile = ({menuHeight}) => {
   const {opacity} = useSpring({
     opacity: isOpen ? 1 : 0
   })
+
+  // disable scroll when menu is open
+  useEffect(() => {
+    if(!subMenuRef.current) {
+      clearAllBodyScrollLocks()
+      return
+    }
+
+    if(isOpen) {
+      disableBodyScroll(subMenuRef.current)
+    } else {
+      enableBodyScroll(subMenuRef.current)
+    }
+    return () => clearAllBodyScrollLocks()
+  }, [isOpen])
 
   return (
     <>
@@ -45,8 +62,9 @@ const HeadNavigationMobile = ({menuHeight}) => {
             bottom,
             borderWidth: bottom.interpolate(b => +b.slice(0, -1) < 90 ? 1 : 0)
           }}
+          ref={subMenuRef}
         >
-          <MobileMenu/>
+          <MobileMenu isOpen={isOpen} />
         </animated.div>
       </animated.div>
     </>

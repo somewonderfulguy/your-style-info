@@ -9,6 +9,7 @@
   right: 0;
   background-color: #fff;
   border-bottom: 1px lightgray solid;
+  overflow: auto;
 }
 
 .lining {
