@@ -37,7 +37,7 @@ const LinkExtended = ({
   inactive,
   location: {pathname},
   to,
-  staticContext,
+  staticContext, // just to remove it from ...rest
   ...rest
 }) => {
   const onScrollEnd = () => {

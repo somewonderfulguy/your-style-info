@@ -1,28 +1,35 @@
-import React, {useEffect, useRef, useState} from 'react'
-import {number} from 'prop-types'
+import React, {useEffect, useRef} from 'react'
+import {bool, number} from 'prop-types'
 import {useSpring, animated, config} from 'react-spring'
 import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
 
-import HamburgerIcon from './HamburgerIcon'
 import MobileMenu from './MobileMenu'
 import styles from './HeadNavigationMobile.module.css'
 
-const propTypes = {menuHeight: number}
-const defaultProps = {menuHeight: 0}
+const propTypes = {
+  menuHeight: number,
+  isOpen: bool
+}
 
-const HeadNavigationMobile = ({menuHeight}) => {
-  const [isOpen, setIsOpen] = useState(false)
+const defaultProps = {
+  menuHeight: 0,
+  isOpen: false
+}
+
+const HeadNavigationMobile = ({menuHeight, isOpen}) => {
   const subMenuRef = useRef(null)
+  const mobileMenuRef = useRef(null)
 
   // animating menu height
-  const {bottom} = useSpring({
-    config: config.slow,
+  const {bottom: menuBottom} = useSpring({
+    config: isOpen ? config.slow : config.default,
     delay: isOpen ? 150 : 0,
-    bottom: isOpen ? '0' : '100%'
+    bottom: isOpen ? '0' : '100%',
+    onRest: () => !isOpen && mobileMenuRef.current.resetAnimation()
   })
 
   // animating menu "lining"
-  const {opacity} = useSpring({
+  const {opacity: liningOpacity} = useSpring({
     opacity: isOpen ? 1 : 0
   })
 
@@ -42,32 +49,26 @@ const HeadNavigationMobile = ({menuHeight}) => {
   }, [isOpen])
 
   return (
-    <>
-      <div className={styles.hamburgerContainer} onClick={() => setIsOpen(!isOpen)}>
-        <HamburgerIcon isOpen={isOpen} />
-      </div>
-
+    <animated.div
+      className={styles.lining}
+      style={{
+        top: menuHeight,
+        background: liningOpacity && liningOpacity.interpolate(o => `rgba(0, 0, 0, ${o / 1.3})`),
+        visibility: liningOpacity.interpolate(o => o > 0 ? 'visible' : 'hidden')
+      }}
+    >
       <animated.div
-        className={styles.lining}
+        className={styles.mobileMenuContainer}
         style={{
           top: menuHeight,
-          background: opacity && opacity.interpolate(o => `rgba(0, 0, 0, ${o / 1.3})`),
-          visibility: opacity.interpolate(o => o > 0 ? 'visible' : 'hidden')
+          bottom: menuBottom,
+          borderWidth: menuBottom.interpolate(b => +b.slice(0, -1) < 90 ? 1 : 0)
         }}
+        ref={subMenuRef}
       >
-        <animated.div
-          className={styles.mobileMenuContainer}
-          style={{
-            top: menuHeight,
-            bottom,
-            borderWidth: bottom.interpolate(b => +b.slice(0, -1) < 90 ? 1 : 0)
-          }}
-          ref={subMenuRef}
-        >
-          <MobileMenu isOpen={isOpen} />
-        </animated.div>
+        <MobileMenu isOpen={isOpen} ref={mobileMenuRef} />
       </animated.div>
-    </>
+    </animated.div>
   )
 }
 

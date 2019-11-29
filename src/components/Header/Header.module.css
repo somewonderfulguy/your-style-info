@@ -41,6 +41,12 @@
   top: -1px;
 }
 
+.hamburgerContainer {
+  margin: 15px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  display: flex; /* fix margin */
+}
+
 @media(max-width: 1024px) {
   /* tablet & mobile layour change */
   .header {
@@ -55,7 +61,7 @@
   .hgroup {grid-column: 2;}
   .langContainer {grid-column: 3;}
 
-  /* */
+  /* tablet & mobile style change */
   .header {
     padding: 0;
     border-bottom: 1px solid lightgray;
