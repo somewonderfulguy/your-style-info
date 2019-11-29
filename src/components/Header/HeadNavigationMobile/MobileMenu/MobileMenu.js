@@ -27,8 +27,14 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
 
   const springsFunction = (isOpen, prevOpen) => idx => ({
     config: {duration: DURATION},
-    from: {opacity: 0},
-    to: {opacity: isOpen || prevOpen ? 1 : 0},
+    from: {
+      opacity: 0,
+      transform: 'translate3d(16px, 0, 0)'
+    },
+    to: {
+      opacity: 1,
+      transform: 'translate3d(0, 0, 0)'
+    },
     delay: isOpen ? (idx === 0 ? DELAY : DELAY * (idx + 1)) : 0,
     immediate: false
   })
@@ -40,7 +46,12 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
   }, [isOpen, prevOpen, setMenuItemsSprings])
 
   useImperativeHandle(ref, () => ({
-    resetAnimation: () => setMenuItemsSprings({opacity: 0, delay: 0, immediate: true})
+    resetAnimation: () => setMenuItemsSprings({
+      opacity: 0,
+      transform: 'translate3d(16px, 0, 0)',
+      delay: 0,
+      immediate: true
+    })
   }))
 
   return (
