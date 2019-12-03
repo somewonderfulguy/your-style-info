@@ -59,13 +59,17 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
         ))}
       </ul>
 
-      {transitions.map(({item, key, props}) => (
+      {transitions.map(({item, key, props: {opacity}}) => (
         <Fragment key={key}>
           <div className={styles.heightFill} /> 
           <animated.img
             src={(item && item.url)}
             className={styles.image}
-            style={{...props, background: (item && item.background) || '#7d7d7d4c'}}
+            style={{
+              // when menu opens / closes opacity.value sometimes becomes NaN and a warning in console happens - this isNaN check is a simple fix
+              opacity: typeof opacity.value !== 'undefined' && isNaN(opacity.value) ? 1 : opacity,
+              background: (item && item.background) || '#7d7d7d4c'
+            }}
             alt={(item && item.alt) || ''}
           />
         </Fragment>
