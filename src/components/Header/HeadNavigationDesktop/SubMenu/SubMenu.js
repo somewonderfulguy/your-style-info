@@ -14,6 +14,7 @@ const propTypes = {
 }
 
 const defaultProps = {
+  content: {},
   basePath: '',
   isOpen: false,
   openNowAndBefore: false,
@@ -23,10 +24,10 @@ const defaultProps = {
 const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) => {
   // old transitions clean up
   const transitionCancelArray = React.useRef([])
-  transitionCancelArray.current.forEach((item, idx) => idx >= 1 && item())
+  transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
   transitionCancelArray.current.splice(2)
 
-  // fade out / in
+  // fade out / in submenu content
   const transitions = useTransition(content, basePath, {
     config: {duration: openNowAndBefore ? 400 : 0},
     from: {opacity: 0},
@@ -37,7 +38,7 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
     leave: {opacity: 0}
   })
 
-  // transform animation
+  // transform animation when open / close submenu
   const {transform} = useSpring({
     from: {transform: `translate3d(0, -10px, 0)`},
     to: {transform: `translate3d(0, ${isOpen ? 0 : -10}px, 0)`}
@@ -45,7 +46,7 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
 
   return (
     <div className={styles.subMenu} submenupersist="1">
-      {transitions.map(({item, props: {opacity: opacityTransition}, key, state}) => {
+      {transitions.map(({item: menuItems, props: {opacity: opacityTransition}, key, state}) => {
         const range = [0, 0.33, 0.66, 1]
         
         let opacity = opacityTransition
@@ -60,23 +61,19 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
             break
         }
 
-        const leaveStyle = {
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          zIndex: '-1'
-        }
-
-        const style = (state === 'leave') ? {opacity, ...leaveStyle} : {opacity}
-
         return (
           <animated.div
             key={key}
-            style={{...style, transform}}
-            className={styles.listContainer}
+            className={state === 'leave' ? styles.listContainerLeaving : styles.listContainer}
+            style={{
+              opacity: typeof opacity.value !== 'undefined' && isNaN(opacity.value) // when menu opens / closes opacity.value sometimes becomes NaN and a warning in console happens - this is a simple fix
+                ? 1
+                : opacity,
+              transform
+            }}
           >
             <SubMenuContent
-              menuItems={item}
+              menuItems={menuItems}
               mainThumbnail={mainThumbnail}
               isOpen={isOpen}
               basePath={basePath}

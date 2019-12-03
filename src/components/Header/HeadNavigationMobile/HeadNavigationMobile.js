@@ -17,15 +17,15 @@ const defaultProps = {
 }
 
 const HeadNavigationMobile = ({menuHeight, isOpen}) => {
-  const subMenuRef = useRef(null)
-  const mobileMenuRef = useRef(null)
+  const subMenuDOM = useRef(null)
+  const mobileMenuDOM = useRef(null)
 
   // animating menu height
   const {bottom: menuBottom} = useSpring({
     config: isOpen ? config.slow : config.default,
     delay: isOpen ? 150 : 0,
     bottom: isOpen ? '0' : '100%',
-    onRest: () => !isOpen && mobileMenuRef.current.resetAnimation()
+    onRest: () => !isOpen && mobileMenuDOM.current.resetAnimation()
   })
 
   // animating menu "lining"
@@ -35,15 +35,15 @@ const HeadNavigationMobile = ({menuHeight, isOpen}) => {
 
   // disable scroll when menu is open
   useEffect(() => {
-    if(!subMenuRef.current) {
+    if(!subMenuDOM.current) {
       clearAllBodyScrollLocks()
       return
     }
 
     if(isOpen) {
-      disableBodyScroll(subMenuRef.current)
+      disableBodyScroll(subMenuDOM.current)
     } else {
-      enableBodyScroll(subMenuRef.current)
+      enableBodyScroll(subMenuDOM.current)
     }
     return () => clearAllBodyScrollLocks()
   }, [isOpen])
@@ -64,9 +64,9 @@ const HeadNavigationMobile = ({menuHeight, isOpen}) => {
           bottom: menuBottom,
           borderWidth: menuBottom.interpolate(b => +b.slice(0, -1) < 90 ? 1 : 0)
         }}
-        ref={subMenuRef}
+        ref={subMenuDOM}
       >
-        <MobileMenu isOpen={isOpen} ref={mobileMenuRef} />
+        <MobileMenu isOpen={isOpen} ref={mobileMenuDOM} />
       </animated.div>
     </animated.div>
   )

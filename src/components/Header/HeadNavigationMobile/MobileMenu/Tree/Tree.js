@@ -24,7 +24,7 @@ const defaultProps = {
 
 const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
-  const previous = usePrevious(isOpen)
+  const prevOpen = usePrevious(isOpen)
   const [bindResizeObserver, {height: viewHeight}] = useResizeObserver()
 
   const {height, opacity, transform} = useSpring({
@@ -47,7 +47,7 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
       <animated.div
         style={{
           opacity,
-          height: isOpen && previous === isOpen
+          height: isOpen && prevOpen === isOpen
             ? 'auto'
             : height
         }}

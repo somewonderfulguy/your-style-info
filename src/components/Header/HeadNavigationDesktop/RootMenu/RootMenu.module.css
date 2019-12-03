@@ -9,7 +9,10 @@
   transition: background-color .5s;
 }
 
-.listItemActive {background-color: #f0f0f0;}
+.listItemActive {
+  composes: listItem;
+  background-color: #f0f0f0;
+}
 .listItemActive .link {color: #0a4fff;}
 
 .listItemInactive {

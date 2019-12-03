@@ -25,7 +25,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
 
   // old transitions clean up
   const transitionCancelArray = useRef([])
-  transitionCancelArray.current.forEach((item, idx) => idx >= 1 && item())
+  transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
   transitionCancelArray.current.splice(2)
 
   const transitions = useTransition(subItemThumbnail || mainThumbnail, item => item && item.url, {
@@ -38,22 +38,16 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
     leave: {opacity: 0}
   })
 
-  const renderList = menuItems => {
-    // TODO - use Object.entries instead
-    const paths = Object.keys(menuItems)
-    const values = Object.values(menuItems)
-
-    return (
-      values.map((value, i) => {
-        const {name, thumbnail, inactive} = value
-
-        return (
+  return (
+    <>
+      <ul className={styles.list}>
+        {Object.entries(menuItems).map(([path, {name, thumbnail, inactive}]) => (
           <li
             key={name}
             className={styles.listItem}
           >
             <LinkExtended
-              to={basePath + paths[i]}
+              to={basePath + path}
               inactive={inactive}
               className={styles.link}
               onMouseEnter={() => thumbnail && setSubItemThumbnail(thumbnail)}
@@ -62,15 +56,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
               {name}
             </LinkExtended>
           </li>
-        )
-      })
-    )
-  }
-
-  return (
-    <>
-      <ul className={styles.list}>
-        {renderList(menuItems)}
+        ))}
       </ul>
 
       {transitions.map(({item, key, props}) => (

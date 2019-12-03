@@ -44,7 +44,7 @@ export function useStickyNavBar(navBarElem) {
       prevScrollPosition = scrollPosition
     }
 
-    window.addEventListener('scroll', scrollHandler)
+    window.addEventListener('scroll', scrollHandler) // TODO add debouncer
     return () => window.removeEventListener('scroll', scrollHandler)
   }, [navBarElem])
 

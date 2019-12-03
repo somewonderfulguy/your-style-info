@@ -5,7 +5,6 @@ import {useSprings, animated} from 'react-spring'
 import {PRIME_ROUTES} from '../../../../constants'
 import LinkExtended from '../../../LinkExtended'
 import Tree from './Tree'
-import {usePrevious} from '../../../../helpers/hooks'
 import styles from './MobileMenu.module.css'
 
 const propTypes = {isOpen: bool}
@@ -21,11 +20,10 @@ const renderItem = ([path, {name, sub}], isSubItem = false) => {
 const MobileMenu = forwardRef(({isOpen}, ref) => {
   const routesEntries = Object.entries(PRIME_ROUTES)
 
-  const prevOpen = usePrevious(isOpen)
   const DURATION = 250
   const DELAY = 150
 
-  const springsFunction = (isOpen, prevOpen) => idx => ({
+  const springsFunction = isOpen => idx => ({
     config: {duration: DURATION},
     from: {
       opacity: 0,
@@ -39,11 +37,11 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
     immediate: false
   })
 
-  const [menuItemsSprings, setMenuItemsSprings] = useSprings(routesEntries.length, springsFunction(isOpen, prevOpen))
+  const [menuItemsSprings, setMenuItemsSprings] = useSprings(routesEntries.length, springsFunction(isOpen))
 
   useEffect(() => {
-    isOpen && setMenuItemsSprings(springsFunction(isOpen, prevOpen))
-  }, [isOpen, prevOpen, setMenuItemsSprings])
+    isOpen && setMenuItemsSprings(springsFunction(isOpen))
+  }, [isOpen, setMenuItemsSprings])
 
   useImperativeHandle(ref, () => ({
     resetAnimation: () => setMenuItemsSprings({

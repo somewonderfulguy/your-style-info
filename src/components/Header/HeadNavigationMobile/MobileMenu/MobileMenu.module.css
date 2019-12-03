@@ -1,11 +1,5 @@
 .menuWrapper {padding: 10px;}
 
-.listItem {
-  height: 23px;
-  display: flex;
-  align-items: center;
-}
-
 .line {
   display: flex;
   align-items: center;

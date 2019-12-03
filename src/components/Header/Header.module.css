@@ -18,7 +18,8 @@
 }
 
 .subtitle {
-  font-family: 'Playfair Display', serif;
+  font-family: arial;
+  font-size: 15px;
   color: darkgray;
 }
 
@@ -51,7 +52,7 @@
   /* tablet & mobile layour change */
   .header {
     display: grid;
-    grid-template-columns: 75px 1fr 75px;
+    grid-template-columns: 55px 1fr 55px;
     grid-auto-flow: dense;
   }
   .navContainer {
@@ -72,4 +73,5 @@
     align-items: center;
   }
   .subtitle {display: none;}
+  .navContainer {background-color: transparent;}
 }
