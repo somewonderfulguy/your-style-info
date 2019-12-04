@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useState} from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 import {useTranslation} from 'react-i18next'
 
@@ -11,8 +11,10 @@ import LangSelector from '../LangSelector'
 import styles from './Header.module.css'
 
 const Header = () => {
-  const isDesktop = useContext(ScreenWidthContext) > 1024 // FIXME - doesn't work properly
+  const isDesktop = useContext(ScreenWidthContext) > 1024
+
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
+  useEffect(() => void (isDesktop && setMobileMenuOpen(false)), [isDesktop])
 
   const {t} = useTranslation('', {useSuspense: false})
   const headerDomRef = useRef(null)
