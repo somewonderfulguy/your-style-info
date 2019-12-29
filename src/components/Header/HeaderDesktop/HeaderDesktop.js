@@ -47,10 +47,9 @@ const Header = () => {
         <animated.h1 className={styles.title} style={titleAppearing}>
           Your Style
         </animated.h1>
-        {/* TODO use HTML text block instead of div */}
-        <animated.div className={styles.subtitle} style={subTitleAppearing}>
+        <animated.p className={styles.subtitle} style={subTitleAppearing}>
           {t('subtitle')}
-        </animated.div>
+        </animated.p>
       </div>
 
       <animated.nav
