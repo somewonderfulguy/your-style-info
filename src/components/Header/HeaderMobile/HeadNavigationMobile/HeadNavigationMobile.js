@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {memo, useEffect, useRef} from 'react'
 import {bool, number} from 'prop-types'
 import {useSpring, animated, config} from 'react-spring'
 import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
@@ -49,7 +49,7 @@ const HeadNavigationMobile = ({menuHeight, isOpen}) => {
   }, [isOpen])
 
   return (
-    <animated.div
+    <animated.nav
       className={styles.lining}
       style={{
         top: menuHeight,
@@ -68,11 +68,11 @@ const HeadNavigationMobile = ({menuHeight, isOpen}) => {
       >
         <MobileMenu isOpen={isOpen} ref={mobileMenuDOM} />
       </animated.div>
-    </animated.div>
+    </animated.nav>
   )
 }
 
 HeadNavigationMobile.propTypes = propTypes
 HeadNavigationMobile.defaultProps = defaultProps
 
-export default HeadNavigationMobile
+export default memo(HeadNavigationMobile)

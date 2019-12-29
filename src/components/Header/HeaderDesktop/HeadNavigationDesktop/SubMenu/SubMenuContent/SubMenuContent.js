@@ -2,8 +2,8 @@ import React, {Fragment, memo, useState, useRef} from 'react'
 import {bool, object, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
-import LinkExtended from '../../../../LinkExtended'
-import {usePrevious} from '../../../../../helpers/hooks'
+import LinkExtended from '../../../../../LinkExtended'
+import {usePrevious} from '../../../../../../helpers/hooks'
 import styles from './SubMenuContent.module.css'
 
 const propTypes = {

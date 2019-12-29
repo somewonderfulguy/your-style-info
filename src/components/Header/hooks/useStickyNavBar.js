@@ -18,15 +18,10 @@ const navBarReducer = (state, action) => {
   }
 }
 
-export function useStickyNavBar(navBarElem) {
+export function useStickyNavBar(bottomBoundary = 0, topBoundary = 0) {
   const [navBarState, dispatchNavBar] = useReducer(navBarReducer, navBarInitialState)
 
   useEffect(() => {
-    if(!navBarElem) return
-
-    const navBarTopPosition = navBarElem.getBoundingClientRect().top
-    const navBarBottomPosition = navBarElem.getBoundingClientRect().bottom
-
     let prevScrollPosition = 0
 
     const scrollHandler = () => {
@@ -34,8 +29,8 @@ export function useStickyNavBar(navBarElem) {
 
       const isScrollUp = prevScrollPosition > scrollPosition
       const isScrollDown = !isScrollUp
-      const isBelowNavbar = scrollPosition > navBarBottomPosition
-      const isAboveNavbar = scrollPosition <= navBarTopPosition
+      const isBelowNavbar = scrollPosition > bottomBoundary
+      const isAboveNavbar = scrollPosition <= topBoundary
 
       if(isScrollUp && isAboveNavbar) dispatchNavBar({type: UNSET})
       if(isScrollUp && isBelowNavbar) dispatchNavBar({type: SHOW})
@@ -44,9 +39,9 @@ export function useStickyNavBar(navBarElem) {
       prevScrollPosition = scrollPosition
     }
 
-    window.addEventListener('scroll', scrollHandler) // TODO add debouncer
+    window.addEventListener('scroll', scrollHandler)
     return () => window.removeEventListener('scroll', scrollHandler)
-  }, [navBarElem])
+  }, [bottomBoundary, topBoundary])
 
   return navBarState
 }

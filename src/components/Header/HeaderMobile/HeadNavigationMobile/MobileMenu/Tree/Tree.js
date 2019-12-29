@@ -2,8 +2,8 @@ import React, {memo, useState} from 'react'
 import {arrayOf, bool, node, object, oneOfType, string} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
-import {ArrowForwardIos} from '../../../../../assets/images'
-import {usePrevious, useResizeObserver} from '../../../../../helpers/hooks'
+import {ArrowForwardIos} from '../../../../../../assets/images'
+import {usePrevious, useResizeObserver} from '../../../../../../helpers/hooks'
 import styles from './Tree.module.css'
 
 const propTypes = {

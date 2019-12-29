@@ -1,8 +1,8 @@
 import React, {memo} from 'react'
 import {func, string} from 'prop-types'
 
-import {PRIME_ROUTES} from '../../../../constants'
-import LinkExtended from '../../../LinkExtended'
+import {PRIME_ROUTES} from '../../../../../constants'
+import LinkExtended from '../../../../LinkExtended'
 import styles from './RootMenu.module.css'
 
 const propTypes = {

@@ -1,13 +1,20 @@
-import React, {useRef} from 'react'
-import {bool} from 'prop-types'
+import React, {memo, useRef} from 'react'
+import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
 import styles from './HamburgerIcon.module.css'
 
-const propTypes = {isOpen: bool}
-const defaultProps = {isOpen: false}
+const propTypes = {
+  isOpen: bool,
+  onClick: func
+}
 
-const HamburgerIcon = ({isOpen}) => {
+const defaultProps = {
+  isOpen: false,
+  onClick: () => {}
+}
+
+const HamburgerIcon = ({isOpen, onClick}) => {
   const hamburgerDOM = useRef(null)
   const hamburgerHeight = hamburgerDOM.current ? hamburgerDOM.current.clientHeight : 0
   const lineHeight = hamburgerDOM.current ? hamburgerDOM.current.querySelector('div').clientHeight : 0
@@ -36,7 +43,7 @@ const HamburgerIcon = ({isOpen}) => {
   }
 
   return (
-    <div ref={hamburgerDOM} className={styles.hamburger}>
+    <div ref={hamburgerDOM} onClick={onClick} className={styles.hamburger}>
       <animated.div style={topLine} />
       <animated.div style={midLine} />
       <animated.div style={bottomLine} />
@@ -47,4 +54,4 @@ const HamburgerIcon = ({isOpen}) => {
 HamburgerIcon.propTypes = propTypes
 HamburgerIcon.defaultProps = defaultProps
 
-export default HamburgerIcon
+export default memo(HamburgerIcon)

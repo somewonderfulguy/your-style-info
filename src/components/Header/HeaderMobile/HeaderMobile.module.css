@@ -1,0 +1,23 @@
+.header {
+  left: 0;
+  right: 0;
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  padding: 0;
+  border-bottom: 1px solid lightgray;
+  align-items: center;
+  grid-auto-flow: dense;
+  background-color: rgba(255, 255, 255, .95);
+}
+
+.title {
+  font-family: 'Inconsolata', monospace;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.hamburgerContainer {
+  margin: 15px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

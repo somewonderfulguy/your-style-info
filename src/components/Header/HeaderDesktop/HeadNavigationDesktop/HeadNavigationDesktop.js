@@ -3,9 +3,9 @@ import {animated, useSpring} from 'react-spring'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
-import {ROOT_MENU_THUMBS} from '../../../constants'
-import {imgPreload} from '../../../utils'
-import {useResizeObserver} from '../../../helpers/hooks' // TODO -- use debounce
+import {ROOT_MENU_THUMBS} from '../../../../constants'
+import {imgPreload} from '../../../../utils'
+import {useResizeObserver} from '../../../../helpers/hooks' // TODO -- use debounce
 import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {

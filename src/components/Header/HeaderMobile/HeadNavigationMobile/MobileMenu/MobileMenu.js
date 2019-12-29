@@ -2,8 +2,8 @@ import React, {forwardRef, useEffect, useImperativeHandle} from 'react'
 import {bool} from 'prop-types'
 import {useSprings, animated} from 'react-spring'
 
-import {PRIME_ROUTES} from '../../../../constants'
-import LinkExtended from '../../../LinkExtended'
+import {PRIME_ROUTES} from '../../../../../constants'
+import LinkExtended from '../../../../LinkExtended'
 import Tree from './Tree'
 import styles from './MobileMenu.module.css'
 

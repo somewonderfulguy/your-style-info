@@ -1,0 +1,41 @@
+.header {
+  padding-top: 10px;
+  position: relative;
+}
+
+.hgroup {
+  max-width: 1400px;
+  padding-left: 100px;
+  margin: 0 auto 40px;
+}
+
+.title {
+  font-family: 'Inconsolata', monospace;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: arial;
+  font-size: 15px;
+  color: darkgray;
+}
+
+.langContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 25px 10px 25px;
+}
+
+.navContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, .95);
+}
+
+.fixedNavContainer {
+  composes: navContainer;
+  position: fixed;
+  top: -1px;
+}
