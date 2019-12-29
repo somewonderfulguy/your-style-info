@@ -22,7 +22,7 @@ const Header = () => {
   const [navBarTopLine, setNavBarTopLine] = useState(0)
 
   useEffect(() => {
-    setNavBarTopLine(headerDOM.current && headerDOM.current.getBoundingClientRect().bottom)
+    setNavBarTopLine(headerDOM.current && headerDOM.current.offsetHeight)
   }, [isDesktop, setNavBarTopLine])
 
   const {isFixed, isShown} = useStickyNavBar(navBarTopLine + navbarHeight, navBarTopLine)
