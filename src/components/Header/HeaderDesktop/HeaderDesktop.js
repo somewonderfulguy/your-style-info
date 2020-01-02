@@ -14,6 +14,8 @@ const Header = () => {
   const {t} = useTranslation('', {useSuspense: false})
   const {appearingSprings: [titleAppearing, subTitleAppearing, menuAppearing]} = useAnimatedAppearing()
 
+  const [isMenuOpen, setMenuOpen] = useState(false)
+
   // show on scroll-up logic
   const navBarDOM = useRef(null)
   const headerDOM = useRef(null)
@@ -25,12 +27,12 @@ const Header = () => {
     setNavBarTopLine(headerDOM.current && headerDOM.current.offsetHeight)
   }, [isDesktop, setNavBarTopLine])
 
-  const {isFixed, isShown} = useStickyNavBar(navBarTopLine + navbarHeight, navBarTopLine)
+  const {isFixed, isShown} = useStickyNavBar(navBarTopLine + (isMenuOpen ? 0 : navbarHeight), navBarTopLine)
 
   // animate menu on scroll up
   const {top: menuTop} = useSpring({
     config: {duration: 200},
-    top: isShown ? -1 : navbarHeight * -1
+    top: isShown || isMenuOpen ? -1 : navbarHeight * -1
   })
 
   return (
@@ -60,7 +62,7 @@ const Header = () => {
         }}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}
       >
-        <HeadNavigationDesktop />
+        <HeadNavigationDesktop onMenuOpenChange={setMenuOpen} />
       </animated.nav>
     </header>
   )

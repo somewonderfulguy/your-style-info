@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useReducer, useState} from 'react'
+import {func} from 'prop-types'
 import {animated, useSpring} from 'react-spring'
 
 import RootMenu from './RootMenu'
@@ -18,7 +19,10 @@ const openMenuReducer = (state, action) => ({
   openNowAndBefore: state.isOpen && action
 })
 
-const HeadNavigation = () => {
+const propTypes = {onMenuOpenChange: func}
+const defaultProps = {onMenuOpenChange: () => {}}
+
+const HeadNavigation = ({onMenuOpenChange}) => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
   const [subMenuContent, setSubMenuContent] = useState({
@@ -26,6 +30,10 @@ const HeadNavigation = () => {
     basePath: '',
     mainThumbnail: null
   })
+
+  useEffect(() => {
+    onMenuOpenChange(openMenuState.isOpen)
+  }, [onMenuOpenChange, openMenuState.isOpen])
 
   const [activeMenuItem, setActiveMenuItem] = useState(null)
   const clearActiveMenuItem = useCallback(() => setActiveMenuItem(null), [])
@@ -98,5 +106,8 @@ const HeadNavigation = () => {
     </>
   )
 }
+
+HeadNavigation.propTypes = propTypes
+HeadNavigation.defaultProps = defaultProps
 
 export default HeadNavigation
