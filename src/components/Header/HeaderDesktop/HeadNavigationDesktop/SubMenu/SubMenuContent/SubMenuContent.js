@@ -2,8 +2,8 @@ import React, {Fragment, memo, useState, useRef} from 'react'
 import {bool, object, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
-import LinkExtended from '../../../../LinkExtended'
-import {usePrevious} from '../../../../../helpers/hooks'
+import LinkExtended from '../../../../../LinkExtended'
+import {usePrevious} from '../../../../../../helpers/hooks'
 import styles from './SubMenuContent.module.css'
 
 const propTypes = {
@@ -25,7 +25,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
 
   // old transitions clean up
   const transitionCancelArray = useRef([])
-  transitionCancelArray.current.forEach((item, idx) => idx >= 1 && item())
+  transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
   transitionCancelArray.current.splice(2)
 
   const transitions = useTransition(subItemThumbnail || mainThumbnail, item => item && item.url, {
@@ -38,21 +38,16 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
     leave: {opacity: 0}
   })
 
-  const renderList = menuItems => {
-    const paths = Object.keys(menuItems)
-    const values = Object.values(menuItems)
-
-    return (
-      values.map((value, i) => {
-        const {name, thumbnail, inactive} = value
-
-        return (
+  return (
+    <>
+      <ul className={styles.list}>
+        {Object.entries(menuItems).map(([path, {name, thumbnail, inactive}]) => (
           <li
             key={name}
             className={styles.listItem}
           >
             <LinkExtended
-              to={basePath + paths[i]}
+              to={basePath + path}
               inactive={inactive}
               className={styles.link}
               onMouseEnter={() => thumbnail && setSubItemThumbnail(thumbnail)}
@@ -61,24 +56,20 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
               {name}
             </LinkExtended>
           </li>
-        )
-      })
-    )
-  }
-
-  return (
-    <>
-      <ul className={styles.list}>
-        {renderList(menuItems)}
+        ))}
       </ul>
 
-      {transitions.map(({item, key, props}) => (
+      {transitions.map(({item, key, props: {opacity}}) => (
         <Fragment key={key}>
           <div className={styles.heightFill} /> 
           <animated.img
             src={(item && item.url)}
             className={styles.image}
-            style={{...props, background: (item && item.background) || '#7d7d7d4c'}}
+            style={{
+              // when menu opens / closes opacity.value sometimes becomes NaN and a warning in console happens - this isNaN check is a simple fix
+              opacity: typeof opacity.value !== 'undefined' && isNaN(opacity.value) ? 1 : opacity,
+              background: (item && item.background) || '#7d7d7d4c'
+            }}
             alt={(item && item.alt) || ''}
           />
         </Fragment>

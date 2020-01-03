@@ -1,5 +1,5 @@
 .header {
-  padding-top: 50px;
+  padding-top: 10px;
   position: relative;
 }
 
@@ -16,14 +16,16 @@
 }
 
 .subtitle {
-  font-family: 'Playfair Display', serif;
+  font-family: arial;
+  font-size: 15px;
   color: darkgray;
+  margin: 0;
 }
 
 .langContainer {
-  position: absolute;
-  top: 10px;
-  right: 25px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 25px 10px 25px;
 }
 
 .navContainer {
@@ -31,12 +33,6 @@
   left: 0;
   right: 0;
   background-color: rgba(255, 255, 255, .95);
-}
-
-@media(max-width: 1024px) {
-  .navContainer {
-    top: 0; /* FIXME doesn't work due to inline styles (react-spring animation) */
-  }
 }
 
 .fixedNavContainer {

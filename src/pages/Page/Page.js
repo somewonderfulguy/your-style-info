@@ -18,10 +18,10 @@ const defaultProps = {
   components: []
 }
 
-const Page = ({location, header, components, fetchPageData}) => {
+const Page = ({location: {pathname}, header, components, fetchPageData}) => {
   useEffect(() => {
-    fetchPageData(location.pathname)
-  }, [fetchPageData, location])
+    fetchPageData(pathname)
+  }, [fetchPageData, pathname])
 
   return (
     <article className={styles.page}>

@@ -10,3 +10,17 @@
   display: block;
   margin: 0 auto;
 }
+
+/* tablet */
+@media(max-width: 1024px) {
+  .page {
+    padding: 0 75px;
+  }
+}
+
+/* mobile */
+@media(max-width: 768px) {
+  .page {
+    padding: 0 25px;
+  }
+}

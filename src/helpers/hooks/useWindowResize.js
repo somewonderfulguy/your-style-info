@@ -10,7 +10,6 @@ const reducer = (state, {width, height}) => ({width, height})
 export function useWindowResize() {
   const [dimensions, dispatch] = useReducer(reducer, initialState)
 
-  // TODO debounce
   const listener = () => {
     dispatch({
       width: window.innerWidth,
@@ -20,9 +19,7 @@ export function useWindowResize() {
 
   useEffect(() => {
     window.addEventListener('resize', listener)
-    return () => {
-      window.removeEventListener('resize', listener)
-    }
+    return () => window.removeEventListener('resize', listener)
   }, [])
 
   return dimensions

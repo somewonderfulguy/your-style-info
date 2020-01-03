@@ -2,19 +2,6 @@
   --menu-thumbs-size: 190px;
 }
 
-.image {
-  width: var(--menu-thumbs-size);
-  height: var(--menu-thumbs-size);
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: rgba(125, 125, 125, .3);
-}
-
-.heightFill {
-  height: var(--menu-thumbs-size);
-}
-
 .list {
   list-style-type: none;
   
@@ -32,4 +19,17 @@
 .link {
   padding: 7.5px 0;
   display: inline-block;
+}
+
+.heightFill {
+  height: var(--menu-thumbs-size);
+}
+
+.image {
+  width: var(--menu-thumbs-size);
+  height: var(--menu-thumbs-size);
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(125, 125, 125, .3);
 }

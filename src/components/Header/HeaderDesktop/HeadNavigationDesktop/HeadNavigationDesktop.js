@@ -1,11 +1,12 @@
-import React, {useEffect, useReducer, useState} from 'react'
-import {animated, config, useSpring} from 'react-spring'
+import React, {useCallback, useEffect, useReducer, useState} from 'react'
+import {func} from 'prop-types'
+import {animated, useSpring} from 'react-spring'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
-import {ROOT_MENU_THUMBS, PRIME_ROUTES} from '../../../constants'
-import {imgPreload} from '../../../utils'
-import {useResizeObserver} from '../../../helpers/hooks' // TODO -- use debounce
+import {ROOT_MENU_THUMBS} from '../../../../constants'
+import {imgPreload} from '../../../../utils'
+import {useResizeObserver} from '../../../../helpers/hooks'
 import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {
@@ -18,7 +19,10 @@ const openMenuReducer = (state, action) => ({
   openNowAndBefore: state.isOpen && action
 })
 
-const HeadNavigation = () => {
+const propTypes = {onMenuOpenChange: func}
+const defaultProps = {onMenuOpenChange: () => {}}
+
+const HeadNavigation = ({onMenuOpenChange}) => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
   const [subMenuContent, setSubMenuContent] = useState({
@@ -27,8 +31,12 @@ const HeadNavigation = () => {
     mainThumbnail: null
   })
 
+  useEffect(() => {
+    onMenuOpenChange(openMenuState.isOpen)
+  }, [onMenuOpenChange, openMenuState.isOpen])
+
   const [activeMenuItem, setActiveMenuItem] = useState(null)
-  const clearActiveMenuItem = () => setActiveMenuItem(null)
+  const clearActiveMenuItem = useCallback(() => setActiveMenuItem(null), [])
 
   const closeMenu = e => {
     if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
@@ -40,7 +48,7 @@ const HeadNavigation = () => {
   useEffect(() => {imgPreload(ROOT_MENU_THUMBS)}, [])
 
   // drop-down fade-in-out
-  const {opacity} = useSpring({
+  const {opacity: subMenuOpacity} = useSpring({
     config: {
       mass: 1,
       tension: 500,
@@ -54,18 +62,17 @@ const HeadNavigation = () => {
   })
 
   // drop-down menu height
-  const [bindResizeObserver, {height: heightElem}] = useResizeObserver()
-  const {height} = useSpring({
-    config: openMenuState.openNowAndBefore ? config.default : {duration: 0},
+  const [bindResizeObserver, {height: newSubMenuHeight}] = useResizeObserver()
+  const {height: subMenuHeight} = useSpring({
+    immediate: !openMenuState.openNowAndBefore,
     from: {height: 'auto'},
-    to: {height: openMenuState.isOpen ? heightElem : 'auto'}
+    to: {height: openMenuState.isOpen ? newSubMenuHeight : 'auto'}
   })
 
   return (
     <>
       <div className={styles.rootMenuContainer}>
         <RootMenu
-          routes={PRIME_ROUTES}
           setShowMenu={setMenuOpen}
           setSubMenu={setSubMenuContent}
           activeMenuItem={activeMenuItem}
@@ -79,9 +86,9 @@ const HeadNavigation = () => {
 
       <animated.div
         style={{
-          opacity,
-          visibility: opacity.interpolate(o => o > 0.3 ? 'visible' : 'hidden'),
-          height
+          opacity: subMenuOpacity,
+          visibility: subMenuOpacity.interpolate(o => o > 0.3 ? 'visible' : 'hidden'),
+          height: subMenuHeight
         }}
         className={styles.subMenuContainer}
         onMouseLeave={e => closeMenu(e)}
@@ -99,5 +106,8 @@ const HeadNavigation = () => {
     </>
   )
 }
+
+HeadNavigation.propTypes = propTypes
+HeadNavigation.defaultProps = defaultProps
 
 export default HeadNavigation
