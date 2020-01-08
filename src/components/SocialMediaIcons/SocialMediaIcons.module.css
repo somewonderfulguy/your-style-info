@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+  align-items: center;
+}
+
+.layout > * {
+  margin-right: 10px;
+}
+.layout > *:last-child {
+  margin-right: 0;
+}
