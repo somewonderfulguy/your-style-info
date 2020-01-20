@@ -37,21 +37,21 @@ const Header = () => {
 
   return (
     <header
-      className={styles.header}
       style={{paddingBottom: navbarHeight}}
       ref={headerDOM}
     >
-      <div className={styles.langContainer}>
-        {isDesktop && <LangSelector />}
-      </div>
-
-      <div className={styles.hgroup}>
-        <animated.h1 className={styles.title} style={titleAppearing}>
-          Your Style
-        </animated.h1>
-        <animated.p className={styles.subtitle} style={subTitleAppearing}>
-          {t('subtitle')}
-        </animated.p>
+      <div className={styles.aboveNav}>
+        <div className={styles.hgroup}>
+          <animated.h1 className={styles.title} style={titleAppearing}>
+            Your Style
+          </animated.h1>
+          <animated.p className={styles.subtitle} style={subTitleAppearing}>
+            {t('subtitle')}
+          </animated.p>
+        </div>
+        <div className={styles.langContainer}>
+          <LangSelector />
+        </div>
       </div>
 
       <animated.nav

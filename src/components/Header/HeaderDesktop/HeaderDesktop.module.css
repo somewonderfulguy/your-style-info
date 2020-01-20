@@ -1,12 +1,12 @@
-.header {
-  padding-top: 10px;
-  position: relative;
+.aboveNav {
+  display: flex;
+  justify-content: space-between;
 }
 
 .hgroup {
   max-width: 1400px;
   padding-left: 100px;
-  margin: 0 auto 40px;
+  margin: 40px 0;
 }
 
 .title {
@@ -23,9 +23,7 @@
 }
 
 .langContainer {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0 25px 10px 25px;
+  margin: 15px 40px 0 0;
 }
 
 .navContainer {

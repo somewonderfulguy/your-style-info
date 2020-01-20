@@ -1,0 +1,35 @@
+.langSelector {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: .7;
+  transition: opacity 200ms;
+
+  /* button reseting */
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.langSelector:hover {
+  opacity: 1;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.triangle {
+  margin-left: 5px;
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #696969;
+}
+
+.triangleReverse {
+  composes: triangle;
+  transform: rotate(180deg);
+}

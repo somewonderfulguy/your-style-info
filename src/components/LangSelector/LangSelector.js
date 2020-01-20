@@ -1,21 +1,17 @@
-import React from 'react'
-import {useTranslation} from 'react-i18next'
+import React, {useState} from 'react'
 
-import {LANGUAGES} from '../../constants/languages'
+import {LanguageIcon} from '../../assets/images'
+import styles from './LangSelector.module.css'
 
 const LangSelector = () => {
-  const [, i18n] = useTranslation('', {useSuspense: false})
-
-  const changeLang = lng => i18n.changeLanguage(lng)
+  const [isOpen, setOpen] = useState(false)
 
   return (
-    [...LANGUAGES.keys()].map((lang, i, arr) => (
-      (i18n.language !== lang) ? (
-        <button key={lang} onClick={() => changeLang(lang)}>
-          {LANGUAGES.get(lang)}
-        </button>
-      ) : null
-    ))
+    <button className={styles.langSelector} onClick={() => setOpen(isOpen => !isOpen)}>
+      <LanguageIcon width={20} height={20} fill="#696969" className={styles.icon} />
+      <span>English</span>
+      <div className={isOpen ? styles.triangleReverse : styles.triangle} />
+    </button>
   )
 }
 

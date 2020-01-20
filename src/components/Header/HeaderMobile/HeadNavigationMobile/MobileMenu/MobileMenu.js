@@ -4,6 +4,7 @@ import {useSprings, animated} from 'react-spring'
 
 import {PRIME_ROUTES} from '../../../../../constants'
 import LinkExtended from '../../../../LinkExtended'
+import SocialMediaIcons from '../../../../SocialMediaIcons'
 import Tree from './Tree'
 import styles from './MobileMenu.module.css'
 
@@ -59,6 +60,9 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
           {renderItem(entry, false)}
         </animated.div>
       ))}
+      <div className={styles.socialMediaContainer}>
+        <SocialMediaIcons />
+      </div>
     </div>
   )
 })
