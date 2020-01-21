@@ -9,6 +9,12 @@
   width: var(--mobile-menu-hamburger-size);
   height: calc(var(--mobile-menu-hamburger-size) * 0.75);
   position: relative;
+
+  /* reseting button */
+  border: 0;
+  background: transparent;
+  padding: 0;
+  outline: none;
 }
 
 .hamburger > div {

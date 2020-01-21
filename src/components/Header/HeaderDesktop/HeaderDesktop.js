@@ -7,12 +7,13 @@ import {useStickyNavBar} from '../hooks'
 import {ScreenWidthContext} from '../../../ApplicationNode'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
 import LangSelector from '../../LangSelector'
+import SocialMediaIcons from '../../SocialMediaIcons'
 import styles from './HeaderDesktop.module.css'
 
 const Header = () => {
   const isDesktop = useContext(ScreenWidthContext) > 1024
   const {t} = useTranslation('', {useSuspense: false})
-  const {appearingSprings: [titleAppearing, subTitleAppearing, menuAppearing]} = useAnimatedAppearing()
+  const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing]} = useAnimatedAppearing()
 
   const [isMenuOpen, setMenuOpen] = useState(false)
 
@@ -42,22 +43,31 @@ const Header = () => {
     >
       <div className={styles.aboveNav}>
         <div className={styles.hgroup}>
-          <animated.h1 className={styles.title} style={titleAppearing}>
+          <animated.h1 className={styles.title} style={firstAppearing}>
             Your Style
           </animated.h1>
-          <animated.p className={styles.subtitle} style={subTitleAppearing}>
+          <animated.p className={styles.subtitle} style={secondAppearing}>
             {t('subtitle')}
           </animated.p>
         </div>
-        <div className={styles.langContainer}>
-          <LangSelector />
+        <div className={styles.sideControlsContainer}>
+          <animated.div style={{
+            opacity: secondAppearing.opacity
+          }}>
+            <LangSelector />
+          </animated.div>
+          <animated.div className={styles.sideControlsSocialMedia} style={{
+            opacity: thirdAppearing.opacity
+          }}>
+            <SocialMediaIcons small color="lightgray" />
+          </animated.div>
         </div>
       </div>
 
       <animated.nav
         ref={navBarDOM}
         style={{
-          opacity: menuAppearing.opacity,
+          opacity: thirdAppearing.opacity,
           top: isFixed ? menuTop : 'initial'
         }}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}
