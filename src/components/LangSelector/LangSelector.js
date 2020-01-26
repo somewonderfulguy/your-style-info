@@ -1,32 +1,59 @@
 import React, {useRef, useState} from 'react'
+import {bool, oneOf} from 'prop-types'
 
 import {useOutsideClick} from '../../helpers/hooks'
 import {LanguageIcon} from '../../assets/images'
 import styles from './LangSelector.module.css'
 
-const LangSelector = () => {
+const propTypes = {
+  showAbove: bool,
+  color: oneOf(['gray', 'black'])
+}
+
+const defaultProps = {
+  showAbove: false,
+  color: 'black'
+}
+
+const COLORS = new Map([
+  ['gray', '#696969'],
+  ['black', '#000']
+])
+
+// TODO: add gray colour for footer
+const LangSelector = ({showAbove, color}) => {
   const langSelectorRef = useRef(null)
+  const menuRef = useRef(null)
+
   const [isOpen, setOpen] = useState(false)
 
   useOutsideClick(langSelectorRef, () => setOpen(false))
 
+  const triangleClass = showAbove
+    ? (isOpen ? styles.triangle : styles.triangleReverse)
+    : (isOpen ? styles.triangleReverse : styles.triangle)
+
   return (
-    <div className={styles.langSelector} onClick={() => setOpen(isOpen => !isOpen)} ref={langSelectorRef}>
-      <button className={styles.langSelectorInner}>
+    <div ref={langSelectorRef} onClick={() => setOpen(isOpen => !isOpen)} className={styles.langSelector}>
+      <button className={styles.langSelectorInner} style={{color: COLORS.get(color)}}>
         <LanguageIcon width={20} height={20} fill="#696969" className={styles.icon} />
         <span>English</span>
-        <div className={isOpen ? styles.triangleReverse : styles.triangle} />
+        <div className={triangleClass} />
       </button>
 
       {isOpen && (
-        <ul className={styles.dropDown}>
-          <li><button>Polski</button></li>
+        <ul ref={menuRef} className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}>
+          {/* TODO: add active language as disabled */}
           <li><button>Русский</button></li>
+          <li><button>Polski</button></li>
           <li><button>Українська</button></li>
         </ul>
       )}
     </div>
   )
 }
+
+LangSelector.propTypes = propTypes
+LangSelector.defaultProps = defaultProps
 
 export default LangSelector

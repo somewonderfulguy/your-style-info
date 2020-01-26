@@ -1,5 +1,6 @@
 .langSelector {
   position: relative;
+  display: inline-block;
 }
 
 .langSelector button {
@@ -44,8 +45,6 @@
 .dropDown {
   position: absolute;
   right: 0;
-  bottom: 0;
-  transform: translateY(calc(100% + 4px));
   z-index: 1;
 
   list-style: none;
@@ -57,6 +56,18 @@
   background-color: #fff;
 }
 
+.dropDownAbove {
+  composes: dropDown;
+  top: 0;
+  transform: translateY(calc(-100% - 8px));
+}
+
+.dropDownBelow {
+  composes: dropDown;
+  bottom: 0;
+  transform: translateY(calc(100% + 4px));
+}
+
 .dropDown button {
   width: 100%;
   padding: 4px 24px;
@@ -64,7 +75,7 @@
 }
 
 .dropDown button:hover {
-  background-color: #f8f9fa;
+  background-color: #f2f2f2;
 }
 
 .dropDown button:active {

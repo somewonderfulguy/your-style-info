@@ -35,7 +35,6 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
   return (
     <div className={styles.frame}>
       <div className={lineClassName}>
-        {/* TODO change onClick to button and put icon inside button */}
         <button
           style={{opacity: children ? 1 : 0.3}}
           className={isOpen ? styles.iconOpen : styles.icon}
