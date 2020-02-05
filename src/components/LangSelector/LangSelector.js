@@ -43,10 +43,8 @@ const LangSelector = ({showAbove, color}) => {
 
       {isOpen && (
         <ul ref={menuRef} className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}>
-          {/* TODO: add active language as disabled */}
+          <li><button disabled>English</button></li>
           <li><button>Русский</button></li>
-          <li><button>Polski</button></li>
-          <li><button>Українська</button></li>
         </ul>
       )}
     </div>

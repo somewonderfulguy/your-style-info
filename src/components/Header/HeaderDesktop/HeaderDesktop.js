@@ -6,6 +6,7 @@ import {useAnimatedAppearing} from './hooks'
 import {useStickyNavBar} from '../hooks'
 import {ScreenWidthContext} from '../../../ApplicationNode'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
+import DarkThemeSwitcher from '../../DarkThemeSwitcher'
 import LangSelector from '../../LangSelector'
 import SocialMediaIcons from '../../SocialMediaIcons'
 import styles from './HeaderDesktop.module.css'
@@ -13,7 +14,7 @@ import styles from './HeaderDesktop.module.css'
 const Header = () => {
   const isDesktop = useContext(ScreenWidthContext) > 1024
   const {t} = useTranslation('', {useSuspense: false})
-  const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing]} = useAnimatedAppearing()
+  const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
   const [isMenuOpen, setMenuOpen] = useState(false)
 
@@ -52,14 +53,22 @@ const Header = () => {
         </div>
         <div className={styles.sideControlsContainer}>
           <animated.div style={{
-            opacity: secondAppearing.opacity
+            opacity: secondAppearing.opacity,
+            transform: secondAppearing.reverseTransform
           }}>
             <LangSelector />
           </animated.div>
           <animated.div className={styles.sideControlsSocialMedia} style={{
-            opacity: thirdAppearing.opacity
+            opacity: thirdAppearing.opacity,
+            transform: thirdAppearing.reverseTransform
           }}>
             <SocialMediaIcons small color="lightgray" />
+          </animated.div>
+          <animated.div className={styles.sideControlsDarkTheme} style={{
+            opacity: forthAppearing.opacity,
+            transform: forthAppearing.reverseTransform
+          }}>
+            <DarkThemeSwitcher />
           </animated.div>
         </div>
       </div>
@@ -67,7 +76,7 @@ const Header = () => {
       <animated.nav
         ref={navBarDOM}
         style={{
-          opacity: thirdAppearing.opacity,
+          opacity: forthAppearing.opacity,
           top: isFixed ? menuTop : 'initial'
         }}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}

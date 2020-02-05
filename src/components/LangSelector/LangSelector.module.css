@@ -78,6 +78,15 @@
   background-color: #f2f2f2;
 }
 
+.dropDown button:disabled {
+  cursor: default;
+  color: #A5A5A5;
+}
+
+.dropDown button:disabled:hover {
+  background-color: transparent;
+}
+
 .dropDown button:active {
   color: #fff;
   background-color: #007bff;
