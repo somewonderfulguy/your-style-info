@@ -15,6 +15,8 @@ CSS Modules are used for styles.
 # Testing
 ## Static
 - __ESLint__ - there's a lot of rules in `.eslint` I calibrated for my own preferences. One's might freak out seeing this. I'd like to stress, this is code style of my own in real life projects with teams I'm not so obsessive with code style rules.
+<br>
+- __Husky pre-commit hook__ - every time one's commit its changes, it will be tested in lint first.
 <br><br>
 
 ---
