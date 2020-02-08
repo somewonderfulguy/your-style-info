@@ -1,6 +1,8 @@
 {
   "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
   "rules": {
+    "strict": ["error", "never"],
+
     // Possible Errors
     "no-console": ["warn", {"allow": ["warn", "error"]}],
     "no-template-curly-in-string": "error",

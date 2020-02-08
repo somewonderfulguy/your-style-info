@@ -2,6 +2,7 @@
   "name": "your-style-info",
   "version": "0.1.0",
   "private": true,
+  "author": "Dmitriy Yastrebov",
   "dependencies": {
     "bluebird": "^3.5.5",
     "body-scroll-lock": "^2.6.4",
