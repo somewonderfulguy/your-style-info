@@ -1,7 +1,23 @@
-### File structure
+# File structure
+
+Index files are for exports __ONLY__!<br>
+Name of a component === name of file which contains the component.
+<br>
 
 `helpers` ─ folder for code snippets very dependent on the application architecture and therefore `helpers` contains `hooks`.<br>
 `utils` ─ folder for small functions, project independent.<br>
+<br>
+
+# Styles
+CSS Modules are used for styles.
+<br><br>
+
+# Testing
+## Static
+- __ESLint__ - there's a lot of rules in `.eslint` I calibrated for my own preferences. One's might freak out seeing this. I'd like to stress, this is code style of my own in real life projects with teams I'm not so obsessive with code style rules.
+<br><br>
+
+---
 <br>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
