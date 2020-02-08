@@ -45,7 +45,7 @@ const HeadNavigation = ({onMenuOpenChange}) => {
   }
 
   // preload root thumbs
-  useEffect(() => {imgPreload(ROOT_MENU_THUMBS)}, [])
+  useEffect(() => void imgPreload(ROOT_MENU_THUMBS), [])
 
   // drop-down fade-in-out
   const {opacity: subMenuOpacity} = useSpring({

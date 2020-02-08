@@ -45,14 +45,14 @@ const RootMenu = ({setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem,
           setShowMenu(false)
           clearActiveMenuItem()
         }}
-        submenupersist={!!sub ? 1 : 0}
+        submenupersist={sub ? 1 : 0}
       >
         <LinkExtended
           to={path}
           className={inactive ? '' : styles.link}
           activeClassName={styles.activeLink}
           inactive={inactive}
-          submenupersist={!!sub ? 1 : 0}
+          submenupersist={sub ? 1 : 0}
         >
           {name}
         </LinkExtended>

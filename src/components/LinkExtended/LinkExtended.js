@@ -1,5 +1,5 @@
 import React from 'react'
-import {arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-types'
+import {any, arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
@@ -17,7 +17,8 @@ const propTypes = {
   history: shape({push: func}).isRequired,
   inactive: bool,
   location: shape({pathname: string}).isRequired,
-  to: string
+  to: string,
+  staticContext: any
 }
 
 const defaultProps = {
@@ -40,12 +41,12 @@ const LinkExtended = ({
   staticContext, // just to remove it from ...rest
   ...rest
 }) => {
-  const onScrollEnd = () => {
+  const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
+
+  function onScrollEnd() {
     history.push(to)
     window.removeEventListener('scroll', debouncedOnScrollEnd)
   }
-
-  const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
 
   const onClick = e => {
     e.preventDefault()
