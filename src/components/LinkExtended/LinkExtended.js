@@ -52,7 +52,7 @@ const LinkExtended = ({
     e.preventDefault()
 
     const isNoScrollNeeded = document.documentElement.scrollTop === 0
-    
+
     if(isNoScrollNeeded) {
       history.push(to)
     } else {

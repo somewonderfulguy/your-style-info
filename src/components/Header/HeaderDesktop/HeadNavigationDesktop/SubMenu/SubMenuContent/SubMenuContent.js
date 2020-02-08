@@ -61,7 +61,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
 
       {transitions.map(({item, key, props: {opacity}}) => (
         <Fragment key={key}>
-          <div className={styles.heightFill} /> 
+          <div className={styles.heightFill} />
           <animated.img
             src={(item && item.url)}
             className={styles.image}

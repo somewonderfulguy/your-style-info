@@ -24,7 +24,7 @@ const RootMenu = ({setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem,
     {Object.entries(PRIME_ROUTES).map(([path, {name, sub, inactive, thumbnail}]) => (
       <li
         className={
-          inactive 
+          inactive
             ? styles.listItemInactive
             : activeMenuItem === name ? styles.listItemActive : styles.listItem
         }

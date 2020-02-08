@@ -16,11 +16,13 @@
     "no-self-compare": "error",
     "prefer-promise-reject-errors": "error",
     "yoda": "error",
+    "no-trailing-spaces": "error",
 
     // Variables
     "no-use-before-define": ["error", {"functions": false, "classes": true}],
 
     // Stylistic Issues
+    "indent": ["error", 2, {"SwitchCase": 1}],
     "semi": ["error", "never"],
     "space-in-parens": ["error", "never"],
     "array-bracket-spacing": ["error", "never"],
