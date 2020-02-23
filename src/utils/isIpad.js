@@ -5,9 +5,11 @@ export const isIpad = () => {
 
   if(ua.indexOf('Macintosh') > -1) {
     try {
-      document.createEvent("TouchEvent")
+      document.createEvent('TouchEvent')
       return true
-    } catch (e) {}
+    } catch (e) {
+      // continue regardless of error
+    }
   }
 
   return false

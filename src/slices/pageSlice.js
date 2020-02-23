@@ -23,7 +23,7 @@ pageSlice.effects = {
 
       const {setHeader, setComponents} = pageSlice.actions
       const {header, components} = json
-      
+
       dispatch(setHeader(header))
       dispatch(setComponents(components))
     }

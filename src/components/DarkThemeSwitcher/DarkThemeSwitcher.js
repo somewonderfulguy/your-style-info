@@ -1,11 +1,9 @@
 import React from 'react'
 
-const DarkThemeSwitcher = () => {
-  return (
-    <div>
-      Switch
-    </div>
-  )
-}
+const DarkThemeSwitcher = () => (
+  <div>
+    Switch
+  </div>
+)
 
 export default DarkThemeSwitcher

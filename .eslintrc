@@ -1,0 +1,86 @@
+{
+  "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "strict": ["error", "never"],
+
+    // Possible Errors
+    "no-console": ["warn", {"allow": ["warn", "error"]}],
+    "no-template-curly-in-string": "error",
+
+    // Best Practices
+    "no-multi-spaces": "error",
+    "dot-location": ["error", "property"],
+    "dot-notation": "error",
+    "eqeqeq": "error",
+    "no-eval": "error",
+    "no-self-compare": "error",
+    "prefer-promise-reject-errors": "error",
+    "yoda": "error",
+    "no-trailing-spaces": "error",
+
+    // Variables
+    "no-use-before-define": ["error", {"functions": false, "classes": true}],
+
+    // Stylistic Issues
+    "indent": ["error", 2, {"SwitchCase": 1}],
+    "semi": ["error", "never"],
+    "space-in-parens": ["error", "never"],
+    "array-bracket-spacing": ["error", "never"],
+    "block-spacing": ["error", "never"],
+    "brace-style": ["error", "1tbs", {"allowSingleLine": true}],
+    "keyword-spacing": ["error", {
+      "overrides": {
+        "if": {"after": false},
+        "for": {"after": false},
+        "while": {"after": false},
+        "switch": {"after": false}
+      }
+    }],
+    "camelcase": "error",
+    "computed-property-spacing": ["error", "never"],
+    "eol-last": ["error", "never"],
+    "no-multiple-empty-lines": ["error", {"max": 1}],
+    "nonblock-statement-body-position": ["error", "beside"],
+    "padded-blocks": ["error", "never"],
+    "quotes": ["error", "single", {"allowTemplateLiterals": true}],
+
+    // ECMAScript 6
+    "arrow-body-style": ["error", "as-needed"],
+    "template-curly-spacing": ["error", "never"],
+    "no-duplicate-imports": "error",
+    "no-useless-constructor": "error",
+    "no-var": "error",
+    "prefer-const": "warn",
+    "prefer-rest-params": "warn",
+    "prefer-spread": "error",
+    "rest-spread-spacing": ["error", "never"],
+
+    // React/JSX Style Guide
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/no-multi-comp": ["error", {"ignoreStateless": true}],
+    "react/prefer-stateless-function": ["error", {"ignorePureComponents": true}],
+    "react/jsx-closing-tag-location": "error",
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "never",
+      "beforeClosing": "never"
+    }],
+    "react/jsx-curly-spacing": ["error", {"when": "never", "children": true}],
+    "react/jsx-pascal-case": ["error", {"allowAllCaps": false}],
+    "react/jsx-filename-extension": ["error", {"extensions": [".js"]}],
+    "react/jsx-boolean-value": ["error", "never"],
+    "react/jsx-wrap-multilines": ["error", {
+      "declaration": "parens-new-line",
+      "assignment": "parens-new-line",
+      "return": "parens-new-line",
+      "arrow": "parens-new-line",
+      "condtion": "parens-new-line",
+      "logical": "parens-new-line",
+      "prop": "parens-new-line"
+    }],
+    "react/self-closing-comp": ["error", {"component": true, "html": true}],
+    "react/jsx-no-bind": ["error", {"allowArrowFunctions": true}],
+    "react/no-children-prop": "off"
+  }
+}

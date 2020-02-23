@@ -28,7 +28,7 @@ const COLORS = new Map([
 ])
 
 const SocialMediaIcons = ({small, color}) => {
-  const targetBlank = {rel: "noopener noreferrer", target: '_blank'}
+  const targetBlank = {rel: 'noopener noreferrer', target: '_blank'}
 
   const getStyles = type => ({
     ...(small ? SMALL_SIZES.get(type) : {}),

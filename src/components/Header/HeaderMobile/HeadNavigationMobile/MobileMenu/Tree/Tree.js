@@ -40,7 +40,7 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
           className={isOpen ? styles.iconOpen : styles.icon}
           onClick={() => setIsOpen(!isOpen)}
         >
-        <ArrowForwardIos />
+          <ArrowForwardIos />
         </button>
 
         <span style={style} className={styles.title}>{title}</span>

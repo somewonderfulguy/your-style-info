@@ -48,7 +48,7 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
     },
     to: {
       opacity: isOpen ? 1 : 0,
-      transform: isOpen ? 'translate3d(0, 0, 0)' :  'translate3d(0, 10px, 0)'
+      transform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(0, 10px, 0)'
     },
     delay: 250
   })

@@ -15,7 +15,7 @@ const Header = () => {
 
   const headerDOM = useRef(null)
   const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
-  
+
   // forcing update on first render to make headerHeight not null
   const forceUpdate = useForceUpdate()
   useEffect(() => void forceUpdate(), [forceUpdate])
