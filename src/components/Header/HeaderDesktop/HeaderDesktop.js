@@ -54,7 +54,8 @@ const Header = () => {
         <div className={styles.sideControlsContainer}>
           <animated.div style={{
             opacity: secondAppearing.opacity,
-            transform: secondAppearing.reverseTransform
+            transform: secondAppearing.reverseTransform,
+            zIndex: 1
           }}>
             <LangSelector />
           </animated.div>
