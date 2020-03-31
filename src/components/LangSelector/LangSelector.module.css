@@ -1,0 +1,93 @@
+.langSelector {
+  position: relative;
+  display: inline-block;
+}
+
+.langSelector button {
+  /* button reseting */
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.langSelectorInner {
+  display: flex;
+  align-items: center;
+
+  opacity: .7;
+  transition: opacity 200ms;
+}
+
+.langSelectorInner:hover {
+  opacity: 1;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.triangle {
+  margin-left: 5px;
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #696969;
+}
+
+.triangleReverse {
+  composes: triangle;
+  transform: rotate(180deg);
+}
+
+.dropDown {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+
+  list-style: none;
+  margin: 2px 0;
+  padding: 8px 0;
+
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.dropDownAbove {
+  composes: dropDown;
+  top: 0;
+  transform: translateY(calc(-100% - 8px));
+}
+
+.dropDownBelow {
+  composes: dropDown;
+  bottom: 0;
+  transform: translateY(calc(100% + 4px));
+}
+
+.dropDown button {
+  width: 100%;
+  padding: 4px 24px;
+  text-align: left;
+}
+
+.dropDown button:hover {
+  background-color: #f2f2f2;
+}
+
+.dropDown button:disabled {
+  cursor: default;
+  color: #A5A5A5;
+}
+
+.dropDown button:disabled:hover {
+  background-color: transparent;
+}
+
+.dropDown button:active {
+  color: #fff;
+  background-color: #007bff;
+}

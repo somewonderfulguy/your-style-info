@@ -1,9 +1,10 @@
 import React, {forwardRef, useEffect, useImperativeHandle} from 'react'
 import {bool} from 'prop-types'
-import {useSprings, animated} from 'react-spring'
+import {useSpring, useSprings, animated} from 'react-spring'
 
 import {PRIME_ROUTES} from '../../../../../constants'
 import LinkExtended from '../../../../LinkExtended'
+import SocialMediaIcons from '../../../../SocialMediaIcons'
 import Tree from './Tree'
 import styles from './MobileMenu.module.css'
 
@@ -39,6 +40,19 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
 
   const [menuItemsSprings, setMenuItemsSprings] = useSprings(routesEntries.length, springsFunction(isOpen))
 
+  const socialMediaAppearing = useSpring({
+    config: {duration: 500},
+    from: {
+      opacity: 0,
+      transform: 'translate3d(0, 10px, 0)'
+    },
+    to: {
+      opacity: isOpen ? 1 : 0,
+      transform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(0, 10px, 0)'
+    },
+    delay: 250
+  })
+
   useEffect(() => {
     isOpen && setMenuItemsSprings(springsFunction(isOpen))
   }, [isOpen, setMenuItemsSprings])
@@ -59,6 +73,9 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
           {renderItem(entry, false)}
         </animated.div>
       ))}
+      <animated.div style={socialMediaAppearing} className={styles.socialMediaContainer}>
+        <SocialMediaIcons />
+      </animated.div>
     </div>
   )
 })

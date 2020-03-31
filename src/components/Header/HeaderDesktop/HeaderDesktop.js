@@ -6,13 +6,15 @@ import {useAnimatedAppearing} from './hooks'
 import {useStickyNavBar} from '../hooks'
 import {ScreenWidthContext} from '../../../ApplicationNode'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
+import DarkThemeSwitcher from '../../DarkThemeSwitcher'
 import LangSelector from '../../LangSelector'
+import SocialMediaIcons from '../../SocialMediaIcons'
 import styles from './HeaderDesktop.module.css'
 
 const Header = () => {
   const isDesktop = useContext(ScreenWidthContext) > 1024
   const {t} = useTranslation('', {useSuspense: false})
-  const {appearingSprings: [titleAppearing, subTitleAppearing, menuAppearing]} = useAnimatedAppearing()
+  const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
   const [isMenuOpen, setMenuOpen] = useState(false)
 
@@ -37,27 +39,45 @@ const Header = () => {
 
   return (
     <header
-      className={styles.header}
       style={{paddingBottom: navbarHeight}}
       ref={headerDOM}
     >
-      <div className={styles.langContainer}>
-        {isDesktop && <LangSelector />}
-      </div>
-
-      <div className={styles.hgroup}>
-        <animated.h1 className={styles.title} style={titleAppearing}>
-          Your Style
-        </animated.h1>
-        <animated.p className={styles.subtitle} style={subTitleAppearing}>
-          {t('subtitle')}
-        </animated.p>
+      <div className={styles.aboveNav}>
+        <div className={styles.hgroup}>
+          <animated.h1 className={styles.title} style={firstAppearing}>
+            Your Style
+          </animated.h1>
+          <animated.p className={styles.subtitle} style={secondAppearing}>
+            {t('subtitle')}
+          </animated.p>
+        </div>
+        <div className={styles.sideControlsContainer}>
+          <animated.div style={{
+            opacity: secondAppearing.opacity,
+            transform: secondAppearing.reverseTransform,
+            zIndex: 1
+          }}>
+            <LangSelector />
+          </animated.div>
+          <animated.div className={styles.sideControlsSocialMedia} style={{
+            opacity: thirdAppearing.opacity,
+            transform: thirdAppearing.reverseTransform
+          }}>
+            <SocialMediaIcons small color="lightgray" />
+          </animated.div>
+          <animated.div className={styles.sideControlsDarkTheme} style={{
+            opacity: forthAppearing.opacity,
+            transform: forthAppearing.reverseTransform
+          }}>
+            <DarkThemeSwitcher />
+          </animated.div>
+        </div>
       </div>
 
       <animated.nav
         ref={navBarDOM}
         style={{
-          opacity: menuAppearing.opacity,
+          opacity: forthAppearing.opacity,
           top: isFixed ? menuTop : 'initial'
         }}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}

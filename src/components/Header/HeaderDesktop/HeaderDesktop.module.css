@@ -1,12 +1,12 @@
-.header {
-  padding-top: 10px;
-  position: relative;
+.aboveNav {
+  display: flex;
+  justify-content: space-between;
 }
 
 .hgroup {
   max-width: 1400px;
   padding-left: 100px;
-  margin: 0 auto 40px;
+  margin: 40px 0;
 }
 
 .title {
@@ -22,10 +22,19 @@
   margin: 0;
 }
 
-.langContainer {
+.sideControlsContainer {
+  margin: 15px 30px 0 0;
   display: flex;
-  justify-content: flex-end;
-  margin: 0 25px 10px 25px;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.sideControlsSocialMedia {
+  margin-top: 10px;
+}
+
+.sideControlsDarkTheme {
+  margin-top: 10px;
 }
 
 .navContainer {

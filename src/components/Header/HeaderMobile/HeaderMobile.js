@@ -53,6 +53,7 @@ const Header = () => {
           Your Style
         </h1>
       </animated.header>
+
       {/* Moved outside because animated header (transform) breaks position: fixed for child elements */}
       <HeadNavigationMobile
         isOpen={isMenuOpen}

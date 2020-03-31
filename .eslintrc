@@ -59,7 +59,6 @@
     "jsx-quotes": ["error", "prefer-double"],
     "react/no-multi-comp": ["error", {"ignoreStateless": true}],
     "react/prefer-stateless-function": ["error", {"ignorePureComponents": true}],
-    "react/jsx-closing-bracket-location": "error",
     "react/jsx-closing-tag-location": "error",
     "react/jsx-tag-spacing": ["error", {
       "closingSlash": "never",

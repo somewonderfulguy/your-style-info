@@ -25,3 +25,9 @@
 .subItemLine:last-child {margin-bottom: 23px;}
 
 .menuWrapper > div:first-child > .line {border-top: none;}
+
+.socialMediaContainer {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
