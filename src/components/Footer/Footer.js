@@ -1,6 +1,7 @@
 import React from 'react'
 
 import FooterNavigation from './FooterNavigation'
+import DarkThemeSwitcher from '../DarkThemeSwitcher'
 import LangSelector from '../LangSelector'
 import SocialMediaIcons from '../SocialMediaIcons'
 import styles from './Footer.module.css'
@@ -14,6 +15,9 @@ const Footer = () => (
           <LangSelector color="gray" showAbove />
         </div>
         <SocialMediaIcons />
+        <div className={styles.themeSwitcherContainer}>
+          <DarkThemeSwitcher darkerPalette />
+        </div>
       </div>
     </div>
   </footer>
