@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react'
 import {bool, oneOf} from 'prop-types'
 
-import {useOutsideClick} from '../../helpers/hooks'
-import {LanguageIcon} from '../../assets/images'
+import {useOutsideClick} from 'helpers/hooks'
+import {LanguageIcon} from 'assets/images'
 import styles from './LangSelector.module.css'
 
 const propTypes = {
@@ -35,7 +35,7 @@ const LangSelector = ({showAbove, color}) => {
 
   return (
     <div ref={langSelectorRef} onClick={() => setOpen(isOpen => !isOpen)} className={styles.langSelector}>
-      <button className={styles.langSelectorInner} style={{color: COLORS.get(color)}}>
+      <button className={styles.langSelectorInner} style={{color: COLORS.get(color)}} type="button">
         <LanguageIcon width={20} height={20} fill="#696969" className={styles.icon} />
         <span>English</span>
         <div className={triangleClass} />
@@ -43,8 +43,8 @@ const LangSelector = ({showAbove, color}) => {
 
       {isOpen && (
         <ul ref={menuRef} className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}>
-          <li><button disabled>English</button></li>
-          <li><button>Русский</button></li>
+          <li><button type="button" disabled>English</button></li>
+          <li><button type="button">Русский</button></li>
         </ul>
       )}
     </div>

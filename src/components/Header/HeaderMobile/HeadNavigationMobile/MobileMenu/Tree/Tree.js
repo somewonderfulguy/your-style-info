@@ -39,6 +39,7 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
           style={{opacity: children ? 1 : 0.3}}
           className={isOpen ? styles.iconOpen : styles.icon}
           onClick={() => setIsOpen(!isOpen)}
+          type="button"
         >
           <ArrowForwardIos />
         </button>

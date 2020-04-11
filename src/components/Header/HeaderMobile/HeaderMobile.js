@@ -1,15 +1,17 @@
 import React, {useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
-import {useAnimatedAppearing} from './hooks'
+import {useForceUpdate} from 'helpers/hooks'
 import {useStickyNavBar} from '../hooks'
-import {useForceUpdate} from '../../../helpers/hooks'
+import {useAnimatedAppearing} from './hooks'
 import HamburgerIcon from './HamburgerIcon'
 import HeadNavigationMobile from './HeadNavigationMobile'
+import OptionsBtn from './OptionsBtn'
 import styles from './HeaderMobile.module.css'
 
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false)
+  const [isOptionsOpen, setOptionsOpen] = useState(false)
 
   const {appearingSpring} = useAnimatedAppearing()
 
@@ -33,7 +35,8 @@ const Header = () => {
     headerTop: isShown ? -1 : -headerHeight
   })
 
-  const onHamburgerClick = useCallback(() => setMenuOpen(!isMenuOpen), [setMenuOpen, isMenuOpen])
+  const onHamburgerClick = useCallback(() => setMenuOpen(i => !i), [setMenuOpen])
+  const onOptionsClick = useCallback(() => setOptionsOpen(i => !i), [setOptionsOpen])
 
   return (
     <>
@@ -52,6 +55,9 @@ const Header = () => {
         <h1 className={styles.title}>
           Your Style
         </h1>
+        <div className={styles.optionsContainer}>
+          <OptionsBtn isOpen={isOptionsOpen} onClick={onOptionsClick} />
+        </div>
       </animated.header>
 
       {/* Moved outside because animated header (transform) breaks position: fixed for child elements */}
@@ -59,6 +65,7 @@ const Header = () => {
         isOpen={isMenuOpen}
         menuHeight={headerHeight - (isFixed ? 1 : 0) || 0}
       />
+      {/* TODO add options here */}
     </>
   )
 }

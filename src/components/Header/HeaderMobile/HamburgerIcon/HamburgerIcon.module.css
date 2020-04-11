@@ -10,6 +10,9 @@
   height: calc(var(--mobile-menu-hamburger-size) * 0.75);
   position: relative;
 
+  /* fix positioning */
+  display: flex;
+
   /* reseting button */
   border: 0;
   background: transparent;

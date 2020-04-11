@@ -21,3 +21,9 @@
   margin: 15px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+.optionsContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+}

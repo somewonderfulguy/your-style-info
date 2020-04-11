@@ -1,0 +1,33 @@
+:root {
+  --mobile-menu-options-size: 20px;
+  --mobile-menu-options-dot-diameter: 4px;
+}
+
+.btn {
+  position: relative;
+  width: var(--mobile-menu-options-size);
+  height: var(--mobile-menu-options-size);
+
+  display: flex;
+  justify-content: center;
+
+  /* reseting button */
+  border: 0;
+  background: transparent;
+  padding: 0;
+  outline: none;
+}
+
+.btn > div {
+  width: var(--mobile-menu-options-dot-diameter);
+  height: var(--mobile-menu-options-dot-diameter);
+
+  background-color: #000;
+  border-radius: 50%;
+
+  position: absolute;
+}
+
+.btn > div:nth-child(1) {top: 0; transform: rotate(-45deg);}
+.btn > div:nth-child(2) {top: calc(50% - var(--mobile-menu-options-dot-diameter) / 2);}
+.btn > div:nth-child(3) {bottom: 0; transform: rotate(45deg);}

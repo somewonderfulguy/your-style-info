@@ -17,6 +17,7 @@
     "prefer-promise-reject-errors": "error",
     "yoda": "error",
     "no-trailing-spaces": "error",
+    "react/button-has-type": "error",
 
     // Variables
     "no-use-before-define": ["error", {"functions": false, "classes": true}],

@@ -43,7 +43,7 @@ const HamburgerIcon = ({isOpen, onClick}) => {
   }
 
   return (
-    <button ref={hamburgerDOM} onClick={onClick} className={styles.hamburger}>
+    <button ref={hamburgerDOM} onClick={onClick} className={styles.hamburger} type="button">
       <animated.div style={topLine} />
       <animated.div style={midLine} />
       <animated.div style={bottomLine} />
