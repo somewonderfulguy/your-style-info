@@ -7,14 +7,16 @@ import sunIcon from 'assets/images/sun.svg'
 import styles from './DarkThemeSwitcher.module.css'
 
 const propTypes = {
-  darkerPalette: bool
+  darkerPalette: bool,
+  labelText: bool
 }
 
 const defaultProps = {
-  darkerPalette: false
+  darkerPalette: false,
+  labelText: false
 }
 
-const DarkThemeSwitcher = ({darkerPalette}) => {
+const DarkThemeSwitcher = ({darkerPalette, labelText}) => {
   const {isDarkTheme, switchTheme} = useTheme()
 
   return (
@@ -33,6 +35,9 @@ const DarkThemeSwitcher = ({darkerPalette}) => {
           }}
         />
       </div>
+      {labelText && (
+        <span className={styles.text}>Switch theme</span>
+      )}
     </label>
   )
 }

@@ -6,6 +6,7 @@ import {useStickyNavBar} from '../hooks'
 import {useAnimatedAppearing} from './hooks'
 import HamburgerIcon from './HamburgerIcon'
 import HeadNavigationMobile from './HeadNavigationMobile'
+import Options from './Options'
 import OptionsBtn from './OptionsBtn'
 import styles from './HeaderMobile.module.css'
 
@@ -38,6 +39,8 @@ const Header = () => {
   const onHamburgerClick = useCallback(() => setMenuOpen(i => !i), [setMenuOpen])
   const onOptionsClick = useCallback(() => setOptionsOpen(i => !i), [setOptionsOpen])
 
+  const menuHeight = headerHeight - (isFixed ? 1 : 0) || 0
+
   return (
     <>
       <animated.header
@@ -45,6 +48,7 @@ const Header = () => {
         className={styles.header}
         style={{
           ...appearingSpring,
+          // TODO add delay !!!
           position: isFixed ? 'fixed' : 'absolute',
           transform: isFixed ? headerTop.interpolate(i => `translate3d(0, ${i}px, 0)`) : 'initial'
         }}
@@ -61,11 +65,8 @@ const Header = () => {
       </animated.header>
 
       {/* Moved outside because animated header (transform) breaks position: fixed for child elements */}
-      <HeadNavigationMobile
-        isOpen={isMenuOpen}
-        menuHeight={headerHeight - (isFixed ? 1 : 0) || 0}
-      />
-      {/* TODO add options here */}
+      <HeadNavigationMobile isOpen={isMenuOpen} menuHeight={menuHeight} />
+      <Options isOpen={isOptionsOpen} menuHeight={menuHeight} />
     </>
   )
 }

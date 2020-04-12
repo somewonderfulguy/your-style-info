@@ -9,6 +9,7 @@
   align-items: center;
   grid-auto-flow: dense;
   background-color: rgba(255, 255, 255, .95);
+  z-index: 3;
 }
 
 .title {
@@ -19,6 +20,7 @@
 
 .hamburgerContainer {
   margin: 15px;
+  margin-left: 12px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 

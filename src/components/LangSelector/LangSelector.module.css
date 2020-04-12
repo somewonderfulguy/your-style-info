@@ -4,12 +4,7 @@
 }
 
 .langSelector button {
-  /* button reseting */
-  padding: 0;
-  border: 0;
-  background-color: transparent;
   font-size: 15px;
-  cursor: pointer;
 }
 
 .langSelectorInner {
