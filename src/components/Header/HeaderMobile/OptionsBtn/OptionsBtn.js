@@ -58,7 +58,7 @@ const OptionsBtn = ({isOpen, onClick}) => {
     <button ref={optionsBtnDOM} onClick={onClick} className={styles.btn} type="button">
       <animated.div style={topDot} />
       <animated.div style={middleDot} />
-      <animated.div style={bottomDot} />2
+      <animated.div style={bottomDot} />3
     </button>
   )
 }
