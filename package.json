@@ -28,6 +28,7 @@
     "test:once": "react-scripts test --watchAll=false",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
+    "test:pre-push": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore ."
   },
