@@ -28,7 +28,7 @@
     "test:once": "react-scripts test --watchAll=false",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
-    "test:pre-push": "set CI=true react-scripts test --env=jsdom --watchAll=false",
+    "test:pre-push": "cross-env CI=true react-scripts test --env=jsdom --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore ."
   },
@@ -48,8 +48,9 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "^9.4.1",
     "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
+    "cross-env": "^7.0.2",
     "husky": "^4.2.1"
   },
   "jest": {
