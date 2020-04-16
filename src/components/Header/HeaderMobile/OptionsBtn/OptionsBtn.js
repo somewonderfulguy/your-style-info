@@ -16,7 +16,7 @@ const defaultProps = {
 
 // TODO TEST if button clicked, then isOpen changes
 
-const OptionsIcon = ({isOpen, onClick}) => {
+const OptionsBtn = ({isOpen, onClick}) => {
   const optionsBtnDOM = useRef(null)
   const optionsHeight = optionsBtnDOM.current ? optionsBtnDOM.current.clientHeight : 0
 
@@ -63,7 +63,7 @@ const OptionsIcon = ({isOpen, onClick}) => {
   )
 }
 
-OptionsIcon.propTypes = propTypes
-OptionsIcon.defaultProps = defaultProps
+OptionsBtn.propTypes = propTypes
+OptionsBtn.defaultProps = defaultProps
 
-export default OptionsIcon
+export default OptionsBtn
