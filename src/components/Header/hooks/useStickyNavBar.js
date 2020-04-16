@@ -2,17 +2,22 @@ import {useEffect, useReducer} from 'react'
 
 const HIDE = 'hide'
 const SHOW = 'show'
+const SCROLL_UP = 'scroll_up'
+const SCROLL_DOWN = 'scroll_down'
 const UNSET = 'unset'
 
 const navBarInitialState = {
   isFixed: false,
-  isShown: false
+  isShown: false,
+  isScrollDown: false
 }
 
 const navBarReducer = (state, action) => {
   switch(action.type) {
-    case HIDE: return {isFixed: true, isShown: false}
-    case SHOW: return {isFixed: true, isShown: true}
+    case HIDE: return {...state, isFixed: true, isShown: false}
+    case SHOW: return {...state, isFixed: true, isShown: true}
+    case SCROLL_UP: return {...state, isScrollDown: false}
+    case SCROLL_DOWN: return {...state, isScrollDown: true}
     case UNSET: return navBarInitialState
     default: return state
   }
@@ -31,6 +36,9 @@ export function useStickyNavBar(bottomBoundary = 0, topBoundary = 0) {
       const isScrollDown = !isScrollUp
       const isBelowNavbar = scrollPosition > bottomBoundary
       const isAboveNavbar = scrollPosition <= topBoundary
+
+      if(isScrollUp) dispatchNavBar({type: SCROLL_UP})
+      if(isScrollDown) dispatchNavBar({type: SCROLL_DOWN})
 
       if(isScrollUp && isAboveNavbar) dispatchNavBar({type: UNSET})
       if(isScrollUp && isBelowNavbar) dispatchNavBar({type: SHOW})

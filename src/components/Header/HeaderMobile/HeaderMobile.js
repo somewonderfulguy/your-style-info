@@ -28,7 +28,7 @@ const Header = () => {
     return () => document.body.style.marginTop = ''
   }, [headerHeight])
 
-  const {isFixed, isShown} = useStickyNavBar(headerHeight)
+  const {isFixed, isShown, isScrollDown} = useStickyNavBar(headerHeight)
 
   // animate header on scroll up
   const {headerTop} = useSpring({
@@ -48,7 +48,6 @@ const Header = () => {
         className={styles.header}
         style={{
           ...appearingSpring,
-          // TODO add delay !!!
           position: isFixed ? 'fixed' : 'absolute',
           transform: isFixed ? headerTop.interpolate(i => `translate3d(0, ${i}px, 0)`) : 'initial'
         }}
@@ -60,13 +59,23 @@ const Header = () => {
           Your Style
         </h1>
         <div className={styles.optionsContainer}>
+          {/* WARN!!! it may seem not obvious - onClick here works, but when closing menu it's overrided by
+            <Options /> with its handleClick outside method */}
           <OptionsBtn isOpen={isOptionsOpen} onClick={onOptionsClick} />
         </div>
       </animated.header>
 
       {/* Moved outside because animated header (transform) breaks position: fixed for child elements */}
       <HeadNavigationMobile isOpen={isMenuOpen} menuHeight={menuHeight} />
-      <Options isOpen={isOptionsOpen} menuHeight={menuHeight} />
+      <Options
+        isOpen={isOptionsOpen}
+        menuHeight={menuHeight}
+        setOptionsOpen={setOptionsOpen}
+        isFixed={isFixed}
+        isShown={isShown}
+        isScrollDown={isScrollDown}
+        headerTop={headerTop}
+      />
     </>
   )
 }
