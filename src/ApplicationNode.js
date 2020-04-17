@@ -8,19 +8,19 @@ import {
   Switch
 } from 'react-router-dom'
 
-import PageContainer from './containers/PageContainer'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import store from './services/store'
-import {useWindowResize} from './helpers/hooks'
-import {ThemeProvider, useTheme} from './helpers/contexts'
-import './services/i18n'
-import './services/bluebird'
-import './services/resizeObserverPolyfill'
+import PageContainer from 'containers/PageContainer'
+import Header from 'components/Header'
+import Footer from 'components/Footer'
+import store from 'services/store'
+import {useWindowResize} from 'helpers/hooks'
+import {ThemeProvider, useTheme} from 'helpers/contexts'
+import 'services/i18n'
+import 'services/bluebird'
+import 'services/resizeObserverPolyfill'
 
-import styles from './ApplicationNode.module.css'
-import './assets/styles/common-styles.css'
-import './assets/styles/fonts.css'
+import styles from 'ApplicationNode.module.css'
+import 'assets/styles/common-styles.css'
+import 'assets/styles/fonts.css'
 
 export const ScreenWidthContext = createContext()
 

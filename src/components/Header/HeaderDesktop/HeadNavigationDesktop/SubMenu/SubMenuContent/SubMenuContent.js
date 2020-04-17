@@ -2,8 +2,9 @@ import React, {Fragment, memo, useState, useRef} from 'react'
 import {bool, object, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
-import LinkExtended from '../../../../../LinkExtended'
-import {usePrevious} from '../../../../../../helpers/hooks'
+import LinkExtended from 'components/LinkExtended'
+import {usePrevious} from 'helpers/hooks'
+import {useTheme} from 'helpers/contexts'
 import styles from './SubMenuContent.module.css'
 
 const propTypes = {
@@ -20,6 +21,7 @@ const defaultProps = {
 }
 
 const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
+  const {isDarkTheme} = useTheme()
   const [subItemThumbnail, setSubItemThumbnail] = useState(null)
   const prevOpen = usePrevious(isOpen)
 
@@ -40,7 +42,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
 
   return (
     <>
-      <ul className={styles.list}>
+      <ul className={styles[isDarkTheme ? 'listDark' : 'list']}>
         {Object.entries(menuItems).map(([path, {name, thumbnail, inactive}]) => (
           <li
             key={name}

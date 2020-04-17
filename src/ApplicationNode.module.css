@@ -1,10 +1,14 @@
 :root {
-  --white: #fff;
-  --black: #000;
+  --white: 255, 255, 255;
+  --black: 0, 0, 0;
 
-  --gray: #919191;
-  --darkGray: #636363;
-  --deepDarkGray: #202326;
+  /* TODO check out if all in use */
+  --brightGray: 240, 240, 240;
+  --lightGray: 240, 240, 240;
+  --gray: 173, 173, 173;
+  --darkGray: 99, 99, 99;
+  --deepGray: 46, 46, 46;
+  --deepDarkGray: 32, 35, 38;
 }
 
 .ThemeWrapper {
@@ -12,20 +16,17 @@
   min-height: 100%;
   grid-template-rows: auto 1fr auto;
 
-  transition: background-color .2s, color .2s;
-
-  --primaryBackround: var(--white);
+  --primaryBackground: var(--white);
   --primaryColor: var(--black);
 
-  --monochrome1: var(--gray);
-  --monochrome2: var(--darkGray);
+  background-color: rgb(var(--primaryBackground));
+  color: rgb(var(--primaryColor));
 
-  background-color: var(--primaryBackround);
-  color: var(--primaryColor);
+  transition: background-color .2s, color .2s;
 }
 
 .ThemeWrapperDarkMode {
-  --primaryBackround: var(--deepDarkGray);
+  --primaryBackground: var(--deepDarkGray);
   --primaryColor: var(--white);
 
   composes: ThemeWrapper;

@@ -17,5 +17,19 @@
   min-height: 230px;
   position: absolute;
   border-bottom: 1px solid #adadad;
-  background-color: rgba(255, 255, 255, .95);
+  background-color: rgba(var(--primaryBackground), .95);
+}
+
+.rootMenuContainerDark {
+  composes: rootMenuContainer;
+  border-color: rgb(var(--darkGray));
+}
+
+.rootMenuContainerDark .borderBottom {
+  background-color: rgb(var(--darkGray));
+}
+
+.subMenuContainerDark {
+  composes: subMenuContainer;
+  border-color: rgb(var(--darkGray));
 }

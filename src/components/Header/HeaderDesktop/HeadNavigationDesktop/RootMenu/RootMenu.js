@@ -1,8 +1,9 @@
 import React, {memo} from 'react'
 import {func, string} from 'prop-types'
 
-import {PRIME_ROUTES} from '../../../../../constants'
-import LinkExtended from '../../../../LinkExtended'
+import {useTheme} from 'helpers/contexts'
+import {PRIME_ROUTES} from 'constants/index'
+import LinkExtended from 'components/LinkExtended'
 import styles from './RootMenu.module.css'
 
 const propTypes = {
@@ -19,47 +20,50 @@ const defaultProps = {
   clearActiveMenuItem: () => {}
 }
 
-const RootMenu = ({setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem}) => (
-  <ul className={styles.list}>
-    {Object.entries(PRIME_ROUTES).map(([path, {name, sub, inactive, thumbnail}]) => (
-      <li
-        className={
-          inactive
-            ? styles.listItemInactive
-            : activeMenuItem === name ? styles.listItemActive : styles.listItem
-        }
-        key={path}
-        onMouseEnter={() => {
-          if(sub) {
-            setShowMenu(true)
-            setSubMenu({
-              content: sub,
-              basePath: path,
-              mainThumbnail: thumbnail,
-            })
+const RootMenu = ({setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem}) => {
+  const {isDarkTheme} = useTheme()
+  return (
+    <ul className={styles[isDarkTheme ? 'listDark' : 'list']}>
+      {Object.entries(PRIME_ROUTES).map(([path, {name, sub, inactive, thumbnail}]) => (
+        <li
+          className={
+            inactive
+              ? styles.listItemInactive
+              : activeMenuItem === name ? styles.listItemActive : styles.listItem
           }
-          setActiveMenuItem(name)
-        }}
-        onMouseLeave={e => {
-          if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
-          setShowMenu(false)
-          clearActiveMenuItem()
-        }}
-        submenupersist={sub ? 1 : 0}
-      >
-        <LinkExtended
-          to={path}
-          className={inactive ? '' : styles.link}
-          activeClassName={styles.activeLink}
-          inactive={inactive}
+          key={path}
+          onMouseEnter={() => {
+            if(sub) {
+              setShowMenu(true)
+              setSubMenu({
+                content: sub,
+                basePath: path,
+                mainThumbnail: thumbnail,
+              })
+            }
+            setActiveMenuItem(name)
+          }}
+          onMouseLeave={e => {
+            if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
+            setShowMenu(false)
+            clearActiveMenuItem()
+          }}
           submenupersist={sub ? 1 : 0}
         >
-          {name}
-        </LinkExtended>
-      </li>
-    ))}
-  </ul>
-)
+          <LinkExtended
+            to={path}
+            className={inactive ? '' : styles.link}
+            activeClassName={styles.activeLink}
+            inactive={inactive}
+            submenupersist={sub ? 1 : 0}
+          >
+            {name}
+          </LinkExtended>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 RootMenu.propTypes = propTypes
 RootMenu.defaultProps = defaultProps

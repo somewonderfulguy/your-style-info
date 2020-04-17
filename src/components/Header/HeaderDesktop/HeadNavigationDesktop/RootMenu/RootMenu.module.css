@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.listDark {
+  composes: list;
+}
+
 .listItem {
   display: inline-block;
   transition: background-color .5s;
@@ -11,8 +15,12 @@
 
 .listItemActive {
   composes: listItem;
-  background-color: #f0f0f0;
+  background-color: rgb(var(--brightGray));
 }
+.listDark .listItemActive {
+  background-color: rgb(var(--deepGray));
+}
+
 .listItemActive .link {color: #0a4fff;}
 
 .listItemInactive {
@@ -20,6 +28,10 @@
   color: lightgray;
   cursor: default;
   padding: 15px;
+}
+
+.listDark .listItemInactive {
+  color: rgb(var(--darkGray));
 }
 
 .listItemInactive:hover {background-color: transparent;}

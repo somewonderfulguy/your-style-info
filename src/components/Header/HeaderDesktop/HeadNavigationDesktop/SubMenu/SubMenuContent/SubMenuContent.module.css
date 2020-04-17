@@ -11,9 +11,15 @@
   grid-auto-columns: 250px;
 }
 
+.listDark {composes: list;}
+
 .listItem {
   cursor: default;
   color: lightgray;
+}
+
+.listDark .listItem {
+  color: rgb(var(--darkGray));
 }
 
 .link {
@@ -31,5 +37,4 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: rgba(125, 125, 125, .3);
 }

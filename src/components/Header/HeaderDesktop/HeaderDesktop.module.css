@@ -41,7 +41,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, .95);
+  background-color: rgba(var(--primaryBackground), .95);
 }
 
 .fixedNavContainer {
