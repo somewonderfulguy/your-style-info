@@ -13,21 +13,6 @@ jest.mock('utils')
 
 afterEach(() => jest.clearAllMocks())
 
-// TODO move to global
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-})
-
 const HEADER_DESKTOP = 'header-desktop'
 const HEADER_MOBILE = 'header-mobile'
 
