@@ -2,7 +2,6 @@ import React from 'react'
 import {render} from '@testing-library/react'
 
 import {ScreenWidthContext} from 'ApplicationNode'
-// TODO move contexts setup to global if possible
 import {ThemeProvider} from 'helpers/contexts'
 import Header, {BOUNDARY} from '../Header'
 import {isIpad as mockIsIpad} from 'utils'

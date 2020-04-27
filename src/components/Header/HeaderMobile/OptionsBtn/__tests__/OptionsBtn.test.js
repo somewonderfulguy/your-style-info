@@ -1,7 +1,6 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 
-// TODO move contexts setup to global if possible
 import {ThemeProvider} from 'helpers/contexts'
 import OptionsBtn from '..'
 
