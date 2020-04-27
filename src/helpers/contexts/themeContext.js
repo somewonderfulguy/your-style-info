@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useMemo, useEffect, useState} from 'react'
+import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 
 const ThemeContext = createContext()
 
@@ -9,31 +9,34 @@ const useTheme = () => {
   }
   const [isDarkTheme, setDarkTheme] = context
 
-  const switchTheme = () => {
-    setDarkTheme(!isDarkTheme)
-    localStorage.setItem('isDarkTheme', !isDarkTheme)
-  }
+  const switchTheme = useCallback(
+    () => setDarkTheme(!isDarkTheme),
+    [isDarkTheme, setDarkTheme]
+  )
 
   return {isDarkTheme, switchTheme}
 }
 
 const ThemeProvider = props => {
-  const [isDarkTheme, setDarkTheme] = useState(false)
-  const [hasThemeLoaded, setThemeLoaded] = useState(false)
+  const preferDarkQuery = '(prefers-color-scheme: dark)'
+  const [isDarkTheme, setDarkTheme] = useState(
+    () =>
+      window.localStorage.getItem('isDarkTheme') === 'true' ||
+      (window.matchMedia(preferDarkQuery).matches ? true : false),
+  )
 
   useEffect(() => {
-    const isLocalStorageDark = localStorage.getItem('isDarkTheme')
-    setDarkTheme(isLocalStorageDark === 'true')
-    setThemeLoaded(true)
+    const mediaQuery = window.matchMedia(preferDarkQuery)
+    const handleChange = () => setDarkTheme(mediaQuery.matches ? true : false)
+    mediaQuery.addListener(handleChange)
+    return () => mediaQuery.removeListener(handleChange)
   }, [])
 
-  const value = useMemo(() => [isDarkTheme, setDarkTheme], [isDarkTheme])
+  useEffect(() => {
+    window.localStorage.setItem('isDarkTheme', isDarkTheme)
+  }, [isDarkTheme])
 
-  if(!hasThemeLoaded) {
-    // avoiding render default light theme and then re-render to
-    // dark theme if localStorage keeps dark mode as true
-    return <div />
-  }
+  const value = useMemo(() => [isDarkTheme, setDarkTheme], [isDarkTheme])
 
   return <ThemeContext.Provider value={value} {...props} />
 }

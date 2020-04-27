@@ -38,7 +38,7 @@ const LinkExtended = ({
   inactive,
   location: {pathname},
   to,
-  staticContext, // just to remove it from ...rest
+  staticContext, // remove it from ...rest
   ...rest
 }) => {
   const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)

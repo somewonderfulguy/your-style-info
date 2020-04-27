@@ -2,6 +2,7 @@ import React, {useRef} from 'react'
 import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
+import {useTheme} from 'helpers/contexts'
 import styles from './OptionsBtn.module.css'
 
 const propTypes = {
@@ -14,12 +15,12 @@ const defaultProps = {
   onClick: () => {}
 }
 
-// TODO TEST if button clicked, then isOpen changes
-
 const OptionsBtn = ({isOpen, onClick}) => {
   const optionsBtnDOM = useRef(null)
+  const {isDarkTheme} = useTheme()
   const optionsHeight = optionsBtnDOM.current ? optionsBtnDOM.current.clientHeight : 0
 
+  // TODO delete this, awful idea
   const dotSize = +(
     getComputedStyle(document.documentElement).getPropertyValue('--mobile-menu-options-dot-diameter')
       .replace('px', '')
@@ -55,10 +56,10 @@ const OptionsBtn = ({isOpen, onClick}) => {
   }
 
   return (
-    <button ref={optionsBtnDOM} onClick={onClick} className={styles.btn} type="button">
-      <animated.div style={topDot} />
-      <animated.div style={middleDot} />
-      <animated.div style={bottomDot} />
+    <button ref={optionsBtnDOM} onClick={onClick} className={styles[isDarkTheme ? 'darkBtn' : 'btn']} type="button">
+      <animated.div className={styles.dot} style={topDot} />
+      <animated.div className={styles.dot} style={middleDot} />
+      <animated.div className={styles.dot} style={bottomDot} />
     </button>
   )
 }

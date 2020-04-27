@@ -52,6 +52,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
               to={basePath + path}
               inactive={inactive}
               className={styles.link}
+              activeClassName={styles.activeItem}
               onMouseEnter={() => thumbnail && setSubItemThumbnail(thumbnail)}
               onMouseLeave={() => thumbnail && setSubItemThumbnail(null)}
             >

@@ -7,7 +7,6 @@ import SubMenu from './SubMenu'
 import {ROOT_MENU_THUMBS} from 'constants/index'
 import {imgPreload} from 'utils'
 import {useResizeObserver} from 'helpers/hooks'
-import {useTheme} from 'helpers/contexts'
 import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {
@@ -24,7 +23,6 @@ const propTypes = {onMenuOpenChange: func}
 const defaultProps = {onMenuOpenChange: () => {}}
 
 const HeadNavigation = ({onMenuOpenChange}) => {
-  const {isDarkTheme} = useTheme()
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
   const [subMenuContent, setSubMenuContent] = useState({
@@ -73,7 +71,7 @@ const HeadNavigation = ({onMenuOpenChange}) => {
 
   return (
     <>
-      <div className={styles[isDarkTheme ? 'rootMenuContainerDark' : 'rootMenuContainer']}>
+      <div className={styles.rootMenuContainer}>
         <RootMenu
           setShowMenu={setMenuOpen}
           setSubMenu={setSubMenuContent}
@@ -92,7 +90,7 @@ const HeadNavigation = ({onMenuOpenChange}) => {
           visibility: subMenuOpacity.interpolate(o => o > 0.3 ? 'visible' : 'hidden'),
           height: subMenuHeight
         }}
-        className={styles[isDarkTheme ? 'subMenuContainerDark' : 'subMenuContainer']}
+        className={styles.subMenuContainer}
         onMouseLeave={e => closeMenu(e)}
       >
         <div ref={bindResizeObserver} submenupersist="1">

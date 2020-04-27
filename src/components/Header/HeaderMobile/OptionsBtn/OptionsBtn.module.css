@@ -10,12 +10,13 @@
 
   display: flex;
   justify-content: center;
-
   
   outline: none;
 }
 
-.btn > div {
+.darkBtn { composes: btn; }
+
+.dot {
   width: var(--mobile-menu-options-dot-diameter);
   height: var(--mobile-menu-options-dot-diameter);
 
@@ -25,6 +26,10 @@
   position: absolute;
 }
 
-.btn > div:nth-child(1) {top: 0; transform: rotate(-45deg);}
-.btn > div:nth-child(2) {top: calc(50% - var(--mobile-menu-options-dot-diameter) / 2);}
-.btn > div:nth-child(3) {bottom: 0; transform: rotate(45deg);}
+.darkBtn .dot {
+  background-color: lightgray;
+}
+
+.dot:nth-child(1) {top: 0; transform: rotate(-45deg);}
+.dot:nth-child(2) {top: calc(50% - var(--mobile-menu-options-dot-diameter) / 2);}
+.dot:nth-child(3) {bottom: 0; transform: rotate(45deg);}

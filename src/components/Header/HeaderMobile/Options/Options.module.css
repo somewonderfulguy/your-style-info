@@ -1,8 +1,8 @@
 .optionsContainer {
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, .95);
-  border-bottom: 1px lightgray solid;
+  background-color: rgba(var(--primaryBackground), .95);
+  border-bottom: 1px rgb(var(--primaryBorder)) solid;
   z-index: 2;
   padding: 15px 25px;
 }
@@ -12,6 +12,7 @@
   font-size: 15px;
   margin-bottom: 13px;
   margin-left: 3px;
+  color: rgba(var(--primaryColor), .9);
 }
 
 .langTxt {

@@ -29,7 +29,7 @@
   bottom: 0;
 
   border-radius: 34px;
-  background-color: var(--monochrome1);
+  background-color: #636363;
   opacity: .6;
   transition: 200ms;
 }

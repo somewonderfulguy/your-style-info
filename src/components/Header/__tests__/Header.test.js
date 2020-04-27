@@ -2,6 +2,8 @@ import React from 'react'
 import {render} from '@testing-library/react'
 
 import {ScreenWidthContext} from 'ApplicationNode'
+// TODO move contexts setup to global if possible
+import {ThemeProvider} from 'helpers/contexts'
 import Header, {BOUNDARY} from '../Header'
 import {isIpad as mockIsIpad} from 'utils'
 
@@ -11,13 +13,30 @@ jest.mock('utils')
 
 afterEach(() => jest.clearAllMocks())
 
+// TODO move to global
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
+
 const HEADER_DESKTOP = 'header-desktop'
 const HEADER_MOBILE = 'header-mobile'
 
 const renderHeader = value => render(
-  <ScreenWidthContext.Provider value={value}>
-    <Header />
-  </ScreenWidthContext.Provider>
+  <ThemeProvider>
+    <ScreenWidthContext.Provider value={value}>
+      <Header />
+    </ScreenWidthContext.Provider>
+  </ThemeProvider>
 )
 
 test(`should render desktop menu if screen wider than ${BOUNDARY}px and device is not iPad`, () => {

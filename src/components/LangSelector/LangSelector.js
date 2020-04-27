@@ -1,42 +1,46 @@
 import React, {useRef, useState} from 'react'
-import {bool, oneOf} from 'prop-types'
+import {bool} from 'prop-types'
 
+import {useTheme} from 'helpers/contexts'
 import {useOutsideClick} from 'helpers/hooks'
 import {LanguageIcon} from 'assets/images'
 import styles from './LangSelector.module.css'
 
 const propTypes = {
   showAbove: bool,
-  color: oneOf(['gray', 'black'])
+  gray: bool
 }
 
 const defaultProps = {
   showAbove: false,
-  color: 'black'
+  gray: false
 }
 
-const COLORS = new Map([
-  ['gray', '#696969'],
-  ['black', '#000']
-])
-
-// TODO: add gray colour for footer
-const LangSelector = ({showAbove, color}) => {
+const LangSelector = ({showAbove, gray}) => {
+  const {isDarkTheme} = useTheme()
   const langSelectorRef = useRef(null)
   const menuRef = useRef(null)
 
   const [isOpen, setOpen] = useState(false)
 
+  // TODO !!!! Already have this, improve !!!!
   useOutsideClick(langSelectorRef, () => setOpen(false))
+
+  const langSelectorClass = isDarkTheme ? styles.langSelectorDark : styles.langSelector
+  const grayClass = gray ? styles.gray : ''
 
   const triangleClass = showAbove
     ? (isOpen ? styles.triangle : styles.triangleReverse)
     : (isOpen ? styles.triangleReverse : styles.triangle)
 
   return (
-    <div ref={langSelectorRef} onClick={() => setOpen(isOpen => !isOpen)} className={styles.langSelector}>
-      <button className={styles.langSelectorInner} style={{color: COLORS.get(color)}} type="button">
-        <LanguageIcon width={20} height={20} fill="#696969" className={styles.icon} />
+    <div
+      ref={langSelectorRef}
+      onClick={() => setOpen(isOpen => !isOpen)}
+      className={`${langSelectorClass} ${grayClass}`}
+    >
+      <button className={styles.langSelectorInner} type="button">
+        <LanguageIcon width={20} height={20} className={styles.icon} />
         <span>English</span>
         <div className={triangleClass} />
       </button>

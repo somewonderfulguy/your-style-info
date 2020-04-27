@@ -27,6 +27,12 @@
   display: inline-block;
 }
 
+.activeItem {
+  composes: link;
+  font-weight: 600;
+  color: rgb(var(--primaryColor));
+}
+
 .heightFill {
   height: var(--menu-thumbs-size);
 }

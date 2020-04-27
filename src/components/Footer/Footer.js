@@ -12,7 +12,7 @@ const Footer = () => (
       <FooterNavigation />
       <div className={styles.iconsContainer}>
         <div className={styles.langContainer}>
-          <LangSelector color="gray" showAbove />
+          <LangSelector gray showAbove />
         </div>
         <SocialMediaIcons />
         <div className={styles.themeSwitcherContainer}>

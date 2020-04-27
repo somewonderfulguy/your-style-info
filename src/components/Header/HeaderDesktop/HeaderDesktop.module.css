@@ -42,6 +42,7 @@
   left: 0;
   right: 0;
   background-color: rgba(var(--primaryBackground), .95);
+  transition-duration: .2s;
 }
 
 .fixedNavContainer {

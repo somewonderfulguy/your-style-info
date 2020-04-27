@@ -2,6 +2,7 @@ import React, {memo, useRef} from 'react'
 import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
+import {useTheme} from 'helpers/contexts'
 import styles from './HamburgerIcon.module.css'
 
 const propTypes = {
@@ -15,11 +16,12 @@ const defaultProps = {
 }
 
 const HamburgerIcon = ({isOpen, onClick}) => {
+  const {isDarkTheme} = useTheme()
   const hamburgerDOM = useRef(null)
   const hamburgerHeight = hamburgerDOM.current ? hamburgerDOM.current.clientHeight : 0
   const lineHeight = hamburgerDOM.current ? hamburgerDOM.current.querySelector('div').clientHeight : 0
   const middlePosition = hamburgerHeight / 2 - lineHeight / 2
-  const lineColor = getComputedStyle(document.documentElement).getPropertyValue('--mobile-menu-hamburger-color')
+  const lineColor = isDarkTheme ? 'lightgray' : '#000'
 
   const {timeline} = useSpring({
     config: {duration: 350},
@@ -43,7 +45,12 @@ const HamburgerIcon = ({isOpen, onClick}) => {
   }
 
   return (
-    <button ref={hamburgerDOM} onClick={onClick} className={styles.hamburger} type="button">
+    <button
+      ref={hamburgerDOM}
+      onClick={onClick}
+      className={styles[isDarkTheme ? 'hamburgerDark' : 'hamburger']}
+      type="button"
+    >
       <animated.div style={topLine} />
       <animated.div style={midLine} />
       <animated.div style={bottomLine} />
