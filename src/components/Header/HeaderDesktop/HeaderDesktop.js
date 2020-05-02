@@ -81,6 +81,8 @@ const HeaderDesktop = () => {
           top: isFixed ? menuTop : 'initial'
         }}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}
+        onMouseEnter={() => setPersistRootMenu(true)}
+        onMouseLeave={() => setPersistRootMenu(false)}
       >
         <HeadNavigationDesktop setRootMenuOpen={setRootMenuOpen} setPersistRootMenu={setPersistRootMenu} />
       </animated.nav>
