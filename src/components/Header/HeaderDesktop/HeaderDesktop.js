@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 import {useTranslation} from 'react-i18next'
 
-import {useScreenDimensions} from 'contexts'
 import {useAnimatedAppearing} from './hooks'
 import {useStickyNavBar} from '../hooks'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
@@ -12,9 +11,6 @@ import SocialMediaIcons from '../../SocialMediaIcons'
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {
-  // TODO Weeeeeeeird, the component is Desktop by definition
-  const {screenWidth} = useScreenDimensions()
-  const isDesktop = screenWidth > 1024
   const {t} = useTranslation('', {useSuspense: false})
   const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
@@ -27,10 +23,9 @@ const HeaderDesktop = () => {
   const navbarHeight = navBarDOM.current && (navBarDOM.current.offsetHeight || 0)
   const [navBarTopLine, setNavBarTopLine] = useState(0)
 
-  // TODO Weeeeeeeird, the component is Desktop by definition
   useEffect(() => {
     setNavBarTopLine(headerDOM.current && headerDOM.current.offsetHeight)
-  }, [isDesktop, setNavBarTopLine])
+  }, [setNavBarTopLine])
 
   const {isFixed, isShown} = useStickyNavBar(navBarTopLine + (isMenuOpen ? 0 : navbarHeight), navBarTopLine)
 
