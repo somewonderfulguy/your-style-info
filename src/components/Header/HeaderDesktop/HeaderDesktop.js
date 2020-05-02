@@ -74,8 +74,6 @@ const HeaderDesktop = () => {
         </div>
       </div>
 
-      {console.log(persistRootMenu)}
-
       <animated.nav
         ref={navBarDOM}
         style={{
