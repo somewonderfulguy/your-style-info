@@ -1,7 +1,7 @@
 import React from 'react'
 
-import LinkExtended from '../../LinkExtended'
-import {PRIME_ROUTES} from '../../../constants'
+import LinkExtended from 'components/LinkExtended'
+import {PRIME_ROUTES} from 'constants/index'
 import styles from './FooterNavigation.module.css'
 
 const FooterNavigation = () => (

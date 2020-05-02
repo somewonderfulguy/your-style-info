@@ -1,9 +1,9 @@
 import React from 'react'
 
 import FooterNavigation from './FooterNavigation'
-import DarkThemeSwitcher from '../DarkThemeSwitcher'
-import LangSelector from '../LangSelector'
-import SocialMediaIcons from '../SocialMediaIcons'
+import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
+import LangSelector from 'components/LangSelector'
+import SocialMediaIcons from 'components/SocialMediaIcons'
 import styles from './Footer.module.css'
 
 const Footer = () => (

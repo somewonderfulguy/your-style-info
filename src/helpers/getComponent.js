@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Image from '../components/Image'
-import TextBlock from '../components/TextBlock'
+import Image from 'components/Image'
+import TextBlock from 'components/TextBlock'
 
 export const getComponent = (type, props, idx) => {
   switch(type) {

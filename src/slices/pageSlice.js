@@ -1,6 +1,6 @@
 import {createSlice} from 'redux-starter-kit'
 
-import {getPageData} from '../api'
+import {getPageData} from 'api'
 
 const initialState = {
   header: '',

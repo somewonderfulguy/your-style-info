@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {array, func, shape, string} from 'prop-types'
 
-import {componentRenderer} from '../../helpers'
+import {componentRenderer} from 'helpers'
 import styles from './Page.module.css'
 
 const propTypes = {

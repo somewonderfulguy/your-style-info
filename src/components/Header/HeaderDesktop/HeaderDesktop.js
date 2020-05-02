@@ -5,9 +5,9 @@ import {useTranslation} from 'react-i18next'
 import {useAnimatedAppearing} from './hooks'
 import {useStickyNavBar} from '../hooks'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
-import DarkThemeSwitcher from '../../DarkThemeSwitcher'
-import LangSelector from '../../LangSelector'
-import SocialMediaIcons from '../../SocialMediaIcons'
+import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
+import LangSelector from 'components/LangSelector'
+import SocialMediaIcons from 'components/SocialMediaIcons'
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {
