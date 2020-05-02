@@ -10,18 +10,22 @@ const propTypes = {
   setSubMenu: func.isRequired,
   activeMenuItem: string,
   setActiveMenuItem: func,
-  clearActiveMenuItem: func
+  clearActiveMenuItem: func,
+  setRootMenuOpen: func
 }
 
 const defaultProps = {
   activeMenuItem: null,
   setActiveMenuItem: () => {},
-  clearActiveMenuItem: () => {}
+  clearActiveMenuItem: () => {},
+  setRootMenuOpen: () => {}
 }
 
-const RootMenu = ({setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem}) => (
+const RootMenu = ({
+  setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen
+}) => (
   <ul className={styles.list}>
-    {Object.entries(PRIME_ROUTES).map(([path, {name, sub, inactive, thumbnail}]) => (
+    {Object.entries(PRIME_ROUTES).map(([path, {name, sub, inactive, thumbnail}], i) => (
       <li
         className={
           inactive
@@ -53,6 +57,7 @@ const RootMenu = ({setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem,
           activeClassName={styles.activeLink}
           inactive={inactive}
           submenupersist={sub ? 1 : 0}
+          onFocus={() => setRootMenuOpen(true)}
         >
           {name}
         </LinkExtended>

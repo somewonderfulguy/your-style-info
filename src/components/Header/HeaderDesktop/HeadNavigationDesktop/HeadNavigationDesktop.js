@@ -19,10 +19,17 @@ const openMenuReducer = (state, action) => ({
   openNowAndBefore: state.isOpen && action
 })
 
-const propTypes = {onMenuOpenChange: func}
-const defaultProps = {onMenuOpenChange: () => {}}
+const propTypes = {
+  setRootMenuOpen: func,
+  setPersistRootMenu: func
+}
 
-const HeadNavigation = ({onMenuOpenChange}) => {
+const defaultProps = {
+  setRootMenuOpen: () => {},
+  setPersistRootMenu: () => {}
+}
+
+const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
   const [subMenuContent, setSubMenuContent] = useState({
@@ -32,8 +39,8 @@ const HeadNavigation = ({onMenuOpenChange}) => {
   })
 
   useEffect(() => {
-    onMenuOpenChange(openMenuState.isOpen)
-  }, [onMenuOpenChange, openMenuState.isOpen])
+    setPersistRootMenu(openMenuState.isOpen)
+  }, [setPersistRootMenu, openMenuState.isOpen])
 
   const [activeMenuItem, setActiveMenuItem] = useState(null)
   const clearActiveMenuItem = useCallback(() => setActiveMenuItem(null), [])
@@ -78,9 +85,10 @@ const HeadNavigation = ({onMenuOpenChange}) => {
           activeMenuItem={activeMenuItem}
           setActiveMenuItem={setActiveMenuItem}
           clearActiveMenuItem={clearActiveMenuItem}
+          setRootMenuOpen={setRootMenuOpen}
         />
 
-        {/* MS Edge fix - absolutely positioned bottom border */}
+        {/* MS Edge fix - absolutely positioned bottom border */} {/* FIXME seems like it fixes nothing */}
         <div className={styles.borderBottom} submenupersist="1" onMouseLeave={e => closeMenu(e)} />
       </div>
 
