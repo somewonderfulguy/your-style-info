@@ -2,7 +2,7 @@
 // TODO move the component to /components folder
 import {connect} from 'react-redux'
 
-import Page from 'pages/Page'
+import Page from 'components/Page'
 import {pageSlice} from 'slices'
 
 const mapStateToProps = ({pageSlice}) => ({

@@ -3,7 +3,7 @@ import {Provider} from 'react-redux'
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 
 import Header from 'components/Header'
-import PageContainer from 'containers/PageContainer'
+import PageContainer from 'components/PageContainer'
 import Footer from 'components/Footer'
 import withContext from './withContext'
 import store from 'services/store'
