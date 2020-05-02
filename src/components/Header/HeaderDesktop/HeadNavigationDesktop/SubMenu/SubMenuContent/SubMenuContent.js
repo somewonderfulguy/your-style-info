@@ -4,7 +4,7 @@ import {animated, useTransition} from 'react-spring'
 
 import LinkExtended from 'components/LinkExtended'
 import {usePrevious} from 'helpers/hooks'
-import {useTheme} from 'helpers/contexts'
+import {useTheme} from 'contexts'
 import styles from './SubMenuContent.module.css'
 
 const propTypes = {

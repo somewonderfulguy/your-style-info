@@ -1,4 +1,5 @@
-// TODO replace redux with react context, move the component to /components folder
+// TODO replace redux with react context
+// TODO move the component to /components folder
 import {connect} from 'react-redux'
 
 import Page from '../../pages/Page'

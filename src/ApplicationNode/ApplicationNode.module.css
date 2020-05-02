@@ -11,7 +11,7 @@
   --deepDarkGray: 32, 35, 38;
 }
 
-.ThemeWrapper {
+.themeWrapper {
   display: grid;
   min-height: 100%;
   grid-template-rows: auto 1fr auto;
@@ -28,20 +28,20 @@
   transition: background-color .2s, color .2s;
 }
 
-.ThemeWrapper * {
+.themeWrapper * {
   border-color: rgb(var(--primaryBorder));
 }
 
-.ThemeWrapperDarkMode {
+.themeWrapperDarkMode {
   --primaryBackground: var(--deepDarkGray);
   --primaryColor: var(--white);
   --primaryBorder: var(--darkGray);
   --primaryDisabled: var(--darkGray);
   --primaryHoverHighlight: var(--deepGray);
 
-  composes: ThemeWrapper;
+  composes: themeWrapper;
 }
 
-.ThemeWrapperDarkMode * {
+.themeWrapperDarkMode * {
   border-color: rgb(var(--primaryBorder));
 }

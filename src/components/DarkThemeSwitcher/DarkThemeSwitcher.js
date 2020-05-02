@@ -1,7 +1,7 @@
 import React from 'react'
 import {bool} from 'prop-types'
 
-import {useTheme} from 'helpers/contexts'
+import {useTheme} from 'contexts'
 import moonIcon from 'assets/images/moon.svg'
 import sunIcon from 'assets/images/sun.svg'
 import styles from './DarkThemeSwitcher.module.css'

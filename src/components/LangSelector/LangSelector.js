@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import {bool} from 'prop-types'
 
-import {useTheme} from 'helpers/contexts'
+import {useTheme} from 'contexts'
 import {useOutsideClick} from 'helpers/hooks'
 import {LanguageIcon} from 'assets/images'
 import styles from './LangSelector.module.css'

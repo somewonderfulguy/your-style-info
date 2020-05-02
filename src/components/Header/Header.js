@@ -1,6 +1,6 @@
-import React, {useContext} from 'react'
+import React from 'react'
 
-import {ScreenWidthContext} from 'ApplicationNode'
+import {useScreenDimensions} from 'contexts'
 import {isIpad} from 'utils'
 import HeaderDesktop from './HeaderDesktop'
 import HeaderMobile from './HeaderMobile'
@@ -8,7 +8,8 @@ import HeaderMobile from './HeaderMobile'
 export const BOUNDARY = 1024
 
 const Header = () => {
-  const isDesktop = useContext(ScreenWidthContext) > BOUNDARY
+  const {screenWidth} = useScreenDimensions()
+  const isDesktop = screenWidth > BOUNDARY
 
   return (isDesktop && !isIpad())
     ? <HeaderDesktop />

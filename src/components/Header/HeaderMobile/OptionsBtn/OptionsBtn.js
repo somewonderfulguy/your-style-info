@@ -2,7 +2,7 @@ import React, {useRef} from 'react'
 import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
-import {useTheme} from 'helpers/contexts'
+import {useTheme} from 'contexts'
 import styles from './OptionsBtn.module.css'
 
 const propTypes = {

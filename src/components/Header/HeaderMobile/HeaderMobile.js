@@ -1,6 +1,7 @@
 import React, {useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
+import {useHeaderHeight} from 'contexts'
 import {useForceUpdate} from 'helpers/hooks'
 import {useStickyNavBar} from '../hooks'
 import {useAnimatedAppearing} from './hooks'
@@ -11,6 +12,7 @@ import OptionsBtn from './OptionsBtn'
 import styles from './HeaderMobile.module.css'
 
 const Header = () => {
+  const {setHeaderHeight} = useHeaderHeight()
   const [isMenuOpen, setMenuOpen] = useState(false)
   const [isOptionsOpen, setOptionsOpen] = useState(false)
 
@@ -24,9 +26,9 @@ const Header = () => {
   useEffect(() => void forceUpdate(), [forceUpdate])
 
   useEffect(() => {
-    document.body.style.marginTop = headerHeight + 'px'
-    return () => document.body.style.marginTop = ''
-  }, [headerHeight])
+    setHeaderHeight(headerHeight)
+    return () => setHeaderHeight(0)
+  }, [headerHeight, setHeaderHeight])
 
   const {isFixed, isShown, isScrollDown} = useStickyNavBar(headerHeight)
 
