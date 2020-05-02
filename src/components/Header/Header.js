@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {useScreenDimensions} from 'contexts'
-import {isIpad} from 'utils'
+import {isIpad} from 'shared/utils'
 import HeaderDesktop from './HeaderDesktop'
 import HeaderMobile from './HeaderMobile'
 

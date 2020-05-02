@@ -5,7 +5,7 @@ import {animateScroll as scroll} from 'react-scroll'
 
 //TODO maybe later set duration based on scroll position
 import {SCROLL_TOP_DURATION} from 'constants/index'
-import {debounce} from 'utils/debounce'
+import {debounce} from 'shared/utils'
 
 const propTypes = {
   activeClassName: string,

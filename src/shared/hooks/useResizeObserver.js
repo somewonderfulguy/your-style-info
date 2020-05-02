@@ -1,6 +1,6 @@
 import {useRef, useState, useEffect} from 'react'
 
-import {debounce} from 'utils/debounce'
+import {debounce} from 'shared/utils'
 
 export function useResizeObserver(delay = 0) {
   const elemRef = useRef(null)

@@ -3,7 +3,7 @@ import {bool, object, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
 import LinkExtended from 'components/LinkExtended'
-import {usePrevious} from 'helpers/hooks'
+import {usePrevious} from 'shared/hooks'
 import {useTheme} from 'contexts'
 import styles from './SubMenuContent.module.css'
 

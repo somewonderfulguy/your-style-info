@@ -2,7 +2,7 @@ import React, {useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
 import {useHeaderHeight} from 'contexts'
-import {useForceUpdate} from 'helpers/hooks'
+import {useForceUpdate} from 'shared/hooks'
 import {useStickyNavBar} from '../hooks'
 import {useAnimatedAppearing} from './hooks'
 import HamburgerIcon from './HamburgerIcon'

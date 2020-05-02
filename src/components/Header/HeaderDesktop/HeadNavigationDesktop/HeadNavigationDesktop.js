@@ -5,8 +5,8 @@ import {animated, useSpring} from 'react-spring'
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
 import {ROOT_MENU_THUMBS} from 'constants/index'
-import {imgPreload} from 'utils'
-import {useResizeObserver} from 'helpers/hooks'
+import {imgPreload} from 'shared/utils'
+import {useResizeObserver} from 'shared/hooks'
 import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {

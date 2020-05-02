@@ -3,11 +3,11 @@ import {render} from '@testing-library/react'
 
 import * as mockContexts from 'contexts/screenDimensionsContext'
 import Header, {BOUNDARY} from '../Header'
-import {isIpad as mockIsIpad} from 'utils'
+import {isIpad as mockIsIpad} from 'shared/utils'
 
 jest.mock('../HeaderDesktop', () => () => 'header-desktop')
 jest.mock('../HeaderMobile', () => () => 'header-mobile')
-jest.mock('utils')
+jest.mock('shared/utils')
 
 beforeEach(() => mockContexts.useScreenDimensions = jest.fn())
 afterEach(() => jest.clearAllMocks())

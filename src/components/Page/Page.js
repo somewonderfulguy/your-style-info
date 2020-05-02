@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react'
 import {array, func, shape, string} from 'prop-types'
 
-import {componentRenderer} from 'helpers'
+// TODO componentRenderer should be colocated
+import {componentRenderer} from 'shared'
 import styles from './Page.module.css'
 
 const propTypes = {
