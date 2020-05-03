@@ -5,6 +5,7 @@
   border-bottom: 1px rgb(var(--primaryBorder)) solid;
   z-index: 1500;
   padding: 15px 25px;
+  transition: background-color .2s;
 }
 
 .langBtn {
@@ -13,6 +14,7 @@
   margin-bottom: 13px;
   margin-left: 3px;
   color: rgba(var(--primaryColor), .9);
+  transition: color .2s;
 }
 
 .langTxt {

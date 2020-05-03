@@ -9,13 +9,16 @@
   align-items: center;
   grid-auto-flow: dense;
   background-color: rgba(var(--primaryBackground), .95);
-  z-index: 3;
+  transition: background-color .2s;
+  z-index: 2000;
 }
 
 .title {
   font-family: 'Inconsolata', monospace;
   text-transform: uppercase;
   margin: 0;
+  color: rgb(var(--primaryColor));
+  transition: color .2s;
 }
 
 .hamburgerContainer {
