@@ -46,7 +46,7 @@
   width: 21px;
   left: 3px;
   bottom: 2px;
-  transition: transform 400ms, background-image 200ms, background-color 200ms;
+  transition: transform 400ms, opacity 200ms, background-color 200ms;
   border-radius: 50%;
 
   background-color: white;

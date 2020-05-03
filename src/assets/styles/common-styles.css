@@ -15,6 +15,10 @@ body {
 }
 
 #root {
+  display: grid;
+  min-height: 100%;
+  grid-template-rows: auto 1fr auto;
+
   /* Screens wider than 1920px are not supported. At least for now. */
   width: 100%;
   max-width: 1920px;

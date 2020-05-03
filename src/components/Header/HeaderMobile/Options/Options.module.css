@@ -3,7 +3,7 @@
   right: 0;
   background-color: rgba(var(--primaryBackground), .95);
   border-bottom: 1px rgb(var(--primaryBorder)) solid;
-  z-index: 2;
+  z-index: 1500;
   padding: 15px 25px;
 }
 

@@ -44,7 +44,8 @@ const Header = () => {
   const menuHeight = headerHeight - (isFixed ? 1 : 0) || 0
 
   return (
-    <>
+    // keep it in single element (not Fragment) to make css-grid works
+    <div>
       <animated.header
         ref={headerDOM}
         className={styles.header}
@@ -78,7 +79,7 @@ const Header = () => {
         isScrollDown={isScrollDown}
         headerTop={headerTop}
       />
-    </>
+    </div>
   )
 }
 

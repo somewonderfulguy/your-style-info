@@ -28,8 +28,8 @@ const ThemeProvider = props => {
   useEffect(() => {
     const mediaQuery = window.matchMedia(preferDarkQuery)
     const handleChange = () => setDarkTheme(mediaQuery.matches ? true : false)
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
+    mediaQuery.addListener(handleChange)
+    return () => mediaQuery.removeListener(handleChange)
   }, [])
 
   useEffect(() => {

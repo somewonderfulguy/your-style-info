@@ -12,10 +12,6 @@
 }
 
 .themeWrapper {
-  display: grid;
-  min-height: 100%;
-  grid-template-rows: auto 1fr auto;
-
   --primaryBackground: var(--white);
   --primaryColor: var(--black);
   --primaryBorder: var(--gray);
