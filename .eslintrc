@@ -1,5 +1,8 @@
 {
-  "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["jest"],
+  "extends": [
+    "react-app", "eslint:recommended", "plugin:react/recommended", "plugin:jest/style", "plugin:jest/recommended"
+  ],
   "rules": {
     "strict": ["error", "never"],
 
@@ -76,12 +79,27 @@
       "assignment": "parens-new-line",
       "return": "parens-new-line",
       "arrow": "parens-new-line",
-      "condtion": "parens-new-line",
+      "condition": "parens-new-line",
       "logical": "parens-new-line",
       "prop": "parens-new-line"
     }],
     "react/self-closing-comp": ["error", {"component": true, "html": true}],
     "react/jsx-no-bind": ["error", {"allowArrowFunctions": true}],
-    "react/no-children-prop": "off"
-  }
+    "react/no-children-prop": "off",
+
+    // Tests
+    "jest/prefer-spy-on": "warn",
+    "jest/no-deprecated-functions": "error",
+    "jest/prefer-called-with": "error",
+    "jest/prefer-todo": "error",
+    "jest/valid-title": "error"
+  },
+  "overrides": [
+    {
+      "files": "*.test.js",
+      "rules": {
+        "react/display-name": 0
+      }
+    }
+  ]
 }

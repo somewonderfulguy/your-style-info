@@ -9,7 +9,7 @@ jest.mock('../HeaderDesktop', () => () => 'header-desktop')
 jest.mock('../HeaderMobile', () => () => 'header-mobile')
 jest.mock('shared/utils')
 
-beforeEach(() => mockContexts.useScreenDimensions = jest.fn())
+beforeEach(() => jest.spyOn(mockContexts, 'useScreenDimensions'))
 afterEach(() => jest.clearAllMocks())
 
 const HEADER_DESKTOP = 'header-desktop'
