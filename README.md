@@ -2,21 +2,26 @@
 
 Index files are for exports __ONLY__!<br>
 Name of a component === name of file which contains the component.
-<br>
-
-`helpers` ─ folder for code snippets very dependent on the application architecture and therefore `helpers` contains `hooks`.<br>
-`utils` ─ folder for small functions, project independent.<br>
-<br>
+<br><br>
 
 # Styles
 CSS Modules are used for styles.
 <br><br>
 
 # Testing
+## Hooks
+- __Husky pre-commit hook__ - every time one's committing its changes, it will be lint checked first.
+- __Husky pre-push hook__ - every time one's pushing its changes, it will be tested first.
 ## Static
 - __ESLint__ - there's a lot of rules in `.eslint` I calibrated for my own preferences. One's might freak out seeing this. I'd like to stress, this is code style of my own preference. In real world projects with teams I ajust myself to the rules defined in each projects.
-- __Husky pre-commit hook__ - every time one's commit its changes, it will be lint checked first.
-- __Husky pre-push hook__ - every time one's push its changes, it will be tested first.
+- No __TypeScript__ or __Flow__ - only `prop-types` as mandatory.
+## Unit and Integration
+- __Jest__ - testing framework.
+    <br>
+    Libs, and plugins for jest:
+    - `eslint-plugin-jest` - ESLint for Jest.
+    - [`snapshot-diff`](https://github.com/jest-community/snapshot-diff) - diffing snapshot utility. Takes two values, and return their difference as a string, ready to be snapshotted with `toMatchSnapshot()`.
+- __React Testing Library__ - React DOM testing utilities.
 <br><br>
  
 ---
