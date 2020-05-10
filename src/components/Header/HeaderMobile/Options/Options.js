@@ -4,6 +4,7 @@ import {useSpring, animated, config} from 'react-spring'
 
 import {LanguageIcon} from 'assets/images'
 import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
+import {useOutsideClick} from 'shared/hooks'
 import styles from './Options.module.css'
 
 const propTypes = {
@@ -21,16 +22,6 @@ const defaultProps = {
   setOptionsOpen: () => {},
   isFixed: false,
   isScrollDown: false
-}
-
-const useClickOutside = (ref, cb) => {
-  useEffect(() => {
-    const handleClickOutside = event => {
-      if(ref.current && !ref.current.contains(event.target)) {cb()}
-    }
-    document.addEventListener('click', handleClickOutside, false)
-    return () => document.removeEventListener('click', handleClickOutside, false)
-  }, [ref, cb])
 }
 
 const useScroll = cb => {
@@ -65,7 +56,7 @@ const Options = ({isOpen, menuHeight, setOptionsOpen, isFixed, isScrollDown, hea
     isOpen && setOptionsOpen(false)
   }, [isOpen, setOptionsOpen])
 
-  useClickOutside(optionsRef, closingCallback)
+  useOutsideClick(optionsRef, closingCallback)
   useScroll(closingCallback)
 
   return (

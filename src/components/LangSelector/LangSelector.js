@@ -23,7 +23,6 @@ const LangSelector = ({showAbove, gray}) => {
 
   const [isOpen, setOpen] = useState(false)
 
-  // TODO !!!! Already have this, improve !!!!
   useOutsideClick(langSelectorRef, () => setOpen(false))
 
   const langSelectorClass = isDarkTheme ? styles.langSelectorDark : styles.langSelector
