@@ -31,29 +31,26 @@ test('snapshot diff: dropdown above/below, default/gray colour, light/dark mode'
   })
 })
 
-// TODO update prop! and combine two test in one
-test('snapshot diff: aria state and css-class of triangle when open/hidden menu', () => {
-  const { getByLabelText, asFragment } = setup()
-  const beforeClick = asFragment()
-  fireEvent.click(getByLabelText('Switch language'))
-
-  expect(beforeClick).toMatchDiffSnapshot(asFragment(), {
+test('snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff)', () => {
+  const diffSnapshotOptions = {
     contextLines: 1,
     aAnnotation: 'collapsed menu',
     bAnnotation: 'expanded menu'
-  })
-})
+  }
 
-test('snapshot diff: css-class of triangle when open/hide menu, preset: showing menu above the language selector (drop-up)', () => {
-  const { getByLabelText, asFragment } = setup(true)
+  const { getByLabelText, asFragment, rerender } = setup()
   const beforeClick = asFragment()
-  fireEvent.click(getByLabelText('Switch language'))
+  const switchLanguageBtn = getByLabelText('Switch language')
 
-  expect(beforeClick).toMatchDiffSnapshot(asFragment(), {
-    contextLines: 1,
-    aAnnotation: 'collapsed menu',
-    bAnnotation: 'expanded menu'
-  })
+  fireEvent.click(switchLanguageBtn)
+  expect(beforeClick).toMatchDiffSnapshot(asFragment(), diffSnapshotOptions)
+
+  fireEvent.click(switchLanguageBtn)
+  rerender(<LangSelector showAbove />)
+
+  const beforeClickShowAbove = asFragment()
+  fireEvent.click(switchLanguageBtn)
+  expect(beforeClickShowAbove).toMatchDiffSnapshot(asFragment(), diffSnapshotOptions)
 })
 
 test('should show/hide menu when clicking on language selector', () => {

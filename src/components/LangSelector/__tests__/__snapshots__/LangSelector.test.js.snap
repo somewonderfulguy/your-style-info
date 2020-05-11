@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu 1`] = `
+exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff) 1`] = `
 Snapshot Diff:
 - collapsed menu
 + expanded menu
@@ -18,7 +18,7 @@ Snapshot Diff:
       </button>
 `;
 
-exports[`snapshot diff: css-class of triangle when open/hide menu, preset: showing menu above the language selector (drop-up) 1`] = `
+exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff) 2`] = `
 Snapshot Diff:
 - collapsed menu
 + expanded menu
