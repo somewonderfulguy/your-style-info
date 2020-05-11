@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer"
+  >
+    <div
+      class="layout"
+    >
+      MockFooterNavigation
+      <div
+        class="iconsContainer"
+      >
+        <div
+          class="langContainer"
+        >
+          MockLangSelector
+        </div>
+        MockSocialMediaIcons
+        <div
+          class="themeSwitcherContainer"
+        >
+          MockDarkThemeSwitcher
+        </div>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;
