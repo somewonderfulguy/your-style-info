@@ -3,7 +3,6 @@ import {any, arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-typ
 import {withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
-//TODO maybe later set duration based on scroll position
 import {SCROLL_TOP_DURATION} from 'constants/index'
 import {debounce} from 'shared/utils'
 
@@ -29,7 +28,6 @@ const defaultProps = {
   to: '/'
 }
 
-// TODO the scroll event as well as route changing must happen after content loaded - refactor later
 const LinkExtended = ({
   history,
   activeClassName,

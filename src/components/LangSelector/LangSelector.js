@@ -35,19 +35,30 @@ const LangSelector = ({showAbove, gray}) => {
   return (
     <div
       ref={langSelectorRef}
-      onClick={() => setOpen(isOpen => !isOpen)}
       className={`${langSelectorClass} ${grayClass}`}
     >
-      <button className={styles.langSelectorInner} type="button">
+      <button
+        onClick={() => setOpen(isOpen => !isOpen)}
+        className={styles.langSelectorInner}
+        type="button"
+        // TODO switch label depending on language
+        aria-label="Switch language"
+        aria-expanded={isOpen}
+      >
         <LanguageIcon width={20} height={20} className={styles.icon} />
         <span>English</span>
         <div className={triangleClass} />
       </button>
 
       {isOpen && (
-        <ul ref={menuRef} className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}>
-          <li><button type="button" disabled>English</button></li>
-          <li><button type="button">Русский</button></li>
+        <ul
+          ref={menuRef}
+          className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}
+          aria-label="Available languages"
+          data-testid="language-list"
+        >
+          <li><button onClick={() => setOpen(false)} type="button" disabled>English</button></li>
+          <li><button onClick={() => setOpen(false)} type="button">Русский</button></li>
         </ul>
       )}
     </div>
