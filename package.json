@@ -58,7 +58,8 @@
   "jest": {
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.js",
-      "!<rootDir>/src/assets/**"
+      "!<rootDir>/src/assets/**",
+      "!<rootDir>/src/constants/**"
     ]
   }
 }
