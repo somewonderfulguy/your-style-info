@@ -61,7 +61,8 @@
       "!<rootDir>/src/api/**",
       "!<rootDir>/src/ApplicationNode/**",
       "!<rootDir>/src/assets/**",
-      "!<rootDir>/src/constants/**"
+      "!<rootDir>/src/constants/**",
+      "!<rootDir>/src/services/**"
     ]
   }
 }
