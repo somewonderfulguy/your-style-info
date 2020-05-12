@@ -1,4 +1,3 @@
-// TODO very fake is meant to be replaced with real one. Someday
 import Promise from 'bluebird'
 
 const pagePathPair = new Map([
