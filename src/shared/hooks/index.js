@@ -1,4 +1,3 @@
-export * from './useForceUpdate'
 export * from './useOutsideClick'
 export * from './usePrevious'
 export * from './useResizeObserver'

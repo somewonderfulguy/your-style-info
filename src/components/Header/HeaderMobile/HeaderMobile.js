@@ -2,7 +2,6 @@ import React, {useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
 import {useHeaderHeight} from 'contexts'
-import {useForceUpdate} from 'shared/hooks'
 import {useStickyNavBar} from '../hooks'
 import {useAnimatedAppearing} from './hooks'
 import HamburgerIcon from './HamburgerIcon'
@@ -18,12 +17,8 @@ const Header = () => {
 
   const {appearingSpring} = useAnimatedAppearing()
 
-  const headerDOM = useRef(null)
+  const headerDOM = useRef()
   const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
-
-  // forcing update on first render to make headerHeight not null
-  const forceUpdate = useForceUpdate()
-  useEffect(() => void forceUpdate(), [forceUpdate])
 
   useEffect(() => {
     setHeaderHeight(headerHeight)
