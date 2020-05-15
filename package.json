@@ -64,7 +64,8 @@
       "!<rootDir>/src/ApplicationNode/**",
       "!<rootDir>/src/assets/**",
       "!<rootDir>/src/constants/**",
-      "!<rootDir>/src/services/**"
+      "!<rootDir>/src/services/**",
+      "!<rootDir>/**/useResizeObserver.js"
     ]
   }
 }
