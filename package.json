@@ -60,6 +60,7 @@
   "jest": {
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.js",
+      "!<rootDir>/src/index.js",
       "!<rootDir>/src/api/**",
       "!<rootDir>/src/ApplicationNode/**",
       "!<rootDir>/src/assets/**",
