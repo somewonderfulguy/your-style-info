@@ -1,8 +1,8 @@
-# File structure
+# Description
+TODO: add description
 
-Index files are for exports __ONLY__!<br>
-Name of a component === name of file which contains the component.
-<br><br>
+# Quick start
+TODO: add quick start
 
 # Styles
 CSS Modules are used for styles.
@@ -11,7 +11,7 @@ CSS Modules are used for styles.
 # Testing
 ## Hooks
 - __Husky pre-commit hook__ - every time one's committing its changes, it will be lint checked first.
-- __Husky pre-push hook__ - every time one's pushing its changes, it will be tested first.
+- __Husky pre-push hook__ - every time one's pushing its changes, it will be tested first with coverage threshold check.
 ## Static
 - __ESLint__ - there's a lot of rules in `.eslint` I calibrated for my own preferences. One's might freak out seeing this. I'd like to stress, this is code style of my own preference. In real world projects with teams I ajust myself to the rules defined in each projects.
 - No __TypeScript__ or __Flow__ - only `prop-types` as mandatory.
