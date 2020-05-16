@@ -1,11 +1,13 @@
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 
+export const ERROR_THEME = 'useTheme must be used within a ThemeProvider'
+
 const ThemeContext = createContext()
 
 const useTheme = () => {
   const context = useContext(ThemeContext)
   if(!context) {
-    throw new Error('useTheme must be used within a ThemeProvider')
+    throw new Error(ERROR_THEME)
   }
   const [isDarkTheme, setDarkTheme] = context
 
