@@ -7,7 +7,7 @@ import OptionsBtn from '..'
 jest.spyOn(mockThemeContext, 'useTheme').mockImplementation(() => ({isDarkTheme: false}))
 afterEach(() => jest.clearAllMocks())
 
-test('snap diff', async () => {
+test('snapshot diffrenece between open and close states', async () => {
   const {asFragment, rerender} = render(<OptionsBtn />)
   const closedState = asFragment()
   rerender(<OptionsBtn isOpen />)
@@ -23,4 +23,19 @@ test('snap diff', async () => {
     bAnnotation: 'open state (cross)'
   })
   expect(mockThemeContext.useTheme).toHaveBeenCalledTimes(2)
+})
+
+test('snapshot difference in dark/light theme', () => {
+  const {asFragment, rerender} = render(<OptionsBtn />)
+  const lightTheme = asFragment()
+
+  mockThemeContext.useTheme.mockReturnValueOnce({isDarkTheme: true})
+  rerender(<OptionsBtn />)
+  const darkTheme = asFragment()
+
+  expect(lightTheme).toMatchDiffSnapshot(darkTheme, {
+    contextLines: 0,
+    aAnnotation: 'ligth theme',
+    bAnnotation: 'dark theme'
+  })
 })
