@@ -2,7 +2,7 @@
 
 exports[`snapshot difference in dark/light theme 1`] = `
 "Snapshot Diff:
-- ligth theme
+- light theme
 + dark theme
 
 @@ -3,1 +3,1 @@
@@ -10,10 +10,10 @@ exports[`snapshot difference in dark/light theme 1`] = `
 +     class=\\"darkBtn\\""
 `;
 
-exports[`snapshot diffrenece between open and close states 1`] = `
+exports[`snapshot diffrenece between default and clicked states 1`] = `
 "Snapshot Diff:
-- closed state (three dots)
-+ open state (cross)
+- default state (three dots)
++ clicked state (cross)
 
   <DocumentFragment>
     <button
