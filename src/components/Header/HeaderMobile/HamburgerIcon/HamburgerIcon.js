@@ -41,7 +41,7 @@ const HamburgerIcon = ({isOpen, onClick}) => {
   }
 
   const midLine = {
-    background: timeline.interpolate({range, output: [lineColor || '#000', 'transparent', 'transparent', 'transparent']})
+    background: timeline.interpolate({range, output: [lineColor, 'transparent', 'transparent', 'transparent']})
   }
 
   return (
