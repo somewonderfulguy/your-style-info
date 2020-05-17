@@ -15,5 +15,3 @@ test('useTheme should throw error if used outside ThemeProvider', () => {
     })
   }).not.toThrow()
 })
-
-test.todo('matchMedia')
