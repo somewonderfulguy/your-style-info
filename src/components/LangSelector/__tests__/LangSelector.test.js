@@ -1,5 +1,6 @@
 import React from 'react'
 import {render, fireEvent} from '@testing-library/react'
+import user from '@testing-library/user-event'
 
 import * as mockThemeContext from 'contexts/themeContext'
 import LangSelector from '..'
@@ -42,14 +43,14 @@ test('snapshot diff: aria state and css-class of triangle when open/hidden menu 
   const beforeClick = asFragment()
   const switchLanguageBtn = getByLabelText('Switch language')
 
-  fireEvent.click(switchLanguageBtn)
+  user.click(switchLanguageBtn)
   expect(beforeClick).toMatchDiffSnapshot(asFragment(), diffSnapshotOptions)
 
-  fireEvent.click(switchLanguageBtn)
+  user.click(switchLanguageBtn)
   rerender(<LangSelector showAbove />)
 
   const beforeClickShowAbove = asFragment()
-  fireEvent.click(switchLanguageBtn)
+  user.click(switchLanguageBtn)
   expect(beforeClickShowAbove).toMatchDiffSnapshot(asFragment(), diffSnapshotOptions)
 })
 
@@ -59,18 +60,18 @@ test('should show/hide menu when clicking on language selector', () => {
 
   expect(queryByRole('list')).toBeNull()
 
-  fireEvent.click(langSelectorBtn)
+  user.click(langSelectorBtn)
   expect(getByRole('list')).toBeInTheDocument()
 
-  fireEvent.click(langSelectorBtn)
+  user.click(langSelectorBtn)
   expect(queryByRole('list')).toBeNull()
 })
 
 test('should hide menu after selecting a language', () => {
   const { getByRole, queryByRole, getByLabelText } = setup()
 
-  fireEvent.click(getByLabelText('Switch language'))
-  fireEvent.click(getByRole('list').querySelector('button:not(:disabled)'))
+  user.click(getByLabelText('Switch language'))
+  user.click(getByRole('list').querySelector('button:not(:disabled)'))
 
   expect(queryByRole('list')).toBeNull()
 })
@@ -78,7 +79,7 @@ test('should hide menu after selecting a language', () => {
 test('should hide menu if clicked somewhere outside', () => {
   const { queryByRole, getByLabelText } = setup()
 
-  fireEvent.click(getByLabelText('Switch language'))
+  user.click(getByLabelText('Switch language'))
   fireEvent.click(document)
 
   expect(queryByRole('list')).toBeNull()

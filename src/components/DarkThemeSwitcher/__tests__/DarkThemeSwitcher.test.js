@@ -1,6 +1,7 @@
 import React from 'react'
-import {fireEvent, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
+import user from '@testing-library/user-event'
 
 import * as mockThemeContext from 'contexts/themeContext'
 import {ThemeProvider, useTheme} from 'contexts'
@@ -54,13 +55,13 @@ test('switching theme should work properly', async () => {
   expect(useTheme).toHaveBeenCalledTimes(2)
 
   // switch to dark
-  fireEvent.click(checkbox)
+  user.click(checkbox)
   expect(getHook().result.current.isDarkTheme).toBeTruthy()
   expect(useTheme).toHaveBeenCalledTimes(4)
   const darkComponent = asFragment()
 
   // switch to light
-  fireEvent.click(checkbox)
+  user.click(checkbox)
   expect(getHook().result.current.isDarkTheme).toBeFalsy()
   expect(useTheme).toHaveBeenCalledTimes(6)
   const lightComponent = asFragment()
