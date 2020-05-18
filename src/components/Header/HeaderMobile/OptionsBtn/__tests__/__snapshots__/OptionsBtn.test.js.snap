@@ -1,40 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snapshot difference in dark/light theme 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - light theme
 + dark theme
 
 @@ -3,1 +3,1 @@
--     class=\\"btn\\"
-+     class=\\"darkBtn\\""
+-     class="btn"
++     class="darkBtn"
 `;
 
 exports[`snapshot diffrenece between default and clicked states 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - default state (three dots)
 + clicked state (cross)
 
   <DocumentFragment>
     <button
-      class=\\"btn\\"
-      type=\\"button\\"
+      class="btn"
+      type="button"
     >
       <div
-        class=\\"dot\\"
--       style=\\"top: 0px; width: 4px; height: 4px; border-radius: 50%;\\"
-+       style=\\"top: -1px; width: 24px; height: 2px; border-radius: 0%;\\"
+        class="dot"
+-       style="top: 0px; width: 4px; height: 4px; border-radius: 50%;"
++       style="top: -1px; width: 24px; height: 2px; border-radius: 0%;"
       />
       <div
-        class=\\"dot\\"
--       style=\\"width: 4px; height: 4px; opacity: 1;\\"
-+       style=\\"width: 4px; height: 4px; opacity: 0;\\"
+        class="dot"
+-       style="width: 4px; height: 4px; opacity: 1;"
++       style="width: 4px; height: 4px; opacity: 0;"
       />
       <div
-        class=\\"dot\\"
--       style=\\"bottom: 0px; width: 4px; height: 4px; border-radius: 50%;\\"
-+       style=\\"bottom: -1px; width: 24px; height: 2px; border-radius: 0%;\\"
+        class="dot"
+-       style="bottom: 0px; width: 4px; height: 4px; border-radius: 50%;"
++       style="bottom: -1px; width: 24px; height: 2px; border-radius: 0%;"
       />
     </button>
-  </DocumentFragment>"
+  </DocumentFragment>
 `;

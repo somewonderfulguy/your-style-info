@@ -3,6 +3,12 @@ import {toMatchDiffSnapshot} from 'snapshot-diff'
 
 expect.extend({toMatchDiffSnapshot})
 
+// remove double slashes
+expect.addSnapshotSerializer({
+  test(val) {return typeof val === 'string' && val.search(/Snapshot Diff/i) !== -1},
+  print(val) {return val.replace(/\\\\/gm, '')}
+})
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({

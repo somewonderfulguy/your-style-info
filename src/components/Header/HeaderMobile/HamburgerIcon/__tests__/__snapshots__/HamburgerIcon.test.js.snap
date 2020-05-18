@@ -1,44 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snapshot difference in dark/light theme 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - light theme
 + dark theme
 
 @@ -2,3 +2,3 @@
     <button
--     class=\\"hamburger\\"
-+     class=\\"hamburgerDark\\"
-      type=\\"button\\"
+-     class="hamburger"
++     class="hamburgerDark"
+      type="button"
 @@ -9,3 +9,3 @@
       <div
--       style=\\"background: rgb(0, 0, 0);\\"
-+       style=\\"background: rgb(211, 211, 211);\\"
-      />"
+-       style="background: rgb(0, 0, 0);"
++       style="background: rgb(211, 211, 211);"
+      />
 `;
 
 exports[`snapshot diffrenece between default and clicked states 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - default state (three lines)
 + clicked state (cross)
 
   <DocumentFragment>
     <button
-      class=\\"hamburger\\"
-      type=\\"button\\"
+      class="hamburger"
+      type="button"
     >
       <div
--       style=\\"top: 0px; transform: rotate(0deg);\\"
-+       style=\\"top: 0px; transform: rotate(45deg);\\"
+-       style="top: 0px; transform: rotate(0deg);"
++       style="top: 0px; transform: rotate(45deg);"
       />
       <div
--       style=\\"background: rgb(0, 0, 0);\\"
-+       style=\\"background: rgba(0, 0, 0, 0);\\"
+-       style="background: rgb(0, 0, 0);"
++       style="background: rgba(0, 0, 0, 0);"
       />
       <div
--       style=\\"bottom: 0px; transform: rotate(-0deg);\\"
-+       style=\\"bottom: 0px; transform: rotate(-45deg);\\"
+-       style="bottom: 0px; transform: rotate(-0deg);"
++       style="bottom: 0px; transform: rotate(-45deg);"
       />
     </button>
-  </DocumentFragment>"
+  </DocumentFragment>
 `;
