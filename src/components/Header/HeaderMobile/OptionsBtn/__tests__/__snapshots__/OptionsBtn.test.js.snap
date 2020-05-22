@@ -18,6 +18,7 @@ Snapshot Diff:
   <DocumentFragment>
     <button
       class="btn"
+      title="Options"
       type="button"
     >
       <div

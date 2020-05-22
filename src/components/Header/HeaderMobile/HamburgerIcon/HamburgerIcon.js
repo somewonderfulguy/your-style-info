@@ -50,6 +50,7 @@ const HamburgerIcon = ({isOpen, onClick}) => {
       onClick={onClick}
       className={styles[isDarkTheme ? 'hamburgerDark' : 'hamburger']}
       type="button"
+      title="Navigation"
     >
       <animated.div style={topLine} />
       <animated.div style={midLine} />

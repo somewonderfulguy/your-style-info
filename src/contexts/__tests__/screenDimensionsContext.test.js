@@ -1,4 +1,3 @@
-import React from 'react'
 import {renderHook} from '@testing-library/react-hooks'
 
 import {ScreenDimensionsProvider, useScreenDimensions, ERROR_SCREEN} from '..'
@@ -10,8 +9,6 @@ test('useScreenDimensions should throw error if used outside ScreenDimensionsPro
 
   // work properly
   expect(() => {
-    renderHook(() => useScreenDimensions(), {
-      wrapper: props => <ScreenDimensionsProvider {...props} />
-    })
+    renderHook(() => useScreenDimensions(), {wrapper: ScreenDimensionsProvider})
   }).not.toThrow()
 })

@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import {toMatchDiffSnapshot} from 'snapshot-diff'
+import ResizeObserver from 'resize-observer-polyfill'
 
 expect.extend({toMatchDiffSnapshot})
 
@@ -8,6 +9,8 @@ expect.addSnapshotSerializer({
   test(val) {return typeof val === 'string' && val.search(/Snapshot Diff/i) !== -1},
   print(val) {return val.replace(/\\\\/gm, '')}
 })
+
+window.ResizeObserver = ResizeObserver
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

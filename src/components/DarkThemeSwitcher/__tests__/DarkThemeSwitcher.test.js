@@ -12,7 +12,7 @@ afterEach(() => jest.clearAllMocks())
 
 const setup = (darkerPalette = false, labelText = false) => render(
   <DarkThemeSwitcher darkerPalette={darkerPalette} labelText={labelText} />, {
-    wrapper: props => <ThemeProvider {...props} />
+    wrapper: ThemeProvider
   }
 )
 
@@ -46,7 +46,7 @@ test('should change depending on labelText prop', () => {
 test('switching theme should work properly', async () => {
   const {getByRole, asFragment} = setup()
   const getHook = () => renderHook(() => useTheme(), {
-    wrapper: props => <ThemeProvider {...props} />
+    wrapper: ThemeProvider
   })
   const checkbox = getByRole('checkbox')
 

@@ -52,7 +52,13 @@ const OptionsBtn = ({isOpen, onClick}) => {
   }
 
   return (
-    <button ref={optionsBtnDOM} onClick={onClick} className={styles[isDarkTheme ? 'darkBtn' : 'btn']} type="button">
+    <button
+      ref={optionsBtnDOM}
+      onClick={onClick}
+      className={styles[isDarkTheme ? 'darkBtn' : 'btn']}
+      type="button"
+      title="Options"
+    >
       <animated.div className={styles.dot} style={topDot} />
       <animated.div className={styles.dot} style={middleDot} />
       <animated.div className={styles.dot} style={bottomDot} />

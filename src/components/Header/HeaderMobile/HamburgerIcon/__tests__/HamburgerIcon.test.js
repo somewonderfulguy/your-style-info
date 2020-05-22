@@ -23,6 +23,8 @@ test('snapshot diffrenece between default and clicked states', async () => {
     bAnnotation: 'clicked state (cross)'
   })
   expect(mockThemeContext.useTheme).toHaveBeenCalledTimes(2)
+
+  // TODO close and compare
 })
 
 test('snapshot difference in dark/light theme', async () => {
@@ -38,4 +40,6 @@ test('snapshot difference in dark/light theme', async () => {
   })
 
   expect(mockThemeContext.useTheme).toHaveBeenCalledTimes(2)
+
+  // TODO switch back and compare
 })

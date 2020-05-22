@@ -14,9 +14,7 @@ const HEADER_MOBILE = 'header-mobile'
 
 test('should display mobile header for mobiles and iPads, for bigger screens desktop header is expected', () => {
   const {getByText, queryByText} = render(
-    <Header />, {
-      wrapper: props => <ScreenDimensionsProvider {...props} />
-    }
+    <Header />, {wrapper: ScreenDimensionsProvider}
   )
 
   // smaller screen

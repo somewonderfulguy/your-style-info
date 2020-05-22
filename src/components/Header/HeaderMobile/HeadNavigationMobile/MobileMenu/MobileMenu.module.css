@@ -24,7 +24,9 @@
 }
 .subItemLine:last-child {margin-bottom: 23px;}
 
-.menuWrapper > div:first-child > .line {border-top: none;}
+.menuWrapper ul {list-style: none;}
+
+.menuWrapper ul li:first-child > .line {border-top: none;}
 
 .socialMediaContainer {
   margin: 20px 0;

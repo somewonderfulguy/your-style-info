@@ -74,12 +74,13 @@ const Options = ({isOpen, menuHeight, setOptionsOpen, isFixed, isScrollDown, hea
       }}
       className={styles.optionsContainer}
       ref={optionsRef}
+      role="menu"
     >
-      <button className={styles.langBtn} type="button">
+      <button className={styles.langBtn} type="button" role="menuitem">
         <LanguageIcon width={22} height={22} fill="#696969" />
         <span className={styles.langTxt}>Сменить язык на русский</span>
       </button>
-      <DarkThemeSwitcher name="theme-options" labelText />
+      <DarkThemeSwitcher name="theme-options" role="menuitem" labelText />
     </animated.div>
   )
 }

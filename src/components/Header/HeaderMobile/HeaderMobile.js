@@ -10,7 +10,7 @@ import Options from './Options'
 import OptionsBtn from './OptionsBtn'
 import styles from './HeaderMobile.module.css'
 
-const Header = () => {
+const HeaderMobile = () => {
   const {setHeaderHeight} = useHeaderHeight()
   const [isMenuOpen, setMenuOpen] = useState(false)
   const [isOptionsOpen, setOptionsOpen] = useState(false)
@@ -70,7 +70,6 @@ const Header = () => {
         menuHeight={menuHeight}
         setOptionsOpen={setOptionsOpen}
         isFixed={isFixed}
-        isShown={isShown}
         isScrollDown={isScrollDown}
         headerTop={headerTop}
       />
@@ -78,4 +77,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default HeaderMobile

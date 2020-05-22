@@ -1,4 +1,3 @@
-import React from 'react'
 import {renderHook} from '@testing-library/react-hooks'
 
 import {ThemeProvider, useTheme, ERROR_THEME} from '..'
@@ -10,8 +9,6 @@ test('useTheme should throw error if used outside ThemeProvider', () => {
 
   // work properly
   expect(() => {
-    renderHook(() => useTheme(), {
-      wrapper: props => <ThemeProvider {...props} />
-    })
+    renderHook(() => useTheme(), {wrapper: ThemeProvider})
   }).not.toThrow()
 })
