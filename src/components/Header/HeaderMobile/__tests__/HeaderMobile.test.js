@@ -20,12 +20,8 @@ const setup = () => render(<HeaderMobile />, {
   )
 })
 
-test.todo('matches snapshot') // mock all subcomponents
-
-test.todo('show/hide header on scroll works as expected')
-
 test('submenu works as expected', async () => {
-  const {getByRole, queryByRole, getByTitle} = setup()
+  const {getByRole, queryByRole, getByTitle, getByText} = setup()
 
   const navButton = getByTitle(/navigation/i)
   const getNav = () => getByRole('navigation')
@@ -37,24 +33,35 @@ test('submenu works as expected', async () => {
   user.click(navButton)
   await wait(() => expect(getNav()).toBeInTheDocument())
 
-  // check items quantity
-  const navItems = getNav().querySelectorAll('.menuWrapper > ul > li')
+  // check items
   const subLists = Array.from(getNav().querySelectorAll('.menuWrapper > ul ul')).map(ul => ul.parentElement)
-  const subListsLengths = subLists.map(list => list.querySelectorAll('li').length)
   const treeButtons = getNav().querySelectorAll('button')
 
-  const expectedItems = Object.values(PRIME_ROUTES)
-  const expectedExpandableItems = expectedItems.filter(val => val.sub)
-  const expectedSubItemsLengths = Object.values(expectedExpandableItems)
-    .map(item => Object.keys(item.sub).length)
+  const expectedExpandableItems = Object.values(PRIME_ROUTES).filter(val => val.sub)
 
-  // TODO: test contents instead of lengths
-  expect(navItems).toHaveLength(expectedItems.length)
+  const expectedItems = []
+  const findItems = (arr = Object.values(PRIME_ROUTES)) => arr.forEach(route => {
+    route.name && expectedItems.push(route.name)
+    route.sub && findItems(Object.values(route.sub))
+  })
+  findItems()
+
+  const expectedDisabled = []
+  const findDisabled = (arr = Object.values(PRIME_ROUTES)) => arr.forEach(route => {
+    route.inactive && expectedDisabled.push(route.name)
+    route.sub && findDisabled(Object.values(route.sub))
+  })
+  findDisabled()
+
+  expectedItems.forEach(text => {
+    expect(getByText(text)).toBeInTheDocument()
+  })
+
+  expectedDisabled.forEach(text => {
+    expect(getByText(text)).toHaveAttribute('aria-disabled', 'true')
+  })
+
   expect(treeButtons).toHaveLength(expectedExpandableItems.length)
-  expect(subListsLengths).toEqual(expectedSubItemsLengths)
-
-  // TODO: check disabled items qty
-  // TODO: check disabled sub-items qty
 
   // open / close sub-items
   subLists.forEach(list => expect(list).not.toBeVisible())

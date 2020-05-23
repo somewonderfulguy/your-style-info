@@ -3,6 +3,7 @@ import {render} from '@testing-library/react'
 
 import Footer from '..'
 
+// TODO remove mocks and do integrational tests
 jest.mock('components/DarkThemeSwitcher', () => () => 'MockDarkThemeSwitcher')
 jest.mock('components/LangSelector', () => () => 'MockLangSelector')
 jest.mock('components//SocialMediaIcons', () => () => 'MockSocialMediaIcons')

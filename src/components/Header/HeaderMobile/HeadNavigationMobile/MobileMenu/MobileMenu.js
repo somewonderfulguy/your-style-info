@@ -11,8 +11,15 @@ import styles from './MobileMenu.module.css'
 const propTypes = {isOpen: bool}
 const defaultProps = {isOpen: false}
 
-const renderItem = ([path, {name, sub}], isSubItem = false) => {
-  const Link = <LinkExtended to={path} children={name} />
+const renderItem = ([path, {name, sub, inactive}], isSubItem = false) => {
+  const Link = (
+    <LinkExtended
+      to={path}
+      children={name}
+      inactive={inactive}
+      className={inactive ? styles.inactiveListItems : ''}
+    />
+  )
   return sub ? (
     <Tree
       key={path}

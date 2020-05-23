@@ -61,7 +61,7 @@ const LinkExtended = ({
 
   const isCurrent = pathname === to
 
-  if(inactive) return <span className={className}>{children}</span>
+  if(inactive) return <span className={className} aria-disabled>{children}</span>
 
   return (
     isCurrent ? (
