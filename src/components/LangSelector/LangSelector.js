@@ -44,6 +44,7 @@ const LangSelector = ({showAbove, gray}) => {
         // TODO switch label depending on language
         aria-label="Switch language"
         aria-expanded={isOpen}
+        aria-haspopup
       >
         <LanguageIcon width={20} height={20} className={styles.icon} />
         <span>English</span>
@@ -54,11 +55,14 @@ const LangSelector = ({showAbove, gray}) => {
         <ul
           ref={menuRef}
           className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}
-          aria-label="Available languages"
-          data-testid="language-list"
+          role="menu"
         >
-          <li><button onClick={() => setOpen(false)} type="button" disabled>English</button></li>
-          <li><button onClick={() => setOpen(false)} type="button">Русский</button></li>
+          <li role="menuitem">
+            <button onClick={() => setOpen(false)} type="button" disabled>English</button>
+          </li>
+          <li role="menuitem">
+            <button onClick={() => setOpen(false)} type="button">Русский</button>
+          </li>
         </ul>
       )}
     </div>

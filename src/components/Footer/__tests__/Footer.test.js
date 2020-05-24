@@ -1,6 +1,6 @@
 import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
-import {render} from '@testing-library/react'
+import {render, fireEvent} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
@@ -17,7 +17,7 @@ const setup = () => render(<Footer />, {
 })
 
 test('renders and acts as expected', () => {
-  const {getByRole} = setup()
+  const {getByRole, getByTitle, getByLabelText, queryByRole} = setup()
 
   // navigation
   const expectedNavLinks = Object.values(PRIME_ROUTES).map(obj => obj.name)
@@ -42,5 +42,30 @@ test('renders and acts as expected', () => {
   user.click(themeSwitcher)
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
-  // TODO: switching language
+  // switching language
+  const langSelectorBtn = getByLabelText(/switch language/i)
+
+  expect(queryByRole('menu')).toBeNull()
+
+  // open lang switcher
+  user.click(langSelectorBtn)
+  expect(getByRole('menu')).toBeInTheDocument()
+
+  // close lang switcher
+  user.click(langSelectorBtn)
+  expect(queryByRole('menu')).toBeNull()
+
+  // open lang switcher
+  user.click(langSelectorBtn)
+  expect(getByRole('menu')).toBeInTheDocument()
+
+  // TODO check language switching
+
+  // close lang switcher by clicking outside
+  fireEvent.click(document)
+  expect(queryByRole('menu')).toBeNull()
+
+  // social media
+  const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
+  socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
 })

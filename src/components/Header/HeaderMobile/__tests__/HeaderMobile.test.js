@@ -20,7 +20,13 @@ const setup = () => render(<HeaderMobile />, {
   )
 })
 
-test('submenu works as expected', async () => {
+test('header renders', () => {
+  const {getByText} = setup()
+  const header = getByText(/your style/i)
+  expect(header).toBeInTheDocument()
+})
+
+test('menu (navigation) works as expected', async () => {
   const {getByRole, queryByRole, getByTitle, getByText} = setup()
 
   const navButton = getByTitle(/navigation/i)
@@ -33,7 +39,7 @@ test('submenu works as expected', async () => {
   user.click(navButton)
   await wait(() => expect(getNav()).toBeInTheDocument())
 
-  // check items
+  // navigation items and subitems
   const subLists = Array.from(getNav().querySelectorAll('.menuWrapper > ul ul')).map(ul => ul.parentElement)
   const treeButtons = getNav().querySelectorAll('button')
 
@@ -62,6 +68,10 @@ test('submenu works as expected', async () => {
   })
 
   expect(treeButtons).toHaveLength(expectedExpandableItems.length)
+
+  // social media icons
+  const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
+  socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
 
   // open / close sub-items
   subLists.forEach(list => expect(list).not.toBeVisible())

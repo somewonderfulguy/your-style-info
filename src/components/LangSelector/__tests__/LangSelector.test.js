@@ -39,7 +39,7 @@ test('snapshot diff: aria state and css-class of triangle when open/hidden menu 
     bAnnotation: 'expanded menu'
   }
 
-  const { getByLabelText, asFragment, rerender } = setup()
+  const {getByLabelText, asFragment, rerender} = setup()
   const beforeClick = asFragment()
   const switchLanguageBtn = getByLabelText('Switch language')
 
@@ -55,32 +55,32 @@ test('snapshot diff: aria state and css-class of triangle when open/hidden menu 
 })
 
 test('should show/hide menu when clicking on language selector', () => {
-  const { getByLabelText, getByRole, queryByRole } = setup()
-  const langSelectorBtn = getByLabelText('Switch language')
+  const {getByLabelText, getByRole, queryByRole} = setup()
+  const langSelectorBtn = getByLabelText(/switch language/i)
 
-  expect(queryByRole('list')).toBeNull()
-
-  user.click(langSelectorBtn)
-  expect(getByRole('list')).toBeInTheDocument()
+  expect(queryByRole('menu')).toBeNull()
 
   user.click(langSelectorBtn)
-  expect(queryByRole('list')).toBeNull()
+  expect(getByRole('menu')).toBeInTheDocument()
+
+  user.click(langSelectorBtn)
+  expect(queryByRole('menu')).toBeNull()
 })
 
 test('should hide menu after selecting a language', () => {
-  const { getByRole, queryByRole, getByLabelText } = setup()
+  const {getByRole, queryByRole, getByLabelText} = setup()
 
   user.click(getByLabelText('Switch language'))
-  user.click(getByRole('list').querySelector('button:not(:disabled)'))
+  user.click(getByRole('menu').querySelector('button:not(:disabled)'))
 
-  expect(queryByRole('list')).toBeNull()
+  expect(queryByRole('menu')).toBeNull()
 })
 
 test('should hide menu if clicked somewhere outside', () => {
-  const { queryByRole, getByLabelText } = setup()
+  const {queryByRole, getByLabelText} = setup()
 
   user.click(getByLabelText('Switch language'))
   fireEvent.click(document)
 
-  expect(queryByRole('list')).toBeNull()
+  expect(queryByRole('menu')).toBeNull()
 })
