@@ -1,6 +1,6 @@
 import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
-import {fireEvent, render} from '@testing-library/react'
+import {act, fireEvent, render, wait} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
@@ -30,30 +30,40 @@ test('renders headers and social media icons', () => {
   socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
 })
 
-test('menu (navigation) works as expected', () => {
-  const {getByText} = setup()
-  // getByRole, getAllByRole,
-  // const navigation = getByRole('navigation')
-  // const rootMenu = getAllByRole('list')[0]
-  // const getSubMenu = () => getAllByRole('list')[1]
+test('menu (navigation) works as expected', async () => {
+  const {getByText, getByTestId} = setup()
+
+  const primeRoutes = Object.values(PRIME_ROUTES)
 
   // root menu items check
-  const expectedRootMenuItems = Object.values(PRIME_ROUTES).map(o => o.name)
-  const expectedRootDisabledItems = Object.values(PRIME_ROUTES).filter(o => o.inactive).map(o => o.name)
+  const expectedRootMenuItems = primeRoutes.map(o => o.name)
+  const expectedRootDisabledItems = primeRoutes.filter(o => o.inactive).map(o => o.name)
 
   expectedRootMenuItems.forEach(item => expect(getByText(item)).toBeInTheDocument())
   expectedRootDisabledItems.forEach(disabledItem => (
     expect(getByText(disabledItem)).toHaveAttribute('aria-disabled', 'true')
   ))
 
-  // mouse enter
-  // mouse out
-  // mouse out but enter submenu
+  // TODO when react-spring 9.0 released, disable animations and test all cases
+  // the cases are: 1) changing content when hovering on other root menu items,
+  // 2) changing thumbnails when hover on both root and submenu items
 
-  // loop all sub items
-  // in each submenu check - 1) list items, 2) disabled items, 3) img
+  // submenu test
+  const predefinedItemsWithSubmenu = primeRoutes.filter(o => o.sub)
+  const dropDownTestId = 'drop-down-navigation'
+  const dropDown = getByTestId(dropDownTestId)
 
-  expect(null).toBeNull()
+  expect(dropDown).not.toBeVisible()
+
+  for(let i = 0; i < predefinedItemsWithSubmenu.length; i ++) {
+    const item = getByText(predefinedItemsWithSubmenu[i].name)
+
+    fireEvent.mouseEnter(item)
+    await wait(() => expect(dropDown).toBeVisible())
+
+    fireEvent.mouseOut(item)
+    await wait(() => expect(dropDown).not.toBeVisible())
+  }
 })
 
 test('theme switching works as expected', () => {
@@ -93,6 +103,6 @@ test('language switcher works as expected', () => {
   // TODO check language switching
 
   // close by clicking outside
-  fireEvent.click(document)
+  act(() => user.click(document.body))
   expect(queryByRole('menu')).toBeNull()
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
-import {fireEvent, render, wait, waitForElementToBeRemoved} from '@testing-library/react'
+import {act, fireEvent, render, wait, waitForElementToBeRemoved} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
@@ -104,7 +104,7 @@ test('options work as expected', async () => {
   await openOptionsMenu()
 
   // close by clicking outside
-  fireEvent.click(document)
+  act(() => user.click(document.body))
   await wait(() => expect(queryOptions()).toBeNull())
 
   // open

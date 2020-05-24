@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, fireEvent} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import user from '@testing-library/user-event'
 
 import * as mockThemeContext from 'contexts/themeContext'
@@ -80,7 +80,7 @@ test('should hide menu if clicked somewhere outside', () => {
   const {queryByRole, getByLabelText} = setup()
 
   user.click(getByLabelText('Switch language'))
-  fireEvent.click(document)
+  act(() => user.click(document.body))
 
   expect(queryByRole('menu')).toBeNull()
 })

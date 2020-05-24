@@ -1,6 +1,6 @@
 import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
-import {render, fireEvent} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
@@ -62,7 +62,7 @@ test('renders and acts as expected', () => {
   // TODO check language switching
 
   // close lang switcher by clicking outside
-  fireEvent.click(document)
+  act(() => user.click(document.body))
   expect(queryByRole('menu')).toBeNull()
 
   // social media
