@@ -1,4 +1,4 @@
-import React, {memo} from 'react'
+import React, {memo, useRef} from 'react'
 import {bool, object, string} from 'prop-types'
 import {animated, useSpring, useTransition} from 'react-spring'
 
@@ -23,19 +23,20 @@ const defaultProps = {
 
 const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) => {
   // old transitions clean up
-  const transitionCancelArray = React.useRef([])
+  const transitionCancelArray = useRef([])
   transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
   transitionCancelArray.current.splice(2)
 
   // fade out / in submenu content
-  const transitions = useTransition(content, basePath, {
+  const transitions = useTransition(isOpen ? content : {}, basePath, {
     config: {duration: openNowAndBefore ? 400 : 0},
     from: {opacity: 0},
     enter: () => async (next, cancel) => {
       transitionCancelArray.current.unshift(cancel)
       await next({opacity: 1})
     },
-    leave: {opacity: 0}
+    leave: {opacity: 0},
+    immediate: !isOpen
   })
 
   // transform animation when open / close submenu
