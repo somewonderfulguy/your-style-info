@@ -66,7 +66,8 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
             key={key}
             className={state === 'leave' ? styles.listContainerLeaving : styles.listContainer}
             style={{
-              // when menu opens / closes opacity.value sometimes becomes NaN and a warning in console happens - this isNaN check is a simple fix
+              // when menu opens / closes opacity.value sometimes becomes NaN and a warning in
+              // console happens - this isNaN check is a simple fix
               opacity: typeof opacity.value !== 'undefined' && isNaN(opacity.value) ? 1 : opacity,
               transform
             }}

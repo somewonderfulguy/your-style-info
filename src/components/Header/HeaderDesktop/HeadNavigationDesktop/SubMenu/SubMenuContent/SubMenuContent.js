@@ -69,7 +69,8 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
             src={(item && item.url)}
             className={styles.image}
             style={{
-              // when menu opens / closes opacity.value sometimes becomes NaN and a warning in console happens - this isNaN check is a simple fix
+              // when menu opens / closes opacity.value sometimes becomes NaN and a warning
+              // in console happens - this isNaN check is a simple fix
               opacity: typeof opacity.value !== 'undefined' && isNaN(opacity.value) ? 1 : opacity,
               background: (item && item.background) || '#7d7d7d4c'
             }}
