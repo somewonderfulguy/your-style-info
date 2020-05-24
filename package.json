@@ -65,16 +65,16 @@
       "!<rootDir>/src/api/**",
       "!<rootDir>/src/ApplicationNode/**",
       "!<rootDir>/src/assets/**",
-      "!<rootDir>/src/constants/**",
+      "!<rootDir>/src/shared/utils/**",
       "!<rootDir>/src/services/**",
       "!<rootDir>/**/useResizeObserver.js"
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 78,
-        "branches": 75,
-        "functions": 71,
-        "lines": 79
+        "statements": 81,
+        "branches": 76,
+        "functions": 73,
+        "lines": 82
       }
     }
   }

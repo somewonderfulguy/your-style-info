@@ -58,7 +58,7 @@ const LangSelector = ({showAbove, gray}) => {
           role="menu"
         >
           <li role="menuitem">
-            <button onClick={() => setOpen(false)} type="button" disabled>English</button>
+            <button type="button" disabled>English</button>
           </li>
           <li role="menuitem">
             <button onClick={() => setOpen(false)} type="button">Русский</button>
