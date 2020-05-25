@@ -64,6 +64,12 @@ test('menu (navigation) works as expected', async () => {
     fireEvent.mouseOut(item)
     await wait(() => expect(dropDown).not.toBeVisible())
   }
+
+  // test closing submenu when hover out from submenu
+  fireEvent.mouseEnter(getByText(predefinedItemsWithSubmenu[0].name))
+  await wait(() => expect(dropDown).toBeVisible())
+  fireEvent.mouseOut(dropDown)
+  await wait(() => expect(dropDown).not.toBeVisible())
 })
 
 test('theme switching works as expected', () => {
