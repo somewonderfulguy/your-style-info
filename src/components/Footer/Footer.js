@@ -1,8 +1,9 @@
 import React from 'react'
 
 import FooterNavigation from './FooterNavigation'
-import LangSelector from '../LangSelector'
-import SocialMediaIcons from '../SocialMediaIcons'
+import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
+import LangSelector from 'components/LangSelector'
+import SocialMediaIcons from 'components/SocialMediaIcons'
 import styles from './Footer.module.css'
 
 const Footer = () => (
@@ -11,9 +12,12 @@ const Footer = () => (
       <FooterNavigation />
       <div className={styles.iconsContainer}>
         <div className={styles.langContainer}>
-          <LangSelector color="gray" showAbove />
+          <LangSelector gray showAbove />
         </div>
         <SocialMediaIcons />
+        <div className={styles.themeSwitcherContainer}>
+          <DarkThemeSwitcher darkerPalette />
+        </div>
       </div>
     </div>
   </footer>

@@ -4,9 +4,9 @@ import {animated, useSpring} from 'react-spring'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
-import {ROOT_MENU_THUMBS} from '../../../../constants'
-import {imgPreload} from '../../../../utils'
-import {useResizeObserver} from '../../../../helpers/hooks'
+import {ROOT_MENU_THUMBS} from 'constants/index'
+import {imgPreload} from 'shared/utils'
+import {useResizeObserver} from 'shared/hooks'
 import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {
@@ -19,10 +19,17 @@ const openMenuReducer = (state, action) => ({
   openNowAndBefore: state.isOpen && action
 })
 
-const propTypes = {onMenuOpenChange: func}
-const defaultProps = {onMenuOpenChange: () => {}}
+const propTypes = {
+  setRootMenuOpen: func,
+  setPersistRootMenu: func
+}
 
-const HeadNavigation = ({onMenuOpenChange}) => {
+const defaultProps = {
+  setRootMenuOpen: () => {},
+  setPersistRootMenu: () => {}
+}
+
+const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
   const [subMenuContent, setSubMenuContent] = useState({
@@ -32,8 +39,8 @@ const HeadNavigation = ({onMenuOpenChange}) => {
   })
 
   useEffect(() => {
-    onMenuOpenChange(openMenuState.isOpen)
-  }, [onMenuOpenChange, openMenuState.isOpen])
+    setPersistRootMenu(openMenuState.isOpen)
+  }, [setPersistRootMenu, openMenuState.isOpen])
 
   const [activeMenuItem, setActiveMenuItem] = useState(null)
   const clearActiveMenuItem = useCallback(() => setActiveMenuItem(null), [])
@@ -78,9 +85,8 @@ const HeadNavigation = ({onMenuOpenChange}) => {
           activeMenuItem={activeMenuItem}
           setActiveMenuItem={setActiveMenuItem}
           clearActiveMenuItem={clearActiveMenuItem}
+          setRootMenuOpen={setRootMenuOpen}
         />
-
-        {/* MS Edge fix - absolutely positioned bottom border */}
         <div className={styles.borderBottom} submenupersist="1" onMouseLeave={e => closeMenu(e)} />
       </div>
 
@@ -92,6 +98,7 @@ const HeadNavigation = ({onMenuOpenChange}) => {
         }}
         className={styles.subMenuContainer}
         onMouseLeave={e => closeMenu(e)}
+        data-testid="drop-down-navigation"
       >
         <div ref={bindResizeObserver} submenupersist="1">
           <SubMenu

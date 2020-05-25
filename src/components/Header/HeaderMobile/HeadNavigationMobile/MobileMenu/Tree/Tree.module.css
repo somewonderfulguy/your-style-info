@@ -14,18 +14,12 @@
   overflow: hidden;
 }
 
-.content > div {
+.content > ul {
   margin-top: -8px;
 }
 
 .icon {
-  /* reseting button */
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  border: 0;
   outline: none;
-
   width: 16px;
   height: 16px;
   margin-right: 7px;

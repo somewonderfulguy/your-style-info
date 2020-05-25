@@ -1,31 +1,31 @@
 import React, {useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
-import {useAnimatedAppearing} from './hooks'
+import {useHeaderHeight} from 'contexts'
 import {useStickyNavBar} from '../hooks'
-import {useForceUpdate} from '../../../helpers/hooks'
+import {useAnimatedAppearing} from './hooks'
 import HamburgerIcon from './HamburgerIcon'
 import HeadNavigationMobile from './HeadNavigationMobile'
+import Options from './Options'
+import OptionsBtn from './OptionsBtn'
 import styles from './HeaderMobile.module.css'
 
-const Header = () => {
+const HeaderMobile = () => {
+  const {setHeaderHeight} = useHeaderHeight()
   const [isMenuOpen, setMenuOpen] = useState(false)
+  const [isOptionsOpen, setOptionsOpen] = useState(false)
 
   const {appearingSpring} = useAnimatedAppearing()
 
-  const headerDOM = useRef(null)
+  const headerDOM = useRef()
   const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
 
-  // forcing update on first render to make headerHeight not null
-  const forceUpdate = useForceUpdate()
-  useEffect(() => void forceUpdate(), [forceUpdate])
-
   useEffect(() => {
-    document.body.style.marginTop = headerHeight + 'px'
-    return () => document.body.style.marginTop = ''
-  }, [headerHeight])
+    setHeaderHeight(headerHeight)
+    return () => setHeaderHeight(0)
+  }, [headerHeight, setHeaderHeight])
 
-  const {isFixed, isShown} = useStickyNavBar(headerHeight)
+  const {isFixed, isShown, isScrollDown} = useStickyNavBar(headerHeight)
 
   // animate header on scroll up
   const {headerTop} = useSpring({
@@ -33,10 +33,14 @@ const Header = () => {
     headerTop: isShown ? -1 : -headerHeight
   })
 
-  const onHamburgerClick = useCallback(() => setMenuOpen(!isMenuOpen), [setMenuOpen, isMenuOpen])
+  const onHamburgerClick = useCallback(() => setMenuOpen(i => !i), [setMenuOpen])
+  const onOptionsClick = useCallback(() => setOptionsOpen(i => !i), [setOptionsOpen])
+
+  const menuHeight = headerHeight - (isFixed ? 1 : 0) || 0
 
   return (
-    <>
+    // keep it in single element (not Fragment) to make css-grid works
+    <div>
       <animated.header
         ref={headerDOM}
         className={styles.header}
@@ -52,15 +56,25 @@ const Header = () => {
         <h1 className={styles.title}>
           Your Style
         </h1>
+        <div className={styles.optionsContainer}>
+          {/* WARN!!! it may seem not obvious - onClick here works, but when closing menu it's overrided by
+            <Options /> with its handleClick outside method */}
+          <OptionsBtn isOpen={isOptionsOpen} onClick={onOptionsClick} />
+        </div>
       </animated.header>
 
       {/* Moved outside because animated header (transform) breaks position: fixed for child elements */}
-      <HeadNavigationMobile
-        isOpen={isMenuOpen}
-        menuHeight={headerHeight - (isFixed ? 1 : 0) || 0}
+      <HeadNavigationMobile isOpen={isMenuOpen} menuHeight={menuHeight} />
+      <Options
+        isOpen={isOptionsOpen}
+        menuHeight={menuHeight}
+        setOptionsOpen={setOptionsOpen}
+        isFixed={isFixed}
+        isScrollDown={isScrollDown}
+        headerTop={headerTop}
       />
-    </>
+    </div>
   )
 }
 
-export default Header
+export default HeaderMobile

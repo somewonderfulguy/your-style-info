@@ -5,11 +5,7 @@ import styles from './Image.module.css'
 
 const propTypes = {
   url: string.isRequired,
-  alt: string
-}
-
-const defaultProps = {
-  alt: ''
+  alt: string.isRequired
 }
 
 const Image = ({url, alt}) => (
@@ -17,6 +13,5 @@ const Image = ({url, alt}) => (
 )
 
 Image.propTypes = propTypes
-Image.defaultProps = defaultProps
 
 export default Image

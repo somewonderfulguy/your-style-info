@@ -2,8 +2,9 @@ import React, {Fragment, memo, useState, useRef} from 'react'
 import {bool, object, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
-import LinkExtended from '../../../../../LinkExtended'
-import {usePrevious} from '../../../../../../helpers/hooks'
+import LinkExtended from 'components/LinkExtended'
+import {usePrevious} from 'shared/hooks'
+import {useTheme} from 'contexts'
 import styles from './SubMenuContent.module.css'
 
 const propTypes = {
@@ -20,6 +21,7 @@ const defaultProps = {
 }
 
 const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
+  const {isDarkTheme} = useTheme()
   const [subItemThumbnail, setSubItemThumbnail] = useState(null)
   const prevOpen = usePrevious(isOpen)
 
@@ -40,7 +42,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
 
   return (
     <>
-      <ul className={styles.list}>
+      <ul className={styles[isDarkTheme ? 'listDark' : 'list']}>
         {Object.entries(menuItems).map(([path, {name, thumbnail, inactive}]) => (
           <li
             key={name}
@@ -50,6 +52,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
               to={basePath + path}
               inactive={inactive}
               className={styles.link}
+              activeClassName={styles.activeItem}
               onMouseEnter={() => thumbnail && setSubItemThumbnail(thumbnail)}
               onMouseLeave={() => thumbnail && setSubItemThumbnail(null)}
             >
@@ -66,7 +69,8 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
             src={(item && item.url)}
             className={styles.image}
             style={{
-              // when menu opens / closes opacity.value sometimes becomes NaN and a warning in console happens - this isNaN check is a simple fix
+              // when menu opens / closes opacity.value sometimes becomes NaN and a warning
+              // in console happens - this isNaN check is a simple fix
               opacity: typeof opacity.value !== 'undefined' && isNaN(opacity.value) ? 1 : opacity,
               background: (item && item.background) || '#7d7d7d4c'
             }}

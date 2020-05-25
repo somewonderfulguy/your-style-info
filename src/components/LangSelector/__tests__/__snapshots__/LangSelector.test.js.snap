@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff) 1`] = `
+Snapshot Diff:
+- collapsed menu
++ expanded menu
+
+@@ -5,3 +5,3 @@
+      <button
+-       aria-expanded="false"
++       aria-expanded="true"
+        aria-haspopup="true"
+@@ -25,5 +25,29 @@
+        <div
+-         class="triangle"
++         class="triangleReverse"
+        />
++     </button>
+`;
+
+exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff) 2`] = `
+Snapshot Diff:
+- collapsed menu
++ expanded menu
+
+@@ -5,3 +5,3 @@
+      <button
+-       aria-expanded="false"
++       aria-expanded="true"
+        aria-haspopup="true"
+@@ -25,5 +25,29 @@
+        <div
+-         class="triangleReverse"
++         class="triangle"
+        />
++     </button>
+`;
+
+exports[`snapshot diff: dropdown above/below, default/gray colour, light/dark mode 1`] = `
+Snapshot Diff:
+- default props and theme
++ drop-up, gray colour, dark mode
+
+@@ -2,3 +2,3 @@
+    <div
+-     class="langSelector "
++     class="langSelectorDark gray"
+    >
+@@ -25,3 +25,3 @@
+        <div
+-         class="triangle"
++         class="triangleReverse"
+        />
+`;

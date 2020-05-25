@@ -1,24 +1,19 @@
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 import {useTranslation} from 'react-i18next'
 
 import {useAnimatedAppearing} from './hooks'
 import {useStickyNavBar} from '../hooks'
-import {ScreenWidthContext} from '../../../ApplicationNode'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
-import DarkThemeSwitcher from '../../DarkThemeSwitcher'
-import LangSelector from '../../LangSelector'
-import SocialMediaIcons from '../../SocialMediaIcons'
+import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
+import LangSelector from 'components/LangSelector'
+import SocialMediaIcons from 'components/SocialMediaIcons'
 import styles from './HeaderDesktop.module.css'
 
-const Header = () => {
-  const isDesktop = useContext(ScreenWidthContext) > 1024
+const HeaderDesktop = () => {
   const {t} = useTranslation('', {useSuspense: false})
   const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
-  const [isMenuOpen, setMenuOpen] = useState(false)
-
-  // show on scroll-up logic
   const navBarDOM = useRef(null)
   const headerDOM = useRef(null)
 
@@ -27,14 +22,19 @@ const Header = () => {
 
   useEffect(() => {
     setNavBarTopLine(headerDOM.current && headerDOM.current.offsetHeight)
-  }, [isDesktop, setNavBarTopLine])
+  }, [setNavBarTopLine])
 
-  const {isFixed, isShown} = useStickyNavBar(navBarTopLine + (isMenuOpen ? 0 : navbarHeight), navBarTopLine)
+  // show on scroll-up logic
+  const [isRootMenuOpen, setRootMenuOpen] = useState(false)
+  const [persistRootMenu, setPersistRootMenu] = useState(false)
+  const navBarState = useStickyNavBar(navBarTopLine + (persistRootMenu ? 0 : navbarHeight), navBarTopLine)
+  const {isFixed, isShown} = navBarState
+  useEffect(() => void setRootMenuOpen(false), [navBarState])
 
   // animate menu on scroll up
   const {top: menuTop} = useSpring({
     config: {duration: 200},
-    top: isShown || isMenuOpen ? -1 : navbarHeight * -1
+    top: isShown || isRootMenuOpen || persistRootMenu ? -1 : navbarHeight * -1
   })
 
   return (
@@ -81,11 +81,13 @@ const Header = () => {
           top: isFixed ? menuTop : 'initial'
         }}
         className={isFixed ? styles.fixedNavContainer : styles.navContainer}
+        onMouseEnter={() => setPersistRootMenu(true)}
+        onMouseLeave={() => setPersistRootMenu(false)}
       >
-        <HeadNavigationDesktop onMenuOpenChange={setMenuOpen} />
+        <HeadNavigationDesktop setRootMenuOpen={setRootMenuOpen} setPersistRootMenu={setPersistRootMenu} />
       </animated.nav>
     </header>
   )
 }
 
-export default Header
+export default HeaderDesktop

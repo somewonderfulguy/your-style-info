@@ -2,8 +2,8 @@ import React, {memo, useState} from 'react'
 import {arrayOf, bool, node, object, oneOfType, string} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
-import {ArrowForwardIos} from '../../../../../../assets/images'
-import {usePrevious, useResizeObserver} from '../../../../../../helpers/hooks'
+import {ArrowForwardIos} from 'assets/images'
+import {usePrevious, useResizeObserver} from 'shared/hooks'
 import styles from './Tree.module.css'
 
 const propTypes = {
@@ -39,6 +39,9 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
           style={{opacity: children ? 1 : 0.3}}
           className={isOpen ? styles.iconOpen : styles.icon}
           onClick={() => setIsOpen(!isOpen)}
+          type="button"
+          aria-expanded={isOpen}
+          aria-haspopup
         >
           <ArrowForwardIos />
         </button>
@@ -55,7 +58,7 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
         }}
         className={styles.content}
       >
-        <animated.div style={{transform}} ref={bindResizeObserver} children={children} />
+        <animated.ul style={{transform}} ref={bindResizeObserver} children={children} />
       </animated.div>
     </div>
   )

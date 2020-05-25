@@ -24,6 +24,10 @@
   padding-bottom: 10px;
 }
 
+.themeSwitcherContainer {
+  padding-top: 11px;
+}
+
 /* tablet */
 @media(max-width: 1024px) {
   .layout {
@@ -41,7 +45,7 @@
   }
   .iconsContainer {
     align-self: flex-end;
-    margin-top: 20px;
+    margin-top: -24px;
   }
   .langContainer {
     position: absolute;

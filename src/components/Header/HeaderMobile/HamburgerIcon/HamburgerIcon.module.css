@@ -1,7 +1,6 @@
-:root {
+.hamburger {
   --mobile-menu-hamburger-size: 24px;
   --mobile-menu-hamburger-line: 2px;
-  --mobile-menu-hamburger-color: #000;
   --mobile-menu-hamburger-duration: 1s;
 }
 
@@ -9,19 +8,28 @@
   width: var(--mobile-menu-hamburger-size);
   height: calc(var(--mobile-menu-hamburger-size) * 0.75);
   position: relative;
-
-  /* reseting button */
-  border: 0;
-  background: transparent;
-  padding: 0;
   outline: none;
+
+  /* fix positioning */
+  display: flex;
+}
+
+.hamburgerDark {
+  composes: hamburger;
 }
 
 .hamburger > div {
   width: 100%;
   height: var(--mobile-menu-hamburger-line);
-  background-color: var(--mobile-menu-hamburger-color);
   position: absolute;
+  background-color: #000;
+}
+
+.hamburgerDark > div {
+  width: 100%;
+  height: var(--mobile-menu-hamburger-line);
+  position: absolute;
+  background-color: lightgray;
 }
 
 .hamburger > div:nth-child(1) {top: 0;}

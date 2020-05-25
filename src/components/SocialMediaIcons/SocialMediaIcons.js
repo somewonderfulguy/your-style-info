@@ -1,7 +1,7 @@
 import React from 'react'
 import {bool, oneOf} from 'prop-types'
 
-import {FacebookIcon, InstagramIcon, VKontakteIcon, YouTubeIcon, TwitterIcon} from '../../assets/images'
+import {FacebookIcon, InstagramIcon, VKontakteIcon, YouTubeIcon, TwitterIcon} from 'assets/images'
 import styles from './SocialMediaIcons.module.css'
 
 const propTypes = {

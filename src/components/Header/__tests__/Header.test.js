@@ -1,45 +1,47 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {fireEvent, render} from '@testing-library/react'
 
-import {ScreenWidthContext} from 'ApplicationNode'
+import {ScreenDimensionsProvider} from 'contexts'
 import Header, {BOUNDARY} from '../Header'
-import {isIpad as mockIsIpad} from 'utils'
+import {isIpad as mockIsIpad} from 'shared/utils'
 
 jest.mock('../HeaderDesktop', () => () => 'header-desktop')
 jest.mock('../HeaderMobile', () => () => 'header-mobile')
-jest.mock('utils')
-
-afterEach(() => jest.clearAllMocks())
+jest.mock('shared/utils')
 
 const HEADER_DESKTOP = 'header-desktop'
 const HEADER_MOBILE = 'header-mobile'
 
-const renderHeader = value => render(
-  <ScreenWidthContext.Provider value={value}>
-    <Header />
-  </ScreenWidthContext.Provider>
-)
+test('should display mobile header for mobiles and iPads, for bigger screens desktop header is expected', () => {
+  const {getByText, queryByText} = render(
+    <Header />, {wrapper: ScreenDimensionsProvider}
+  )
 
-test(`should render desktop menu if screen wider than ${BOUNDARY}px and device is not iPad`, () => {
-  mockIsIpad.mockReturnValueOnce(false)
-  const {getByText, queryByText} = renderHeader(BOUNDARY + 1)
+  // smaller screen
+  window.innerWidth = BOUNDARY
+  fireEvent(window, new Event('resize'))
 
-  expect(mockIsIpad).toHaveBeenCalledTimes(1)
-  expect(getByText(HEADER_DESKTOP)).toBeInTheDocument()
-  expect(queryByText(HEADER_MOBILE)).not.toBeInTheDocument()
-})
-
-test(`should render mobile menu if device is iPad even if screen is biggger than ${BOUNDARY}px`, () => {
-  mockIsIpad.mockReturnValueOnce(true)
-  const {getByText, queryByText} = renderHeader(BOUNDARY + 1)
-
-  expect(mockIsIpad).toHaveBeenCalledTimes(1)
   expect(getByText(HEADER_MOBILE)).toBeInTheDocument()
   expect(queryByText(HEADER_DESKTOP)).not.toBeInTheDocument()
-})
 
-test(`should render mobile menu if screen width is ${BOUNDARY}px or smaller regardless of device`, () => {
-  const {getByText, queryByText} = renderHeader(BOUNDARY)
+  // bigger screen
+  window.innerWidth = BOUNDARY + 1
+  fireEvent(window, new Event('resize'))
+
+  expect(getByText(HEADER_DESKTOP)).toBeInTheDocument()
+  expect(queryByText(HEADER_MOBILE)).not.toBeInTheDocument()
+
+  // smaller screen (double check)
+  window.innerWidth = 320
+  fireEvent(window, new Event('resize'))
+
+  expect(getByText(HEADER_MOBILE)).toBeInTheDocument()
+  expect(queryByText(HEADER_DESKTOP)).not.toBeInTheDocument()
+
+  // if iPad, then mobile header expected, even if screen is 4k
+  mockIsIpad.mockReturnValueOnce(true)
+  window.innerWidth = 3840
+  fireEvent(window, new Event('resize'))
 
   expect(getByText(HEADER_MOBILE)).toBeInTheDocument()
   expect(queryByText(HEADER_DESKTOP)).not.toBeInTheDocument()

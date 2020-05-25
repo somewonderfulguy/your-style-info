@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should change depending on darkerPalette prop 1`] = `
+Snapshot Diff:
+- dark palette off
++ dark palette on
+
+@@ -2,3 +2,3 @@
+    <label
+-     class="switch"
++     class="switchDarker"
+    >
+`;
+
+exports[`should change depending on labelText prop 1`] = `
+Snapshot Diff:
+- label text off
++ label text on
+
+@@ -20,2 +20,7 @@
+      </div>
++     <span
++       class="text"
++     >
++       Switch theme
++     </span>
+    </label>
+`;
+
+exports[`should match snapshot 1`] = `
+<DocumentFragment>
+  <label
+    class="switch"
+  >
+    <input
+      class="checkbox"
+      type="checkbox"
+    />
+    <div
+      class="slider"
+    >
+      <div
+        class="round"
+        style="background-image: url(sun.svg); opacity: 1;"
+      />
+      <div
+        class="round"
+        style="background-image: url(moon.svg); opacity: 0; z-index: 1;"
+      />
+    </div>
+  </label>
+</DocumentFragment>
+`;
+
+exports[`switching theme should work properly 1`] = `
+Snapshot Diff:
+- dark theme on
++ light theme on
+
+@@ -12,9 +12,9 @@
+        <div
+          class="round"
+-         style="background-image: url(sun.svg); opacity: 0;"
++         style="background-image: url(sun.svg); opacity: 1;"
+        />
+        <div
+          class="round"
+-         style="background-image: url(moon.svg); opacity: 1; z-index: 1;"
++         style="background-image: url(moon.svg); opacity: 0; z-index: 1;"
+        />
+      </div>
+`;
