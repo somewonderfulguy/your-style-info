@@ -41,7 +41,7 @@ const HamburgerIcon = ({isOpen, onClick}) => {
   }
 
   const midLine = {
-    background: timeline.interpolate({range, output: [lineColor || '#000', 'transparent', 'transparent', 'transparent']})
+    background: timeline.interpolate({range, output: [lineColor, 'transparent', 'transparent', 'transparent']})
   }
 
   return (
@@ -50,6 +50,7 @@ const HamburgerIcon = ({isOpen, onClick}) => {
       onClick={onClick}
       className={styles[isDarkTheme ? 'hamburgerDark' : 'hamburger']}
       type="button"
+      title="Navigation"
     >
       <animated.div style={topLine} />
       <animated.div style={midLine} />

@@ -40,6 +40,8 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
           className={isOpen ? styles.iconOpen : styles.icon}
           onClick={() => setIsOpen(!isOpen)}
           type="button"
+          aria-expanded={isOpen}
+          aria-haspopup
         >
           <ArrowForwardIos />
         </button>
@@ -56,7 +58,7 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
         }}
         className={styles.content}
       >
-        <animated.div style={{transform}} ref={bindResizeObserver} children={children} />
+        <animated.ul style={{transform}} ref={bindResizeObserver} children={children} />
       </animated.div>
     </div>
   )

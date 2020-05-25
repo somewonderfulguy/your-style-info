@@ -10,7 +10,7 @@ const FooterNavigation = () => (
       {Object.entries(PRIME_ROUTES) && Object.entries(PRIME_ROUTES).map(([path, {name, inactive}]) => (
         <li key={path}>
           {inactive ? (
-            <span className={styles.inactive}>{name}</span>
+            <span className={styles.inactive} aria-disabled>{name}</span>
           ) : (
             <LinkExtended to={path} className={styles.link} activeClassName={styles.active}>
               {name}

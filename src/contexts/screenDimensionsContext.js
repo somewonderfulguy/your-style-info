@@ -1,11 +1,13 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
 
+export const ERROR_SCREEN = 'useScreenDimensions must be used within a ScreenDimensionsProvider'
+
 const ScreenDimensionsContext = createContext()
 
 function useScreenDimensions() {
   const context = useContext(ScreenDimensionsContext)
   if(!context) {
-    throw new Error('useScreenDimensions must be used within a ScreenDimensionsProvider')
+    throw new Error(ERROR_SCREEN)
   }
   return context
 }

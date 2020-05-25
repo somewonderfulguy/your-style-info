@@ -4,6 +4,7 @@ import {useSpring, animated, config} from 'react-spring'
 
 import {LanguageIcon} from 'assets/images'
 import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
+import {useOutsideClick} from 'shared/hooks'
 import styles from './Options.module.css'
 
 const propTypes = {
@@ -21,16 +22,6 @@ const defaultProps = {
   setOptionsOpen: () => {},
   isFixed: false,
   isScrollDown: false
-}
-
-const useClickOutside = (ref, cb) => {
-  useEffect(() => {
-    const handleClickOutside = event => {
-      if(ref.current && !ref.current.contains(event.target)) {cb()}
-    }
-    document.addEventListener('click', handleClickOutside, false)
-    return () => document.removeEventListener('click', handleClickOutside, false)
-  }, [ref, cb])
 }
 
 const useScroll = cb => {
@@ -65,7 +56,7 @@ const Options = ({isOpen, menuHeight, setOptionsOpen, isFixed, isScrollDown, hea
     isOpen && setOptionsOpen(false)
   }, [isOpen, setOptionsOpen])
 
-  useClickOutside(optionsRef, closingCallback)
+  useOutsideClick(optionsRef, closingCallback)
   useScroll(closingCallback)
 
   return (
@@ -83,12 +74,13 @@ const Options = ({isOpen, menuHeight, setOptionsOpen, isFixed, isScrollDown, hea
       }}
       className={styles.optionsContainer}
       ref={optionsRef}
+      role="menu"
     >
-      <button className={styles.langBtn} type="button">
+      <button className={styles.langBtn} type="button" role="menuitem">
         <LanguageIcon width={22} height={22} fill="#696969" />
         <span className={styles.langTxt}>Сменить язык на русский</span>
       </button>
-      <DarkThemeSwitcher name="theme-options" labelText />
+      <DarkThemeSwitcher name="theme-options" role="menuitem" labelText />
     </animated.div>
   )
 }

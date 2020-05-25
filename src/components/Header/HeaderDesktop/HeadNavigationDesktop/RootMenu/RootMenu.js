@@ -50,6 +50,8 @@ const RootMenu = ({
           clearActiveMenuItem()
         }}
         submenupersist={sub ? 1 : 0}
+        aria-haspopup={!!sub}
+        aria-expanded={activeMenuItem === name}
       >
         <LinkExtended
           to={path}

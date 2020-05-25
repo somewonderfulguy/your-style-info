@@ -11,11 +11,27 @@ import styles from './MobileMenu.module.css'
 const propTypes = {isOpen: bool}
 const defaultProps = {isOpen: false}
 
-const renderItem = ([path, {name, sub}], isSubItem = false) => {
-  const Link = <LinkExtended to={path} children={name} />
-  return sub
-    ? <Tree key={path} title={Link} children={Object.entries(sub).map(entry => renderItem(entry, true))} lineClassName={styles.line} />
-    : <div key={path} className={isSubItem ? styles.subItemLine : styles.lineLink}>{Link}</div>
+const renderItem = ([path, {name, sub, inactive}], isSubItem = false) => {
+  const Link = (
+    <LinkExtended
+      to={path}
+      children={name}
+      inactive={inactive}
+      className={inactive ? styles.inactiveListItems : ''}
+    />
+  )
+  return sub ? (
+    <Tree
+      key={path}
+      title={Link}
+      children={Object.entries(sub).map((entry, i) => (
+        <li className={styles.subItemLine} key={i}>{renderItem(entry, true)}</li>
+      ))}
+      lineClassName={styles.line}
+    />
+  ) : (
+    <div key={path} className={isSubItem ? '' : styles.lineLink}>{Link}</div>
+  )
 }
 
 const MobileMenu = forwardRef(({isOpen}, ref) => {
@@ -68,11 +84,13 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
 
   return (
     <div className={styles.menuWrapper}>
-      {routesEntries.map((entry, idx) => (
-        <animated.div key={entry[0]} style={menuItemsSprings[idx]}>
-          {renderItem(entry, false)}
-        </animated.div>
-      ))}
+      <ul>
+        {routesEntries.map((entry, idx) => (
+          <animated.li key={entry[0]} style={menuItemsSprings[idx]}>
+            {renderItem(entry, false)}
+          </animated.li>
+        ))}
+      </ul>
       <animated.div style={socialMediaAppearing} className={styles.socialMediaContainer}>
         <SocialMediaIcons />
       </animated.div>

@@ -3,7 +3,6 @@ import {any, arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-typ
 import {withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
-//TODO maybe later set duration based on scroll position
 import {SCROLL_TOP_DURATION} from 'constants/index'
 import {debounce} from 'shared/utils'
 
@@ -29,7 +28,6 @@ const defaultProps = {
   to: '/'
 }
 
-// TODO the scroll event as well as route changing must happen after content loaded - refactor later
 const LinkExtended = ({
   history,
   activeClassName,
@@ -38,7 +36,7 @@ const LinkExtended = ({
   inactive,
   location: {pathname},
   to,
-  staticContext, // remove it from ...rest
+  staticContext, // exclude from ...rest
   ...rest
 }) => {
   const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
@@ -63,7 +61,7 @@ const LinkExtended = ({
 
   const isCurrent = pathname === to
 
-  if(inactive) return <span className={className}>{children}</span>
+  if(inactive) return <span className={className} aria-disabled>{children}</span>
 
   return (
     isCurrent ? (

@@ -1,12 +1,7 @@
-:root {
-  --mobile-menu-options-size: 20px;
-  --mobile-menu-options-dot-diameter: 4px;
-}
-
 .btn {
   position: relative;
-  width: var(--mobile-menu-options-size);
-  height: var(--mobile-menu-options-size);
+  width: 20px;
+  height: 20px;
 
   display: flex;
   justify-content: center;
@@ -17,9 +12,6 @@
 .darkBtn { composes: btn; }
 
 .dot {
-  width: var(--mobile-menu-options-dot-diameter);
-  height: var(--mobile-menu-options-dot-diameter);
-
   background-color: #000;
   border-radius: 50%;
 
@@ -32,5 +24,8 @@
 }
 
 .dot:nth-child(1) {top: 0; transform: rotate(-45deg);}
-.dot:nth-child(2) {top: calc(50% - var(--mobile-menu-options-dot-diameter) / 2);}
+.dot:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
 .dot:nth-child(3) {bottom: 0; transform: rotate(45deg);}

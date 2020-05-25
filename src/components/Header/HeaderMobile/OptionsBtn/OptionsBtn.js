@@ -20,14 +20,8 @@ const OptionsBtn = ({isOpen, onClick}) => {
   const {isDarkTheme} = useTheme()
   const optionsHeight = optionsBtnDOM.current ? optionsBtnDOM.current.clientHeight : 0
 
-  // TODO delete this, awful idea
-  const dotSize = +(
-    getComputedStyle(document.documentElement).getPropertyValue('--mobile-menu-options-dot-diameter')
-      .replace('px', '')
-      || 4
-  )
+  const dotSize = 4
   const shrinkedDotSize = dotSize / 2
-
   const middlePosition = (optionsHeight / 2) - shrinkedDotSize / 2
 
   const {timeline} = useSpring({
@@ -39,8 +33,8 @@ const OptionsBtn = ({isOpen, onClick}) => {
 
   const topDot = {
     top: timeline.interpolate(range, [0, middlePosition, middlePosition, middlePosition]),
-    width: timeline.interpolate(range, [4, 2, 2, 24]),
-    height: timeline.interpolate(range, [4, 2, 2, 2]),
+    width: timeline.interpolate(range, [dotSize, shrinkedDotSize, shrinkedDotSize, 24]),
+    height: timeline.interpolate(range, [dotSize, shrinkedDotSize, shrinkedDotSize, 2]),
     borderRadius: timeline.interpolate(range, ['50%', '0', '0', '0'])
   }
 
@@ -52,11 +46,19 @@ const OptionsBtn = ({isOpen, onClick}) => {
   }
 
   const middleDot = {
+    width: dotSize,
+    height: dotSize,
     opacity: timeline.interpolate({range, output: [1, 0, 0, 0]})
   }
 
   return (
-    <button ref={optionsBtnDOM} onClick={onClick} className={styles[isDarkTheme ? 'darkBtn' : 'btn']} type="button">
+    <button
+      ref={optionsBtnDOM}
+      onClick={onClick}
+      className={styles[isDarkTheme ? 'darkBtn' : 'btn']}
+      type="button"
+      title="Options"
+    >
       <animated.div className={styles.dot} style={topDot} />
       <animated.div className={styles.dot} style={middleDot} />
       <animated.div className={styles.dot} style={bottomDot} />

@@ -2,7 +2,6 @@ import React, {useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
 import {useHeaderHeight} from 'contexts'
-import {useForceUpdate} from 'shared/hooks'
 import {useStickyNavBar} from '../hooks'
 import {useAnimatedAppearing} from './hooks'
 import HamburgerIcon from './HamburgerIcon'
@@ -11,19 +10,15 @@ import Options from './Options'
 import OptionsBtn from './OptionsBtn'
 import styles from './HeaderMobile.module.css'
 
-const Header = () => {
+const HeaderMobile = () => {
   const {setHeaderHeight} = useHeaderHeight()
   const [isMenuOpen, setMenuOpen] = useState(false)
   const [isOptionsOpen, setOptionsOpen] = useState(false)
 
   const {appearingSpring} = useAnimatedAppearing()
 
-  const headerDOM = useRef(null)
+  const headerDOM = useRef()
   const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
-
-  // forcing update on first render to make headerHeight not null
-  const forceUpdate = useForceUpdate()
-  useEffect(() => void forceUpdate(), [forceUpdate])
 
   useEffect(() => {
     setHeaderHeight(headerHeight)
@@ -75,7 +70,6 @@ const Header = () => {
         menuHeight={menuHeight}
         setOptionsOpen={setOptionsOpen}
         isFixed={isFixed}
-        isShown={isShown}
         isScrollDown={isScrollDown}
         headerTop={headerTop}
       />
@@ -83,4 +77,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default HeaderMobile

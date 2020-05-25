@@ -98,6 +98,7 @@ const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
         }}
         className={styles.subMenuContainer}
         onMouseLeave={e => closeMenu(e)}
+        data-testid="drop-down-navigation"
       >
         <div ref={bindResizeObserver} submenupersist="1">
           <SubMenu
