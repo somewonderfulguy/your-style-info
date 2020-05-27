@@ -12,6 +12,7 @@ const Routes = () => {
   const isLocaleExist = LOCALES.some(locale => locale === i18n.language)
 
   // TODO show page with 'wrong locale' and redirect after timeout
+  // FIXME it doesn't work as expected (put here a test!!!)
   if(!isLocaleExist && !!i18n.language) return <Redirect to={`/${i18n.language}`} />
 
   return (
