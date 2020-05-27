@@ -10,12 +10,12 @@ Snapshot Diff:
 -       aria-expanded="false"
 +       aria-expanded="true"
         aria-haspopup="true"
-@@ -25,5 +25,29 @@
+@@ -23,5 +23,28 @@
         <div
 -         class="triangle"
 +         class="triangleReverse"
         />
-+     </button>
+      </button>
 `;
 
 exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff) 2`] = `
@@ -28,12 +28,12 @@ Snapshot Diff:
 -       aria-expanded="false"
 +       aria-expanded="true"
         aria-haspopup="true"
-@@ -25,5 +25,29 @@
+@@ -23,5 +23,28 @@
         <div
 -         class="triangleReverse"
 +         class="triangle"
         />
-+     </button>
+      </button>
 `;
 
 exports[`snapshot diff: dropdown above/below, default/gray colour, light/dark mode 1`] = `
@@ -46,7 +46,7 @@ Snapshot Diff:
 -     class="langSelector "
 +     class="langSelectorDark gray"
     >
-@@ -25,3 +25,3 @@
+@@ -23,3 +23,3 @@
         <div
 -         class="triangle"
 +         class="triangleReverse"

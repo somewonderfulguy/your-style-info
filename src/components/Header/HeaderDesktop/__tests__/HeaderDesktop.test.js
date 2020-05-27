@@ -24,9 +24,8 @@ test('renders headers and social media icons', () => {
   const subtitle = container.querySelector('p')
   const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
 
-  // TODO fix 18next
   expect(header).toBeInTheDocument()
-  expect(subtitle).toMatchSnapshot()
+  expect(subtitle).toBeInTheDocument()
   socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
 })
 

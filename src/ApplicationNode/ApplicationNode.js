@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import {Provider} from 'react-redux'
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router} from 'react-router-dom'
 
+import Routes from './Routes'
 import Header from 'components/Header'
-import PageContainer from 'components/PageContainer'
 import Footer from 'components/Footer'
 import withContext from './withContext'
 import store from 'services/store'
@@ -29,13 +29,7 @@ const ApplicationNode = () => {
       <Router>
         <Header />
         <main style={{paddingTop: headerHeight}}>
-          {/* TODO move routers to separate component */}
-          <Switch>
-            <Route exact path="/:page" component={PageContainer} />
-            <Route exact path="/:page/:topic" component={PageContainer} />
-            <Route render={() => <Redirect to="/outerwear/trench-coat" />} />
-            {/* TODO <Route component={NotFound} /> */}
-          </Switch>
+          <Routes />
         </main>
         <Footer />
       </Router>

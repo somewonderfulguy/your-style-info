@@ -92,17 +92,14 @@
     "jest/no-deprecated-functions": "error",
     "jest/prefer-called-with": "error",
     "jest/prefer-todo": "error",
-    "jest/valid-title": "error"
+    "jest/valid-title": "error",
+    "jest/no-commented-out-tests": "error"
   },
   "overrides": [
     {
-      "files": "*.test.js",
+      "files": ["*.test.js", "tests.js"],
       "rules": {
-        "react/display-name": 0
-      }
-    }, {
-      "files": "*.test.js",
-      "rules": {
+        "react/display-name": 0,
         "react/prop-types": 0
       }
     }

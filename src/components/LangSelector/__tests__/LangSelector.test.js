@@ -1,7 +1,8 @@
 import React from 'react'
-import {act, render} from '@testing-library/react'
+import {act} from '@testing-library/react'
 import user from '@testing-library/user-event'
 
+import {renderWithRouter} from 'shared'
 import * as mockThemeContext from 'contexts/themeContext'
 import LangSelector from '..'
 
@@ -14,7 +15,7 @@ expect.addSnapshotSerializer({
 })
 
 const setup = (showAbove, gray) => (
-  render(<LangSelector showAbove={showAbove} gray={gray} />)
+  renderWithRouter(<LangSelector showAbove={showAbove} gray={gray} />)
 )
 
 test('snapshot diff: dropdown above/below, default/gray colour, light/dark mode', () => {
@@ -60,27 +61,28 @@ test('should show/hide menu when clicking on language selector', () => {
 
   expect(queryByRole('menu')).toBeNull()
 
+  // open
   user.click(langSelectorBtn)
   expect(getByRole('menu')).toBeInTheDocument()
 
+  // select language - changes language & closes menu
+  user.click(getByRole('menu').querySelector('button:not(:disabled)'))
+  expect(queryByRole('menu')).toBeNull()
+
+  // TODO check if language changed (in very implementation detail way)
+
+  // open
+  user.click(langSelectorBtn)
+
+  // close
   user.click(langSelectorBtn)
   expect(queryByRole('menu')).toBeNull()
-})
 
-test('should hide menu after selecting a language', () => {
-  const {getByRole, queryByRole, getByLabelText} = setup()
+  // open
+  user.click(langSelectorBtn)
 
-  user.click(getByLabelText('Switch language'))
-  user.click(getByRole('menu').querySelector('button:not(:disabled)'))
-
-  expect(queryByRole('menu')).toBeNull()
-})
-
-test('should hide menu if clicked somewhere outside', () => {
-  const {queryByRole, getByLabelText} = setup()
-
-  user.click(getByLabelText('Switch language'))
+  // close by clicking outside
+  user.click(getByLabelText(/switch language/i))
   act(() => user.click(document.body))
-
   expect(queryByRole('menu')).toBeNull()
 })

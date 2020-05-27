@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {animated, useSpring} from 'react-spring'
+import {animated, useSpring, useTransition} from 'react-spring'
 import {useTranslation} from 'react-i18next'
 
 import {useAnimatedAppearing} from './hooks'
@@ -11,7 +11,7 @@ import SocialMediaIcons from 'components/SocialMediaIcons'
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {
-  const {t} = useTranslation('', {useSuspense: false})
+  const {t, ready: localeReady} = useTranslation('', {useSuspense: false})
   const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
   const navBarDOM = useRef(null)
@@ -37,6 +37,13 @@ const HeaderDesktop = () => {
     top: isShown || isRootMenuOpen || persistRootMenu ? -1 : navbarHeight * -1
   })
 
+  const subtitleSelector = 'subtitle'
+  const transitions = useTransition(t(subtitleSelector), null, {
+    from: {opacity: 0},
+    enter: {opacity: 1},
+    leave: {opacity: 0}
+  })
+
   return (
     <header
       style={{paddingBottom: navbarHeight}}
@@ -47,9 +54,17 @@ const HeaderDesktop = () => {
           <animated.h1 className={styles.title} style={firstAppearing}>
             Your Style
           </animated.h1>
-          <animated.p className={styles.subtitle} style={secondAppearing}>
-            {t('subtitle')}
-          </animated.p>
+          {localeReady && (
+            <animated.p className={styles.subtitleContainer} style={secondAppearing}>
+              {transitions.map(({item, key, props}) => (
+                item !== subtitleSelector && (
+                  <animated.span key={key} style={props} className={styles.subtitle}>
+                    {item}
+                  </animated.span>
+                )
+              ))}
+            </animated.p>
+          )}
         </div>
         <div className={styles.sideControlsContainer}>
           <animated.div style={{

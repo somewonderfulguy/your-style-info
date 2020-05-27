@@ -15,11 +15,21 @@
   margin: 0;
 }
 
-.subtitle {
+.subtitleContainer {
   font-family: arial;
   font-size: 15px;
   color: darkgray;
   margin: 0;
+
+  position: relative;
+  height: 17px;
+}
+
+.subtitle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
 }
 
 .sideControlsContainer {

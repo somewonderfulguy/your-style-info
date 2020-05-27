@@ -6,6 +6,8 @@ const pagePathPair = new Map([
   ['/outerwear/pea-coat', '/json/pea-coat.json'],
   ['/outerwear/quilted-jacket', '/json/quilted-jacket.json'],
   ['/outerwear/trench-coat', '/json/trench-coat.json'],
+  ['/en/outerwear/trench-coat', '/json/trench-coat-en.json'],
+  ['/ru/outerwear/trench-coat', '/json/trench-coat-ru.json'],
   ['/accessories', '/json/accessories.json'],
   ['/accessories/carry', '/json/carry.json'],
   ['/glossary', '/json/glossary.json'],
