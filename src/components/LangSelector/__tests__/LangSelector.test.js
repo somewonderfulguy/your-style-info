@@ -14,8 +14,11 @@ expect.addSnapshotSerializer({
   print(val) {return val.replace(/\n\+\s{0,}<ul(\n.*){1,}/gm, '')}
 })
 
-const setup = (showAbove, gray) => (
-  renderWithRouter(<LangSelector showAbove={showAbove} gray={gray} />)
+const setup = (showAbove, gray, path = '/') => (
+  renderWithRouter(
+    <LangSelector showAbove={showAbove} gray={gray} />,
+    {route: path}
+  )
 )
 
 test('snapshot diff: dropdown above/below, default/gray colour, light/dark mode', () => {
@@ -56,7 +59,8 @@ test('snapshot diff: aria state and css-class of triangle when open/hidden menu 
 })
 
 test('should show/hide menu when clicking on language selector', () => {
-  const {getByLabelText, getByRole, queryByRole} = setup()
+  const url = '/en/outerwear/trench-coat'
+  const {getByLabelText, getByRole, queryByRole, history} = setup(false, false, url)
   const langSelectorBtn = getByLabelText(/switch language/i)
 
   expect(queryByRole('menu')).toBeNull()
@@ -66,10 +70,15 @@ test('should show/hide menu when clicking on language selector', () => {
   expect(getByRole('menu')).toBeInTheDocument()
 
   // select language - changes language & closes menu
-  user.click(getByRole('menu').querySelector('button:not(:disabled)'))
-  expect(queryByRole('menu')).toBeNull()
+  const beforeChange = url
+  const afterChange = url.replace(/^\/en/, '/ru')
 
-  // TODO check if language changed (in very implementation detail way)
+  expect(history.location.pathname).toEqual(beforeChange)
+
+  user.click(getByRole('menu').querySelector('button:not(:disabled)'))
+
+  expect(queryByRole('menu')).toBeNull()
+  expect(history.location.pathname).toEqual(afterChange)
 
   // open
   user.click(langSelectorBtn)

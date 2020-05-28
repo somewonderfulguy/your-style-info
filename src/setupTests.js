@@ -52,7 +52,7 @@ jest.mock('react-router-dom', () => ({
     params: {locale: 'en'}
   }),
   useLocation: () => ({
-    pathname: '/mockedValueInSetupTests',
+    pathname: '/en/outerwear/trench-coat',
     hash: '',
     search: '',
     state: ''
