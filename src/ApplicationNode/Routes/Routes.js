@@ -6,20 +6,23 @@ import PageContainer from 'components/PageContainer'
 import {LOCALES} from 'constants/index'
 
 const Routes = () => {
-  const {path} = useRouteMatch('/:locale')
+  const pathLocale = '/:locale'
+  const routeMatch = useRouteMatch(pathLocale)
   const {i18n} = useTranslation('', {useSuspense: false})
 
-  const isLocaleExist = LOCALES.some(locale => locale === i18n.language)
+  const urlLocale = routeMatch?.params.locale
+  const isLocaleExist = LOCALES.some(locale => locale === urlLocale)
 
   // TODO show page with 'wrong locale' and redirect after timeout
-  // FIXME it doesn't work as expected (put here a test!!!)
-  if(!isLocaleExist && !!i18n.language) return <Redirect to={`/${i18n.language}`} />
+  if(!isLocaleExist && !!i18n.language) {
+    return <Redirect to={`/${i18n.language}`} />
+  }
 
-  return (
+  return isLocaleExist ? (
     <Switch>
-      <Route path={`${path}/:page`} component={PageContainer} />
+      <Route path={`${pathLocale}/:page`} component={PageContainer} />
     </Switch>
-  )
+  ) : null
 }
 
 export default Routes

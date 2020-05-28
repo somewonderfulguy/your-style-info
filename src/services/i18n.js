@@ -11,6 +11,7 @@ i18n
   .use(initReactI18next)
   .init({
     detection: {
+      // FIXME add saving locale in localstorage, fix navigator if possible
       order: ['path', 'localstorage', 'navigator']
     },
     whitelist: [...LANGUAGES.keys()],

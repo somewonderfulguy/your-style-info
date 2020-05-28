@@ -105,8 +105,6 @@ test('language switcher works as expected', () => {
   user.click(langSelectorBtn)
   expect(getByRole('menu')).toBeInTheDocument()
 
-  // TODO check language switching
-
   // close by clicking outside
   act(() => user.click(document.body))
   expect(queryByRole('menu')).toBeNull()

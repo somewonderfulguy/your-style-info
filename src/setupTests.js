@@ -35,7 +35,8 @@ jest.mock('react-i18next', () => ({
     t: key => key,
     ready: true,
     i18n: {
-      changeLanguage: jest.fn()
+      changeLanguage: jest.fn(),
+      language: 'en'
     }
   })
 }))
@@ -44,12 +45,14 @@ jest.mock('react-i18next', () => ({
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({
-    companyId: 'company-id1',
-    teamId: 'team-id1',
+    locale: 'en'
   }),
-  useRouteMatch: () => ({url: '/company/company-id1/team/team-id1'}),
+  useRouteMatch: () => ({
+    url: '/en/outerwear/trench-coat',
+    params: {locale: 'en'}
+  }),
   useLocation: () => ({
-    pathname: '/welcome',
+    pathname: '/mockedValueInSetupTests',
     hash: '',
     search: '',
     state: ''
