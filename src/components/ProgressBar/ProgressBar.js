@@ -11,7 +11,7 @@ const propTypes = {
 
 const defaultProps = {
   width: '100%',
-  height: '5px',
+  height: 5,
   value: 0
 }
 
@@ -21,8 +21,6 @@ const ProgressBar = ({width, height, value}) => {
   useLayoutEffect(() => {
     progressDOM.current && progressDOM.current.style.setProperty('--value', `${value}%`)
   }, [value])
-
-  if(+value === 100) return null
 
   return (
     <progress

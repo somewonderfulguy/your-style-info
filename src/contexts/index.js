@@ -1,4 +1,4 @@
 export * from './headerHeightContext'
-export * from './loadingProgressContext'
+export * from './loadingContext'
 export * from './screenDimensionsContext'
 export * from './themeContext'

@@ -1,14 +1,16 @@
 import React from 'react'
 
-import {HeaderHeightProvider, ScreenDimensionsProvider, ThemeProvider} from 'contexts'
+import {HeaderHeightProvider, LoadingProvider, ScreenDimensionsProvider, ThemeProvider} from 'contexts'
 
 const withContext = WrappedComponent => {
   const Component = props => (
     <HeaderHeightProvider>
       <ThemeProvider>
-        <ScreenDimensionsProvider>
-          <WrappedComponent {...props} />
-        </ScreenDimensionsProvider>
+        <LoadingProvider>
+          <ScreenDimensionsProvider>
+            <WrappedComponent {...props} />
+          </ScreenDimensionsProvider>
+        </LoadingProvider>
       </ThemeProvider>
     </HeaderHeightProvider>
   )

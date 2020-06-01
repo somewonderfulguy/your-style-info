@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {array, func, shape, string} from 'prop-types'
 
 // TODO componentRenderer should be colocated
 import {componentRenderer} from 'shared'
+import {useLoading} from 'contexts'
 import styles from './Page.module.css'
 
 const propTypes = {
@@ -20,9 +21,15 @@ const defaultProps = {
 }
 
 const Page = ({location: {pathname}, header, components, fetchPageData}) => {
+  const {setLoading} = useLoading()
+
+  const setLoadingPage = useCallback(isLoading => setLoading({page: isLoading}), [setLoading])
+
   useEffect(() => {
+    setLoadingPage(true)
     fetchPageData(pathname)
-  }, [fetchPageData, pathname])
+      .finally(() => setLoadingPage(false))
+  }, [fetchPageData, pathname, setLoadingPage])
 
   return (
     <article className={styles.page}>
