@@ -20,6 +20,7 @@ const Routes = () => {
 
   return isLocaleExist ? (
     <Switch>
+      <Route path={`${pathLocale}`} component={PageContainer} />
       <Route path={`${pathLocale}/:page`} component={PageContainer} />
     </Switch>
   ) : null

@@ -1,5 +1,5 @@
 export const PRIME_ROUTES = {
-  '/home': {
+  '/': {
     name: 'Home'
   },
   '/guides-topics': {

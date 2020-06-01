@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react'
+import {createPortal} from 'react-dom'
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router} from 'react-router-dom'
 
 import Routes from './Routes'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
+import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
 import store from 'services/store'
 import {useHeaderHeight, useTheme} from 'contexts'
@@ -26,6 +28,12 @@ const ApplicationNode = () => {
   return (
     // TODO remove redux and replace it with React context
     <Provider store={store}>
+      {createPortal(
+        <div className={styles.progressBarContainer}>
+          <ProgressBar height="100%" value={0} />
+        </div>,
+        document.body
+      )}
       <Router>
         <Header />
         <main style={{paddingTop: headerHeight}}>

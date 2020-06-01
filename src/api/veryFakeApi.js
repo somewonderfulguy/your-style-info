@@ -1,18 +1,22 @@
 import Promise from 'bluebird'
 
 const pagePathPair = new Map([
-  ['/', '/json/home.json'],
-  ['/outerwear', '/json/outerwear.json'],
-  ['/outerwear/pea-coat', '/json/pea-coat.json'],
-  ['/outerwear/quilted-jacket', '/json/quilted-jacket.json'],
-  ['/outerwear/trench-coat', '/json/trench-coat.json'],
+  ['/en', '/json/home.json'],
+  ['/ru', '/json/home.json'],
+  ['/en/guides-topics', '/json/outerwear.json'],
+  ['/ru/guides-topics', '/json/outerwear.json'],
+  ['/en/clothes', '/json/pea-coat.json'],
+  ['/ru/clothes', '/json/pea-coat.json'],
+  ['/en/grooming', '/json/quilted-jacket.json'],
+  ['/ru/grooming', '/json/quilted-jacket.json'],
   ['/en/outerwear/trench-coat', '/json/trench-coat-en.json'],
   ['/ru/outerwear/trench-coat', '/json/trench-coat-ru.json'],
-  ['/accessories', '/json/accessories.json'],
-  ['/accessories/carry', '/json/carry.json'],
-  ['/glossary', '/json/glossary.json'],
-  ['/blog', '/json/blog.json'],
-  ['/about', '/json/about.json']
+  ['/en/brands-stores', '/json/accessories.json'],
+  ['/ru/brands-stores', '/json/accessories.json'],
+  ['/en/glossary', '/json/glossary.json'],
+  ['/ru/glossary', '/json/glossary.json'],
+  ['/en/mixed', '/json/blog.json'],
+  ['/ru/mixed', '/json/blog.json']
 ])
 
 let promise = Promise.resolve()
@@ -25,4 +29,27 @@ export const getPageData = page => {
       .then(resolve)
       .catch(reject)
   })
+}
+
+// FIXME
+// works, but event.total is always 0; with that it doesn't work as expected
+// regardless, leaving this code untouched until find a way to fix event.total
+// (maybe to fix it, I need to setup backend)
+export const getPageDataNew = (page, onProgress) => {
+  const xhr = new XMLHttpRequest()
+  xhr.open('GET', page)
+  xhr.send()
+
+  xhr.onload = () => console.log('loaded!!!')
+
+  xhr.onprogress = event => {
+    console.log('lengthComputable', event.lengthComputable)
+    console.log(`got ${event.loaded} from ${event.total}`)
+  }
+
+  xhr.onerror = () => console.log('error happened')
+
+  // xhr.timeout = () => {}
+
+  // xhr.abort()
 }

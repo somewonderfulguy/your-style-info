@@ -41,3 +41,12 @@
 .themeWrapperDarkMode * {
   border-color: rgb(var(--primaryBorder));
 }
+
+.progressBarContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 5000;
+}
