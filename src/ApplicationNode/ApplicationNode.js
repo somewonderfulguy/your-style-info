@@ -29,7 +29,7 @@ const ApplicationNode = () => {
 
   const {progress, isFinished} = useNProgress({isAnimating: isLoading})
   useEffect(() => {
-    document.body.style.cursor = isLoading ? 'progress' : 'default'
+    document.body.style.cursor = isLoading ? 'progress' : 'initial'
   }, [isLoading])
 
   return (
