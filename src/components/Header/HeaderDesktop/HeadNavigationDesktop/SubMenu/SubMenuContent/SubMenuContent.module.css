@@ -14,7 +14,6 @@
 .listDark {composes: list;}
 
 .listItem {
-  cursor: default;
   color: lightgray;
 }
 

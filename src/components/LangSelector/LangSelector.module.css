@@ -99,7 +99,7 @@
 }
 
 .dropDown button:disabled {
-  cursor: default;
+  cursor: inherit;
   color: rgb(var(--primaryDisabled));
 }
 

@@ -24,7 +24,7 @@
   composes: listItem;
   color: rgb(var(--primaryDisabled));
   transition: color .2s ease;
-  cursor: default;
+  cursor: inherit;
   padding: 15px;
 }
 

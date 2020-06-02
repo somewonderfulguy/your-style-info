@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+// FIXME remove the eslint disabler
 import Promise from 'bluebird'
 
 const pagePathPair = new Map([
