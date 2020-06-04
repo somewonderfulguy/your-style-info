@@ -2,10 +2,24 @@
 
 exports[`should match snapshot 1`] = `
 <DocumentFragment>
-  <img
-    alt="A man in suit with briefcase and baguette"
-    class="img"
-    src="path/nice-briefcase.jpg"
-  />
+  <figure>
+    <div
+      class="imageContainer"
+    >
+      <div
+        class="aspectRatioOuter"
+        style="max-width: 100%;"
+      >
+        <div
+          class="aspectRatioInner"
+        >
+          <div
+            class="preloadPlaceholder"
+            style="background-image: url(null);"
+          />
+        </div>
+      </div>
+    </div>
+  </figure>
 </DocumentFragment>
 `;
