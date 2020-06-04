@@ -13,7 +13,8 @@ export function useAnimatedAppearing() {
       transform: 'translate3d(0, 0, 0)',
       reverseTransform: 'translate3d(0, 0, 0)'
     },
-    delay: n === 0 ? 0 : 180 * n
+    delay: n === 0 ? 0 :
+      n === 3 ? 360 : 180 * n
   })))
 
   return {appearingSprings}

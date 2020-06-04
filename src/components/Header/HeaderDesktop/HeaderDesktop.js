@@ -46,6 +46,7 @@ const HeaderDesktop = () => {
 
   return (
     <header
+      className={styles.header}
       style={{paddingBottom: navbarHeight}}
       ref={headerDOM}
     >

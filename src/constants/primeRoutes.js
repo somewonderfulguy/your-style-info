@@ -161,12 +161,10 @@ export const PRIME_ROUTES = {
     }
   },
   '/brands-stores': {
-    name: 'Brands & stores',
-    inactive: true
+    name: 'Brands & stores'
   },
   '/glossary': {
-    name: 'Glossary',
-    inactive: true
+    name: 'Glossary'
   },
   '/mixed': {
     name: 'Mixed',

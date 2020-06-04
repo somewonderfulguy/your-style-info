@@ -1,3 +1,46 @@
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.imageContainer {
+  position: relative;
+}
+
 .img {
   max-width: 100%;
+  animation: fadeIn .6s;
+}
+
+.imgAbsolute {
+  composes: img;
+  composes: absolute;
+}
+
+.aspectRatioOuter {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.aspectRatioInner {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.preloadPlaceholder {
+  composes: absolute;
+
+  background-size: cover;
+  filter: blur(20px);
+  transform: scale(1.05);
 }

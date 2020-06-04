@@ -1,3 +1,7 @@
+.header {
+  z-index: 5000;
+}
+
 .aboveNav {
   display: flex;
   justify-content: space-between;
