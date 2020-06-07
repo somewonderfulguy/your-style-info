@@ -33,7 +33,7 @@ test('menu (navigation) works as expected', async () => {
   const getNav = () => getByRole('navigation')
   const queryNav = () => queryByRole('navigation')
 
-  expect(queryNav()).toBeNull()
+  expect(queryNav()).not.toBeInTheDocument()
 
   // open navigation
   user.click(navButton)
@@ -84,7 +84,7 @@ test('menu (navigation) works as expected', async () => {
 
   // close navigation
   user.click(navButton)
-  waitForElementToBeRemoved(queryNav)
+  await waitForElementToBeRemoved(queryNav)
 })
 
 test('options work as expected', async () => {
@@ -93,7 +93,7 @@ test('options work as expected', async () => {
   const getOptions = () => getByRole('menu')
   const queryOptions = () => queryByRole('menu')
 
-  expect(queryOptions()).toBeNull()
+  expect(queryOptions()).not.toBeInTheDocument()
 
   const openOptionsMenu = async () => {
     user.click(optionsButton)
@@ -105,21 +105,21 @@ test('options work as expected', async () => {
 
   // close by clicking outside
   act(() => user.click(document.body))
-  await wait(() => expect(queryOptions()).toBeNull())
+  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
 
   // close by scrolling down
   fireEvent.scroll(window, {target: {scrollY: 100}})
-  await wait(() => expect(queryOptions()).toBeNull())
+  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
 
   // close by scrolling up
   fireEvent.scroll(window, {target: {scrollY: 0}})
-  await wait(() => expect(queryOptions()).toBeNull())
+  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
@@ -132,15 +132,15 @@ test('options work as expected', async () => {
 
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
-  user.click(themeSwitcher)
+  act(() => user.click(themeSwitcher))
   expect(getThemeHook().result.current.isDarkTheme).toBeTruthy()
 
-  user.click(themeSwitcher)
+  act(() => user.click(themeSwitcher))
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
   // TODO: language switching
 
   // close by clicking on the button
-  user.click(optionsButton)
-  await wait(() => expect(queryOptions()).toBeNull())
+  act(() => user.click(optionsButton))
+  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
 })

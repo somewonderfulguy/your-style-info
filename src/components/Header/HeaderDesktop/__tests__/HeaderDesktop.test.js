@@ -91,7 +91,7 @@ test('language switcher works as expected', () => {
   const { getByLabelText, getByRole, queryByRole } = setup()
   const langSelectorBtn = getByLabelText(/switch language/i)
 
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
   user.click(langSelectorBtn)
@@ -99,7 +99,7 @@ test('language switcher works as expected', () => {
 
   // close
   user.click(langSelectorBtn)
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
   user.click(langSelectorBtn)
@@ -107,5 +107,5 @@ test('language switcher works as expected', () => {
 
   // close by clicking outside
   act(() => user.click(document.body))
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 })

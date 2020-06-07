@@ -1,7 +1,8 @@
 {
   "header": "Quilted jacket",
   "components": [{
-    "alt": "Qulted jacket - main image",
+    "alt": "Quilted jacket - main image",
+    "caption": "A quilted jacket over a suit",
     "lowresBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAMAAAAhxq8pAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAGtUExURQEBAUxRTzk9PgEKFXt3bB4qOUpOTxMfK2BiXHd4dgcQGkhKRxUcIzY4Oi8wML6qlWpta5B+ZwwWIQgLDpiIcINrUiw2QLOWe4t/cAIRH82ymCUvPHtyYygtLxciLlBVTZGCdZqHeg8REyAoLjg7LldZVKKNfBEUGTw2NVhQSrymj5SNgpuOgWdkYFBZVwAGCxslMY+CapuDb46JfaCMci00OJKLgpeJdqGFaa2Yhp6RiMKoj5eRh0ZCPktLPYWAdVpgV6eVgUA7P4qFeT1CRBoiJ6eKcQICCWlpZFdJPiMmKUpOST5BNl5jZWJoYuDHrbqnlFxHRcKtl4p5YmRmaDs7R2VqaYVtZi0sJndCL0k4K29dPiQpNwUIDIaIgaqYf3dtW4xtVzdFU7eghsu4pU5JNiMrNK6glH9+fCUmGntuXfnhy0pJWnJzchcYEK2Rdoh1a1BIT1FRXGJkVExGT3thWywuPVtdYq2FcUVBSceLgE9PVh0bGlpKS1I2NNSfkVQtIIFuW2NRPaenpXBjVDciCnBzcFA6FIaGgJZxNls3A39ZJ7yHTFZELS8ZAtn/WeEAAAFISURBVBjTDcjFQgIBFADAx3bQ3d0pCNKoiISCggIK2N3d2N3frHMc4ENBbGFniIiYK5GgaXVcJtOCGYAZZrNdnpiUzKp0ivkF7RwwTG0EtfEIguQ6zAy5GMP6hwCdurtxsDYDp6eHdHJVpXxfrxKm71utW2SMouQ4ifBRnt2jNIIR2iUgaHoD0cuXRpi1YDjaC1XMwwdCeE5zcI1GxyVlMWMfCMYnrgMcX6NelOP6iEXli4cSUBW4pwOjwssundPgiK6QW0+kQDDh5gc49WxDSFnw4XTtIGXygjs57gK//+zkqIjo0dOri327CRTq7f9knYc7FcqBTDkf7EoTJFcEW3vl47LZRQvZ/CM8e7UYDEal6knrmGEzQzWxwfbvj9fTDyGRdFmRGRiw2nab2OTL15vvaQhEQWlYtGqgrKN05bXz+f3Recf+ADW0PcE+Ou4TAAAAAElFTkSuQmCC",
     "type": "image",
     "url": "/img/quilted-jacket-01.jpg",

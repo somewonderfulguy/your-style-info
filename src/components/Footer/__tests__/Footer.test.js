@@ -45,7 +45,7 @@ test('renders and acts as expected', () => {
   // switching language
   const langSelectorBtn = getByLabelText(/switch language/i)
 
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open lang switcher
   user.click(langSelectorBtn)
@@ -53,7 +53,7 @@ test('renders and acts as expected', () => {
 
   // close lang switcher
   user.click(langSelectorBtn)
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open lang switcher
   user.click(langSelectorBtn)
@@ -63,7 +63,7 @@ test('renders and acts as expected', () => {
 
   // close lang switcher by clicking outside
   act(() => user.click(document.body))
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // social media
   const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]

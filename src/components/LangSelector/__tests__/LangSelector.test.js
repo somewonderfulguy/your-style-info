@@ -63,7 +63,7 @@ test('should show/hide menu when clicking on language selector', () => {
   const {getByLabelText, getByRole, queryByRole, history} = setup(false, false, url)
   const langSelectorBtn = getByLabelText(/switch language/i)
 
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
   user.click(langSelectorBtn)
@@ -77,7 +77,7 @@ test('should show/hide menu when clicking on language selector', () => {
 
   user.click(getByRole('menu').querySelector('button:not(:disabled)'))
 
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
   expect(history.location.pathname).toEqual(afterChange)
 
   // open
@@ -85,7 +85,7 @@ test('should show/hide menu when clicking on language selector', () => {
 
   // close
   user.click(langSelectorBtn)
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
   user.click(langSelectorBtn)
@@ -93,5 +93,5 @@ test('should show/hide menu when clicking on language selector', () => {
   // close by clicking outside
   user.click(getByLabelText(/switch language/i))
   act(() => user.click(document.body))
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 })

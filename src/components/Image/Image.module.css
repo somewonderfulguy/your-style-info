@@ -11,6 +11,10 @@
   bottom: 0;
 }
 
+.figure {
+  margin: 0;
+}
+
 .imageContainer {
   position: relative;
 }
@@ -43,4 +47,17 @@
   background-size: cover;
   filter: blur(20px);
   transform: scale(1.05);
+}
+
+.caption {
+  text-align: center;
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.captionDark {
+  composes: caption;
+  color: rgba(255, 255, 255, 0.54);
 }
