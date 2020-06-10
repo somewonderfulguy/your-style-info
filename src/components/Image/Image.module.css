@@ -33,12 +33,23 @@
   width: 100%;
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.5s;
+}
+
+.aspectRatioOuterError {
+  composes: aspectRatioOuter;
+}
+
+.aspectRatioOuterError:hover .aspectRatioInner {
+  transform: scale(1.1);
 }
 
 .aspectRatioInner {
   width: 100%;
   overflow: hidden;
   position: relative;
+  transition: transform 1s ease-in-out 0s;
 }
 
 .preloadPlaceholder {
@@ -60,4 +71,40 @@
 .captionDark {
   composes: caption;
   color: rgba(255, 255, 255, 0.54);
+}
+
+.errorMessage {
+  composes: absolute;
+  background-color: rgba(0, 0, 0, .3);
+}
+
+.reloadImageBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  color: white;
+  width: 100%;
+  height: 100%;
+  
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out 0s;
+
+  outline: none;
+}
+
+.reloadImageBtn:hover {
+  transform: scale(1.05);
+}
+
+.reloadTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 18px 0;
+  position: absolute;
+}
+
+.focus {
+  box-shadow: 0px 0px 4px 1px rgb(33, 150, 243);
 }

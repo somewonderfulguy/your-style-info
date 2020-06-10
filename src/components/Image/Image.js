@@ -1,16 +1,17 @@
-import React, {useLayoutEffect, useEffect, useState} from 'react'
+import React, {useEffect, useReducer, useState} from 'react'
 import {number, string} from 'prop-types'
+import {animated, useTransition} from 'react-spring'
 
-import {imgPreloadPromise} from 'shared/utils'
+import {useImageLoad} from './hooks'
 import {useTheme} from 'contexts'
 import styles from './Image.module.css'
 
 const propTypes = {
   url: string.isRequired,
   alt: string.isRequired,
-  lowresBase64: string,
-  width: number,
-  height: number,
+  lowresBase64: string.isRequired,
+  width: number.isRequired,
+  height: number.isRequired,
   caption: string
 }
 
@@ -21,49 +22,122 @@ const defaultProps = {
 
 export const getAspectRatio = (width, height) => height / width * 100
 
-const initState = {isLoaded: false, isPreviewHidden: false}
-
-// TODO: handle error with retry msg
 // TODO: check mobiles
+// TODO: different translations
+// TODO: zoom to fullscreen (+ hide fullscreen on scroll)
 
 const Image = ({url, alt, lowresBase64, width, height, caption}) => {
-  const [state, setState] = useState(initState)
-  const {isLoaded, isPreviewHidden} = state
+  const {isRejected, isResolved, isPreviewVisible, retry} = useImageLoad(url)
   const {isDarkTheme} = useTheme()
 
-  useLayoutEffect(() => void setState(initState), [url])
+  const [isFocused, setFocused] = useState(false)
+  const [{showTitle, delayedShowSubtitle}, setAppear] = useReducer(
+    (s, a) => ({...s, ...a}), {
+      showTitle: false,
+      delayedShowSubtitle: false
+    }
+  )
 
   useEffect(() => {
-    const [promise, cancel] = imgPreloadPromise(url)
-    promise
-      .then(() => {
-        setState({isLoaded: true, isPreviewHidden: false})
-        setTimeout(() => {
-          setState({isLoaded: true, isPreviewHidden: true})
-        }, 500)
-        return null // Bluebird is an idiot, requires return something
+    let timer
+    if(isRejected) {
+      setAppear({showTitle: true})
+      timer = setTimeout(() => setAppear({delayedShowSubtitle: true}), 300)
+    } else {
+      setAppear({
+        showTitle: false,
+        delayedShowSubtitle: false
       })
-      .catch(() => console.warn('holly crap!'))
-    return cancel
-  }, [url])
+    }
+    return () => clearTimeout(timer)
+  }, [isRejected])
 
-  const paddingBottom = `${getAspectRatio(width, height)}%`
+  const errorTileTransitions = useTransition(isRejected, null, {
+    from: {opacity: 0},
+    enter: {opacity: 1},
+    leave: {opacity: 0}
+  })
+
+  const titleAppear = useTransition(showTitle, null, {
+    from: {
+      opacity: 0,
+      top: `calc(50% - 19px)`
+    },
+    enter: {
+      opacity: 1,
+      top: `calc(50% - 39px)`
+    },
+    leave: {opacity: 0},
+    config: {duration: 400}
+  })
+
+  const subtitleAppear = useTransition(delayedShowSubtitle, null, {
+    from: {
+      opacity: 0,
+      top: `calc(50% + 30px)`
+    },
+    enter: {
+      opacity: 1,
+      top: `calc(50% + 20px)`
+    },
+    leave: {opacity: 0},
+    config: {duration: 400}
+  })
+
+  const ratioOuterClassName = (isRejected ? styles.aspectRatioOuterError : styles.aspectRatioOuter) + ' ' +
+    (isFocused ? styles.focus : '')
 
   return (
     <figure className={styles.figure}>
       <div className={styles.imageContainer}>
-        {!isPreviewHidden && (
-          <div style={{maxWidth: width}} className={styles.aspectRatioOuter}>
-            <div style={{paddingBottom}} className={styles.aspectRatioInner}>
+        {isPreviewVisible && (
+          <div
+            style={{maxWidth: width}}
+            className={ratioOuterClassName}
+          >
+            <div style={{paddingBottom: `${getAspectRatio(width, height)}%`}} className={styles.aspectRatioInner}>
               <div
                 className={styles.preloadPlaceholder}
                 style={{backgroundImage: `url('${lowresBase64}')`}}
               />
             </div>
+            {errorTileTransitions.map(({item, key, props}) => (
+              item && (
+                <animated.div className={styles.errorMessage} role="alert" key={key} style={props}>
+                  <div
+                    className={styles.reloadImageBtn}
+                    onClick={() => {
+                      retry()
+                      setFocused(false)
+                    }}
+                    role="button"
+                    tabIndex="0"
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
+                  >
+                    {titleAppear.map(({item, key, props}) => (
+                      item && (
+                        <animated.span key={key} className={styles.reloadTitle} style={props}>
+                          An error occured during image loading
+                        </animated.span>
+                      )
+                    ))}
+                    {subtitleAppear.map(({item, key, props}) => (
+                      item && (
+                        <animated.span key={key} style={{position: 'absolute', ...props}}>
+                          Click on this to try to load again.
+                        </animated.span>
+                      )
+                    ))}
+                  </div>
+                </animated.div>
+              )
+            ))
+            }
           </div>
         )}
-        {isLoaded && (
-          <img src={url} alt={alt} className={isPreviewHidden ? styles.img : styles.imgAbsolute} />
+        {isResolved && (
+          <img src={url} alt={alt} className={isPreviewVisible ? styles.imgAbsolute : styles.img} />
         )}
       </div>
       {caption && (

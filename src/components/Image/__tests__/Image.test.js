@@ -1,5 +1,6 @@
 import React from 'react'
-import {act, render, screen, wait} from '@testing-library/react'
+import {act, render, screen, wait, waitForElementToBeRemoved} from '@testing-library/react'
+import user from '@testing-library/user-event'
 
 import Image, {getAspectRatio} from '../Image'
 import {imgPreloadPromise as mockImgPreloadPromise} from 'shared/utils'
@@ -23,7 +24,11 @@ const setup = props => {
     />,
     {wrapper: ThemeProvider}
   )
-  return utils
+  const getPreloadBlock = () => utils.container.querySelector('.preloadPlaceholder')
+  return {
+    getPreloadBlock,
+    ...utils
+  }
 }
 
 const mockPromise = Promise.resolve()
@@ -32,15 +37,46 @@ mockImgPreloadPromise.mockReturnValue([mockPromise, mockCancel])
 
 afterEach(() => jest.clearAllMocks())
 
+test('"try again" block on failed image load works as expected', async () => {
+  // shut up act errors
+  jest.spyOn(console, 'error').mockImplementation(() => {})
+
+  const mockRejectPromise = Promise.reject(new Error('mock reject'))
+  mockImgPreloadPromise.mockReturnValueOnce([mockRejectPromise, mockCancel])
+
+  const {getPreloadBlock} = setup()
+
+  // preloader, no image
+  expect(getPreloadBlock()).toBeInTheDocument()
+  expect(screen.queryByRole('img')).not.toBeInTheDocument()
+
+  // error message appears
+  const errorMsg = await screen.findByText(/an error occured/i)
+  expect(errorMsg).toBeInTheDocument()
+
+  // preloader placeholder is still in the document
+  expect(getPreloadBlock()).toBeInTheDocument()
+
+  // click on try again, error disappear and preload placeholder disappear, image appears
+  act(() => user.click(screen.getByRole('button')))
+  await waitForElementToBeRemoved(() => screen.getByText(/an error occured/i))
+  await waitForElementToBeRemoved(getPreloadBlock)
+  expect(screen.queryByRole('img')).toBeInTheDocument()
+
+  // assert mock
+  expect(mockImgPreloadPromise).toHaveBeenCalledTimes(2)
+
+  jest.spyOn(console, 'error').mockRestore()
+})
+
 test('getAspectRatio fn calculates paddingBottom value correctly', () => {
-  // TODO: replace with jest-in-case
+  // TODO: replace with jest-in-case ??
   expect(getAspectRatio(16, 9)).toEqual(56.25)
   expect(+getAspectRatio(21, 9).toFixed(2)).toEqual(42.86)
 })
 
 test('image works as expected', async () => {
-  const {container, unmount} = setup()
-  const getPreloadBlock = () => container.querySelector('.preloadPlaceholder')
+  const {getPreloadBlock, unmount} = setup()
 
   // preload block only, image loads and appears, preload block disappears
   expect(getPreloadBlock()).toBeInTheDocument()
@@ -66,5 +102,3 @@ test('should not show figcaption if no caption passed as a prop', async () => {
 
   await act(() => mockPromise)
 })
-
-test.todo('if image load fails should show try again block')
