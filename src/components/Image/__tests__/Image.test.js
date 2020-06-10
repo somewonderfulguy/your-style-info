@@ -31,6 +31,8 @@ const setup = props => {
   }
 }
 
+// TODO test focus on retry and zoom buttons
+
 const mockPromise = Promise.resolve()
 const mockCancel = jest.fn()
 mockImgPreloadPromise.mockReturnValue([mockPromise, mockCancel])

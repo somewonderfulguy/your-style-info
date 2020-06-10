@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from 'react'
+import React, {useCallback, useEffect, useReducer, useState} from 'react'
 import {number, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
@@ -31,26 +31,20 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
   const {isDarkTheme} = useTheme()
 
   const [isFocused, setFocused] = useState(false)
-  const [{showTitle, delayedShowSubtitle}, setAppear] = useReducer(
+  const [{delayedShowTitle, delayedShowSubtitle}, setAppear] = useReducer(
     (s, a) => ({...s, ...a}), {
-      showTitle: false,
+      delayedShowTitle: false,
       delayedShowSubtitle: false
     }
   )
 
-  useEffect(() => {
-    let timer
-    if(isRejected) {
-      setAppear({showTitle: true})
-      timer = setTimeout(() => setAppear({delayedShowSubtitle: true}), 300)
-    } else {
-      setAppear({
-        showTitle: false,
-        delayedShowSubtitle: false
-      })
-    }
-    return () => clearTimeout(timer)
-  }, [isRejected])
+  const ratioOuterClassName = (isRejected ? styles.aspectRatioOuterError : styles.aspectRatioOuter) + ' ' +
+    (isFocused ? styles.focus : '')
+
+  const handleRetry = useCallback(() => {
+    retry()
+    setFocused(false)
+  }, [retry])
 
   const errorTileTransitions = useTransition(isRejected, null, {
     from: {opacity: 0},
@@ -58,7 +52,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
     leave: {opacity: 0}
   })
 
-  const titleAppear = useTransition(showTitle, null, {
+  const titleAppear = useTransition(delayedShowTitle, null, {
     from: {
       opacity: 0,
       top: `calc(50% - 19px)`
@@ -84,8 +78,35 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
     config: {duration: 400}
   })
 
-  const ratioOuterClassName = (isRejected ? styles.aspectRatioOuterError : styles.aspectRatioOuter) + ' ' +
-    (isFocused ? styles.focus : '')
+  useEffect(() => {
+    let timerTitle, timerSubtitle
+    if(isRejected) {
+      timerTitle = setTimeout(() => setAppear({delayedShowTitle: true}), 400)
+      timerSubtitle = setTimeout(() => setAppear({delayedShowSubtitle: true}), 700)
+    } else {
+      setAppear({
+        delayedShowTitle: false,
+        delayedShowSubtitle: false
+      })
+    }
+    return () => {
+      clearTimeout(timerTitle)
+      clearTimeout(timerSubtitle)
+    }
+  }, [isRejected])
+
+  useEffect(() => {
+    const handleKeyboardRetry = e => {
+      const isSpaceOrEnter = e.code === 'Space' || e.code === 'Enter'
+      if(isSpaceOrEnter && isRejected) {
+        e.preventDefault()
+        handleRetry()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyboardRetry)
+    return () => window.removeEventListener('keydown', handleKeyboardRetry)
+  }, [isRejected, handleRetry])
 
   return (
     <figure className={styles.figure}>
@@ -106,10 +127,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                 <animated.div className={styles.errorMessage} role="alert" key={key} style={props}>
                   <div
                     className={styles.reloadImageBtn}
-                    onClick={() => {
-                      retry()
-                      setFocused(false)
-                    }}
+                    onClick={handleRetry}
                     role="button"
                     tabIndex="0"
                     onFocus={() => setFocused(true)}
