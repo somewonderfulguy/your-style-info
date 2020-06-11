@@ -39,38 +39,6 @@ mockImgPreloadPromise.mockReturnValue([mockPromise, mockCancel])
 
 afterEach(() => jest.clearAllMocks())
 
-test('"try again" block on failed image load works as expected', async () => {
-  // shut up act errors
-  jest.spyOn(console, 'error').mockImplementation(() => {})
-
-  const mockRejectPromise = Promise.reject(new Error('mock reject'))
-  mockImgPreloadPromise.mockReturnValueOnce([mockRejectPromise, mockCancel])
-
-  const {getPreloadBlock} = setup()
-
-  // preloader, no image
-  expect(getPreloadBlock()).toBeInTheDocument()
-  expect(screen.queryByRole('img')).not.toBeInTheDocument()
-
-  // error message appears
-  const errorMsg = await screen.findByText(/an error occured/i)
-  expect(errorMsg).toBeInTheDocument()
-
-  // preloader placeholder is still in the document
-  expect(getPreloadBlock()).toBeInTheDocument()
-
-  // click on try again, error disappear and preload placeholder disappear, image appears
-  act(() => user.click(screen.getByRole('button')))
-  await waitForElementToBeRemoved(() => screen.getByText(/an error occured/i))
-  await waitForElementToBeRemoved(getPreloadBlock)
-  expect(screen.queryByRole('img')).toBeInTheDocument()
-
-  // assert mock
-  expect(mockImgPreloadPromise).toHaveBeenCalledTimes(2)
-
-  jest.spyOn(console, 'error').mockRestore()
-})
-
 test('getAspectRatio fn calculates paddingBottom value correctly', () => {
   // TODO: replace with jest-in-case ??
   expect(getAspectRatio(16, 9)).toEqual(56.25)
@@ -103,4 +71,36 @@ test('should not show figcaption if no caption passed as a prop', async () => {
   expect(figcaption).not.toBeInTheDocument()
 
   await act(() => mockPromise)
+})
+
+test('"try again" block on failed image load works as expected', async () => {
+  // shut up act errors
+  jest.spyOn(console, 'error').mockImplementation(() => {})
+
+  const mockRejectPromise = Promise.reject(new Error('mock reject'))
+  mockImgPreloadPromise.mockReturnValueOnce([mockRejectPromise, mockCancel])
+
+  const {getPreloadBlock} = setup()
+
+  // preloader, no image
+  expect(getPreloadBlock()).toBeInTheDocument()
+  expect(screen.queryByRole('img')).not.toBeInTheDocument()
+
+  // error message appears
+  const errorMsg = await screen.findByText(/an error occured/i)
+  expect(errorMsg).toBeInTheDocument()
+
+  // preloader placeholder is still in the document
+  expect(getPreloadBlock()).toBeInTheDocument()
+
+  // click on try again, error disappear and preload placeholder disappear, image appears
+  act(() => user.click(screen.getByRole('button')))
+  await waitForElementToBeRemoved(() => screen.getByText(/an error occured/i))
+  await waitForElementToBeRemoved(getPreloadBlock)
+  expect(screen.queryByRole('img')).toBeInTheDocument()
+
+  // assert mock
+  expect(mockImgPreloadPromise).toHaveBeenCalledTimes(2)
+
+  jest.spyOn(console, 'error').mockRestore()
 })
