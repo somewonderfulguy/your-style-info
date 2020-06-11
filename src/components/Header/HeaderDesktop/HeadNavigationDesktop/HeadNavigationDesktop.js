@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useReducer, useState} from 'react'
+import React, {useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState} from 'react'
 import {func} from 'prop-types'
 import {animated, useSpring} from 'react-spring'
 
@@ -69,11 +69,19 @@ const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
   })
 
   // drop-down menu height
+  const prevHeight = useRef(0)
   const [bindResizeObserver, {height: newSubMenuHeight}] = useResizeObserver()
+  useLayoutEffect(() => {prevHeight.current = newSubMenuHeight}, [newSubMenuHeight])
   const {height: subMenuHeight} = useSpring({
     immediate: !openMenuState.openNowAndBefore,
     from: {height: 'auto'},
-    to: {height: openMenuState.isOpen ? newSubMenuHeight : 'auto'}
+    to: {
+      height: openMenuState.isOpen
+        ? newSubMenuHeight
+        : prevHeight.current
+          ? prevHeight.current
+          : 'auto'
+    }
   })
 
   return (
@@ -93,7 +101,7 @@ const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
       <animated.div
         style={{
           opacity: subMenuOpacity,
-          visibility: subMenuOpacity.interpolate(o => o > 0.3 ? 'visible' : 'hidden'),
+          visibility: subMenuOpacity.interpolate(o => o > 0.1 ? 'visible' : 'hidden'),
           height: subMenuHeight
         }}
         className={styles.subMenuContainer}
