@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useReducer, useState} from 'react'
+import React, {useEffect, useReducer, useState} from 'react'
 import {number, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
@@ -40,11 +40,6 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
 
   const ratioOuterClassName = (isRejected ? styles.aspectRatioOuterError : styles.aspectRatioOuter) + ' ' +
     (isFocused ? styles.focus : '')
-
-  const handleRetry = useCallback(() => {
-    retry()
-    setFocused(false)
-  }, [retry])
 
   const errorTileTransitions = useTransition(isRejected, null, {
     from: {opacity: 0},
@@ -95,19 +90,6 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
     }
   }, [isRejected])
 
-  useEffect(() => {
-    const handleKeyboardRetry = e => {
-      const isSpaceOrEnter = e.code === 'Space' || e.code === 'Enter'
-      if(isSpaceOrEnter && isRejected) {
-        e.preventDefault()
-        handleRetry()
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyboardRetry)
-    return () => window.removeEventListener('keydown', handleKeyboardRetry)
-  }, [isRejected, handleRetry])
-
   return (
     <figure className={styles.figure}>
       <div className={styles.imageContainer}>
@@ -125,13 +107,13 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
             {errorTileTransitions.map(({item, key, props}) => (
               item && (
                 <animated.div className={styles.errorMessage} role="alert" key={key} style={props}>
-                  <div
+                  <button
                     className={styles.reloadImageBtn}
-                    onClick={handleRetry}
-                    role="button"
-                    tabIndex="0"
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
+                    onClick={() => {
+                      retry()
+                      setFocused(false)
+                    }}
+                    type="button"
                   >
                     {titleAppear.map(({item, key, props}) => (
                       item && (
@@ -147,7 +129,8 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                         </animated.span>
                       )
                     ))}
-                  </div>
+                  </button>
+                  <div className={styles.outline} />
                 </animated.div>
               )
             ))
