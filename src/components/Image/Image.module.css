@@ -99,12 +99,21 @@
 
 .outline {
   composes: absolute;
-  transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease;
+}
+
+.outlineDark {
+  composes: outline;
 }
 
 .reloadImageBtn:focus + .outline {
   border: 1px rgba(33, 150, 243, 0.7) inset;
   box-shadow: inset 0 0 7px rgb(33, 150, 243);
+}
+
+.reloadImageBtn:focus + .outlineDark {
+  border: 0.5px rgba(33, 150, 243, 0.7) inset;
+  box-shadow: inset 0 0 3px rgb(33, 150, 243);
 }
 
 .reloadImageBtn:hover {

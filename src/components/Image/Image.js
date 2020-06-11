@@ -130,7 +130,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                       )
                     ))}
                   </button>
-                  <div className={styles.outline} />
+                  <div className={isDarkTheme ? styles.outlineDark : styles.outline} />
                 </animated.div>
               )
             ))
