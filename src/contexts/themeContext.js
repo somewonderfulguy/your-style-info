@@ -24,7 +24,7 @@ const ThemeProvider = props => {
   const [isDarkTheme, setDarkTheme] = useState(
     () =>
       window.localStorage.getItem('isDarkTheme') === 'true' ||
-      (window.matchMedia(preferDarkQuery).matches ? true : false),
+      (window.matchMedia(preferDarkQuery).matches ? true : false)
   )
 
   useEffect(() => {

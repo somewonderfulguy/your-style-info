@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useLayoutEffect} from 'react'
 import {createPortal} from 'react-dom'
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router} from 'react-router-dom'
@@ -10,7 +10,7 @@ import Footer from 'components/Footer'
 import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
 import store from 'services/store'
-import {useHeaderHeight, useLoading, useTheme} from 'contexts'
+import {useHeaderHeight, useLoading, useLocalisation, useTheme} from 'contexts'
 import 'services/i18n'
 import 'services/bluebird'
 import 'services/resizeObserverPolyfill'
@@ -23,6 +23,14 @@ const ApplicationNode = () => {
   const {isDarkTheme} = useTheme()
   const {headerHeight} = useHeaderHeight()
   const {isLoading} = useLoading()
+  const {setTranslations} = useLocalisation()
+
+  useLayoutEffect(() => {
+    fetch('/locales/en.json')
+      .then(res => res.json())
+      .then(data => {setTranslations(data)})
+      .catch(e => {throw new Error(e)})
+  }, [setTranslations])
 
   const className = isDarkTheme ? styles.themeWrapperDarkMode : styles.themeWrapper
   useEffect(() => {document.body.className = className}, [className])

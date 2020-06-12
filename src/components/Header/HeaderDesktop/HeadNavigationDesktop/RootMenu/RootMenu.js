@@ -26,7 +26,7 @@ const RootMenu = ({
   setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen
 }) => {
   const routeMatch = useRouteMatch('/:locale')
-  const locale = routeMatch.params.locale
+  const locale = routeMatch?.params.locale
 
   return (
     <ul className={styles.list}>
