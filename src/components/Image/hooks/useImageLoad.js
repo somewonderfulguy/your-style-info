@@ -4,7 +4,7 @@ import {imgPreloadPromise} from 'shared/utils'
 
 const initState = {status: 'idle', isPreviewVisible: true}
 
-export const useImageLoad = (url) => {
+export const useImageLoad = url => {
   const [update, forceUpdate] = useState(0)
 
   const [state, setState] = useReducer((s, a) => ({...s, ...a}), {

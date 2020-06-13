@@ -23,14 +23,11 @@ const ApplicationNode = () => {
   const {isDarkTheme} = useTheme()
   const {headerHeight} = useHeaderHeight()
   const {isLoading} = useLoading()
-  const {setTranslations} = useLocalisation()
+  const {locale, translations, setLocale} = useLocalisation()
 
   useLayoutEffect(() => {
-    fetch('/locales/en.json')
-      .then(res => res.json())
-      .then(data => {setTranslations(data)})
-      .catch(e => {throw new Error(e)})
-  }, [setTranslations])
+    translations === null && setLocale(locale)
+  }, [locale, translations, setLocale])
 
   const className = isDarkTheme ? styles.themeWrapperDarkMode : styles.themeWrapper
   useEffect(() => {document.body.className = className}, [className])

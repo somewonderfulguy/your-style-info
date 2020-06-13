@@ -1,28 +1,19 @@
 import React, {createContext, useCallback, useContext, useEffect, useMemo, useReducer} from 'react'
 
+import {LOCALES} from 'constants/index'
+
 export const ERROR_LOCALISATION = 'useLocalisation must be used within a LocalisationProvider'
 
-const LocalisationContext = createContext()
-
-const useLocalisation = () => {
-  const context = useContext(LocalisationContext)
-  if(!context) {
-    throw new Error(ERROR_LOCALISATION)
-  }
-
-  const [locale, setLocale] = context
-  const {currentLocale, translations} = locale
-
-  const setCurrentLocale = useCallback(currentLocale => setLocale({currentLocale}), [setLocale])
-  const setTranslations = useCallback(translations => setLocale({translations}), [setLocale])
-
-  return {
-    currentLocale,
-    translations,
-    setCurrentLocale,
-    setTranslations
-  }
+const status = {
+  idle: 'idle',
+  pending: 'pending',
+  loaded: 'loaded',
+  error: 'error'
 }
+
+const getLocaleTranslations = locale => fetch(`/locales/${locale}.json`)
+  .then(res => res.json())
+  .catch(e => {throw new Error(e)})
 
 const getNavigatorLang = () => {
   try {
@@ -33,17 +24,67 @@ const getNavigatorLang = () => {
   }
 }
 
+const LocalisationContext = createContext()
+
+const useLocalisation = () => {
+  const context = useContext(LocalisationContext)
+  if(!context) {
+    throw new Error(ERROR_LOCALISATION)
+  }
+
+  const [localeState, setLocaleState] = context
+  const {locale, translations} = localeState
+
+  const setLocale = useCallback(
+    locale => {
+      const isLocaleExists = !!LOCALES.find(el => el === locale)
+
+      if(!isLocaleExists) {
+        console.error(`Wrong locale ${locale}. Expected locales: ${LOCALES}. Set 'en' locale as fallback.`)
+      }
+
+      const newLocale = isLocaleExists ? locale : 'en'
+
+      setLocaleState({status: status.pending})
+      getLocaleTranslations(newLocale)
+        .then(data => {
+          setLocaleState({
+            locale: newLocale,
+            translations: data,
+            status: status.loaded
+          })
+        })
+        .catch(e => setLocaleState(
+          setLocaleState({
+            errorMessage: e,
+            status: status.error
+          })
+        ))
+
+      // TODO error handle error of broken language loading
+    }, [setLocaleState]
+  )
+
+  return {
+    locale,
+    translations,
+    setLocale
+  }
+}
+
 const LocalisationProvider = props => {
-  const [locale, setLocale] = useReducer((s, a) => ({...s, ...a}), {
-    currentLocale: window.localStorage.getItem('currentLocale') || getNavigatorLang(),
-    translations: null
+  const [localeState, setLocaleState] = useReducer((s, a) => ({...s, ...a}), {
+    locale: window.localStorage.getItem('locale') || getNavigatorLang(),
+    translations: null,
+    status: status.idle,
+    errorMessage: null
   })
 
   useEffect(() => {
-    locale.currentLocale && window.localStorage.setItem('currentLocale', locale.currentLocale)
-  }, [locale.currentLocale])
+    localeState.locale && window.localStorage.setItem('locale', localeState.locale)
+  }, [localeState.locale])
 
-  const value = useMemo(() => ([locale, setLocale]), [locale])
+  const value = useMemo(() => ([localeState, setLocaleState]), [localeState])
   return <LocalisationContext.Provider value={value} {...props} />
 }
 
