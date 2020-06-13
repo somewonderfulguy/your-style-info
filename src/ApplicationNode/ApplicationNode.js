@@ -11,7 +11,6 @@ import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
 import store from 'services/store'
 import {useHeaderHeight, useLoading, useLocalisation, useTheme} from 'contexts'
-import 'services/i18n'
 import 'services/bluebird'
 import 'services/resizeObserverPolyfill'
 
