@@ -1,21 +1,31 @@
-import React from 'react'
-import {Redirect, Route, Switch, useRouteMatch} from 'react-router-dom'
-import {useTranslation} from 'react-i18next'
+import React, {useLayoutEffect, useRef} from 'react'
+import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from 'react-router-dom'
 
 import PageContainer from 'components/PageContainer'
 import {LOCALES} from 'constants/index'
+import {useLocalisation} from 'contexts'
 
 const Routes = () => {
   const pathLocale = '/:locale'
   const routeMatch = useRouteMatch(pathLocale)
-  const {i18n} = useTranslation('', {useSuspense: false})
+  const history = useHistory()
+  const {pathname} = useLocation()
+
+  const {locale} = useLocalisation()
 
   const urlLocale = routeMatch?.params.locale
   const isLocaleExist = LOCALES.some(locale => locale === urlLocale)
 
+  const prevLocale = useRef(null)
+  useLayoutEffect(() => {
+    if(!locale || locale === prevLocale.current || !isLocaleExist) return
+    prevLocale.current = locale
+    history.push(pathname.replace(/^\/\w{2}/, `/${locale}`))
+  }, [locale, history, pathname, isLocaleExist])
+
   // TODO show page with 'wrong locale' and redirect after timeout
-  if(!isLocaleExist && !!i18n.language) {
-    return <Redirect to={`/${i18n.language}`} />
+  if(!isLocaleExist && locale) {
+    return <Redirect to={`/${locale}`} />
   }
 
   return isLocaleExist ? (

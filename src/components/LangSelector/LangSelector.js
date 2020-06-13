@@ -1,9 +1,7 @@
 import React, {useRef, useState} from 'react'
 import {bool} from 'prop-types'
-import {useLocation, useHistory} from 'react-router-dom'
-import {useTranslation} from 'react-i18next'
 
-import {useTheme} from 'contexts'
+import {useLocalisation, useTheme} from 'contexts'
 import {useOutsideClick} from 'shared/hooks'
 import {LanguageIcon} from 'assets/images'
 import {LANGUAGES, LOCALES} from 'constants/index'
@@ -20,11 +18,8 @@ const defaultProps = {
 }
 
 const LangSelector = ({showAbove, gray}) => {
-  const history = useHistory()
-  const {pathname} = useLocation()
-
+  const {locale: currentLocale, setLocale} = useLocalisation()
   const {isDarkTheme} = useTheme()
-  const {i18n} = useTranslation('', {useSuspense: false})
   const langSelectorRef = useRef(null)
   const menuRef = useRef(null)
   const [isOpen, setOpen] = useState(false)
@@ -53,7 +48,7 @@ const LangSelector = ({showAbove, gray}) => {
         aria-haspopup
       >
         <LanguageIcon width={20} height={20} className={styles.icon} />
-        <span>{LANGUAGES.get(i18n.language)}</span>
+        <span>{LANGUAGES.get(currentLocale)}</span>
         <div className={triangleClass} />
       </button>
 
@@ -67,11 +62,10 @@ const LangSelector = ({showAbove, gray}) => {
             <li role="menuitem" key={locale}>
               <button
                 type="button"
-                disabled={locale === i18n.language}
+                disabled={locale === currentLocale}
                 onClick={() => {
-                  i18n.changeLanguage(locale)
+                  setLocale(locale)
                   setOpen(false)
-                  history.push(pathname.replace(/^\/\w{2}/, `/${locale}`))
                 }}
               >
                 {LANGUAGES.get(locale)}

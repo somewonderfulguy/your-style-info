@@ -37,6 +37,9 @@ const ApplicationNode = () => {
     document.body.style.cursor = isLoading ? 'progress' : 'initial'
   }, [isLoading])
 
+  // TODO: show loader when page init and language loading for the first time
+  // TODO: show error if fetching language fails
+
   return (
     // TODO remove redux and replace it with React context
     <Provider store={store}>

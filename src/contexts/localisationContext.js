@@ -33,14 +33,13 @@ const useLocalisation = () => {
   }
 
   const [localeState, setLocaleState] = context
-  const {locale, translations} = localeState
 
   const setLocale = useCallback(
     locale => {
       const isLocaleExists = !!LOCALES.find(el => el === locale)
 
       if(!isLocaleExists) {
-        console.error(`Wrong locale ${locale}. Expected locales: ${LOCALES}. Set 'en' locale as fallback.`)
+        console.error(`Wrong locale ${locale}. Expected locales: ${LOCALES.join(', ')}. Set 'en' locale as fallback.`)
       }
 
       const newLocale = isLocaleExists ? locale : 'en'
@@ -66,8 +65,10 @@ const useLocalisation = () => {
   )
 
   return {
-    locale,
-    translations,
+    locale: localeState.locale,
+    translations: localeState.translations,
+    status: localeState.status,
+    errorMessage: localeState.errorMessage,
     setLocale
   }
 }
