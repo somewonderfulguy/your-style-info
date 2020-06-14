@@ -1,15 +1,8 @@
 import React, {createContext, useCallback, useContext, useEffect, useMemo, useReducer} from 'react'
 
-import {LOCALES} from 'constants/index'
+import {LOCALES, STATUS} from 'constants/index'
 
 export const ERROR_LOCALISATION = 'useLocalisation must be used within a LocalisationProvider'
-
-const status = {
-  idle: 'idle',
-  pending: 'pending',
-  loaded: 'loaded',
-  error: 'error'
-}
 
 const getLocaleTranslations = locale => fetch(`/locales/${locale}.json`)
   .then(res => res.json())
@@ -44,19 +37,19 @@ const useLocalisation = () => {
 
       const newLocale = isLocaleExists ? locale : 'en'
 
-      setLocaleState({status: status.pending})
+      setLocaleState({status: STATUS.pending})
       getLocaleTranslations(newLocale)
         .then(data => {
           setLocaleState({
             locale: newLocale,
             translations: data,
-            status: status.loaded
+            status: STATUS.loaded
           })
         })
         .catch(e => setLocaleState(
           setLocaleState({
             errorMessage: e,
-            status: status.error
+            status: STATUS.error
           })
         ))
 
@@ -77,7 +70,7 @@ const LocalisationProvider = props => {
   const [localeState, setLocaleState] = useReducer((s, a) => ({...s, ...a}), {
     locale: window.localStorage.getItem('locale') || getNavigatorLang(),
     translations: null,
-    status: status.idle,
+    status: STATUS.idle,
     errorMessage: null
   })
 

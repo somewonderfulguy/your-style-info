@@ -5,7 +5,7 @@ import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
 import HeaderDesktop from '..'
-import {ThemeProvider, useTheme} from 'contexts'
+import {LocalisationProvider, ThemeProvider, useTheme} from 'contexts'
 import { PRIME_ROUTES } from 'constants/index'
 
 // TODO remove all waits once react-spring 9.0.0 released
@@ -13,7 +13,9 @@ import { PRIME_ROUTES } from 'constants/index'
 const setup = () => render(<HeaderDesktop />, {
   wrapper: props => (
     <MemoryRouter>
-      <ThemeProvider {...props} />
+      <LocalisationProvider>
+        <ThemeProvider {...props} />
+      </LocalisationProvider>
     </MemoryRouter>
   )
 })

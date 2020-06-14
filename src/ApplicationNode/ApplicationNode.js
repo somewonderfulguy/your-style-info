@@ -1,6 +1,5 @@
 import React, {useEffect, useLayoutEffect} from 'react'
 import {createPortal} from 'react-dom'
-import {Provider} from 'react-redux'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {useNProgress} from '@tanem/react-nprogress'
 
@@ -9,7 +8,6 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
-import store from 'services/store'
 import {useHeaderHeight, useLoading, useLocalisation, useTheme} from 'contexts'
 import 'services/bluebird'
 import 'services/resizeObserverPolyfill'
@@ -40,8 +38,7 @@ const ApplicationNode = () => {
   // TODO: show error if fetching language fails
 
   return (
-    // TODO remove redux and replace it with React context
-    <Provider store={store}>
+    <>
       {!isFinished && createPortal(
         <div className={styles.progressBarContainer}>
           <ProgressBar height="100%" value={Math.trunc(progress * 100)} />
@@ -55,7 +52,7 @@ const ApplicationNode = () => {
         </main>
         <Footer />
       </Router>
-    </Provider>
+    </>
   )
 }
 

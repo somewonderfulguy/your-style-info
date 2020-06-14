@@ -4,7 +4,7 @@ import {bool} from 'prop-types'
 import {useLocalisation, useTheme} from 'contexts'
 import {useOutsideClick} from 'shared/hooks'
 import {LanguageIcon} from 'assets/images'
-import {LANGUAGES, LOCALES} from 'constants/index'
+import {LANGUAGES, LOCALES, STATUS} from 'constants/index'
 import styles from './LangSelector.module.css'
 
 const propTypes = {
@@ -18,7 +18,7 @@ const defaultProps = {
 }
 
 const LangSelector = ({showAbove, gray}) => {
-  const {locale: currentLocale, setLocale} = useLocalisation()
+  const {locale: currentLocale, status, setLocale} = useLocalisation()
   const {isDarkTheme} = useTheme()
   const langSelectorRef = useRef(null)
   const menuRef = useRef(null)
@@ -33,6 +33,8 @@ const LangSelector = ({showAbove, gray}) => {
     ? (isOpen ? styles.triangle : styles.triangleReverse)
     : (isOpen ? styles.triangleReverse : styles.triangle)
 
+  const isLanguageLoading = status === STATUS.pending
+
   return (
     <div
       ref={langSelectorRef}
@@ -42,6 +44,7 @@ const LangSelector = ({showAbove, gray}) => {
         onClick={() => setOpen(isOpen => !isOpen)}
         className={styles.langSelectorInner}
         type="button"
+        disabled={isLanguageLoading}
         // TODO switch label depending on language
         aria-label="Switch language"
         aria-expanded={isOpen}

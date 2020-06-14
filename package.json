@@ -9,13 +9,10 @@
     "body-scroll-lock": "^2.6.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.4.1",
     "react-scroll": "^1.7.14",
     "react-spring": "^8.0.27",
-    "redux": "^4.0.4",
-    "redux-starter-kit": "^0.6.3",
     "resize-observer-polyfill": "^1.5.1"
   },
   "scripts": {

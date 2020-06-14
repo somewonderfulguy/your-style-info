@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useRef} from 'react'
 import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from 'react-router-dom'
 
-import PageContainer from 'components/PageContainer'
+import Page from 'components/Page'
 import {LOCALES} from 'constants/index'
 import {useLocalisation} from 'contexts'
 
@@ -30,8 +30,8 @@ const Routes = () => {
 
   return isLocaleExist ? (
     <Switch>
-      <Route path={`${pathLocale}`} component={PageContainer} />
-      <Route path={`${pathLocale}/:page`} component={PageContainer} />
+      <Route path={`${pathLocale}`} component={Page} />
+      <Route path={`${pathLocale}/:page`} component={Page} />
     </Switch>
   ) : null
 }
