@@ -37,7 +37,11 @@ const useLocalisation = () => {
 
       const newLocale = isLocaleExists ? locale : 'en'
 
-      setLocaleState({status: STATUS.pending})
+      setLocaleState({
+        status: STATUS.pending,
+        upcomingLocale: newLocale
+      })
+
       getLocaleTranslations(newLocale)
         .then(data => {
           setLocaleState({
@@ -58,10 +62,7 @@ const useLocalisation = () => {
   )
 
   return {
-    locale: localeState.locale,
-    translations: localeState.translations,
-    status: localeState.status,
-    errorMessage: localeState.errorMessage,
+    ...localeState,
     setLocale
   }
 }
@@ -71,7 +72,8 @@ const LocalisationProvider = props => {
     locale: window.localStorage.getItem('locale') || getNavigatorLang(),
     translations: null,
     status: STATUS.idle,
-    errorMessage: null
+    errorMessage: null,
+    upcomingLocale: null
   })
 
   useEffect(() => {

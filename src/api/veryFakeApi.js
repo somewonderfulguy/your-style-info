@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-// FIXME remove the eslint disabler
 import Promise from 'bluebird'
 
 const pagePathPair = new Map([
@@ -33,27 +31,4 @@ export const getPageData = page => {
       .then(resolve)
       .catch(reject)
   })
-}
-
-// FIXME
-// works, but event.total is always 0; with that it doesn't work as expected
-// regardless, leaving this code untouched until find a way to fix event.total
-// (maybe to fix it, I need to setup backend)
-export const getPageDataNew = (page, onProgress) => {
-  const xhr = new XMLHttpRequest()
-  xhr.open('GET', page)
-  xhr.send()
-
-  xhr.onload = () => console.log('loaded!!!')
-
-  xhr.onprogress = event => {
-    console.log('lengthComputable', event.lengthComputable)
-    console.log(`got ${event.loaded} from ${event.total}`)
-  }
-
-  xhr.onerror = () => console.log('error happened')
-
-  // xhr.timeout = () => {}
-
-  // xhr.abort()
 }
