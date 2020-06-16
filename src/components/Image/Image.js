@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from 'react'
+import React, {useEffect, useReducer} from 'react'
 import {number, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
@@ -30,16 +30,12 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
   const {isRejected, isResolved, isPreviewVisible, retry} = useImageLoad(url)
   const {isDarkTheme} = useTheme()
 
-  const [isFocused, setFocused] = useState(false)
   const [{delayedShowTitle, delayedShowSubtitle}, setAppear] = useReducer(
     (s, a) => ({...s, ...a}), {
       delayedShowTitle: false,
       delayedShowSubtitle: false
     }
   )
-
-  const ratioOuterClassName = (isRejected ? styles.aspectRatioOuterError : styles.aspectRatioOuter) + ' ' +
-    (isFocused ? styles.focus : '')
 
   const errorTileTransitions = useTransition(isRejected, null, {
     from: {opacity: 0},
@@ -96,7 +92,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
         {isPreviewVisible && (
           <div
             style={{maxWidth: width}}
-            className={ratioOuterClassName}
+            className={isRejected ? styles.aspectRatioOuterError : styles.aspectRatioOuter}
           >
             <div style={{paddingBottom: `${getAspectRatio(width, height)}%`}} className={styles.aspectRatioInner}>
               <div
@@ -109,10 +105,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                 <animated.div className={styles.errorMessage} role="alert" key={key} style={props}>
                   <button
                     className={styles.reloadImageBtn}
-                    onClick={() => {
-                      retry()
-                      setFocused(false)
-                    }}
+                    onClick={retry}
                     type="button"
                   >
                     {titleAppear.map(({item, key, props}) => (
