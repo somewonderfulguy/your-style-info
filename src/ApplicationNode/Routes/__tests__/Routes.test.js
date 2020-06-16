@@ -72,3 +72,5 @@ test('should not redirect if locale is correct (such as "ru" or "en")', async ()
   expect(actualPath).toEqual(expectedPath)
   expect(spyUseRouteMatch).toHaveBeenCalledTimes(1)
 })
+
+test.todo('should show message if locale path is wrong and redirect after timeout')
