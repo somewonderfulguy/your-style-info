@@ -104,6 +104,5 @@ test('"try again" block on failed image load works as expected', async () => {
   // assert mock
   expect(mockImgPreloadPromise).toHaveBeenCalledTimes(2)
 
-  expect(console.error).toHaveBeenCalledTimes(1)
   jest.spyOn(console, 'error').mockRestore()
 })
