@@ -29,18 +29,6 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 })
 
-// i18next
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: key => key,
-    ready: true,
-    i18n: {
-      changeLanguage: jest.fn(),
-      language: 'en'
-    }
-  })
-}))
-
 // react-router hooks
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

@@ -16,10 +16,6 @@ const useLoading = () => {
   return {isLoading, setLoading}
 }
 
-const loadingReducer = (state, action) => ({
-  ...state, ...action
-})
-
 // predefine what might influence on global progress bar
 const initialState = {
   page: false,
@@ -27,7 +23,7 @@ const initialState = {
 }
 
 const LoadingProvider = props => {
-  const [loading, setLoading] = useReducer(loadingReducer, initialState)
+  const [loading, setLoading] = useReducer((s, a) => ({...s, ...a}), initialState)
 
   const value = useMemo(() => [loading, setLoading], [loading])
   return <LoadingContext.Provider value={value} {...props} />

@@ -47,16 +47,14 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
 
   return (
     <div className={styles.subMenu} submenupersist="1">
-      {transitions.map(({item: menuItems, props: {opacity: opacityTransition}, key, state}) => {
-        const range = [0, 0.33, 0.66, 1]
-
+      {transitions.map(({item: menuItems, props: {opacity: opacityTransition}, key, state}, i) => {
         let opacity = opacityTransition
         switch(state) {
           case 'enter':
-            opacity = opacityTransition.interpolate({range, output: [0, 0, 0, 1]})
+            opacity = opacityTransition.interpolate({range: [0, 0.33, 0.66, 1], output: [0, 0, 0, 1]})
             break
           case 'leave':
-            opacity = opacityTransition.interpolate({range, output: [1, 0, 0, 0]})
+            opacity = 0
             break
           default:
             break

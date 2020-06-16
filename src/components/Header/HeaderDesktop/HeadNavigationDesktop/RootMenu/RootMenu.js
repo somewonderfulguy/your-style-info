@@ -10,23 +10,20 @@ const propTypes = {
   setShowMenu: func.isRequired,
   setSubMenu: func.isRequired,
   activeMenuItem: string,
-  setActiveMenuItem: func,
-  clearActiveMenuItem: func,
-  setRootMenuOpen: func
+  setActiveMenuItem: func.isRequired,
+  clearActiveMenuItem: func.isRequired,
+  setRootMenuOpen: func.isRequired
 }
 
 const defaultProps = {
-  activeMenuItem: null,
-  setActiveMenuItem: () => {},
-  clearActiveMenuItem: () => {},
-  setRootMenuOpen: () => {}
+  activeMenuItem: null
 }
 
 const RootMenu = ({
   setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen
 }) => {
   const routeMatch = useRouteMatch('/:locale')
-  const locale = routeMatch.params.locale
+  const locale = routeMatch?.params.locale
 
   return (
     <ul className={styles.list}>

@@ -7,7 +7,7 @@ import styles from './OptionsBtn.module.css'
 
 const propTypes = {
   isOpen: bool,
-  onClick: func
+  onClick: func.isRequired
 }
 
 const defaultProps = {

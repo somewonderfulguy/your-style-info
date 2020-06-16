@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {animated, useSpring, useTransition} from 'react-spring'
-import {useTranslation} from 'react-i18next'
 
 import {useAnimatedAppearing} from './hooks'
 import {useStickyNavBar} from '../hooks'
@@ -8,10 +7,11 @@ import HeadNavigationDesktop from './HeadNavigationDesktop'
 import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
 import LangSelector from 'components/LangSelector'
 import SocialMediaIcons from 'components/SocialMediaIcons'
+import {useLocalisation} from 'contexts'
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {
-  const {t, ready: localeReady} = useTranslation('', {useSuspense: false})
+  const {translations} = useLocalisation()
   const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
   const navBarDOM = useRef(null)
@@ -38,7 +38,7 @@ const HeaderDesktop = () => {
   })
 
   const subtitleSelector = 'subtitle'
-  const transitions = useTransition(t(subtitleSelector), null, {
+  const transitions = useTransition(translations && translations.subtitle, null, {
     from: {opacity: 0},
     enter: {opacity: 1},
     leave: {opacity: 0}
@@ -55,17 +55,15 @@ const HeaderDesktop = () => {
           <animated.h1 className={styles.title} style={firstAppearing}>
             Your Style
           </animated.h1>
-          {localeReady && (
-            <animated.p className={styles.subtitleContainer} style={secondAppearing}>
-              {transitions.map(({item, key, props}) => (
-                item !== subtitleSelector && (
-                  <animated.span key={key} style={props} className={styles.subtitle}>
-                    {item}
-                  </animated.span>
-                )
-              ))}
-            </animated.p>
-          )}
+          <animated.p className={styles.subtitleContainer} style={secondAppearing}>
+            {transitions.map(({item, key, props}) => (
+              item !== subtitleSelector && (
+                <animated.span key={key} style={props} className={styles.subtitle}>
+                  {item}
+                </animated.span>
+              )
+            ))}
+          </animated.p>
         </div>
         <div className={styles.sideControlsContainer}>
           <animated.div style={{

@@ -37,6 +37,10 @@
   opacity: 1;
 }
 
+.langSelectorInner:disabled {
+  opacity: .4;
+}
+
 .icon, .langSelectorDark.gray .icon {
   margin-right: 5px;
   fill: #696969;

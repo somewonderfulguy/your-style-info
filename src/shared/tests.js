@@ -4,15 +4,18 @@ import {createMemoryHistory} from 'history'
 import {render} from '@testing-library/react'
 
 export const renderWithRouter = (
-  ui, {
+  ui, options = {}, {
     route = '/',
     history = createMemoryHistory({initialEntries: [route]}),
   } = {}
 ) => ({
   ...render(
     ui, {
+      ...options,
       wrapper: ({children}) => (
-        <Router history={history}>{children}</Router>
+        options.wrapper
+          ? <options.wrapper><Router history={history}>{children}</Router></options.wrapper>
+          : <Router history={history}>{children}</Router>
       )
     }
   ),

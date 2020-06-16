@@ -74,7 +74,7 @@ test('should not show figcaption if no caption passed as a prop', async () => {
 })
 
 test('"try again" block on failed image load works as expected', async () => {
-  // shut up act errors
+  // FIXME: give it another chance after react-spring 9.0 released
   jest.spyOn(console, 'error').mockImplementation(() => {})
 
   const mockRejectPromise = Promise.reject(new Error('mock reject'))
@@ -99,8 +99,11 @@ test('"try again" block on failed image load works as expected', async () => {
   await waitForElementToBeRemoved(getPreloadBlock)
   expect(screen.queryByRole('img')).toBeInTheDocument()
 
+  await act(() => mockPromise)
+
   // assert mock
   expect(mockImgPreloadPromise).toHaveBeenCalledTimes(2)
 
+  expect(console.error).toHaveBeenCalledTimes(1)
   jest.spyOn(console, 'error').mockRestore()
 })

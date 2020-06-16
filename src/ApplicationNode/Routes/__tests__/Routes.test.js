@@ -2,10 +2,10 @@ import React from 'react'
 import mockRouteData from 'react-router-dom'
 
 import Routes from '..'
+import {LocalisationProvider} from 'contexts'
 import {renderWithRouter} from 'shared'
 
-// TODO remove once redux removed
-jest.mock('components/PageContainer', () => () => 'page-container')
+jest.mock('components/Page', () => () => 'page')
 afterEach(() => jest.clearAllMocks())
 
 const mockLocationDefault = {
@@ -23,11 +23,21 @@ const mockLocationCorrect = {
   params: {locale: 'en'}
 }
 
+const setup = routerOptions => {
+  const utils = renderWithRouter(
+    <Routes />,
+    {wrapper: LocalisationProvider},
+    routerOptions
+  )
+
+  return utils
+}
+
 test('should redirect from "/" to "/en"', async () => {
   const spyUseRouteMatch = jest.spyOn(mockRouteData, 'useRouteMatch')
   spyUseRouteMatch.mockReturnValueOnce(mockLocationDefault)
 
-  const {history} = renderWithRouter(<Routes />)
+  const {history} = setup()
 
   const expectedRedirectedPath = '/en' // configured in setupTests.js
   const actualPath = history.location.pathname
@@ -40,7 +50,7 @@ test('should redirect from "/elven" (wrong locale) to "/en" (correct locale)', a
   const spyUseRouteMatch = jest.spyOn(mockRouteData, 'useRouteMatch')
   spyUseRouteMatch.mockReturnValueOnce(mockLocationWrong)
 
-  const {history} = renderWithRouter(<Routes />, {route: mockLocationWrong.url})
+  const {history} = setup({route: mockLocationWrong.url})
 
   const expectedRedirectedPath = '/en' // configured in setupTests.js
   const actualPath = history.location.pathname
@@ -55,10 +65,12 @@ test('should not redirect if locale is correct (such as "ru" or "en")', async ()
 
   const expectedPath = mockLocationCorrect.url
 
-  const {history} = renderWithRouter(<Routes />, {route: expectedPath})
+  const {history} = setup({route: expectedPath})
 
   const actualPath = history.location.pathname
 
   expect(actualPath).toEqual(expectedPath)
   expect(spyUseRouteMatch).toHaveBeenCalledTimes(1)
 })
+
+test.todo('should show message if locale path is wrong and redirect after timeout')
