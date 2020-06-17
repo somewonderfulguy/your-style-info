@@ -17,6 +17,7 @@ const propTypes = {
   inactive: bool,
   location: shape({pathname: string}).isRequired,
   to: string,
+  onClick: func,
   staticContext: any
 }
 
@@ -25,7 +26,8 @@ const defaultProps = {
   children: <></>,
   className: '',
   inactive: false,
-  to: '/'
+  to: '/',
+  onClick: () => {}
 }
 
 const LinkExtended = ({
@@ -36,6 +38,7 @@ const LinkExtended = ({
   inactive,
   location: {pathname},
   to,
+  onClick,
   staticContext, // exclude from ...rest
   ...rest
 }) => {
@@ -46,8 +49,10 @@ const LinkExtended = ({
     window.removeEventListener('scroll', debouncedOnScrollEnd)
   }
 
-  const onClick = e => {
+  const clickHandler = e => {
     e.preventDefault()
+
+    onClick()
 
     const isNoScrollNeeded = document.documentElement.scrollTop === 0
 
@@ -67,7 +72,7 @@ const LinkExtended = ({
     isCurrent ? (
       <span className={activeClassName} {...rest}>{children}</span>
     ) : (
-      <a href={to} onClick={onClick} className={className} {...rest}>
+      <a href={to} onClick={clickHandler} className={className} {...rest}>
         {children}
       </a>
     )

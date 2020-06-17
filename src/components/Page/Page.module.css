@@ -1,9 +1,24 @@
+.pageContainer {
+  --paddingTop: 20px;
+}
+
+.pageContainer {
+  position: relative;
+  padding-top: var(--paddingTop);
+}
+
 .page {
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 100px;
 
   text-align: justify;
+}
+
+.pageLeave {
+  composes: page;
+  position: absolute;
+  top: var(--paddingTop);
 }
 
 .page img {

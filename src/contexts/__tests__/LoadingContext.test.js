@@ -18,15 +18,9 @@ test('LoadingContext works as expected', () => {
 
   expect(result.current.isLoading).toBeFalsy()
 
-  act(() => result.current.setLoading({language: true}))
+  act(() => result.current.setLoading(true))
   expect(result.current.isLoading).toBeTruthy()
 
-  act(() => result.current.setLoading({page: true}))
-  expect(result.current.isLoading).toBeTruthy()
-
-  act(() => result.current.setLoading({language: false}))
-  expect(result.current.isLoading).toBeTruthy()
-
-  act(() => result.current.setLoading({page: false}))
+  act(() => result.current.setLoading(false))
   expect(result.current.isLoading).toBeFalsy()
 })

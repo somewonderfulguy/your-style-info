@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import {shape, string} from 'prop-types'
+import {animated, useTransition} from 'react-spring'
 
 // TODO componentRenderer should be colocated
 import {componentRenderer} from 'shared'
@@ -17,7 +18,6 @@ const propTypes = {
 const Page = ({location: {pathname}}) => {
   const {setLoading} = useLoading()
   const {upcomingLocale} = useLocalisation()
-  const setLoadingPage = useCallback(isLoading => setLoading({page: isLoading}), [setLoading])
 
   const [{header, components}, setPageContent] = useState({
     header: '',
@@ -28,19 +28,39 @@ const Page = ({location: {pathname}}) => {
   const prevUpcomingLocale = usePrevious(upcomingLocale)
 
   const fetchPage = useCallback((path = pathname) => {
-    setLoadingPage(true)
+    setLoading(true)
     getPageData(path)
       .then(res => res.json())
       .then(data => {
         setPageContent(data)
-        setLoadingPage(false)
+        setLoading(false)
         return null
       })
       .catch(e => {
         console.error(e)
-        setLoadingPage(false)
+        setLoading(false)
       })
-  }, [pathname, setLoadingPage])
+  }, [pathname, setLoading])
+
+  const pageContent = (
+    <>
+      <h1 style={{marginTop: 0}}>{header}</h1>
+      {!!components.length && componentRenderer(components)}
+    </>
+  )
+
+  const pageTransitions = useTransition(pageContent, header, {
+    config: {duration: 700},
+    from: {
+      opacity: 0,
+      transform: 'translateY(33px)'
+    },
+    enter: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {opacity: 0}
+  })
 
   // triggers on load / navigation
   useLayoutEffect(() => {
@@ -56,14 +76,21 @@ const Page = ({location: {pathname}}) => {
     }
   }, [pathname, upcomingLocale, prevUpcomingLocale, fetchPage])
 
-  const pageContent = (
-    <article className={styles.page}>
-      <h1>{header}</h1>
-      {!!components.length && componentRenderer(components)}
-    </article>
+  return (
+    <div className={styles.pageContainer}>
+      {pageTransitions.map(({item, key, props, state}) => (
+        !!item && (
+          <animated.article
+            className={state === 'leave' ? styles.pageLeave : styles.page}
+            style={props}
+            key={key}
+          >
+            {item}
+          </animated.article>
+        )
+      ))}
+    </div>
   )
-
-  return pageContent
 }
 
 Page.propTypes = propTypes

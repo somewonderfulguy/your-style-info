@@ -111,3 +111,5 @@ test('language switcher works as expected', () => {
   act(() => user.click(document.body))
   expect(queryByRole('menu')).not.toBeInTheDocument()
 })
+
+test.todo('clicking on a menu or submenu item should hide dropdown')

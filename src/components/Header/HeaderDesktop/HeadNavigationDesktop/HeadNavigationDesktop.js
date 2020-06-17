@@ -115,6 +115,7 @@ const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
             content={subMenuContent.content}
             basePath={subMenuContent.basePath}
             mainThumbnail={subMenuContent.mainThumbnail}
+            setMenuOpen={setMenuOpen}
           />
         </div>
       </animated.div>

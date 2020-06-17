@@ -1,5 +1,5 @@
 import React, {memo, useRef} from 'react'
-import {bool, object, string} from 'prop-types'
+import {bool, func, object, string} from 'prop-types'
 import {animated, useSpring, useTransition} from 'react-spring'
 
 import SubMenuContent from './SubMenuContent'
@@ -10,7 +10,8 @@ const propTypes = {
   basePath: string,
   isOpen: bool,
   openNowAndBefore: bool,
-  mainThumbnail: object
+  mainThumbnail: object,
+  setMenuOpen: func.isRequired
 }
 
 const defaultProps = {
@@ -21,7 +22,7 @@ const defaultProps = {
   mainThumbnail: null
 }
 
-const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) => {
+const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail, setMenuOpen}) => {
   // old transitions clean up
   const transitionCancelArray = useRef([])
   transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
@@ -76,6 +77,7 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
               mainThumbnail={mainThumbnail}
               isOpen={isOpen}
               basePath={basePath}
+              setMenuOpen={setMenuOpen}
             />
           </animated.div>
         )

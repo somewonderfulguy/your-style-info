@@ -63,6 +63,7 @@ const RootMenu = ({
             inactive={inactive}
             submenupersist={sub ? 1 : 0}
             onFocus={() => setRootMenuOpen(true)}
+            onClick={() => setShowMenu(false)}
           >
             {name}
           </LinkExtended>

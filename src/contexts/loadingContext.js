@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useMemo, useReducer} from 'react'
+import React, {createContext, useContext, useMemo, useState} from 'react'
 
 export const ERROR_LOADING = 'useLoading must be used within a LoadingProvider'
 
@@ -9,23 +9,15 @@ const useLoading = () => {
   if(!context) {
     throw new Error(ERROR_LOADING)
   }
-  const [loading, setLoading] = context
-
-  const isLoading = Object.values(loading).some(l => l)
+  const [isLoading, setLoading] = context
 
   return {isLoading, setLoading}
 }
 
-// predefine what might influence on global progress bar
-const initialState = {
-  page: false,
-  language: false
-}
-
 const LoadingProvider = props => {
-  const [loading, setLoading] = useReducer((s, a) => ({...s, ...a}), initialState)
+  const [isLoading, setLoading] = useState(false)
 
-  const value = useMemo(() => [loading, setLoading], [loading])
+  const value = useMemo(() => [isLoading, setLoading], [isLoading])
   return <LoadingContext.Provider value={value} {...props} />
 }
 
