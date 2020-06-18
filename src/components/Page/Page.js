@@ -24,8 +24,14 @@ const Page = ({location: {pathname}}) => {
     components: []
   })
 
-  const upcomingPathname = useRef()
-  const prevUpcomingLocale = usePrevious(upcomingLocale)
+  const previousPath = String(usePrevious(pathname))
+  const removeLangInPath = str => str.replace(/^\/\w{2}/, '')
+  const isLocaleChanged = React.useMemo(() => (
+    removeLangInPath(previousPath) === removeLangInPath(pathname)
+
+    // previousPath always changes when pathname changes, so it is fine that dependency warning is muted here
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  ), [pathname])
 
   const fetchPage = useCallback((path = pathname) => {
     setLoading(true)
@@ -53,7 +59,7 @@ const Page = ({location: {pathname}}) => {
     config: {duration: 700},
     from: {
       opacity: 0,
-      transform: 'translateY(33px)'
+      transform: `translateY(${isLocaleChanged ? 0 : 33}px)`
     },
     enter: {
       opacity: 1,
@@ -61,6 +67,9 @@ const Page = ({location: {pathname}}) => {
     },
     leave: {opacity: 0}
   })
+
+  const upcomingPathname = useRef()
+  const prevUpcomingLocale = usePrevious(upcomingLocale)
 
   // triggers on load / navigation
   useLayoutEffect(() => {
@@ -73,6 +82,7 @@ const Page = ({location: {pathname}}) => {
     if(upcomingLocale !== prevUpcomingLocale && prevUpcomingLocale !== null) {
       upcomingPathname.current = pathname.replace(/\w{2}/, upcomingLocale)
       fetchPage(upcomingPathname.current)
+      upcomingPathname.current = null
     }
   }, [pathname, upcomingLocale, prevUpcomingLocale, fetchPage])
 
