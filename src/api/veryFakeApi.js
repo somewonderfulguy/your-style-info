@@ -16,9 +16,7 @@ const pagePathPair = new Map([
   ['/en/glossary', '/json/glossary.json'],
   ['/ru/glossary', '/json/glossary.json'],
   ['/en/mixed', '/json/blog.json'],
-  ['/ru/mixed', '/json/blog.json'],
-  ['/en/outerwear/trench-coat', '/json/trench-coat-en.json'],
-  ['/ru/outerwear/trench-coat', '/json/trench-coat-ru.json']
+  ['/ru/mixed', '/json/blog.json']
 ])
 
 let promise = Promise.resolve()
