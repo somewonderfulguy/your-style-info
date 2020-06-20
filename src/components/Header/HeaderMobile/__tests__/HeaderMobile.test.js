@@ -5,7 +5,7 @@ import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
 import HeaderMobile from '..'
-import {HeaderHeightProvider, ThemeProvider, useTheme} from 'contexts'
+import {HeaderHeightProvider, LocalisationProvider, ThemeProvider, useTheme} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
 
 // TODO remove all waits once react-spring 9.0.0 released
@@ -14,7 +14,9 @@ const setup = () => render(<HeaderMobile />, {
   wrapper: props => (
     <MemoryRouter>
       <HeaderHeightProvider>
-        <ThemeProvider {...props} />
+        <LocalisationProvider>
+          <ThemeProvider {...props} />
+        </LocalisationProvider>
       </HeaderHeightProvider>
     </MemoryRouter>
   )

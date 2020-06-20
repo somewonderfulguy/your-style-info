@@ -26,8 +26,8 @@ export const PRIME_ROUTES = {
           background: '#b5a18f'
         }
       },
-      '/black-white-tie': {
-        name: 'Black and white tie',
+      '/black-white-ties': {
+        name: 'Black and white ties',
         thumbnail: {
           url: '/img/thumbs/black-tie.png',
           alt: 'Retro image of a man in black tie appearance',

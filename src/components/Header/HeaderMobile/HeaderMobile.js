@@ -64,7 +64,7 @@ const HeaderMobile = () => {
       </animated.header>
 
       {/* Moved outside because animated header (transform) breaks position: fixed for child elements */}
-      <HeadNavigationMobile isOpen={isMenuOpen} menuHeight={menuHeight} />
+      <HeadNavigationMobile isOpen={isMenuOpen} menuHeight={menuHeight} setMenuOpen={setMenuOpen} />
       <Options
         isOpen={isOptionsOpen}
         menuHeight={menuHeight}

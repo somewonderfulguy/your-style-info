@@ -1,23 +1,28 @@
 import React, {forwardRef, useEffect, useImperativeHandle} from 'react'
-import {bool} from 'prop-types'
+import {bool, func} from 'prop-types'
 import {useSpring, useSprings, animated} from 'react-spring'
 
 import {PRIME_ROUTES} from 'constants/index'
+import {useLocalisation} from 'contexts'
 import LinkExtended from 'components/LinkExtended'
 import SocialMediaIcons from 'components/SocialMediaIcons'
 import Tree from './Tree'
 import styles from './MobileMenu.module.css'
 
-const propTypes = {isOpen: bool}
+const propTypes = {
+  isOpen: bool,
+  setMenuOpen: func.isRequired
+}
 const defaultProps = {isOpen: false}
 
-const renderItem = ([path, {name, sub, inactive}], isSubItem = false) => {
+const renderItem = ([path, {name, sub, inactive}], locale, setMenuOpen, isSubItem = false) => {
   const Link = (
     <LinkExtended
-      to={path}
+      to={`/${locale}${path}`}
       children={name}
       inactive={inactive}
       className={inactive ? styles.inactiveListItems : ''}
+      onClick={() => setMenuOpen(false)}
     />
   )
   return sub ? (
@@ -25,7 +30,7 @@ const renderItem = ([path, {name, sub, inactive}], isSubItem = false) => {
       key={path}
       title={Link}
       children={Object.entries(sub).map((entry, i) => (
-        <li className={styles.subItemLine} key={i}>{renderItem(entry, true)}</li>
+        <li className={styles.subItemLine} key={i}>{renderItem(entry, locale, setMenuOpen, true)}</li>
       ))}
       lineClassName={styles.line}
     />
@@ -34,8 +39,9 @@ const renderItem = ([path, {name, sub, inactive}], isSubItem = false) => {
   )
 }
 
-const MobileMenu = forwardRef(({isOpen}, ref) => {
+const MobileMenu = forwardRef(({isOpen, setMenuOpen}, ref) => {
   const routesEntries = Object.entries(PRIME_ROUTES)
+  const {locale} = useLocalisation()
 
   const DURATION = 250
   const DELAY = 150
@@ -87,7 +93,7 @@ const MobileMenu = forwardRef(({isOpen}, ref) => {
       <ul>
         {routesEntries.map((entry, idx) => (
           <animated.li key={entry[0]} style={menuItemsSprings[idx]}>
-            {renderItem(entry, false)}
+            {renderItem(entry, locale, setMenuOpen, false)}
           </animated.li>
         ))}
       </ul>
