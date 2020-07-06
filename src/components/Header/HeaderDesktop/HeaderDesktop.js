@@ -38,7 +38,7 @@ const HeaderDesktop = () => {
   })
 
   const subtitleSelector = 'subtitle'
-  const transitions = useTransition(translations && translations.subtitle, null, {
+  const transitions = useTransition(translations?.subtitle, null, {
     from: {opacity: 0},
     enter: {opacity: 1},
     leave: {opacity: 0}

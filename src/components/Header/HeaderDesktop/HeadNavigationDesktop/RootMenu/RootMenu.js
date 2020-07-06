@@ -1,9 +1,9 @@
 import React, {memo} from 'react'
-import {useRouteMatch} from 'react-router-dom'
-import {func, string} from 'prop-types'
+import {func, object, string} from 'prop-types'
 
 import {PRIME_ROUTES} from 'constants/index'
 import LinkExtended from 'components/LinkExtended'
+import {useLocalisation} from 'contexts'
 import styles from './RootMenu.module.css'
 
 const propTypes = {
@@ -12,7 +12,8 @@ const propTypes = {
   activeMenuItem: string,
   setActiveMenuItem: func.isRequired,
   clearActiveMenuItem: func.isRequired,
-  setRootMenuOpen: func.isRequired
+  setRootMenuOpen: func.isRequired,
+  navigationTranslations: object.isRequired
 }
 
 const defaultProps = {
@@ -20,10 +21,9 @@ const defaultProps = {
 }
 
 const RootMenu = ({
-  setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen
+  setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen, navigationTranslations,
 }) => {
-  const routeMatch = useRouteMatch('/:locale')
-  const locale = routeMatch?.params.locale
+  const {locale} = useLocalisation()
 
   return (
     <ul className={styles.list}>
@@ -65,7 +65,7 @@ const RootMenu = ({
             onFocus={() => setRootMenuOpen(true)}
             onClick={() => setShowMenu(false)}
           >
-            {name}
+            {navigationTranslations[path]}
           </LinkExtended>
         </li>
       ))}

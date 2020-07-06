@@ -1,10 +1,11 @@
 import React, {useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState} from 'react'
 import {func} from 'prop-types'
-import {animated, useSpring} from 'react-spring'
+import {animated, useSpring, useTransition} from 'react-spring'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
 import {ROOT_MENU_THUMBS} from 'constants/index'
+import {useLocalisation} from 'contexts'
 import {imgPreload} from 'shared/utils'
 import {useResizeObserver} from 'shared/hooks'
 import styles from './HeadNavigationDesktop.module.css'
@@ -30,6 +31,7 @@ const defaultProps = {
 }
 
 const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
+  const {translations} = useLocalisation()
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
   const [subMenuContent, setSubMenuContent] = useState({
@@ -84,17 +86,36 @@ const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
     }
   })
 
+  // root menu language transition
+  const rootMenuTransitions = useTransition(translations?.navigation, translations?.subtitle, {
+    config: {duration: 700},
+    from: {opacity: 0},
+    enter: {opacity: 1},
+    leave: {opacity: 0}
+  })
+
   return (
     <>
       <div className={styles.rootMenuContainer}>
-        <RootMenu
-          setShowMenu={setMenuOpen}
-          setSubMenu={setSubMenuContent}
-          activeMenuItem={activeMenuItem}
-          setActiveMenuItem={setActiveMenuItem}
-          clearActiveMenuItem={clearActiveMenuItem}
-          setRootMenuOpen={setRootMenuOpen}
-        />
+        {rootMenuTransitions.map(({item, key, props, state}) => (
+          !!item && (
+            <animated.div
+              className={state === 'leave' ? styles.rootMenuTransitionLeave : ''}
+              style={props}
+              key={key}
+            >
+              <RootMenu
+                setShowMenu={setMenuOpen}
+                setSubMenu={setSubMenuContent}
+                activeMenuItem={activeMenuItem}
+                setActiveMenuItem={setActiveMenuItem}
+                clearActiveMenuItem={clearActiveMenuItem}
+                setRootMenuOpen={setRootMenuOpen}
+                navigationTranslations={item}
+              />
+            </animated.div>
+          )
+        ))}
         <div className={styles.borderBottom} submenupersist="1" onMouseLeave={e => closeMenu(e)} />
       </div>
 
