@@ -3,7 +3,8 @@ import {number, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
 import {useImageLoad} from './hooks'
-import {useTheme} from 'contexts'
+import {useIntersectionObserver} from 'shared/hooks'
+import {useTheme, useScreenDimensions} from 'contexts'
 import styles from './Image.module.css'
 
 const propTypes = {
@@ -27,8 +28,14 @@ export const getAspectRatio = (width, height) => height / width * 100
 // TODO: zoom to fullscreen (+ hide fullscreen on scroll)
 
 const Image = ({url, alt, lowresBase64, width, height, caption}) => {
-  const {isRejected, isResolved, isPreviewVisible, retry} = useImageLoad(url)
   const {isDarkTheme} = useTheme()
+  const {screenWidth} = useScreenDimensions()
+  const isDesktop = screenWidth > 1024
+  const intersectionOffset = isDesktop ? 600 : 350
+  const [bindIntersectionObserver, isIntersecting, disconnectInersection] = useIntersectionObserver({
+    rootMargin: `${intersectionOffset}px 0px ${intersectionOffset}px 0px`
+  })
+  const {isRejected, isResolved, isPreviewVisible, retry} = useImageLoad(isIntersecting && url)
 
   const [{delayedShowTitle, delayedShowSubtitle}, setAppear] = useReducer(
     (s, a) => ({...s, ...a}), {
@@ -70,6 +77,10 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
   })
 
   useEffect(() => {
+    if(isIntersecting) disconnectInersection()
+  }, [disconnectInersection, isIntersecting])
+
+  useEffect(() => {
     let timerTitle, timerSubtitle
     if(isRejected) {
       timerTitle = setTimeout(() => setAppear({delayedShowTitle: true}), 400)
@@ -87,7 +98,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
   }, [isRejected])
 
   return (
-    <figure className={styles.figure}>
+    <figure className={styles.figure} ref={bindIntersectionObserver}>
       <div className={styles.imageContainer}>
         {isPreviewVisible && (
           <div

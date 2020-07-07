@@ -15,6 +15,7 @@ export const useImageLoad = url => {
   useLayoutEffect(() => void setState(initState), [url])
 
   useEffect(() => {
+    if(!url) return
     setState({status: 'pending', isPreviewVisible: true})
 
     const [promise, cancel] = imgPreloadPromise(url)
