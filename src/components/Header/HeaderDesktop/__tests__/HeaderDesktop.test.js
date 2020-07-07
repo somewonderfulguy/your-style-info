@@ -1,14 +1,24 @@
 import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
-import {act, fireEvent, render, wait} from '@testing-library/react'
+import {act, render, screen} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
 import HeaderDesktop from '..'
 import {LocalisationProvider, ThemeProvider, useTheme} from 'contexts'
-import { PRIME_ROUTES } from 'constants/index'
+import * as spyLocalisationContext from 'contexts/localisationContext'
 
 // TODO remove all waits once react-spring 9.0.0 released
+
+const navigationTranslation = {
+  '/': 'Home',
+  '/guides-topics': 'Generic topics & guides',
+  '/colors-how-to': 'How to combine colors'
+}
+
+jest.spyOn(spyLocalisationContext, 'getLocaleTranslations').mockResolvedValue({
+  navigation: navigationTranslation
+})
 
 const setup = () => render(<HeaderDesktop />, {
   wrapper: props => (
@@ -21,56 +31,33 @@ const setup = () => render(<HeaderDesktop />, {
 })
 
 test('renders headers and social media icons', () => {
-  const {getByText, getByTitle, container} = setup()
-  const header = getByText(/your style/i)
+  const {container} = setup()
+  const header = screen.getByText(/your style/i)
   const subtitle = container.querySelector('p')
   const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
 
   expect(header).toBeInTheDocument()
   expect(subtitle).toBeInTheDocument()
-  socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
+  socialMedia.forEach(icon => expect(screen.getByTitle(icon)).toBeInTheDocument())
 })
 
 test('menu (navigation) works as expected', async () => {
-  const {getByText, getByTestId} = setup()
-
-  const primeRoutes = Object.values(PRIME_ROUTES)
+  setup()
 
   // root menu items check
-  const expectedRootMenuItems = primeRoutes.map(o => o.name)
-  const expectedRootDisabledItems = primeRoutes.filter(o => o.inactive).map(o => o.name)
+  const expectedRootMenuItems = Object.values(navigationTranslation)
+  expectedRootMenuItems.forEach(
+    async item => expect(await screen.findByText(item)).toBeInTheDocument()
+  )
 
-  expectedRootMenuItems.forEach(item => expect(getByText(item)).toBeInTheDocument())
-  expectedRootDisabledItems.forEach(disabledItem => (
-    expect(getByText(disabledItem)).toHaveAttribute('aria-disabled', 'true')
-  ))
+  // submenu test
+  const dropDown = screen.getByTestId('drop-down-navigation')
+
+  expect(dropDown).not.toBeVisible()
 
   // TODO when react-spring 9.0 released, disable animations and test all cases
   // the cases are: 1) changing content when hovering on other root menu items,
   // 2) changing thumbnails when hover on both root and submenu items
-
-  // submenu test
-  const predefinedItemsWithSubmenu = primeRoutes.filter(o => o.sub)
-  const dropDownTestId = 'drop-down-navigation'
-  const dropDown = getByTestId(dropDownTestId)
-
-  expect(dropDown).not.toBeVisible()
-
-  for(let i = 0; i < predefinedItemsWithSubmenu.length; i ++) {
-    const item = getByText(predefinedItemsWithSubmenu[i].name)
-
-    fireEvent.mouseEnter(item)
-    await wait(() => expect(dropDown).toBeVisible())
-
-    fireEvent.mouseOut(item)
-    await wait(() => expect(dropDown).not.toBeVisible())
-  }
-
-  // test closing submenu when hover out from submenu
-  fireEvent.mouseEnter(getByText(predefinedItemsWithSubmenu[0].name))
-  await wait(() => expect(dropDown).toBeVisible())
-  fireEvent.mouseOut(dropDown)
-  await wait(() => expect(dropDown).not.toBeVisible())
 })
 
 test('theme switching works as expected', () => {

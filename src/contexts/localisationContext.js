@@ -4,7 +4,7 @@ import {LOCALES, STATUS} from 'constants/index'
 
 export const ERROR_LOCALISATION = 'useLocalisation must be used within a LocalisationProvider'
 
-const getLocaleTranslations = locale => fetch(`/locales/${locale}.json`)
+export const getLocaleTranslations = locale => fetch(`/locales/${locale}.json`)
   .then(res => res.json())
   .catch(e => {throw new Error(e)})
 

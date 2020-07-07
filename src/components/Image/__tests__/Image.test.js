@@ -4,9 +4,10 @@ import user from '@testing-library/user-event'
 
 import Image, {getAspectRatio} from '../Image'
 import {imgPreloadPromise as mockImgPreloadPromise} from 'shared/utils'
-import {ThemeProvider} from 'contexts'
+import {ThemeProvider, ScreenDimensionsProvider} from 'contexts'
 
 jest.mock('shared/utils/imgPreload')
+jest.mock('shared/hooks/useIntersectionObserver')
 
 const FILE_PATH = 'path/nice-briefcase.jpg'
 const CAPTION = 'A man in suit with briefcase and baguette'
@@ -21,8 +22,12 @@ const setup = props => {
       height={768}
       caption={CAPTION}
       {...props}
-    />,
-    {wrapper: ThemeProvider}
+    />, {
+      wrapper: props => (
+        <ScreenDimensionsProvider>
+          <ThemeProvider {...props} />
+        </ScreenDimensionsProvider>
+      )}
   )
   const getPreloadBlock = () => utils.container.querySelector('.preloadPlaceholder')
   return {

@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/extend-expect'
 import {toMatchDiffSnapshot} from 'snapshot-diff'
 import ResizeObserver from 'resize-observer-polyfill'
+import 'intersection-observer'
 
 // toMatchDiffSnapshot
 expect.extend({toMatchDiffSnapshot})
