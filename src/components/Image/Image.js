@@ -3,7 +3,7 @@ import {number, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
 import {useImageLoad} from './hooks'
-import {useIntersectionObserver} from 'shared/hooks'
+import {useIntersectionObserver, useResizeObserver} from 'shared/hooks'
 import {useTheme, useScreenDimensions} from 'contexts'
 import styles from './Image.module.css'
 
@@ -36,6 +36,8 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
     rootMargin: `${intersectionOffset}px 0px ${intersectionOffset}px 0px`
   })
   const {isRejected, isResolved, isPreviewVisible, retry} = useImageLoad(isIntersecting && url)
+  const [bindResizeObserver, {width: imageWidth}] = useResizeObserver()
+  const isSmallerSize = imageWidth < 424
 
   const [{delayedShowTitle, delayedShowSubtitle}, setAppear] = useReducer(
     (s, a) => ({...s, ...a}), {
@@ -99,7 +101,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
 
   return (
     <figure className={styles.figure} ref={bindIntersectionObserver}>
-      <div className={styles.imageContainer}>
+      <div className={styles.imageContainer} ref={bindResizeObserver}>
         {isPreviewVisible && (
           <div
             style={{maxWidth: width}}
@@ -121,7 +123,11 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                   >
                     {titleAppear.map(({item, key, props}) => (
                       item && (
-                        <animated.span key={key} className={styles.reloadTitle} style={props}>
+                        <animated.span
+                          key={key}
+                          className={isSmallerSize ? styles.reloadTitleSmaller : styles.reloadTitle}
+                          style={props}
+                        >
                           An error occured during image loading
                         </animated.span>
                       )
