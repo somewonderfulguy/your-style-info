@@ -6,6 +6,7 @@ import {animated, useTransition} from 'react-spring'
 import {componentRenderer} from 'shared'
 import Footer from 'components/Footer'
 import {usePrevious} from 'shared/hooks' // useResizeObserver
+import {useHeaderHeight} from 'contexts'
 import {usePageFetch} from './hooks'
 import styles from './Page.module.css'
 
@@ -18,6 +19,7 @@ const propTypes = {
 const Page = ({location: {pathname}}) => {
   // const [bindResizeObserver, {height: viewHeight}] = useResizeObserver()
   // const previousHeight = usePrevious(viewHeight)
+  const {headerHeight} = useHeaderHeight()
 
   const previousPath = String(usePrevious(pathname))
   const removeLangInPath = str => str.replace(/^\/\w{2}/, '')
@@ -57,7 +59,10 @@ const Page = ({location: {pathname}}) => {
             !!item && (
               <animated.main
                 className={state === 'leave' ? styles.pageLeave : styles.page}
-                style={props}
+                style={{
+                  ...props,
+                  paddingTop: headerHeight
+                }}
                 key={key}
               >
                 {item}
@@ -66,9 +71,7 @@ const Page = ({location: {pathname}}) => {
           ))}
         </div>
       </animated.div>
-      <animated.div>
-        <Footer />
-      </animated.div>
+      <Footer />
     </>
   )
 }

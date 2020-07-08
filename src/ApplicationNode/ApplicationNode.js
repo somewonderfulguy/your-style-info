@@ -7,7 +7,7 @@ import Routes from './Routes'
 import Header from 'components/Header'
 import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
-import {useLoading, useLocalisation, useTheme} from 'contexts' // useHeaderHeight
+import {useLoading, useLocalisation, useTheme} from 'contexts'
 import 'services/bluebird'
 import 'services/resizeObserverPolyfill'
 
@@ -17,7 +17,6 @@ import 'assets/styles/fonts.css'
 
 const ApplicationNode = () => {
   const {isDarkTheme} = useTheme()
-  // const {headerHeight} = useHeaderHeight()
   const {isLoading} = useLoading()
   const {locale, translations, setLocale} = useLocalisation()
 
@@ -34,10 +33,7 @@ const ApplicationNode = () => {
   }, [isLoading])
 
   // TODO: show loader when page init and language loading for the first time
-  // TODO: show error if fetching language fails
-
-  // TODO: get it back
-  // <div style={{paddingTop: headerHeight}} />
+  // TODO: show error if fetching language fails ( +TODO: make sure all rejected queries are handled )
 
   return (
     <>
