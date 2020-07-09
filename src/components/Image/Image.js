@@ -134,7 +134,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                     ))}
                     {subtitleAppear.map(({item, key, props}) => (
                       item && (
-                        <animated.span key={key} style={{position: 'absolute', ...props}}>
+                        <animated.span key={key} style={props} className={styles.reloadSubitle}>
                           Click on this to try to load again.
                         </animated.span>
                       )

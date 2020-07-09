@@ -124,10 +124,16 @@
   font-size: 20px;
   font-weight: 600;
   margin: 18px 0;
+  padding: 0 5px;
   position: absolute;
 }
 
 .reloadTitleSmaller {
   composes: reloadTitle;
   font-size: 17px;
+}
+
+.reloadSubitle {
+  position: absolute;
+  padding: 0 5px;
 }
