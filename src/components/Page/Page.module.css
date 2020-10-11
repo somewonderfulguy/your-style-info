@@ -5,12 +5,14 @@
 .pageContainer {
   position: relative;
   padding-top: var(--paddingTop);
+  height: calc(100% - var(--paddingTop));
 }
 
 .page {
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 100px;
+  height: 100%;
 
   text-align: justify;
 }
@@ -19,7 +21,6 @@
   composes: page;
   position: absolute;
   left: 0;
-  right: 0;
   top: var(--paddingTop);
 }
 

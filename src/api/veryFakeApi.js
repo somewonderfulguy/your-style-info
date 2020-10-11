@@ -29,4 +29,18 @@ export const getPageData = page => {
       .then(resolve)
       .catch(reject)
   })
+
+  // TODO! fetch does not handle bad request - create wrapper for all fetch elements
+  // https://kentcdodds.com/blog/replace-axios-with-a-simple-custom-fetch-wrapper
+
+  // return window
+  // .fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, config)
+  // .then(async response => {
+  //   const data = await response.json()
+  //   if (response.ok) {
+  //     return data
+  //   } else {
+  //     return Promise.reject(data)
+  //   }
+  // })
 }

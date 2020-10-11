@@ -7,22 +7,30 @@ import HeadNavigationDesktop from './HeadNavigationDesktop'
 import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
 import LangSelector from 'components/LangSelector'
 import SocialMediaIcons from 'components/SocialMediaIcons'
-import {useLocalisation} from 'contexts'
+import {useHeaderHeight, useLocalisation} from 'contexts'
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {
   const {translations} = useLocalisation()
   const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
+  const {setHeaderHeight} = useHeaderHeight()
+
   const navBarDOM = useRef(null)
   const headerDOM = useRef(null)
 
+  const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
   const navbarHeight = navBarDOM.current && (navBarDOM.current.offsetHeight || 0)
   const [navBarTopLine, setNavBarTopLine] = useState(0)
 
   useEffect(() => {
     setNavBarTopLine(headerDOM.current && headerDOM.current.offsetHeight)
   }, [setNavBarTopLine])
+
+  useEffect(() => {
+    setHeaderHeight(headerHeight)
+    return () => setHeaderHeight(0)
+  }, [headerHeight, setHeaderHeight])
 
   // show on scroll-up logic
   const [isRootMenuOpen, setRootMenuOpen] = useState(false)

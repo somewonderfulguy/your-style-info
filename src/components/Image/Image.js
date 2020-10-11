@@ -29,8 +29,7 @@ export const getAspectRatio = (width, height) => height / width * 100
 
 const Image = ({url, alt, lowresBase64, width, height, caption}) => {
   const {isDarkTheme} = useTheme()
-  const {screenWidth} = useScreenDimensions()
-  const isDesktop = screenWidth > 1024
+  const {isDesktop} = useScreenDimensions()
   const intersectionOffset = isDesktop ? 600 : 350
   const [bindIntersectionObserver, isIntersecting, disconnectInersection] = useIntersectionObserver({
     rootMargin: `${intersectionOffset}px 0px ${intersectionOffset}px 0px`

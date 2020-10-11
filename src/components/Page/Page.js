@@ -5,9 +5,9 @@ import {animated, useTransition} from 'react-spring'
 // TODO componentRenderer should be colocated
 import {componentRenderer} from 'shared'
 import Footer from 'components/Footer'
-import {usePrevious} from 'shared/hooks' // useResizeObserver
-import {useHeaderHeight} from 'contexts'
-import {usePageFetch} from './hooks'
+import {usePrevious} from 'shared/hooks'
+import {useHeaderHeight, useScreenDimensions} from 'contexts'
+import {useFooterAnimation, usePageFetch} from './hooks'
 import styles from './Page.module.css'
 
 const propTypes = {
@@ -17,15 +17,14 @@ const propTypes = {
 }
 
 const Page = ({location: {pathname}}) => {
-  // const [bindResizeObserver, {height: viewHeight}] = useResizeObserver()
-  // const previousHeight = usePrevious(viewHeight)
   const {headerHeight} = useHeaderHeight()
+  const {isDesktop} = useScreenDimensions()
+  const [bindResizeObserver, footerRef, {pageHeight}] = useFooterAnimation(headerHeight)
 
   const previousPath = String(usePrevious(pathname))
   const removeLangInPath = str => str.replace(/^\/\w{2}/, '')
   const isLocaleChanged = useMemo(() => (
     removeLangInPath(previousPath) === removeLangInPath(pathname)
-    // previousPath always changes when pathname changes, so it is fine that dependency warning is muted here
     // eslint-disable-next-line react-hooks/exhaustive-deps
   ), [pathname])
 
@@ -53,25 +52,29 @@ const Page = ({location: {pathname}}) => {
 
   return (
     <>
-      <animated.div className={styles.pageContainer}>{/* style={{height}} */}
-        <div>{/* ref={bindResizeObserver} */}
-          {pageTransitions.map(({item, key, props, state}) => (
-            !!item && (
-              <animated.main
-                className={state === 'leave' ? styles.pageLeave : styles.page}
-                style={{
-                  ...props,
-                  paddingTop: headerHeight
-                }}
-                key={key}
-              >
-                {item}
-              </animated.main>
-            )
-          ))}
-        </div>
-      </animated.div>
-      <Footer />
+      <div>
+        <animated.div className={styles.pageContainer} style={{height: pageHeight}}>
+          <div ref={bindResizeObserver}>
+            {pageTransitions.map(({item, key, props, state}) => (
+              !!item && (
+                <animated.main
+                  className={state === 'leave' ? styles.pageLeave : styles.page}
+                  style={{
+                    ...props,
+                    paddingTop: isDesktop ? 0 : headerHeight
+                  }}
+                  key={key}
+                >
+                  {item}
+                </animated.main>
+              )
+            ))}
+          </div>
+        </animated.div>
+      </div>
+      <div ref={footerRef}>
+        <Footer />
+      </div>
     </>
   )
 }
