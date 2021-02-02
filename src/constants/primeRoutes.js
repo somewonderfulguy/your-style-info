@@ -3,7 +3,7 @@ export const PRIME_ROUTES = {
     name: 'Home'
   },
   '/guides-topics': {
-    name: 'Generic topics & guides',
+    name: 'Guides & generic topics',
     thumbnail: {
       url: '/img/thumbs/steve.png',
       alt: 'Steve McQueen in three piece suit',

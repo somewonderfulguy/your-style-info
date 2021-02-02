@@ -12,7 +12,7 @@ import * as spyLocalisationContext from 'contexts/localisationContext'
 
 const navigationTranslation = {
   '/': 'Home',
-  '/guides-topics': 'Generic topics & guides',
+  '/guides-topics': 'Guides & generic topics',
   '/colors-how-to': 'How to combine colors'
 }
 
