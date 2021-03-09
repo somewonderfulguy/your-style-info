@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/extend-expect'
 import {toMatchDiffSnapshot} from 'snapshot-diff'
 import ResizeObserver from 'resize-observer-polyfill'
+import matchMediaPolyfill from 'mq-polyfill'
 import 'intersection-observer'
 
 // toMatchDiffSnapshot
@@ -16,19 +17,15 @@ expect.addSnapshotSerializer({
 window.ResizeObserver = ResizeObserver
 
 // matchMedia
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  }))
-})
+matchMediaPolyfill(window)
+window.resizeTo = function resizeTo(width, height) {
+  Object.assign(this, {
+    innerWidth: width,
+    innerHeight: height,
+    outerWidth: width,
+    outerHeight: height
+  }).dispatchEvent(new this.Event('resize'))
+}
 
 // react-router hooks
 jest.mock('react-router-dom', () => ({

@@ -1,6 +1,6 @@
 import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
-import {act, render, screen, wait} from '@testing-library/react'
+import {act, render, screen, waitFor} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
@@ -72,10 +72,10 @@ test('theme switching works as expected', async () => {
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
   act(() => user.click(themeSwitcher))
-  await wait(() => expect(getThemeHook().result.current.isDarkTheme).toBeTruthy())
+  await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeTruthy())
 
   user.click(themeSwitcher)
-  expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
+  await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeFalsy())
 })
 
 test('language switcher works as expected', () => {

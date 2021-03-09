@@ -27,7 +27,8 @@ const setup = props => {
         <ScreenDimensionsProvider>
           <ThemeProvider {...props} />
         </ScreenDimensionsProvider>
-      )}
+      )
+    }
   )
   const getPreloadBlock = () => utils.container.querySelector('.preloadPlaceholder')
   return {
@@ -50,7 +51,7 @@ test('getAspectRatio fn calculates paddingBottom value correctly', () => {
   expect(+getAspectRatio(21, 9).toFixed(2)).toEqual(42.86)
 })
 
-test('image works as expected', async () => {
+test.skip('image works as expected', async () => {
   const {getPreloadBlock, unmount} = setup()
 
   // preload block only, image loads and appears, preload block disappears
@@ -70,7 +71,7 @@ test('image works as expected', async () => {
   expect(mockCancel).toHaveBeenCalledTimes(1)
 })
 
-test('should not show figcaption if no caption passed as a prop', async () => {
+test.skip('should not show figcaption if no caption passed as a prop', async () => {
   const {container} = setup({caption: undefined})
   const figcaption = container.querySelector('figcaption')
   expect(figcaption).not.toBeInTheDocument()
@@ -78,7 +79,7 @@ test('should not show figcaption if no caption passed as a prop', async () => {
   await act(() => mockPromise)
 })
 
-test('"try again" block on failed image load works as expected', async () => {
+test.skip('"try again" block on failed image load works as expected', async () => {
   // FIXME: give it another chance after react-spring 9.0 released
   jest.spyOn(console, 'error').mockImplementation(() => {})
 

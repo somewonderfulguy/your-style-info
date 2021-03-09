@@ -3,11 +3,9 @@ import {screen, render} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
-import * as mockThemeContext from 'contexts/themeContext'
 import {ThemeProvider, useTheme} from 'contexts'
 import DarkThemeSwitcher from '..'
 
-jest.spyOn(mockThemeContext, 'useTheme')
 afterEach(() => jest.clearAllMocks())
 
 const setup = (darkerPalette = false, labelText = false) => {

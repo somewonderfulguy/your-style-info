@@ -1,6 +1,6 @@
 import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
-import {act, fireEvent, render, wait, waitForElementToBeRemoved} from '@testing-library/react'
+import {act, fireEvent, render, waitFor, waitForElementToBeRemoved} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
@@ -39,7 +39,7 @@ test('menu (navigation) works as expected', async () => {
 
   // open navigation
   user.click(navButton)
-  await wait(() => expect(getNav()).toBeInTheDocument())
+  await waitFor(() => expect(getNav()).toBeInTheDocument())
 
   // navigation items and subitems
   const subLists = Array.from(getNav().querySelectorAll('.menuWrapper > ul ul')).map(ul => ul.parentElement)
@@ -79,10 +79,10 @@ test('menu (navigation) works as expected', async () => {
   subLists.forEach(list => expect(list).not.toBeVisible())
 
   treeButtons.forEach(treeButton => user.click(treeButton))
-  await wait(() => subLists.forEach(list => expect(list).toBeVisible()))
+  await waitFor(() => subLists.forEach(list => expect(list).toBeVisible()))
 
   treeButtons.forEach(treeButton => user.click(treeButton))
-  await wait(() => subLists.forEach(list => expect(list).not.toBeVisible()))
+  await waitFor(() => subLists.forEach(list => expect(list).not.toBeVisible()))
 
   // close navigation
   user.click(navButton)
@@ -99,7 +99,7 @@ test('options work as expected', async () => {
 
   const openOptionsMenu = async () => {
     user.click(optionsButton)
-    await wait(() => expect(getOptions()).toBeInTheDocument())
+    await waitFor(() => expect(getOptions()).toBeInTheDocument())
   }
 
   // open
@@ -107,21 +107,21 @@ test('options work as expected', async () => {
 
   // close by clicking outside
   act(() => user.click(document.body))
-  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
 
   // close by scrolling down
   fireEvent.scroll(window, {target: {scrollY: 100}})
-  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
 
   // close by scrolling up
   fireEvent.scroll(window, {target: {scrollY: 0}})
-  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
@@ -144,5 +144,5 @@ test('options work as expected', async () => {
 
   // close by clicking on the button
   act(() => user.click(optionsButton))
-  await wait(() => expect(queryOptions()).not.toBeInTheDocument())
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 })

@@ -7,11 +7,12 @@ import * as spyThemeContext from 'contexts/themeContext'
 import {LocalisationProvider} from 'contexts/localisationContext'
 import LangSelector from '..'
 
-jest.spyOn(spyThemeContext, 'useTheme').mockImplementation(() => ({isDarkTheme: false}))
+jest.spyOn(spyThemeContext, 'useTheme')
 jest.spyOn(window, 'fetch')
 
 jest.mock('components/Image', () => () => 'mock-image')
 
+beforeEach(() => spyThemeContext.useTheme.mockReturnValue({isDarkTheme: false}))
 afterEach(() => jest.clearAllMocks())
 
 expect.addSnapshotSerializer({
