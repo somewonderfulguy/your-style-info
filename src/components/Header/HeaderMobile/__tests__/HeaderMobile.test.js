@@ -6,8 +6,6 @@ import HeaderMobile from '..'
 import {ThemeProvider, useTheme} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
 
-// TODO remove all waits once react-spring 9.0.0 released
-
 test('header renders', () => {
   const {getByText} = render(<HeaderMobile />)
   const header = getByText(/your style/i)

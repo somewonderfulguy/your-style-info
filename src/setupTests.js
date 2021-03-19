@@ -13,10 +13,10 @@ expect.addSnapshotSerializer({
   print(val) {return val.replace(/\\\\/gm, '')}
 })
 
-// resizeObserver
+// resizeObserver polyfill
 window.ResizeObserver = ResizeObserver
 
-// matchMedia
+// matchMedia polyfill
 matchMediaPolyfill(window)
 window.resizeTo = function resizeTo(width, height) {
   Object.assign(this, {
@@ -44,3 +44,27 @@ jest.mock('react-router-dom', () => ({
     state: ''
   })
 }))
+
+// react-spring: make animations instant
+jest.mock('react-spring', () => {
+  const actualReactSpring = jest.requireActual('react-spring')
+  const barryAllen = {
+    config: {duration: 0},
+    delay: 0,
+    immediate: true
+  }
+  return {
+    ...actualReactSpring,
+    useSpring: options => actualReactSpring.useSpring({...options, ...barryAllen}),
+    useSprings: (number, setup) => {
+      const {useSprings} = actualReactSpring
+      return useSprings(number, typeof setup === 'function'
+        ? () => ({...setup(), ...barryAllen})
+        : setup.map(item => ({...item, ...barryAllen}))
+      )
+    },
+    useTransition: (items, fn, options) => (
+      actualReactSpring.useTransition(items, fn, {...options, ...barryAllen})
+    )
+  }
+})
