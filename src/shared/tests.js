@@ -1,23 +1,31 @@
 import React from 'react'
+import {render as rtlRender} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {Router} from 'react-router-dom'
 import {createMemoryHistory} from 'history'
-import {render} from '@testing-library/react'
 
-export const renderWithRouter = (
-  ui, options = {}, {
-    route = '/',
-    history = createMemoryHistory({initialEntries: [route]}),
-  } = {}
-) => ({
-  ...render(
-    ui, {
-      ...options,
-      wrapper: ({children}) => (
-        options.wrapper
-          ? <options.wrapper><Router history={history}>{children}</Router></options.wrapper>
-          : <Router history={history}>{children}</Router>
-      )
-    }
-  ),
-  history
-})
+import {HeaderHeightProvider, LocalisationProvider, ScreenDimensionsProvider, ThemeProvider} from 'contexts'
+
+const render = (ui, {route = '/', ...options} = {}) => {
+  const history = createMemoryHistory({initialEntries: [route]})
+  const Wrapper = props => (
+    <Router history={history}>
+      <HeaderHeightProvider>
+        <LocalisationProvider>
+          <ThemeProvider>
+            <ScreenDimensionsProvider {...props} />
+          </ThemeProvider>
+        </LocalisationProvider>
+      </HeaderHeightProvider>
+    </Router>
+  )
+  return {
+    ...rtlRender(ui, {wrapper: Wrapper, ...options}),
+    history,
+  }
+}
+
+const renderWithoutProviders = rtlRender
+
+export * from '@testing-library/react'
+export {render, renderWithoutProviders, userEvent}

@@ -1,35 +1,21 @@
 import React from 'react'
-import {MemoryRouter} from 'react-router-dom'
-import {act, fireEvent, render, waitFor, waitForElementToBeRemoved} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
-import user from '@testing-library/user-event'
 
+import {act, fireEvent, render, userEvent, waitFor, waitForElementToBeRemoved} from 'shared/tests'
 import HeaderMobile from '..'
-import {HeaderHeightProvider, LocalisationProvider, ThemeProvider, useTheme} from 'contexts'
+import {ThemeProvider, useTheme} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
 
 // TODO remove all waits once react-spring 9.0.0 released
 
-const setup = () => render(<HeaderMobile />, {
-  wrapper: props => (
-    <MemoryRouter>
-      <HeaderHeightProvider>
-        <LocalisationProvider>
-          <ThemeProvider {...props} />
-        </LocalisationProvider>
-      </HeaderHeightProvider>
-    </MemoryRouter>
-  )
-})
-
 test('header renders', () => {
-  const {getByText} = setup()
+  const {getByText} = render(<HeaderMobile />)
   const header = getByText(/your style/i)
   expect(header).toBeInTheDocument()
 })
 
 test('menu (navigation) works as expected', async () => {
-  const {getByRole, queryByRole, getByTitle, getByText} = setup()
+  const {getByRole, queryByRole, getByTitle, getByText} = render(<HeaderMobile />)
 
   const navButton = getByTitle(/navigation/i)
   const getNav = () => getByRole('navigation')
@@ -38,7 +24,7 @@ test('menu (navigation) works as expected', async () => {
   expect(queryNav()).not.toBeInTheDocument()
 
   // open navigation
-  user.click(navButton)
+  userEvent.click(navButton)
   await waitFor(() => expect(getNav()).toBeInTheDocument())
 
   // navigation items and subitems
@@ -78,19 +64,19 @@ test('menu (navigation) works as expected', async () => {
   // open / close sub-items
   subLists.forEach(list => expect(list).not.toBeVisible())
 
-  treeButtons.forEach(treeButton => user.click(treeButton))
+  treeButtons.forEach(treeButton => userEvent.click(treeButton))
   await waitFor(() => subLists.forEach(list => expect(list).toBeVisible()))
 
-  treeButtons.forEach(treeButton => user.click(treeButton))
+  treeButtons.forEach(treeButton => userEvent.click(treeButton))
   await waitFor(() => subLists.forEach(list => expect(list).not.toBeVisible()))
 
   // close navigation
-  user.click(navButton)
+  userEvent.click(navButton)
   await waitForElementToBeRemoved(queryNav)
 })
 
 test('options work as expected', async () => {
-  const {getByRole, queryByRole, getByTitle, getByLabelText} = setup()
+  const {getByRole, queryByRole, getByTitle, getByLabelText} = render(<HeaderMobile />)
   const optionsButton = getByTitle(/options/i)
   const getOptions = () => getByRole('menu')
   const queryOptions = () => queryByRole('menu')
@@ -98,7 +84,7 @@ test('options work as expected', async () => {
   expect(queryOptions()).not.toBeInTheDocument()
 
   const openOptionsMenu = async () => {
-    user.click(optionsButton)
+    userEvent.click(optionsButton)
     await waitFor(() => expect(getOptions()).toBeInTheDocument())
   }
 
@@ -106,7 +92,7 @@ test('options work as expected', async () => {
   await openOptionsMenu()
 
   // close by clicking outside
-  act(() => user.click(document.body))
+  act(() => userEvent.click(document.body))
   await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
@@ -134,15 +120,15 @@ test('options work as expected', async () => {
 
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
-  act(() => user.click(themeSwitcher))
+  act(() => userEvent.click(themeSwitcher))
   expect(getThemeHook().result.current.isDarkTheme).toBeTruthy()
 
-  act(() => user.click(themeSwitcher))
+  act(() => userEvent.click(themeSwitcher))
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
   // TODO: language switching
 
   // close by clicking on the button
-  act(() => user.click(optionsButton))
+  act(() => userEvent.click(optionsButton))
   await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 })

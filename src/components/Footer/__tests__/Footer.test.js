@@ -1,25 +1,14 @@
 import React from 'react'
-import {MemoryRouter} from 'react-router-dom'
-import {act, screen, render} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
-import {LocalisationProvider, ThemeProvider, useTheme} from 'contexts'
+import {act, screen, render} from 'shared/tests'
+import {ThemeProvider, useTheme} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
 import Footer from '..'
 
-const setup = () => render(<Footer />, {
-  wrapper: props => (
-    <MemoryRouter>
-      <LocalisationProvider>
-        <ThemeProvider {...props} />
-      </LocalisationProvider>
-    </MemoryRouter>
-  )
-})
-
 test('renders and acts as expected', () => {
-  setup()
+  render(<Footer />)
 
   // navigation
   const expectedNavLinks = Object.values(PRIME_ROUTES).map(obj => obj.name)

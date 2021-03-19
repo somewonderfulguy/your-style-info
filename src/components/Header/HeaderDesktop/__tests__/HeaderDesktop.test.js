@@ -1,11 +1,9 @@
 import React from 'react'
-import {MemoryRouter} from 'react-router-dom'
-import {act, render, screen, waitFor} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
-import user from '@testing-library/user-event'
 
+import {act, render, screen, userEvent, waitFor} from 'shared/tests'
 import HeaderDesktop from '..'
-import {HeaderHeightProvider, LocalisationProvider, ThemeProvider, useTheme} from 'contexts'
+import {ThemeProvider, useTheme} from 'contexts'
 import * as spyLocalisationContext from 'contexts/localisationContext'
 
 // TODO remove all waits once react-spring 9.0.0 released
@@ -20,20 +18,8 @@ jest.spyOn(spyLocalisationContext, 'getLocaleTranslations').mockResolvedValue({
   navigation: navigationTranslation
 })
 
-const setup = () => render(<HeaderDesktop />, {
-  wrapper: props => (
-    <MemoryRouter>
-      <LocalisationProvider>
-        <HeaderHeightProvider>
-          <ThemeProvider {...props} />
-        </HeaderHeightProvider>
-      </LocalisationProvider>
-    </MemoryRouter>
-  )
-})
-
 test('renders headers and social media icons', () => {
-  const {container} = setup()
+  const {container} = render(<HeaderDesktop />)
   const header = screen.getByText(/your style/i)
   const subtitle = container.querySelector('p')
   const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
@@ -44,7 +30,7 @@ test('renders headers and social media icons', () => {
 })
 
 test('menu (navigation) works as expected', async () => {
-  setup()
+  render(<HeaderDesktop />)
 
   // root menu items check
   const expectedRootMenuItems = Object.values(navigationTranslation)
@@ -63,7 +49,7 @@ test('menu (navigation) works as expected', async () => {
 })
 
 test('theme switching works as expected', async () => {
-  setup()
+  render(<HeaderDesktop />)
   const getThemeHook = () => renderHook(() => useTheme(), {
     wrapper: ThemeProvider
   })
@@ -71,33 +57,33 @@ test('theme switching works as expected', async () => {
 
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
-  act(() => user.click(themeSwitcher))
+  act(() => userEvent.click(themeSwitcher))
   await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeTruthy())
 
-  user.click(themeSwitcher)
+  userEvent.click(themeSwitcher)
   await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeFalsy())
 })
 
 test('language switcher works as expected', () => {
-  const { getByLabelText, getByRole, queryByRole } = setup()
+  const { getByLabelText, getByRole, queryByRole } = render(<HeaderDesktop />)
   const langSelectorBtn = getByLabelText(/switch language/i)
 
   expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
-  user.click(langSelectorBtn)
+  userEvent.click(langSelectorBtn)
   expect(getByRole('menu')).toBeInTheDocument()
 
   // close
-  user.click(langSelectorBtn)
+  userEvent.click(langSelectorBtn)
   expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
-  user.click(langSelectorBtn)
+  userEvent.click(langSelectorBtn)
   expect(getByRole('menu')).toBeInTheDocument()
 
   // close by clicking outside
-  act(() => user.click(document.body))
+  act(() => userEvent.click(document.body))
   expect(queryByRole('menu')).not.toBeInTheDocument()
 })
 

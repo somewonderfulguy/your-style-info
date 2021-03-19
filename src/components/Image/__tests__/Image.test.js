@@ -1,10 +1,8 @@
 import React from 'react'
-import {act, render, screen, waitFor, waitForElementToBeRemoved} from '@testing-library/react'
-import user from '@testing-library/user-event'
 
+import {act, render, screen, userEvent, waitFor, waitForElementToBeRemoved} from 'shared/tests'
 import Image, {getAspectRatio} from '../Image'
 import {imgPreloadPromise as mockImgPreloadPromise} from 'shared/utils'
-import {ThemeProvider, ScreenDimensionsProvider} from 'contexts'
 
 jest.mock('shared/utils/imgPreload')
 jest.mock('shared/hooks/useIntersectionObserver')
@@ -22,13 +20,7 @@ const setup = props => {
       height={768}
       caption={CAPTION}
       {...props}
-    />, {
-      wrapper: props => (
-        <ScreenDimensionsProvider>
-          <ThemeProvider {...props} />
-        </ScreenDimensionsProvider>
-      )
-    }
+    />
   )
   const getPreloadBlock = () => utils.container.querySelector('.preloadPlaceholder')
   return {
@@ -100,7 +92,7 @@ test('"try again" block on failed image load works as expected', async () => {
   expect(getPreloadBlock()).toBeInTheDocument()
 
   // click on try again, error disappear and preload placeholder disappear, image appears
-  act(() => user.click(screen.getByRole('button')))
+  act(() => userEvent.click(screen.getByRole('button')))
   await waitForElementToBeRemoved(() => screen.getByText(/an error occured/i))
   await waitForElementToBeRemoved(getPreloadBlock)
   expect(screen.queryByRole('img')).toBeInTheDocument()

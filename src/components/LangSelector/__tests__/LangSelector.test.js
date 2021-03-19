@@ -2,9 +2,8 @@ import React from 'react'
 import {act, screen} from '@testing-library/react'
 import user from '@testing-library/user-event'
 
-import {renderWithRouter} from 'shared'
+import {render} from 'shared'
 import * as spyThemeContext from 'contexts/themeContext'
-import {LocalisationProvider} from 'contexts/localisationContext'
 import LangSelector from '..'
 
 jest.spyOn(spyThemeContext, 'useTheme')
@@ -21,9 +20,8 @@ expect.addSnapshotSerializer({
 })
 
 const setup = (showAbove, gray, path = '/') => {
-  const utils = renderWithRouter(
+  const utils = render(
     <LangSelector showAbove={showAbove} gray={gray} />,
-    {wrapper: LocalisationProvider},
     {route: path}
   )
 

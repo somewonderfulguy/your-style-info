@@ -2,8 +2,7 @@ import React from 'react'
 import mockRouteData from 'react-router-dom'
 
 import Routes from '..'
-import {LocalisationProvider} from 'contexts'
-import {renderWithRouter} from 'shared'
+import {render} from 'shared'
 
 jest.mock('components/Page', () => () => 'page')
 afterEach(() => jest.clearAllMocks())
@@ -24,9 +23,8 @@ const mockLocationCorrect = {
 }
 
 const setup = routerOptions => {
-  const utils = renderWithRouter(
+  const utils = render(
     <Routes />,
-    {wrapper: LocalisationProvider},
     routerOptions
   )
 
