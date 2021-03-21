@@ -20,7 +20,9 @@
 .pageLeave {
   composes: page;
   position: absolute;
+  /* left: 0 and right: 0 make sure that page transitioning will work properly on wide screens */
   left: 0;
+  right: 0;
   top: var(--paddingTop);
 }
 
