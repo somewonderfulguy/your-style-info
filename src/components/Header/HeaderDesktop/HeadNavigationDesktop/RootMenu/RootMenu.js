@@ -59,7 +59,7 @@ const RootMenu = ({
             className={inactive ? '' : styles.link}
             activeClassName={styles.activeLink}
             inactive={inactive}
-            submenupersist={sub ? 1 : 0}
+            submenupersist={sub ? 1 : 0} // TODO consider using refs instead of such attribute (as expample: <Options> & useOutsideClick)
             onFocus={() => setRootMenuOpen(true)}
             onClick={() => setShowMenu(false)}
           >
