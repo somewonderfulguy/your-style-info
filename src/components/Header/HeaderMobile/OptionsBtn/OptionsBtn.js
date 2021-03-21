@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {forwardRef, useImperativeHandle, useRef} from 'react'
 import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
@@ -15,9 +15,12 @@ const defaultProps = {
   onClick: () => {}
 }
 
-const OptionsBtn = ({isOpen, onClick}) => {
+const OptionsBtn = forwardRef(({isOpen, onClick}, ref) => {
   const optionsBtnDOM = useRef(null)
+  useImperativeHandle(ref, () => ({optionsBtnDOM}))
+
   const {isDarkTheme} = useTheme()
+
   const optionsHeight = optionsBtnDOM.current ? optionsBtnDOM.current.clientHeight : 0
 
   const dotSize = 4
@@ -64,7 +67,7 @@ const OptionsBtn = ({isOpen, onClick}) => {
       <animated.div className={styles.dot} style={bottomDot} />
     </button>
   )
-}
+})
 
 OptionsBtn.propTypes = propTypes
 OptionsBtn.defaultProps = defaultProps

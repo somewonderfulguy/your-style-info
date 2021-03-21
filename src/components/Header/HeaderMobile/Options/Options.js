@@ -1,5 +1,5 @@
-import React, {memo, useCallback, useEffect, useRef} from 'react'
-import {bool, func, number, object} from 'prop-types'
+import React, {memo, useCallback, useEffect, useMemo, useRef} from 'react'
+import {bool, func, instanceOf, number, object} from 'prop-types'
 import {useSpring, animated, config} from 'react-spring'
 
 import {LanguageIcon} from 'assets/images'
@@ -13,7 +13,8 @@ const propTypes = {
   setOptionsOpen: func,
   isFixed: bool,
   isScrollDown: bool,
-  headerTop: object.isRequired
+  headerTop: object.isRequired,
+  optionsBtnDOM: instanceOf(Element)
 }
 
 const defaultProps = {
@@ -32,7 +33,7 @@ const useScroll = cb => {
   }, [cb])
 }
 
-const Options = ({isOpen, menuHeight, setOptionsOpen, isFixed, isScrollDown, headerTop}) => {
+const Options = ({isOpen, menuHeight, setOptionsOpen, isFixed, isScrollDown, headerTop, optionsBtnDOM}) => {
   const optionsRef = useRef(null)
 
   const persistPosition = useRef(null)
@@ -56,7 +57,9 @@ const Options = ({isOpen, menuHeight, setOptionsOpen, isFixed, isScrollDown, hea
     isOpen && setOptionsOpen(false)
   }, [isOpen, setOptionsOpen])
 
-  useOutsideClick(optionsRef, closingCallback)
+  const ignoreElements = useMemo(() => optionsBtnDOM ? [optionsBtnDOM] : [], [optionsBtnDOM])
+
+  useOutsideClick(optionsRef, closingCallback, ignoreElements)
   useScroll(closingCallback)
 
   return (

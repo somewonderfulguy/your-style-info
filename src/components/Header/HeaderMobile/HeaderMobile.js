@@ -20,6 +20,9 @@ const HeaderMobile = () => {
   const headerDOM = useRef()
   const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
 
+  const optionsBtnRef = useRef()
+  const optionsBtnDOM = optionsBtnRef?.current?.optionsBtnDOM.current || null
+
   useEffect(() => {
     setHeaderHeight(headerHeight)
     return () => setHeaderHeight(0)
@@ -57,9 +60,7 @@ const HeaderMobile = () => {
           Your Style
         </h1>
         <div className={styles.optionsContainer}>
-          {/* WARN!!! it may seem not obvious - onClick here works, but when closing menu it's overrided by
-            <Options /> with its handleClick outside method */}
-          <OptionsBtn isOpen={isOptionsOpen} onClick={onOptionsClick} />
+          <OptionsBtn isOpen={isOptionsOpen} onClick={onOptionsClick} ref={optionsBtnRef} />
         </div>
       </animated.header>
 
@@ -72,6 +73,7 @@ const HeaderMobile = () => {
         isFixed={isFixed}
         isScrollDown={isScrollDown}
         headerTop={headerTop}
+        optionsBtnDOM={optionsBtnDOM}
       />
     </div>
   )
