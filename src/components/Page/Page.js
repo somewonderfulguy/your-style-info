@@ -72,9 +72,7 @@ const Page = ({location: {pathname}}) => {
           </div>
         </animated.div>
       </div>
-      <div ref={footerRef}>
-        <Footer />
-      </div>
+      <Footer footerRef={footerRef} />
     </>
   )
 }
