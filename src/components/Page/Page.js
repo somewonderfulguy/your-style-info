@@ -37,6 +37,7 @@ const Page = ({location: {pathname}}) => {
     </>
   )
 
+  // TODO better use unique id instead of header
   const pageTransitions = useTransition(pageContent, header, {
     config: {duration: 700},
     from: {
