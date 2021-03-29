@@ -14,7 +14,9 @@ export const useFooterAnimation = headerHeight => {
 
   const isFooterVisible = headerHeight + viewHeight < screenHeight
   const wasFooterVisible = usePrevious(isFooterVisible)
-  useEffect(() => void console.log(isFooterVisible, wasFooterVisible), [isFooterVisible, wasFooterVisible])
+  useEffect(() => {
+    console.warn(isFooterVisible, wasFooterVisible)
+  }, [isFooterVisible, wasFooterVisible])
 
   const {height: pageHeight} = useSpring({
     immediate: false,
