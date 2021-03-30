@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {useEffect, useRef} from 'react'
 import {useSpring} from 'react-spring'
 
@@ -14,9 +15,8 @@ export const useFooterAnimation = headerHeight => {
 
   const isFooterVisible = headerHeight + viewHeight < screenHeight
   const wasFooterVisible = usePrevious(isFooterVisible)
-  useEffect(() => {
-    console.warn(isFooterVisible, wasFooterVisible)
-  }, [isFooterVisible, wasFooterVisible])
+  // eslint-disable-next-line no-console
+  useEffect(() => void console.log(isFooterVisible, wasFooterVisible), [isFooterVisible, wasFooterVisible])
 
   const {height: pageHeight} = useSpring({
     immediate: false,
@@ -27,7 +27,5 @@ export const useFooterAnimation = headerHeight => {
     }
   })
 
-  return [
-    bindResizeObserver, footerRef, {pageHeight}
-  ]
+  return {}
 }

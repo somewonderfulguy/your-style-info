@@ -2,9 +2,8 @@ import React, {useMemo} from 'react'
 import {shape, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
-// TODO componentRenderer should be colocated
-import {componentRenderer} from 'shared'
-import Footer from 'components/Footer'
+import {componentRenderer} from './helpers'
+import FooterContent from './FooterContent'
 import {usePrevious} from 'shared/hooks'
 import {useHeaderHeight, useScreenDimensions} from 'contexts'
 import {useFooterAnimation, usePageFetch} from './hooks'
@@ -19,7 +18,6 @@ const propTypes = {
 const Page = ({location: {pathname}}) => {
   const {headerHeight} = useHeaderHeight()
   const {isDesktop} = useScreenDimensions()
-  const [bindResizeObserver, footerRef, {pageHeight}] = useFooterAnimation(headerHeight)
 
   const previousPath = String(usePrevious(pathname))
   const removeLangInPath = str => str.replace(/^\/\w{2}/, '')
@@ -29,16 +27,25 @@ const Page = ({location: {pathname}}) => {
   ), [pathname])
 
   const {header, components} = usePageFetch(pathname, isLocaleChanged)
+  // const {footerRef, footerSpring} =
+  useFooterAnimation(headerHeight)
 
-  const pageContent = (
+  const pageContent = useMemo(() => (
     <>
       <h1 style={{marginTop: 0}}>{header}</h1>
       {!!components.length && componentRenderer(components)}
     </>
-  )
+  ), [components, header])
 
-  // TODO better use unique id instead of header
-  const pageTransitions = useTransition(pageContent, header, {
+  const shadowRef = React.useRef()
+  const [page, setPage] = React.useState({content: null, header: null})
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(shadowRef.current.offsetHeight) // getting height of upcoming element before transitioning
+    setPage({content: pageContent, header}) // run transition
+  }, [header, pageContent])
+
+  const pageTransitions = useTransition(page.content, page.header, { // TODO better use unique id instead of header
     config: {duration: 700},
     from: {
       opacity: 0,
@@ -54,26 +61,29 @@ const Page = ({location: {pathname}}) => {
   return (
     <>
       <div>
-        <animated.div className={styles.pageContainer} style={{height: pageHeight}}>
-          <div ref={bindResizeObserver}>
-            {pageTransitions.map(({item, key, props, state}) => (
-              !!item && (
-                <animated.main
-                  className={state === 'leave' ? styles.pageLeave : styles.page}
-                  style={{
-                    ...props,
-                    paddingTop: isDesktop ? 0 : headerHeight
-                  }}
-                  key={key}
-                >
-                  {item}
-                </animated.main>
-              )
-            ))}
-          </div>
+        <div className={styles.shadowRender}>
+          <div className={styles.pageContainer} style={{height: 'auto'}} ref={shadowRef}>{pageContent}</div>
+        </div>
+        <animated.div className={styles.pageContainer}>
+          {pageTransitions.map(({item, key, props, state}) => (
+            !!item && (
+              <animated.main
+                className={state === 'leave' ? styles.pageLeave : styles.page}
+                style={{
+                  ...props,
+                  paddingTop: isDesktop ? 0 : headerHeight
+                }}
+                key={key}
+              >
+                {item}
+              </animated.main>
+            )
+          ))}
         </animated.div>
       </div>
-      <Footer footerRef={footerRef} />
+      <animated.footer className={styles.footer}>
+        <FooterContent />
+      </animated.footer>
     </>
   )
 }
