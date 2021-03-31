@@ -27,9 +27,6 @@ const Page = ({location: {pathname}}) => {
   ), [pathname])
 
   const {header, components} = usePageFetch(pathname, isLocaleChanged)
-  // const {footerRef, footerSpring} =
-  useFooterAnimation(headerHeight)
-
   const pageContent = useMemo(() => (
     <>
       <h1 style={{marginTop: 0}}>{header}</h1>
@@ -37,13 +34,9 @@ const Page = ({location: {pathname}}) => {
     </>
   ), [components, header])
 
-  const shadowRef = React.useRef()
-  const [page, setPage] = React.useState({content: null, header: null})
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(shadowRef.current.offsetHeight) // getting height of upcoming element before transitioning
-    setPage({content: pageContent, header}) // run transition
-  }, [header, pageContent])
+  const {
+    shadowRenderRef, pageContainerRef, footerRef, page, footerSpring
+  } = useFooterAnimation(headerHeight, header, pageContent)
 
   const pageTransitions = useTransition(page.content, page.header, { // TODO better use unique id instead of header
     config: {duration: 700},
@@ -62,9 +55,9 @@ const Page = ({location: {pathname}}) => {
     <>
       <div>
         <div className={styles.shadowRender}>
-          <div className={styles.pageContainer} style={{height: 'auto'}} ref={shadowRef}>{pageContent}</div>
+          <div className={styles.pageContainer} style={{height: 'auto'}} ref={shadowRenderRef}>{pageContent}</div>
         </div>
-        <animated.div className={styles.pageContainer}>
+        <animated.div className={styles.pageContainer} ref={pageContainerRef}>
           {pageTransitions.map(({item, key, props, state}) => (
             !!item && (
               <animated.main
@@ -81,7 +74,7 @@ const Page = ({location: {pathname}}) => {
           ))}
         </animated.div>
       </div>
-      <animated.footer className={styles.footer}>
+      <animated.footer className={styles.footer} ref={footerRef} style={footerSpring}>
         <FooterContent />
       </animated.footer>
     </>
