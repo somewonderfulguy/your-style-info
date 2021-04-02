@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import {useEffect, useLayoutEffect, useRef, useState} from 'react'
-import {useSpring} from 'react-spring'
+import {useSpring, config} from 'react-spring'
 
-import {usePrevious, useResizeObserver} from 'shared/hooks'
+import {usePrevious} from 'shared/hooks'
 import {useScreenDimensions} from 'contexts'
 
 export const useFooterAnimation = (headerHeight, header, pageContent) => {
@@ -11,9 +10,9 @@ export const useFooterAnimation = (headerHeight, header, pageContent) => {
   const footerRef = useRef(null)
 
   const [page, setPage] = useState({content: null, header: null})
-  const {screenHeight} = useScreenDimensions()
+  const {screenWidth, screenHeight} = useScreenDimensions()
 
-  const [footerSpring, set] = useSpring(() => ({
+  const [footerSpring, setFooterSpring] = useSpring(() => ({
     from: {
       opacity: 1,
       transform: 'translate3d(0, 0px, 0)'
@@ -23,51 +22,103 @@ export const useFooterAnimation = (headerHeight, header, pageContent) => {
     }
   }))
 
+  const [pageHeightSpring, setPageHeightSpring] = useSpring(() => ({from: {height: 'auto'}}))
+
   const previousHeader = usePrevious(header)
 
+  // upd page height on window resize
+  useEffect(() => {
+    setPageHeightSpring({height: shadowRenderRef.current.offsetHeight, immediate: true})
+  }, [screenWidth, setPageHeightSpring])
+
+  // page animation with footer
   useLayoutEffect(() => {
+    const triggerPageTransition = () => setPage({content: pageContent, header})
+
+    const upcomingPageHeight = shadowRenderRef.current.offsetHeight
+    const currentPageHeight = pageContainerRef.current.offsetHeight
+
+    const setPageHeightImmediate = (height = upcomingPageHeight) =>
+      setPageHeightSpring({height, immediate: true})
+
     if(!previousHeader?.length) {
       // page initialisation
-      return setPage({content: pageContent, header})
+      // TODO: footer animation on start
+      setTimeout(() => {
+        setPageHeightImmediate(shadowRenderRef.current.offsetHeight)
+      }, 0)
+      return triggerPageTransition()
     }
 
     // doing animations only when page changed
     if(header === previousHeader) return
 
-    const upcomingPageHeight = shadowRenderRef.current.offsetHeight
-    const currentPageHeight = pageContainerRef.current.offsetHeight
     const footerHeight = footerRef.current?.offsetHeight || 0
-
-    const pageMinHeight = (screenHeight - headerHeight - footerHeight - 20) || 0
 
     const isFooterVisible = headerHeight + currentPageHeight < screenHeight
     const willFooterBeVisible = headerHeight + upcomingPageHeight < screenHeight
 
     if(isFooterVisible && !willFooterBeVisible) {
       // footer is visible but is going to be out of view
-      set({to: {opacity: 0, transform: 'translate3d(0, 15px, 0)'}, immediate: false})
-      setTimeout(() => setPage({content: pageContent, header}), 300)
-      setTimeout(() => set({to: {opacity: 1, transform: 'translate3d(0, 0px, 0)'}, immediate: true}), 300 + 700)
+      setFooterSpring({to: {opacity: 0, transform: 'translate3d(0, 15px, 0)'}, immediate: false})
+      setTimeout(() => {
+        triggerPageTransition()
+        setPageHeightImmediate()
+      }, 300)
+      setTimeout(() => setFooterSpring({to: {opacity: 1, transform: 'translate3d(0, 0px, 0)'}, immediate: true}), 300 + 700)
     } else if(!isFooterVisible && willFooterBeVisible) {
-      // footer is ont visible but is going to be visible
-      set({to: {opacity: 0, transform: 'translate3d(0, 15px, 0)'}, immediate: true})
-      setPage({content: pageContent, header})
-      setTimeout(() => set({to: {opacity: 1, transform: 'translate3d(0, 0px, 0)'}, immediate: false}), 700)
+      // footer is not visible but is going to be visible
+      setFooterSpring({to: {opacity: 0, transform: 'translate3d(0, 15px, 0)'}, immediate: true})
+      triggerPageTransition()
+      setPageHeightImmediate()
+      setTimeout(() => setFooterSpring({to: {opacity: 1, transform: 'translate3d(0, 0px, 0)'}, immediate: false}), 650)
+    } else if(isFooterVisible && willFooterBeVisible) {
+      // footer remains visible
+      const pageMinHeight = (screenHeight - headerHeight - footerHeight) || 0
 
-      // footer remains visible but will be positioned lower
-      // footer remains visible but will be positioned higher
-      // footer position remains the same
-      // footer is out of view and will be out of view
+      const isFooterRemainsStill = (
+        upcomingPageHeight <= pageMinHeight && currentPageHeight <= pageMinHeight
+      ) || upcomingPageHeight === currentPageHeight
+      const isFooterGoesUp = upcomingPageHeight < currentPageHeight
+      const isFooterGoesDown = upcomingPageHeight > currentPageHeight
+
+      const changePageHeight = (height = upcomingPageHeight) => {
+        setPageHeightSpring({
+          height,
+          immediate: false,
+          config: config.slow
+        })
+      }
+
+      if(isFooterRemainsStill) {
+        // footer position remains the same
+        setPageHeightImmediate()
+        triggerPageTransition()
+      } else if(isFooterGoesDown) {
+        // footer remains visible but will be positioned lower
+        changePageHeight()
+        setTimeout(triggerPageTransition, 300)
+      } else if(isFooterGoesUp) {
+        const animateHeightTo = upcomingPageHeight < pageMinHeight
+          ? pageMinHeight
+          : upcomingPageHeight
+        // footer remains visible but will be positioned higher
+        triggerPageTransition()
+        setTimeout(() => changePageHeight(animateHeightTo), 600)
+      }
     } else {
-      setPage({content: pageContent, header}) // run page transition
+      // footer is out of view and will be out of view (or any unhandled case)
+      setPageHeightImmediate()
+      triggerPageTransition()
     }
-  }, [header, previousHeader, headerHeight, pageContent, screenHeight, set])
+  }, [header, previousHeader, headerHeight, pageContent, screenHeight, setFooterSpring, setPageHeightSpring])
 
   return {
     shadowRenderRef,
     pageContainerRef,
     footerRef,
     page,
-    footerSpring
+    footerSpring,
+    pageHeightSpring
   }
 }

@@ -35,7 +35,7 @@ const Page = ({location: {pathname}}) => {
   ), [components, header])
 
   const {
-    shadowRenderRef, pageContainerRef, footerRef, page, footerSpring
+    shadowRenderRef, pageContainerRef, footerRef, page, footerSpring, pageHeightSpring
   } = useFooterAnimation(headerHeight, header, pageContent)
 
   const pageTransitions = useTransition(page.content, page.header, { // TODO better use unique id instead of header
@@ -54,10 +54,13 @@ const Page = ({location: {pathname}}) => {
   return (
     <>
       <div>
+        {/* invisible block that renders content before animation so the upcoming height of page becomes known */}
         <div className={styles.shadowRender}>
-          <div className={styles.pageContainer} style={{height: 'auto'}} ref={shadowRenderRef}>{pageContent}</div>
+          <div className={styles.pageContainer} style={{height: 'auto'}} ref={shadowRenderRef}>
+            <div className={styles.page}>{pageContent}</div>
+          </div>
         </div>
-        <animated.div className={styles.pageContainer} ref={pageContainerRef}>
+        <animated.div className={styles.pageContainer} style={pageHeightSpring} ref={pageContainerRef}>
           {pageTransitions.map(({item, key, props, state}) => (
             !!item && (
               <animated.main
