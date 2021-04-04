@@ -4,7 +4,7 @@ import {useSpring, config} from 'react-spring'
 import {usePrevious} from 'shared/hooks'
 import {useScreenDimensions} from 'contexts'
 
-export const useFooterAnimation = (headerHeight, header, pageContent) => {
+export const useFooterAnimation = (headerHeight, header, pageContent, isDesktop) => {
   const shadowRenderRef = useRef(null)
   const pageContainerRef = useRef(null)
   const footerRef = useRef(null)
@@ -28,8 +28,11 @@ export const useFooterAnimation = (headerHeight, header, pageContent) => {
 
   // upd page height on window resize
   useEffect(() => {
-    setPageHeightSpring({height: shadowRenderRef.current.offsetHeight, immediate: true})
-  }, [screenWidth, setPageHeightSpring])
+    setPageHeightSpring({
+      height: shadowRenderRef.current.offsetHeight + (isDesktop ? 0 : headerHeight),
+      immediate: true
+    })
+  }, [screenWidth, setPageHeightSpring, headerHeight, isDesktop])
 
   // page animation with footer
   useLayoutEffect(() => {
@@ -39,7 +42,10 @@ export const useFooterAnimation = (headerHeight, header, pageContent) => {
     const currentPageHeight = pageContainerRef.current.offsetHeight
 
     const setPageHeightImmediate = (height = upcomingPageHeight) =>
-      setPageHeightSpring({height, immediate: true})
+      setPageHeightSpring({
+        height: isDesktop ? height : height + headerHeight,
+        immediate: true
+      })
 
     if(!previousHeader?.length) {
       // page initialisation
@@ -84,7 +90,7 @@ export const useFooterAnimation = (headerHeight, header, pageContent) => {
 
       const changePageHeight = (height = upcomingPageHeight) => {
         setPageHeightSpring({
-          height,
+          height: isDesktop ? height : height + headerHeight,
           immediate: false,
           config: config.slow
         })
@@ -111,7 +117,7 @@ export const useFooterAnimation = (headerHeight, header, pageContent) => {
       setPageHeightImmediate()
       triggerPageTransition()
     }
-  }, [header, previousHeader, headerHeight, pageContent, screenHeight, setFooterSpring, setPageHeightSpring])
+  }, [header, previousHeader, headerHeight, pageContent, screenHeight, setFooterSpring, setPageHeightSpring, isDesktop])
 
   return {
     shadowRenderRef,

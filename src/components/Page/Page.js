@@ -36,7 +36,7 @@ const Page = ({location: {pathname}}) => {
 
   const {
     shadowRenderRef, pageContainerRef, footerRef, page, footerSpring, pageHeightSpring
-  } = useFooterAnimation(headerHeight, header, pageContent)
+  } = useFooterAnimation(headerHeight, header, pageContent, isDesktop)
 
   const pageTransitions = useTransition(page.content, page.header, { // TODO better use unique id instead of header
     config: {duration: 700},
