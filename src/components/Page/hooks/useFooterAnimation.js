@@ -12,8 +12,16 @@ export const useFooterAnimation = (headerHeight, header, pageContent, isDesktop)
   const [page, setPage] = useState({content: null, header: null})
   const {screenWidth, screenHeight} = useScreenDimensions()
 
+  const paddingTopCSSVar = '--paddingTop'
+  const pagePaddingTop = shadowRenderRef.current &&
+    getComputedStyle(shadowRenderRef.current).getPropertyValue(paddingTopCSSVar).replace('px', '')
+
+  if(shadowRenderRef.current !== null && !pagePaddingTop.length) {
+    console.warn(`unable to find variable ${paddingTopCSSVar}`)
+  }
+
   const footerHeight = footerRef.current?.offsetHeight || 0
-  const pageMinHeight = (screenHeight - headerHeight - footerHeight) || 0
+  const pageMinHeight = (screenHeight - headerHeight - footerHeight) - (+pagePaddingTop) || 0
 
   const [footerSpring, setFS] = useSpring(() => ({
     from: {opacity: 0, transform: 'translate3d(0, 0px, 0)'},
