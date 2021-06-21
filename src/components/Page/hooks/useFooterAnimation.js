@@ -67,6 +67,7 @@ export const useFooterAnimation = (headerHeight, header, pageContent, isDesktop)
         // TODO use react suspense(?) for faster initialisation - without delays page animation is jumpy
         setPageHeightSpring()
         triggerPageTransition()
+        window.scrollTo(0, 0) // TODO try to find real reason of lowered scroll position on mobiles on page init and fix that, instead of doing this hacky fix
         setTimeout(() => setFooterSpring({fadeOut: false}), 600)
       }, 200)
     }
