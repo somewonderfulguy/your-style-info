@@ -3,14 +3,7 @@ import React, {createContext, useContext, useEffect, useState} from 'react'
 export const ERROR_SCREEN = 'useScreenDimensions must be used within a ScreenDimensionsProvider'
 
 const ScreenDimensionsContext = createContext()
-
-function useScreenDimensions() {
-  const context = useContext(ScreenDimensionsContext)
-  if(!context) {
-    throw new Error(ERROR_SCREEN)
-  }
-  return context
-}
+ScreenDimensionsContext.displayName = 'ScreenDimensionsContext'
 
 export const DESKTOP_BOUNDARY = 1024
 
@@ -35,6 +28,14 @@ const ScreenDimensionsProvider = props => {
   }, [])
 
   return <ScreenDimensionsContext.Provider value={screenDimensions} {...props} />
+}
+
+const useScreenDimensions = () => {
+  const context = useContext(ScreenDimensionsContext)
+  if(!context) {
+    throw new Error(ERROR_SCREEN)
+  }
+  return context
 }
 
 export {ScreenDimensionsProvider, useScreenDimensions}

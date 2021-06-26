@@ -1,11 +1,11 @@
 import {act, renderHook} from '@testing-library/react-hooks'
 
-import {LoadingProvider, useLoading, ERROR_LOADING} from '..'
+import {LoadingProvider, useLoading} from '..'
 
 test('useLoading should throw error if used outside LoadingProvider', () => {
   // throw error
   const {result: {error}} = renderHook(() => useLoading())
-  expect(error).toEqual(new Error(ERROR_LOADING))
+  expect(error).toEqual(new Error('useLoading must be used within a LoadingProvider'))
 
   // work properly
   expect(() => {
