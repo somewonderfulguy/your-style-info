@@ -3,7 +3,7 @@ import {bool, func} from 'prop-types'
 import {useSpring, useSprings, animated} from 'react-spring'
 
 import {PRIME_ROUTES} from 'constants/index'
-import {useLocalisation} from 'contexts'
+import {useLocalization} from 'contexts'
 import LinkExtended from 'components/LinkExtended'
 import SocialMediaIcons from 'components/SocialMediaIcons'
 import Tree from './Tree'
@@ -41,7 +41,7 @@ const renderItem = ([path, {name, sub, inactive}], locale, setMenuOpen, isSubIte
 
 const MobileMenu = forwardRef(({isOpen, setMenuOpen}, ref) => {
   const routesEntries = Object.entries(PRIME_ROUTES)
-  const {locale} = useLocalisation()
+  const [{locale}] = useLocalization()
 
   const DURATION = 250
   const DELAY = 150

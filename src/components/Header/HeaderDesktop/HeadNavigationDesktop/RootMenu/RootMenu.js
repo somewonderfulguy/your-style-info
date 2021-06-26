@@ -3,7 +3,7 @@ import {func, object, string} from 'prop-types'
 
 import {PRIME_ROUTES} from 'constants/index'
 import LinkExtended from 'components/LinkExtended'
-import {useLocalisation} from 'contexts'
+import {useLocalization} from 'contexts'
 import styles from './RootMenu.module.css'
 
 const propTypes = {
@@ -23,7 +23,7 @@ const defaultProps = {
 const RootMenu = ({
   setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen, navigationTranslations,
 }) => {
-  const {locale} = useLocalisation()
+  const [{locale}] = useLocalization()
 
   return (
     <ul className={styles.list}>

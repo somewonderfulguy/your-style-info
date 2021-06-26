@@ -1,15 +1,15 @@
 import {renderHook} from '@testing-library/react-hooks'
 
-import {LocalisationProvider, useLocalisation, ERROR_LOCALISATION} from '..'
+import {LocalizationProvider, useLocalization} from '..'
 
 test('useLocalisation should throw error if used outside LocalisationProvider', () => {
   // throw error
-  const {result: {error}} = renderHook(() => useLocalisation())
-  expect(error).toEqual(new Error(ERROR_LOCALISATION))
+  const {result: {error}} = renderHook(() => useLocalization())
+  expect(error).toEqual(new Error('useLocalization must be used within a LocalizationProvider'))
 
   // work properly
   expect(() => {
-    renderHook(() => useLocalisation(), {wrapper: LocalisationProvider})
+    renderHook(() => useLocalization(), {wrapper: LocalizationProvider})
   }).not.toThrow()
 })
 

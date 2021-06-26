@@ -47,6 +47,7 @@
     "nonblock-statement-body-position": ["error", "beside"],
     "padded-blocks": ["error", "never"],
     "quotes": ["error", "single", {"allowTemplateLiterals": true}],
+    "import/no-anonymous-default-export": "off",
 
     // ECMAScript 6
     "arrow-body-style": ["error", "as-needed"],

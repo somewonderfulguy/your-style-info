@@ -71,6 +71,7 @@ test('snapshot diff: aria state and css-class of triangle when open/hidden menu 
 })
 
 test('should show/hide menu when clicking on language selector', async () => {
+  // TODO convert to MSW
   const promise = Promise.resolve({
     ok: true,
     json: async () => ({header: 'mockData', components: []})

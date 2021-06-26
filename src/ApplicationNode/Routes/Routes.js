@@ -3,7 +3,7 @@ import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from 'r
 
 import Page from 'components/Page'
 import {LOCALES} from 'constants/index'
-import {useLocalisation} from 'contexts'
+import {useLocalization} from 'contexts'
 
 const Routes = () => {
   const pathLocale = '/:locale'
@@ -11,7 +11,7 @@ const Routes = () => {
   const history = useHistory()
   const {pathname} = useLocation()
 
-  const {locale} = useLocalisation()
+  const [{locale}] = useLocalization()
 
   const urlLocale = routeMatch?.params.locale
   const isLocaleExist = LOCALES.some(locale => locale === urlLocale)

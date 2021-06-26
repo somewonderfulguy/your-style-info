@@ -1,12 +1,12 @@
 import {useCallback, useEffect, useLayoutEffect, useState, useRef} from 'react'
 
-import {useLoading, useLocalisation} from 'contexts'
+import {useLoading, useLocalization} from 'contexts'
 import {usePrevious} from 'shared/hooks'
 import {getPageData} from 'api'
 
 export const usePageFetch = pathname => {
   const {setLoading} = useLoading()
-  const {upcomingLocale} = useLocalisation()
+  const [{upcomingLocale}] = useLocalization()
 
   const [{header, components}, setPageContent] = useState({
     header: '',
@@ -26,6 +26,7 @@ export const usePageFetch = pathname => {
         console.error(e)
         setLoading(false)
       })
+      // TODO setLoading make as dispatch function, so it won't need to add this as dependency
   }, [pathname, setLoading])
 
   const upcomingPathname = useRef()

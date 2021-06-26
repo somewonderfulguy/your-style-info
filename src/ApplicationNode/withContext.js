@@ -1,13 +1,13 @@
 import React from 'react'
 
 import {
-  HeaderHeightProvider, LoadingProvider, LocalisationProvider, ScreenDimensionsProvider, ThemeProvider
+  HeaderHeightProvider, LoadingProvider, LocalizationProvider, ScreenDimensionsProvider, ThemeProvider
 } from 'contexts'
 
 const withContext = WrappedComponent => {
   const Component = props => (
     <HeaderHeightProvider>
-      <LocalisationProvider>
+      <LocalizationProvider>
         <ThemeProvider>
           <LoadingProvider>
             <ScreenDimensionsProvider>
@@ -15,7 +15,7 @@ const withContext = WrappedComponent => {
             </ScreenDimensionsProvider>
           </LoadingProvider>
         </ThemeProvider>
-      </LocalisationProvider>
+      </LocalizationProvider>
     </HeaderHeightProvider>
   )
   Component.displayName = `WithContext(${WrappedComponent.displayName || WrappedComponent.name})`

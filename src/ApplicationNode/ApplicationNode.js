@@ -1,13 +1,15 @@
-import React, {useEffect, useLayoutEffect} from 'react'
+import React, {useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {useNProgress} from '@tanem/react-nprogress'
+import {QueryClient, QueryClientProvider} from 'react-query'
+import {ReactQueryDevtools} from 'react-query/devtools'
 
 import Routes from './Routes'
 import Header from 'components/Header'
 import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
-import {useLoading, useLocalisation, useTheme} from 'contexts'
+import {useLoading, useTheme} from 'contexts'
 import 'services/bluebird'
 import 'services/resizeObserverPolyfill'
 
@@ -15,14 +17,15 @@ import styles from './ApplicationNode.module.css'
 import 'assets/styles/common-styles.css'
 import 'assets/styles/fonts.css'
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    initialStale: true
+  }
+})
+
 const ApplicationNode = () => {
   const {isDarkTheme} = useTheme()
   const {isLoading} = useLoading()
-  const {locale, translations, setLocale} = useLocalisation()
-
-  useLayoutEffect(() => {
-    translations === null && setLocale(locale)
-  }, [locale, translations, setLocale])
 
   const className = isDarkTheme ? styles.themeWrapperDarkMode : styles.themeWrapper
   useEffect(() => {document.body.className = className}, [className])
@@ -43,10 +46,13 @@ const ApplicationNode = () => {
         </div>,
         document.body
       )}
-      <Router>
-        <Header />
-        <Routes />
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <Header />
+          <Routes />
+        </Router>
+        <ReactQueryDevtools position="bottom-right" />
+      </QueryClientProvider>
     </>
   )
 }

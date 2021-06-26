@@ -5,7 +5,7 @@ import {animated, useSpring, useTransition} from 'react-spring'
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
 import {ROOT_MENU_THUMBS} from 'constants/index'
-import {useLocalisation} from 'contexts'
+import {useLocalization} from 'contexts'
 import {imgPreload} from 'shared/utils'
 import {useResizeObserver} from 'shared/hooks'
 import styles from './HeadNavigationDesktop.module.css'
@@ -31,7 +31,7 @@ const defaultProps = {
 }
 
 const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
-  const {translations} = useLocalisation()
+  const [, , {data: translations}] = useLocalization()
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
   const [subMenuContent, setSubMenuContent] = useState({

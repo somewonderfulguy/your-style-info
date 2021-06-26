@@ -2,11 +2,11 @@ import React from 'react'
 
 import LinkExtended from 'components/LinkExtended'
 import {PRIME_ROUTES} from 'constants/index'
-import {useLocalisation} from 'contexts'
+import {useLocalization} from 'contexts'
 import styles from './FooterNavigation.module.css'
 
 const FooterNavigation = () => {
-  const {locale} = useLocalisation()
+  const [{locale}] = useLocalization()
 
   return (
     <nav>

@@ -1,10 +1,10 @@
 import React, {useRef, useState} from 'react'
 import {bool} from 'prop-types'
 
-import {useLocalisation, useTheme} from 'contexts'
+import {setLocale, useLocalization, useTheme} from 'contexts'
 import {useOutsideClick} from 'shared/hooks'
 import {LanguageIcon} from 'assets/images'
-import {LANGUAGES, LOCALES, STATUS} from 'constants/index'
+import {LANGUAGES, LOCALES} from 'constants/index'
 import styles from './LangSelector.module.css'
 
 const propTypes = {
@@ -18,7 +18,12 @@ const defaultProps = {
 }
 
 const LangSelector = ({showAbove, gray}) => {
-  const {locale: currentLocale, status, setLocale} = useLocalisation()
+  const [
+    {locale: currentLocale},
+    setLocaleState,
+    {isLoading: isLanguageLoading}
+  ] = useLocalization()
+
   const {isDarkTheme} = useTheme()
   const langSelectorRef = useRef(null)
   const menuRef = useRef(null)
@@ -32,8 +37,6 @@ const LangSelector = ({showAbove, gray}) => {
   const triangleClass = showAbove
     ? (isOpen ? styles.triangle : styles.triangleReverse)
     : (isOpen ? styles.triangleReverse : styles.triangle)
-
-  const isLanguageLoading = status === STATUS.pending
 
   return (
     <div
@@ -67,7 +70,7 @@ const LangSelector = ({showAbove, gray}) => {
                 type="button"
                 disabled={locale === currentLocale}
                 onClick={() => {
-                  setLocale(locale)
+                  setLocale(setLocaleState, locale)
                   setOpen(false)
                 }}
               >

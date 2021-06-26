@@ -3,6 +3,7 @@ import React, {createContext, useContext, useMemo, useState} from 'react'
 export const ERROR_LOADING = 'useLoading must be used within a LoadingProvider'
 
 const LoadingContext = createContext()
+LoadingContext.displayName = 'LoadingContext'
 
 const useLoading = () => {
   const context = useContext(LoadingContext)
