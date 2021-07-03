@@ -24,7 +24,7 @@ let promise = Promise.resolve()
 export const getPageData = page => {
   promise.cancel()
 
-  return promise = new Promise((resolve, reject, onCancel) => {
+  return promise = new Promise((resolve, reject) => {
     fetch(pagePathPair.get(page))
       .then(resolve)
       .catch(reject)

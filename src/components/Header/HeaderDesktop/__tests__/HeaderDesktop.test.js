@@ -4,7 +4,7 @@ import {renderHook} from '@testing-library/react-hooks'
 import {act, render, screen, userEvent, waitFor} from 'shared/tests'
 import HeaderDesktop from '..'
 import {ThemeProvider, useTheme} from 'contexts'
-import * as spyLocalisationContext from 'contexts/localisationContext'
+import * as spyLocalizationContext from 'contexts/localizationContext'
 
 // TODO remove all waits once react-spring 9.0.0 released
 
@@ -14,7 +14,7 @@ const navigationTranslation = {
   '/colors-how-to': 'How to combine colors'
 }
 
-jest.spyOn(spyLocalisationContext, 'getLocaleTranslations').mockResolvedValue({
+jest.spyOn(spyLocalizationContext, 'getLocaleTranslations').mockResolvedValue({
   navigation: navigationTranslation
 })
 

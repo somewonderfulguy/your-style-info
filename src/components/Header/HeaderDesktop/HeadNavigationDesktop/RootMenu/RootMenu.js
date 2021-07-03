@@ -27,7 +27,7 @@ const RootMenu = ({
 
   return (
     <ul className={styles.list}>
-      {Object.entries(PRIME_ROUTES).map(([path, {name, sub, inactive, thumbnail}], i) => (
+      {Object.entries(PRIME_ROUTES).map(([path, {name, sub, inactive, thumbnail}]) => (
         <li
           className={
             inactive

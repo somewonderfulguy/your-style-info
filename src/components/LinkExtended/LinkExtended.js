@@ -39,6 +39,7 @@ const LinkExtended = ({
   location: {pathname},
   to,
   onClick,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   staticContext, // exclude from ...rest
   ...rest
 }) => {

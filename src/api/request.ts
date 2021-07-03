@@ -1,9 +1,9 @@
 const baseUrl = '' // process.env. ...
 
-const request = (endpoint, {body, ...customConfig} = {}) => {
+const request = (endpoint: string, {body, ...customConfig}: RequestInit = {}) => {
   const headers = {'Content-Type': 'application/json'}
 
-  const config = {
+  const config: RequestInit = {
     method: body ? 'POST' : 'GET',
     ...customConfig,
     headers: {
