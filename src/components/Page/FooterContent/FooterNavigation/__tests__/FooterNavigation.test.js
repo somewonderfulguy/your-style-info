@@ -3,7 +3,6 @@ import React from 'react'
 import {render, screen} from 'shared/tests'
 import FooterNavigation from '..'
 
-jest.mock('constants/primeRoutes')
 jest.mock('components/LinkExtended', () => ({to, children}) => <a href={to}>{children}</a>)
 
 test('should match snapshot', () => {
@@ -18,7 +17,7 @@ test('should render menu items as links and inactive items as usual text', () =>
   const links = screen.getAllByRole('link')
   const inactiveItems = screen.getByRole('list').querySelectorAll('*[aria-disabled="true"]')
 
-  expect(listItems).toHaveLength(3)
-  expect(links).toHaveLength(2)
+  expect(listItems).toHaveLength(7)
+  expect(links).toHaveLength(6)
   expect(inactiveItems).toHaveLength(1)
 })

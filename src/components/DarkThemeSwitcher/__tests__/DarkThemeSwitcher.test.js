@@ -6,8 +6,6 @@ import {screen, render} from 'shared/tests'
 import {ThemeProvider, useTheme} from 'contexts'
 import DarkThemeSwitcher from '..'
 
-afterEach(() => jest.clearAllMocks())
-
 const setup = (darkerPalette = false, labelText = false) => {
   const utils = render(<DarkThemeSwitcher darkerPalette={darkerPalette} labelText={labelText} />)
   return utils

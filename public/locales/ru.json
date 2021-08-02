@@ -1,5 +1,4 @@
 {
-  "subtitle": "Энциклопедия мужского стиля",
   "navigation": {
     "/": "Главная",
     "/guides-topics": "Гайды и общие темы",
@@ -26,5 +25,10 @@
     "/brands-stores": "Бренды, магазины",
     "/glossary": "Глоссарий",
     "/mixed": "Разное"
+  },
+  "subtitle": "Энциклопедия мужского стиля",
+  "switchLanguage": {
+    "switchLang": "Сменить язык",
+    "switchLangTo": "Switch language to English"
   }
 }

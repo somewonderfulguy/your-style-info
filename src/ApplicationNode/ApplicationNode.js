@@ -1,31 +1,39 @@
 import React, {useEffect} from 'react'
 import {createPortal} from 'react-dom'
-import {BrowserRouter as Router} from 'react-router-dom'
+import {Router, BrowserRouter} from 'react-router-dom'
 import {useNProgress} from '@tanem/react-nprogress'
-import {QueryClient, QueryClientProvider} from 'react-query'
+import {QueryClient, QueryClientProvider, useIsFetching, useIsMutating} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 
 import Routes from './Routes'
 import Header from 'components/Header'
 import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
-import {useLoading, useTheme} from 'contexts'
-import 'services/bluebird'
+import {useTheme} from 'contexts'
 import 'services/resizeObserverPolyfill'
 
 import styles from './ApplicationNode.module.css'
 import 'assets/styles/common-styles.css'
 import 'assets/styles/fonts.css'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    initialStale: true
+// intentionally making cache never stale, so once fetched - always used cache, like desktop app
+export const defaultOptions = {
+  queries: {
+    initialStale: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   }
-})
+}
 
-const ApplicationNode = () => {
+const queryClient = new QueryClient({defaultOptions})
+
+const ApplicationNodeComponent = () => {
   const {isDarkTheme} = useTheme()
-  const {isLoading} = useLoading()
+
+  const isFetching = useIsFetching()
+  const isMutating = useIsMutating()
+  const isLoading = !!isFetching || !!isMutating
 
   const className = isDarkTheme ? styles.themeWrapperDarkMode : styles.themeWrapper
   useEffect(() => {document.body.className = className}, [className])
@@ -46,15 +54,26 @@ const ApplicationNode = () => {
         </div>,
         document.body
       )}
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <Header />
-          <Routes />
-        </Router>
-        <ReactQueryDevtools position="bottom-right" />
-      </QueryClientProvider>
+      <Header />
+      <Routes />
+      <ReactQueryDevtools position="bottom-right" />
     </>
   )
 }
+
+// eslint-disable-next-line react/prop-types
+const ApplicationNode = ({qClient = queryClient, history, ...props}) => (
+  <QueryClientProvider client={qClient}>
+    {history ? (
+      <Router history={history}>
+        <ApplicationNodeComponent {...props} />
+      </Router>
+    ) : (
+      <BrowserRouter>
+        <ApplicationNodeComponent {...props} />
+      </BrowserRouter>
+    )}
+  </QueryClientProvider>
+)
 
 export default withContext(ApplicationNode)

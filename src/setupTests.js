@@ -16,6 +16,15 @@ expect.addSnapshotSerializer({
 // resizeObserver polyfill
 window.ResizeObserver = ResizeObserver
 
+// mock Image
+window.Image = class {
+  constructor() {
+    setTimeout(() => {
+      this.onload() // simulate success
+    }, 100)
+  }
+}
+
 // matchMedia polyfill
 matchMediaPolyfill(window)
 window.resizeTo = function resizeTo(width, height) {
@@ -27,23 +36,28 @@ window.resizeTo = function resizeTo(width, height) {
   }).dispatchEvent(new this.Event('resize'))
 }
 
+// render desktop by default
+Object.defineProperty(window, 'innerWidth', {writable: true, configurable: true, value: 1800})
+Object.defineProperty(window, 'innerHeight', {writable: true, configurable: true, value: 1800})
+
+// TODO dispose of it!!!!
 // react-router hooks
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useParams: () => ({
-    locale: 'en'
-  }),
-  useRouteMatch: () => ({
-    url: '/en/outerwear/trench-coat',
-    params: {locale: 'en'}
-  }),
-  useLocation: () => ({
-    pathname: '/en/outerwear/trench-coat',
-    hash: '',
-    search: '',
-    state: ''
-  })
-}))
+// jest.mock('react-router-dom', () => ({
+//   ...jest.requireActual('react-router-dom'),
+//   useParams: () => ({
+//     locale: 'en'
+//   }),
+//   useRouteMatch: () => ({
+//     url: '/en/outerwear/trench-coat',
+//     params: {locale: 'en'}
+//   }),
+//   useLocation: () => ({
+//     pathname: '/en/outerwear/trench-coat',
+//     hash: '',
+//     search: '',
+//     state: ''
+//   })
+// }))
 
 // react-spring: make animations instant
 jest.mock('react-spring', () => {
@@ -55,7 +69,13 @@ jest.mock('react-spring', () => {
   }
   return {
     ...actualReactSpring,
-    useSpring: options => actualReactSpring.useSpring({...options, ...barryAllen}),
+    useSpring: argument => {
+      const {useSpring} = actualReactSpring
+      return useSpring(typeof argument === 'function'
+        ? () => ({...argument(), ...barryAllen})
+        : {...argument, ...barryAllen}
+      )
+    },
     useSprings: (number, setup) => {
       const {useSprings} = actualReactSpring
       return useSprings(number, typeof setup === 'function'

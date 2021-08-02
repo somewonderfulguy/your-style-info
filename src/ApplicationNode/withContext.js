@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {
-  HeaderHeightProvider, LoadingProvider, LocalizationProvider, ScreenDimensionsProvider, ThemeProvider
+  HeaderHeightProvider, LocalizationProvider, ScreenDimensionsProvider, ThemeProvider
 } from 'contexts'
 
 const withContext = WrappedComponent => {
@@ -9,11 +9,9 @@ const withContext = WrappedComponent => {
     <HeaderHeightProvider>
       <LocalizationProvider>
         <ThemeProvider>
-          <LoadingProvider>
-            <ScreenDimensionsProvider>
-              <WrappedComponent {...props} />
-            </ScreenDimensionsProvider>
-          </LoadingProvider>
+          <ScreenDimensionsProvider>
+            <WrappedComponent {...props} />
+          </ScreenDimensionsProvider>
         </ThemeProvider>
       </LocalizationProvider>
     </HeaderHeightProvider>

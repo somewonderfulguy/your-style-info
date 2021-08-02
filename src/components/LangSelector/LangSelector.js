@@ -21,7 +21,7 @@ const LangSelector = ({showAbove, gray}) => {
   const [
     {locale: currentLocale},
     setLocaleState,
-    {isLoading: isLanguageLoading}
+    {isLoading: isLanguageLoading, data: localeData}
   ] = useLocalization()
 
   const {isDarkTheme} = useTheme()
@@ -48,10 +48,10 @@ const LangSelector = ({showAbove, gray}) => {
         className={styles.langSelectorInner}
         type="button"
         disabled={isLanguageLoading}
-        // TODO switch label depending on language
-        aria-label="Switch language"
+        aria-label={localeData?.switchLanguage.switchLang ?? 'Switch language'}
         aria-expanded={isOpen}
         aria-haspopup
+        data-testid="langSelector"
       >
         <LanguageIcon width={20} height={20} className={styles.icon} />
         <span>{LANGUAGES.get(currentLocale)}</span>

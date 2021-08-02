@@ -1,14 +1,13 @@
 import React from 'react'
 import {renderHook} from '@testing-library/react-hooks'
-import user from '@testing-library/user-event'
 
-import {act, screen, render} from 'shared/tests'
+import {act, screen, render, waitFor, userEvent} from 'shared/tests'
 import {ThemeProvider, useTheme} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
-import Footer from '..'
+import FooterContent from '..'
 
-test('renders and acts as expected', () => {
-  render(<Footer />)
+test('renders and acts as expected', async () => {
+  render(<FooterContent />)
 
   // navigation
   const expectedNavLinks = Object.values(PRIME_ROUTES).map(obj => obj.name)
@@ -27,33 +26,32 @@ test('renders and acts as expected', () => {
 
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
-  user.click(themeSwitcher)
+  userEvent.click(themeSwitcher)
   expect(getThemeHook().result.current.isDarkTheme).toBeTruthy()
 
-  user.click(themeSwitcher)
+  userEvent.click(themeSwitcher)
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
   // switching language
   const langSelectorBtn = screen.getByLabelText(/switch language/i)
-
-  expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+  await waitFor(() => expect(langSelectorBtn).not.toBeDisabled())
 
   // open lang switcher
-  user.click(langSelectorBtn)
+  userEvent.click(langSelectorBtn)
   expect(screen.getByRole('menu')).toBeInTheDocument()
 
   // close lang switcher
-  user.click(langSelectorBtn)
+  userEvent.click(langSelectorBtn)
   expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 
   // open lang switcher
-  user.click(langSelectorBtn)
+  userEvent.click(langSelectorBtn)
   expect(screen.getByRole('menu')).toBeInTheDocument()
 
   // TODO check language switching
 
   // close lang switcher by clicking outside
-  act(() => user.click(document.body))
+  act(() => userEvent.click(document.body))
   expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 
   // social media

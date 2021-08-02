@@ -1,5 +1,4 @@
 {
-  "subtitle": "Men's style encyclopedia",
   "navigation": {
     "/": "Home",
     "/guides-topics": "Guides & generic topics",
@@ -26,5 +25,10 @@
     "/brands-stores": "Brands & stores",
     "/glossary": "Glossary",
     "/mixed": "Mixed"
+  },
+  "subtitle": "Men's style encyclopedia",
+  "switchLanguage": {
+    "switchLang": "Switch language",
+    "switchLangTo": "Сменить язык на русский"
   }
 }

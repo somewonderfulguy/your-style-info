@@ -1,7 +1,7 @@
 import React from 'react'
 import {renderHook} from '@testing-library/react-hooks'
 
-import {act, fireEvent, render, userEvent, waitFor, waitForElementToBeRemoved} from 'shared/tests'
+import {act, fireEvent, render, screen, userEvent, waitFor, waitForElementToBeRemoved} from 'shared/tests'
 import HeaderMobile from '..'
 import {ThemeProvider, useTheme} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
@@ -13,11 +13,11 @@ test('header renders', () => {
 })
 
 test('menu (navigation) works as expected', async () => {
-  const {getByRole, queryByRole, getByTitle, getByText} = render(<HeaderMobile />)
+  render(<HeaderMobile />)
 
-  const navButton = getByTitle(/navigation/i)
-  const getNav = () => getByRole('navigation')
-  const queryNav = () => queryByRole('navigation')
+  const navButton = screen.getByTitle(/navigation/i)
+  const getNav = () => screen.getByRole('navigation')
+  const queryNav = () => screen.queryByRole('navigation')
 
   expect(queryNav()).not.toBeInTheDocument()
 
@@ -46,18 +46,18 @@ test('menu (navigation) works as expected', async () => {
   findDisabled()
 
   expectedItems.forEach(text => {
-    expect(getByText(text)).toBeInTheDocument()
+    expect(screen.getByText(text)).toBeInTheDocument()
   })
 
   expectedDisabled.forEach(text => {
-    expect(getByText(text)).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByText(text)).toHaveAttribute('aria-disabled', 'true')
   })
 
   expect(treeButtons).toHaveLength(expectedExpandableItems.length)
 
   // social media icons
   const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
-  socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
+  socialMedia.forEach(icon => expect(screen.getByTitle(icon)).toBeInTheDocument())
 
   // open / close sub-items
   subLists.forEach(list => expect(list).not.toBeVisible())
@@ -74,10 +74,10 @@ test('menu (navigation) works as expected', async () => {
 })
 
 test('options work as expected', async () => {
-  const {getByRole, queryByRole, getByTitle, getByLabelText} = render(<HeaderMobile />)
-  const optionsButton = getByTitle(/options/i)
-  const getOptions = () => getByRole('menu')
-  const queryOptions = () => queryByRole('menu')
+  render(<HeaderMobile />)
+  const optionsButton = screen.getByTitle(/options/i)
+  const getOptions = () => screen.getByRole('menu')
+  const queryOptions = () => screen.queryByRole('menu')
 
   expect(queryOptions()).not.toBeInTheDocument()
 
@@ -114,7 +114,9 @@ test('options work as expected', async () => {
   const getThemeHook = () => renderHook(() => useTheme(), {
     wrapper: ThemeProvider
   })
-  const themeSwitcher = getByLabelText(/switch theme/i)
+
+  // two themeSwitchers in the documents because of animation (I guess) - selecting one
+  const [themeSwitcher] = screen.getAllByLabelText(/switch theme/i)
 
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 

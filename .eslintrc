@@ -29,7 +29,6 @@
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
 
-
     // Stylistic Issues
     "indent": ["error", 2, {"SwitchCase": 1}],
     "semi": ["error", "never"],
@@ -93,7 +92,6 @@
     "react/no-children-prop": "off",
 
     // Tests
-    "jest/prefer-spy-on": "warn",
     "jest/no-deprecated-functions": "error",
     "jest/prefer-called-with": "error",
     "jest/prefer-todo": "error",

@@ -5,8 +5,8 @@ Snapshot Diff:
 - dark palette off
 + dark palette on
 
-@@ -2,3 +2,3 @@
-    <label
+@@ -3,3 +3,3 @@
+      aria-label="switch theme"
 -     class="switch"
 +     class="switchDarker"
     >
@@ -17,7 +17,7 @@ Snapshot Diff:
 - label text off
 + label text on
 
-@@ -20,2 +20,7 @@
+@@ -21,2 +21,7 @@
       </div>
 +     <span
 +       class="text"
@@ -30,6 +30,7 @@ Snapshot Diff:
 exports[`should match snapshot 1`] = `
 <DocumentFragment>
   <label
+    aria-label="switch theme"
     class="switch"
   >
     <input
@@ -57,7 +58,7 @@ Snapshot Diff:
 - dark theme on
 + light theme on
 
-@@ -12,9 +12,9 @@
+@@ -13,9 +13,9 @@
         <div
           class="round"
 -         style="background-image: url(sun.svg); opacity: 0;"

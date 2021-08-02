@@ -4,3 +4,5 @@ export const LANGUAGES = new Map([
 ])
 
 export const LOCALES = Array.from(LANGUAGES.keys())
+
+export const FULL_LOCALES = Array.from(LANGUAGES.values())

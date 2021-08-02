@@ -17,7 +17,7 @@ export const useFooterAnimation = (headerHeight, header, pageContent, isDesktop)
     getComputedStyle(shadowRenderRef.current).getPropertyValue(paddingTopCSSVar).replace('px', '')
 
   if(shadowRenderRef.current !== null && !pagePaddingTop.length) {
-    console.warn(`unable to find variable ${paddingTopCSSVar}`)
+    !process.env.NODE_ENV === 'test' && console.warn(`unable to find variable ${paddingTopCSSVar}`)
   }
 
   const footerHeight = footerRef.current?.offsetHeight || 0

@@ -1,6 +1,6 @@
 const baseUrl = '' // process.env. ...
 
-const request = (endpoint: string, {body, ...customConfig}: RequestInit = {}) => {
+const request = <T>(endpoint: string, {body, ...customConfig}: RequestInit = {}): Promise<T> => {
   const headers = {'Content-Type': 'application/json'}
 
   const config: RequestInit = {

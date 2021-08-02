@@ -2,7 +2,7 @@ import React, {useEffect, useReducer} from 'react'
 import {number, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
-import {useImageLoad} from './hooks'
+import {useImageLoadQuery} from 'api'
 import {useIntersectionObserver, useResizeObserver} from 'shared/hooks'
 import {useTheme, useScreenDimensions} from 'contexts'
 import styles from './Image.module.css'
@@ -34,7 +34,11 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
   const [bindIntersectionObserver, isIntersecting, disconnectInersection] = useIntersectionObserver({
     rootMargin: `${intersectionOffset}px 0px ${intersectionOffset}px 0px`
   })
-  const {isRejected, isResolved, isPreviewVisible, retry} = useImageLoad(isIntersecting && url)
+
+  const {isError, isSuccess, refetch: retry} = useImageLoadQuery(url, {
+    enabled: !!url && isIntersecting
+  })
+
   const [bindResizeObserver, {width: imageWidth}] = useResizeObserver()
   const isSmallerSize = imageWidth < 424
 
@@ -45,7 +49,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
     }
   )
 
-  const errorTileTransitions = useTransition(isRejected, null, {
+  const errorTileTransitions = useTransition(isError, null, {
     from: {opacity: 0},
     enter: {opacity: 1},
     leave: {opacity: 0}
@@ -83,7 +87,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
 
   useEffect(() => {
     let timerTitle, timerSubtitle
-    if(isRejected) {
+    if(isError) {
       timerTitle = setTimeout(() => setAppear({delayedShowTitle: true}), 400)
       timerSubtitle = setTimeout(() => setAppear({delayedShowSubtitle: true}), 700)
     } else {
@@ -96,58 +100,56 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
       clearTimeout(timerTitle)
       clearTimeout(timerSubtitle)
     }
-  }, [isRejected])
+  }, [isError])
 
   return (
     <figure className={styles.figure} ref={bindIntersectionObserver}>
       <div className={styles.imageContainer} ref={bindResizeObserver}>
-        {isPreviewVisible && (
-          <div
-            style={{maxWidth: width}}
-            className={isRejected ? styles.aspectRatioOuterError : styles.aspectRatioOuter}
-          >
-            <div style={{paddingBottom: `${getAspectRatio(width, height)}%`}} className={styles.aspectRatioInner}>
-              <div
-                className={styles.preloadPlaceholder}
-                style={{backgroundImage: `url('${lowresBase64}')`}}
-              />
-            </div>
-            {errorTileTransitions.map(({item, key, props}) => (
-              item && (
-                <animated.div className={styles.errorMessage} role="alert" key={key} style={props}>
-                  <button
-                    className={styles.reloadImageBtn}
-                    onClick={retry}
-                    type="button"
-                  >
-                    {titleAppear.map(({item, key, props}) => (
-                      item && (
-                        <animated.span
-                          key={key}
-                          className={isSmallerSize ? styles.reloadTitleSmaller : styles.reloadTitle}
-                          style={props}
-                        >
-                          An error occured during image loading
-                        </animated.span>
-                      )
-                    ))}
-                    {subtitleAppear.map(({item, key, props}) => (
-                      item && (
-                        <animated.span key={key} style={props} className={styles.reloadSubitle}>
-                          Click on this to try to load again.
-                        </animated.span>
-                      )
-                    ))}
-                  </button>
-                  <div className={isDarkTheme ? styles.outlineDark : styles.outline} />
-                </animated.div>
-              )
-            ))
-            }
+        <div
+          style={{maxWidth: width}}
+          className={isError ? styles.aspectRatioOuterError : styles.aspectRatioOuter}
+        >
+          <div style={{paddingBottom: `${getAspectRatio(width, height)}%`}} className={styles.aspectRatioInner} aria-hidden>
+            <div
+              className={styles.preloadPlaceholder}
+              style={{backgroundImage: `url('${lowresBase64}')`}}
+            />
           </div>
-        )}
-        {isResolved && (
-          <img src={url} alt={alt} className={isPreviewVisible ? styles.imgAbsolute : styles.img} />
+          {errorTileTransitions.map(({item, key, props}) => (
+            item && (
+              <animated.div className={styles.errorMessage} role="alert" key={key} style={props}>
+                <button
+                  className={styles.reloadImageBtn}
+                  onClick={retry}
+                  type="button"
+                >
+                  {titleAppear.map(({item, key, props}) => (
+                    item && (
+                      <animated.span
+                        key={key}
+                        className={isSmallerSize ? styles.reloadTitleSmaller : styles.reloadTitle}
+                        style={props}
+                      >
+                        An error occured during image loading
+                      </animated.span>
+                    )
+                  ))}
+                  {subtitleAppear.map(({item, key, props}) => (
+                    item && (
+                      <animated.span key={key} style={props} className={styles.reloadSubitle}>
+                        Click on this to try to load again.
+                      </animated.span>
+                    )
+                  ))}
+                </button>
+                <div className={isDarkTheme ? styles.outlineDark : styles.outline} />
+              </animated.div>
+            )
+          ))
+          }
+        </div>
+        {isSuccess && (
+          <img src={url} alt={alt} className={styles.imgAbsolute} />
         )}
       </div>
       {caption && (

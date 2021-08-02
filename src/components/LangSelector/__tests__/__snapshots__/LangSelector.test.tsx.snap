@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`header and footer lang selectors, light/dark themes, desktop/mobile 1`] = `
+Snapshot Diff:
+- light theme
++ dark theme
+
+- langSelector 
++ langSelectorDark 
+`;
+
+exports[`header and footer lang selectors, light/dark themes, desktop/mobile 2`] = `
+Snapshot Diff:
+- light theme
++ dark theme
+
+- langSelector gray
++ langSelectorDark gray
+`;
+
+exports[`header and footer lang selectors, light/dark themes, desktop/mobile 3`] = `
+Snapshot Diff:
+- light theme
++ dark theme
+
+- langSelector gray
++ langSelectorDark gray
+`;
+
+exports[`header and footer lang selectors, light/dark themes, desktop/mobile: desktop footer drop up 1`] = `dropDownAbove`;
+
+exports[`header and footer lang selectors, light/dark themes, desktop/mobile: desktop header drop down 1`] = `dropDownBelow`;
+
+exports[`header and footer lang selectors, light/dark themes, desktop/mobile: mobile footer drop up 1`] = `dropDownAbove`;
+
+exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff) 1`] = `
+Snapshot Diff:
+- collapsed menu
++ expanded menu
+
+@@ -5,3 +5,3 @@
+      <button
+-       aria-expanded="false"
++       aria-expanded="true"
+        aria-haspopup="true"
+@@ -10,3 +10,2 @@
+        data-testid="langSelector"
+-       disabled=""
+        type="button"
+@@ -27,5 +26,29 @@
+        <div
+-         class="triangle"
++         class="triangleReverse"
+        />
+      </button>
+`;
+
+exports[`snapshot diff: aria state and css-class of triangle when open/hidden menu (+ drop-up/down diff) 2`] = `
+Snapshot Diff:
+- collapsed menu
++ expanded menu
+
+@@ -5,3 +5,3 @@
+      <button
+-       aria-expanded="false"
++       aria-expanded="true"
+        aria-haspopup="true"
+@@ -26,5 +26,29 @@
+        <div
+-         class="triangleReverse"
++         class="triangle"
+        />
++     </button>
+`;

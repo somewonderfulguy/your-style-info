@@ -1,5 +1,4 @@
 export * from './headerHeightContext'
-export * from './loadingContext'
 export * from './localizationContext'
 export * from './screenDimensionsContext'
 export * from './themeContext'

@@ -4,7 +4,6 @@ import {renderHook} from '@testing-library/react-hooks'
 import {act, render, screen, userEvent, waitFor} from 'shared/tests'
 import HeaderDesktop from '..'
 import {ThemeProvider, useTheme} from 'contexts'
-import * as spyLocalizationContext from 'contexts/localizationContext'
 
 // TODO remove all waits once react-spring 9.0.0 released
 
@@ -13,10 +12,6 @@ const navigationTranslation = {
   '/guides-topics': 'Guides & generic topics',
   '/colors-how-to': 'How to combine colors'
 }
-
-jest.spyOn(spyLocalizationContext, 'getLocaleTranslations').mockResolvedValue({
-  navigation: navigationTranslation
-})
 
 test('renders headers and social media icons', () => {
   const {container} = render(<HeaderDesktop />)
@@ -43,9 +38,8 @@ test('menu (navigation) works as expected', async () => {
 
   expect(dropDown).not.toBeVisible()
 
-  // TODO when react-spring 9.0 released, disable animations and test all cases
-  // the cases are: 1) changing content when hovering on other root menu items,
-  // 2) changing thumbnails when hover on both root and submenu items
+  // TODO 1) changing content when hovering on other root menu items,
+  // TODO 2) changing thumbnails when hover on both root and submenu items
 })
 
 test('theme switching works as expected', async () => {
@@ -64,13 +58,14 @@ test('theme switching works as expected', async () => {
   await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeFalsy())
 })
 
-test('language switcher works as expected', () => {
+test('language switcher works as expected', async () => {
   const { getByLabelText, getByRole, queryByRole } = render(<HeaderDesktop />)
   const langSelectorBtn = getByLabelText(/switch language/i)
 
   expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
+  await waitFor(() => expect(langSelectorBtn).not.toBeDisabled())
   userEvent.click(langSelectorBtn)
   expect(getByRole('menu')).toBeInTheDocument()
 
