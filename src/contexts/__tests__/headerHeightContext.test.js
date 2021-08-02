@@ -1,11 +1,11 @@
 import {act, renderHook} from '@testing-library/react-hooks'
 
-import {HeaderHeightProvider, useHeaderHeight, ERROR_HEADER_HEIGHT} from '..'
+import {HeaderHeightProvider, useHeaderHeight} from '..'
 
 test('useHeaderHeight should throw error if used outside HeaderHeightProvider', () => {
   // throw error
   const {result: {error}} = renderHook(() => useHeaderHeight())
-  expect(error).toEqual(new Error(ERROR_HEADER_HEIGHT))
+  expect(error).toEqual(new Error('useHeaderHeight must be used within a HeaderHeightProvider'))
 
   // work properly
   expect(() => {

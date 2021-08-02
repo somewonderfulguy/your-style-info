@@ -1,30 +1,15 @@
+// TODO: dispatcher outside
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 
-export const ERROR_THEME = 'useTheme must be used within a ThemeProvider'
-
 const ThemeContext = createContext()
-
-const useTheme = () => {
-  const context = useContext(ThemeContext)
-  if(!context) {
-    throw new Error(ERROR_THEME)
-  }
-  const [isDarkTheme, setDarkTheme] = context
-
-  const switchTheme = useCallback(
-    () => setDarkTheme(!isDarkTheme),
-    [isDarkTheme, setDarkTheme]
-  )
-
-  return {isDarkTheme, switchTheme}
-}
+ThemeContext.displayName = 'ThemeContext'
 
 const ThemeProvider = props => {
   const preferDarkQuery = '(prefers-color-scheme: dark)'
   const [isDarkTheme, setDarkTheme] = useState(
     () =>
       window.localStorage.getItem('isDarkTheme') === 'true' ||
-      (window.matchMedia(preferDarkQuery).matches ? true : false),
+      (window.matchMedia(preferDarkQuery).matches ? true : false)
   )
 
   useEffect(() => {
@@ -41,6 +26,21 @@ const ThemeProvider = props => {
   const value = useMemo(() => [isDarkTheme, setDarkTheme], [isDarkTheme])
 
   return <ThemeContext.Provider value={value} {...props} />
+}
+
+const useTheme = () => {
+  const context = useContext(ThemeContext)
+  if(!context) {
+    throw new Error('useTheme must be used within a ThemeProvider')
+  }
+  const [isDarkTheme, setDarkTheme] = context
+
+  const switchTheme = useCallback(
+    () => setDarkTheme(!isDarkTheme),
+    [isDarkTheme, setDarkTheme]
+  )
+
+  return {isDarkTheme, switchTheme}
 }
 
 export {ThemeProvider, useTheme}

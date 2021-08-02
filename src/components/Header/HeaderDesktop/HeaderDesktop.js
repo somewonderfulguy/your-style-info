@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {animated, useSpring} from 'react-spring'
-import {useTranslation} from 'react-i18next'
+import {animated, useSpring, useTransition} from 'react-spring'
 
 import {useAnimatedAppearing} from './hooks'
 import {useStickyNavBar} from '../hooks'
@@ -8,21 +7,30 @@ import HeadNavigationDesktop from './HeadNavigationDesktop'
 import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
 import LangSelector from 'components/LangSelector'
 import SocialMediaIcons from 'components/SocialMediaIcons'
+import {useHeaderHeight, useLocalization} from 'contexts'
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {
-  const {t} = useTranslation('', {useSuspense: false})
+  const [, , {data: translations}] = useLocalization()
   const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
+
+  const {setHeaderHeight} = useHeaderHeight()
 
   const navBarDOM = useRef(null)
   const headerDOM = useRef(null)
 
+  const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
   const navbarHeight = navBarDOM.current && (navBarDOM.current.offsetHeight || 0)
   const [navBarTopLine, setNavBarTopLine] = useState(0)
 
   useEffect(() => {
     setNavBarTopLine(headerDOM.current && headerDOM.current.offsetHeight)
   }, [setNavBarTopLine])
+
+  useEffect(() => {
+    setHeaderHeight(headerHeight)
+    return () => setHeaderHeight(0)
+  }, [headerHeight, setHeaderHeight])
 
   // show on scroll-up logic
   const [isRootMenuOpen, setRootMenuOpen] = useState(false)
@@ -37,8 +45,16 @@ const HeaderDesktop = () => {
     top: isShown || isRootMenuOpen || persistRootMenu ? -1 : navbarHeight * -1
   })
 
+  const subtitleSelector = 'subtitle'
+  const transitions = useTransition(translations?.subtitle, null, {
+    from: {opacity: 0},
+    enter: {opacity: 1},
+    leave: {opacity: 0}
+  })
+
   return (
     <header
+      className={styles.header}
       style={{paddingBottom: navbarHeight}}
       ref={headerDOM}
     >
@@ -47,8 +63,14 @@ const HeaderDesktop = () => {
           <animated.h1 className={styles.title} style={firstAppearing}>
             Your Style
           </animated.h1>
-          <animated.p className={styles.subtitle} style={secondAppearing}>
-            {t('subtitle')}
+          <animated.p className={styles.subtitleContainer} style={secondAppearing}>
+            {transitions.map(({item, key, props}) => (
+              item !== subtitleSelector && (
+                <animated.span key={key} style={props} className={styles.subtitle}>
+                  {item}
+                </animated.span>
+              )
+            ))}
           </animated.p>
         </div>
         <div className={styles.sideControlsContainer}>

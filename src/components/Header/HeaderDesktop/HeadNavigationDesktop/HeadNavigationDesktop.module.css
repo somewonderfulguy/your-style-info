@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.rootMenuTransitionLeave {
+  position: absolute;
+  width: 100%;
+}
+
 .borderBottom {
   width: 100%;
   height: 1px;

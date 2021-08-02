@@ -1,43 +1,29 @@
 import React from 'react'
-import {MemoryRouter} from 'react-router-dom'
-import {act, fireEvent, render, wait, waitForElementToBeRemoved} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
-import user from '@testing-library/user-event'
 
+import {act, fireEvent, render, screen, userEvent, waitFor, waitForElementToBeRemoved} from 'shared/tests'
 import HeaderMobile from '..'
-import {HeaderHeightProvider, ThemeProvider, useTheme} from 'contexts'
+import {ThemeProvider, useTheme} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
 
-// TODO remove all waits once react-spring 9.0.0 released
-
-const setup = () => render(<HeaderMobile />, {
-  wrapper: props => (
-    <MemoryRouter>
-      <HeaderHeightProvider>
-        <ThemeProvider {...props} />
-      </HeaderHeightProvider>
-    </MemoryRouter>
-  )
-})
-
 test('header renders', () => {
-  const {getByText} = setup()
+  const {getByText} = render(<HeaderMobile />)
   const header = getByText(/your style/i)
   expect(header).toBeInTheDocument()
 })
 
 test('menu (navigation) works as expected', async () => {
-  const {getByRole, queryByRole, getByTitle, getByText} = setup()
+  render(<HeaderMobile />)
 
-  const navButton = getByTitle(/navigation/i)
-  const getNav = () => getByRole('navigation')
-  const queryNav = () => queryByRole('navigation')
+  const navButton = screen.getByTitle(/navigation/i)
+  const getNav = () => screen.getByRole('navigation')
+  const queryNav = () => screen.queryByRole('navigation')
 
-  expect(queryNav()).toBeNull()
+  expect(queryNav()).not.toBeInTheDocument()
 
   // open navigation
-  user.click(navButton)
-  await wait(() => expect(getNav()).toBeInTheDocument())
+  userEvent.click(navButton)
+  await waitFor(() => expect(getNav()).toBeInTheDocument())
 
   // navigation items and subitems
   const subLists = Array.from(getNav().querySelectorAll('.menuWrapper > ul ul')).map(ul => ul.parentElement)
@@ -60,66 +46,66 @@ test('menu (navigation) works as expected', async () => {
   findDisabled()
 
   expectedItems.forEach(text => {
-    expect(getByText(text)).toBeInTheDocument()
+    expect(screen.getByText(text)).toBeInTheDocument()
   })
 
   expectedDisabled.forEach(text => {
-    expect(getByText(text)).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByText(text)).toHaveAttribute('aria-disabled', 'true')
   })
 
   expect(treeButtons).toHaveLength(expectedExpandableItems.length)
 
   // social media icons
   const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
-  socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
+  socialMedia.forEach(icon => expect(screen.getByTitle(icon)).toBeInTheDocument())
 
   // open / close sub-items
   subLists.forEach(list => expect(list).not.toBeVisible())
 
-  treeButtons.forEach(treeButton => user.click(treeButton))
-  await wait(() => subLists.forEach(list => expect(list).toBeVisible()))
+  treeButtons.forEach(treeButton => userEvent.click(treeButton))
+  await waitFor(() => subLists.forEach(list => expect(list).toBeVisible()))
 
-  treeButtons.forEach(treeButton => user.click(treeButton))
-  await wait(() => subLists.forEach(list => expect(list).not.toBeVisible()))
+  treeButtons.forEach(treeButton => userEvent.click(treeButton))
+  await waitFor(() => subLists.forEach(list => expect(list).not.toBeVisible()))
 
   // close navigation
-  user.click(navButton)
-  waitForElementToBeRemoved(queryNav)
+  userEvent.click(navButton)
+  await waitForElementToBeRemoved(queryNav)
 })
 
 test('options work as expected', async () => {
-  const {getByRole, queryByRole, getByTitle, getByLabelText} = setup()
-  const optionsButton = getByTitle(/options/i)
-  const getOptions = () => getByRole('menu')
-  const queryOptions = () => queryByRole('menu')
+  render(<HeaderMobile />)
+  const optionsButton = screen.getByTitle(/options/i)
+  const getOptions = () => screen.getByRole('menu')
+  const queryOptions = () => screen.queryByRole('menu')
 
-  expect(queryOptions()).toBeNull()
+  expect(queryOptions()).not.toBeInTheDocument()
 
   const openOptionsMenu = async () => {
-    user.click(optionsButton)
-    await wait(() => expect(getOptions()).toBeInTheDocument())
+    userEvent.click(optionsButton)
+    await waitFor(() => expect(getOptions()).toBeInTheDocument())
   }
 
   // open
   await openOptionsMenu()
 
   // close by clicking outside
-  act(() => user.click(document.body))
-  await wait(() => expect(queryOptions()).toBeNull())
+  act(() => userEvent.click(document.body))
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
 
   // close by scrolling down
   fireEvent.scroll(window, {target: {scrollY: 100}})
-  await wait(() => expect(queryOptions()).toBeNull())
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
 
   // close by scrolling up
   fireEvent.scroll(window, {target: {scrollY: 0}})
-  await wait(() => expect(queryOptions()).toBeNull())
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 
   // open
   await openOptionsMenu()
@@ -128,19 +114,21 @@ test('options work as expected', async () => {
   const getThemeHook = () => renderHook(() => useTheme(), {
     wrapper: ThemeProvider
   })
-  const themeSwitcher = getByLabelText(/switch theme/i)
+
+  // two themeSwitchers in the documents because of animation (I guess) - selecting one
+  const [themeSwitcher] = screen.getAllByLabelText(/switch theme/i)
 
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
-  user.click(themeSwitcher)
+  act(() => userEvent.click(themeSwitcher))
   expect(getThemeHook().result.current.isDarkTheme).toBeTruthy()
 
-  user.click(themeSwitcher)
+  act(() => userEvent.click(themeSwitcher))
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
   // TODO: language switching
 
   // close by clicking on the button
-  user.click(optionsButton)
-  await wait(() => expect(queryOptions()).toBeNull())
+  act(() => userEvent.click(optionsButton))
+  await waitFor(() => expect(queryOptions()).not.toBeInTheDocument())
 })

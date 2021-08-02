@@ -20,7 +20,8 @@ const DarkThemeSwitcher = ({darkerPalette, labelText}) => {
   const {isDarkTheme, switchTheme} = useTheme()
 
   return (
-    <label className={darkerPalette ? styles.switchDarker : styles.switch}>
+    // TODO: dynamically change aria label text
+    <label className={darkerPalette ? styles.switchDarker : styles.switch} aria-label="switch theme">
       <input
         className={styles.checkbox}
         type="checkbox"

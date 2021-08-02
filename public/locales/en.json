@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "/": "Home",
+    "/guides-topics": "Guides & generic topics",
+    "/colors-how-to": "How to combine colors",
+    "/how-to-travel": "How to travel",
+    "/black-white-ties": "Black and white ties",
+    "/body-types": "Body types",
+    "/color-types": "Color types",
+    "/clothes": "Clothes & Accessories",
+    "/suits-jackets-vests": "Suits, jackets, vests",
+    "/shirts": "Shirts",
+    "/knitwear": "Knitwear",
+    "/shoes": "Shoes",
+    "/outerwear": "Outerwear",
+    "/accessories": "Accessories",
+    "/materials-and-fabrics": "Fabrics & materials",
+    "/patterns": "Patterns",
+    "/care": "Care",
+    "/underwear": "Underwear",
+    "/socks": "Socks",
+    "/grooming": "Grooming",
+    "/face-skin-care": "Face skin care",
+    "/hands-care": "Hands and nails care",
+    "/brands-stores": "Brands & stores",
+    "/glossary": "Glossary",
+    "/mixed": "Mixed"
+  },
+  "subtitle": "Men's style encyclopedia",
+  "switchLanguage": {
+    "switchLang": "Switch language",
+    "switchLangTo": "Сменить язык на русский"
+  }
+}

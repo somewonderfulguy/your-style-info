@@ -1,5 +1,5 @@
 import React, {Fragment, memo, useState, useRef} from 'react'
-import {bool, object, string} from 'prop-types'
+import {bool, func, object, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
 import LinkExtended from 'components/LinkExtended'
@@ -11,7 +11,8 @@ const propTypes = {
   menuItems: object.isRequired,
   basePath: string,
   mainThumbnail: object,
-  isOpen: bool
+  isOpen: bool,
+  setMenuOpen: func.isRequired
 }
 
 const defaultProps = {
@@ -20,7 +21,7 @@ const defaultProps = {
   isOpen: false
 }
 
-const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
+const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen, setMenuOpen}) => {
   const {isDarkTheme} = useTheme()
   const [subItemThumbnail, setSubItemThumbnail] = useState(null)
   const prevOpen = usePrevious(isOpen)
@@ -55,6 +56,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen}) => {
               activeClassName={styles.activeItem}
               onMouseEnter={() => thumbnail && setSubItemThumbnail(thumbnail)}
               onMouseLeave={() => thumbnail && setSubItemThumbnail(null)}
+              onClick={() => setMenuOpen(false)}
             >
               {name}
             </LinkExtended>

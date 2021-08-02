@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useRef} from 'react'
-import {bool, number} from 'prop-types'
+import {bool, func, number} from 'prop-types'
 import {useSpring, animated, config} from 'react-spring'
 import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
 
@@ -8,7 +8,8 @@ import styles from './HeadNavigationMobile.module.css'
 
 const propTypes = {
   menuHeight: number,
-  isOpen: bool
+  isOpen: bool,
+  setMenuOpen: func.isRequired
 }
 
 const defaultProps = {
@@ -16,7 +17,7 @@ const defaultProps = {
   isOpen: false
 }
 
-const HeadNavigationMobile = ({menuHeight, isOpen}) => {
+const HeadNavigationMobile = ({menuHeight, isOpen, setMenuOpen}) => {
   const subMenuDOM = useRef(null)
   const mobileMenuDOM = useRef(null)
 
@@ -66,7 +67,7 @@ const HeadNavigationMobile = ({menuHeight, isOpen}) => {
         }}
         ref={subMenuDOM}
       >
-        <MobileMenu isOpen={isOpen} ref={mobileMenuDOM} />
+        <MobileMenu isOpen={isOpen} ref={mobileMenuDOM} setMenuOpen={setMenuOpen} />
       </animated.div>
     </animated.nav>
   )

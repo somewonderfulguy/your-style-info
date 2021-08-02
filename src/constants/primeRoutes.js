@@ -1,9 +1,9 @@
 export const PRIME_ROUTES = {
-  '/home': {
+  '/': {
     name: 'Home'
   },
   '/guides-topics': {
-    name: 'Generic topics & guides',
+    name: 'Guides & generic topics',
     thumbnail: {
       url: '/img/thumbs/steve.png',
       alt: 'Steve McQueen in three piece suit',
@@ -26,8 +26,8 @@ export const PRIME_ROUTES = {
           background: '#b5a18f'
         }
       },
-      '/black-white-tie': {
-        name: 'Black and white tie',
+      '/black-white-ties': {
+        name: 'Black and white ties',
         thumbnail: {
           url: '/img/thumbs/black-tie.png',
           alt: 'Retro image of a man in black tie appearance',
@@ -161,12 +161,10 @@ export const PRIME_ROUTES = {
     }
   },
   '/brands-stores': {
-    name: 'Brands & stores',
-    inactive: true
+    name: 'Brands & stores'
   },
   '/glossary': {
-    name: 'Glossary',
-    inactive: true
+    name: 'Glossary'
   },
   '/mixed': {
     name: 'Mixed',

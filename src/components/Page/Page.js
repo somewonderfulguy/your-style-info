@@ -1,38 +1,89 @@
-import React, {useEffect} from 'react'
-import {array, func, shape, string} from 'prop-types'
+import React, {useMemo} from 'react'
+import {shape, string} from 'prop-types'
+import {animated, useTransition} from 'react-spring'
 
-// TODO componentRenderer should be colocated
-import {componentRenderer} from 'shared'
+import {componentRenderer} from './helpers'
+import FooterContent from './FooterContent'
+import {usePrevious} from 'shared/hooks'
+import {useHeaderHeight, useScreenDimensions} from 'contexts'
+import {useFooterAnimation, usePageFetch} from './hooks'
 import styles from './Page.module.css'
 
 const propTypes = {
   location: shape({
     pathname: string.isRequired
-  }).isRequired,
-  header: string,
-  components: array,
-  fetchPageData: func.isRequired
+  }).isRequired
 }
 
-const defaultProps = {
-  header: '',
-  components: []
-}
+const Page = ({location: {pathname}}) => {
+  const {headerHeight} = useHeaderHeight()
+  const {isDesktop} = useScreenDimensions()
 
-const Page = ({location: {pathname}, header, components, fetchPageData}) => {
-  useEffect(() => {
-    fetchPageData(pathname)
-  }, [fetchPageData, pathname])
+  const previousPath = String(usePrevious(pathname))
+  const removeLangInPath = str => str.replace(/^\/\w{2}/, '')
+  const isLocaleChanged = useMemo(() => (
+    removeLangInPath(previousPath) === removeLangInPath(pathname)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  ), [pathname])
+
+  const {header, components} = usePageFetch(pathname, isLocaleChanged)
+  const pageContent = useMemo(() => (
+    <>
+      <h1 style={{marginTop: 0}}>{header}</h1>
+      {!!components.length && componentRenderer(components)}
+    </>
+  ), [components, header])
+
+  const {
+    shadowRenderRef, pageContainerRef, footerRef, page, footerSpring, pageHeightSpring
+  } = useFooterAnimation(headerHeight, header, pageContent, isDesktop)
+
+  const pageTransitions = useTransition(page.content, page.header, { // TODO better use unique id instead of header
+    config: {duration: 700},
+    from: {
+      opacity: 0,
+      transform: `translateY(${isLocaleChanged ? 0 : 33}px)`
+    },
+    enter: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {opacity: 0}
+  })
 
   return (
-    <article className={styles.page}>
-      <h1>{header}</h1>
-      {!!components.length && componentRenderer(components)}
-    </article>
+    <>
+      <div>
+        {/* invisible block that renders content before animation so the upcoming height of page becomes known */}
+        <div className={styles.shadowRender}>
+          <div className={styles.pageContainer} style={{height: 'auto'}} ref={shadowRenderRef}>
+            <div className={styles.page}>{pageContent}</div>
+          </div>
+        </div>
+        <animated.div className={styles.pageContainer} style={pageHeightSpring} ref={pageContainerRef}>
+          {pageTransitions.map(({item, key, props, state}) => (
+            !!item && (
+              <animated.main
+                className={state === 'leave' ? styles.pageLeave : styles.page}
+                style={{
+                  ...props,
+                  paddingTop: isDesktop ? 0 : headerHeight
+                }}
+                key={key}
+              >
+                {item}
+              </animated.main>
+            )
+          ))}
+        </animated.div>
+      </div>
+      <animated.footer className={styles.footer} ref={footerRef} style={footerSpring}>
+        <FooterContent />
+      </animated.footer>
+    </>
   )
 }
 
 Page.propTypes = propTypes
-Page.defaultProps = defaultProps
 
 export default Page

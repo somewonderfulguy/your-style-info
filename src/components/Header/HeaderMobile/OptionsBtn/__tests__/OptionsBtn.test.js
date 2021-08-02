@@ -1,35 +1,45 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
 
-import * as mockThemeContext from 'contexts/themeContext'
+import * as spyThemeContext from 'contexts/themeContext'
 import OptionsBtn from '..'
 
-jest.spyOn(mockThemeContext, 'useTheme').mockImplementation(() => ({isDarkTheme: false}))
+jest.spyOn(spyThemeContext, 'useTheme')
+
+beforeEach(() => spyThemeContext.useTheme.mockReturnValue({isDarkTheme: false}))
 afterEach(() => jest.clearAllMocks())
 
 test('snapshot diffrenece between default and clicked states', async () => {
-  const {asFragment, rerender} = render(<OptionsBtn />)
-  const defaultState = asFragment()
+  const {container, rerender} = render(<OptionsBtn />)
+  const dots = container.querySelectorAll('.dot')
+
+  const defaultStyles = [
+    {top: '0px', width: '4px', height: '4px', borderRadius: '50%'},
+    {width: '4px', height: '4px', opacity: '1'},
+    {bottom: '0px', width: '4px', height: '4px', borderRadius: '50%'}
+  ]
+  const clickedStyles = [
+    {top: '-1px', width: '24px', height: '2px'},
+    {width: '4px', height: '4px', opacity: '0'},
+    {bottom: '-1px', width: '24px', height: '2px'}
+  ]
+
+  // default state asserts
+  dots.forEach((dot, idx) => expect(dot).toHaveStyle(defaultStyles[idx]))
+
   rerender(<OptionsBtn isOpen />)
 
-  // TODO remove once react-spring 9.0.0 released
-  await new Promise((r) => setTimeout(r, 350))
+  // clicked state asserts
+  await waitFor(() => dots.forEach((dot, idx) => expect(dot).toHaveStyle(clickedStyles[idx])))
 
-  const clickedState = asFragment()
-
-  expect(defaultState).toMatchDiffSnapshot(clickedState, {
-    contextLines: 10,
-    aAnnotation: 'default state (three dots)',
-    bAnnotation: 'clicked state (cross)'
-  })
-  expect(mockThemeContext.useTheme).toHaveBeenCalledTimes(2)
+  expect(spyThemeContext.useTheme).toHaveBeenCalledTimes(2)
 })
 
 test('snapshot difference in dark/light theme', () => {
   const {asFragment, rerender} = render(<OptionsBtn />)
   const lightTheme = asFragment()
 
-  mockThemeContext.useTheme.mockReturnValueOnce({isDarkTheme: true})
+  spyThemeContext.useTheme.mockReturnValueOnce({isDarkTheme: true})
   rerender(<OptionsBtn />)
   const darkTheme = asFragment()
 
@@ -39,5 +49,5 @@ test('snapshot difference in dark/light theme', () => {
     bAnnotation: 'dark theme'
   })
 
-  expect(mockThemeContext.useTheme).toHaveBeenCalledTimes(2)
+  expect(spyThemeContext.useTheme).toHaveBeenCalledTimes(2)
 })

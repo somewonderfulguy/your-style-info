@@ -1,7 +1,7 @@
 {
   "plugins": ["jest"],
   "extends": [
-    "react-app", "eslint:recommended", "plugin:react/recommended", "plugin:jest/style", "plugin:jest/recommended"
+    "react-app", "eslint:recommended", "plugin:react/recommended", "plugin:jest/style", "plugin:jest/recommended", "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "strict": ["error", "never"],
@@ -22,8 +22,12 @@
     "no-trailing-spaces": "error",
     "react/button-has-type": "error",
 
-    // Variables
-    "no-use-before-define": ["error", {"functions": false, "classes": true}],
+    // TypeScript
+    "no-use-before-define": "off", // must disable the base rule as it can report incorrect errors
+    "@typescript-eslint/no-use-before-define": ["error", {"functions": false, "classes": true}],
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
 
     // Stylistic Issues
     "indent": ["error", 2, {"SwitchCase": 1}],
@@ -47,6 +51,7 @@
     "nonblock-statement-body-position": ["error", "beside"],
     "padded-blocks": ["error", "never"],
     "quotes": ["error", "single", {"allowTemplateLiterals": true}],
+    "import/no-anonymous-default-export": "off",
 
     // ECMAScript 6
     "arrow-body-style": ["error", "as-needed"],
@@ -72,7 +77,6 @@
     }],
     "react/jsx-curly-spacing": ["error", {"when": "never", "children": true}],
     "react/jsx-pascal-case": ["error", {"allowAllCaps": false}],
-    "react/jsx-filename-extension": ["error", {"extensions": [".js"]}],
     "react/jsx-boolean-value": ["error", "never"],
     "react/jsx-wrap-multilines": ["error", {
       "declaration": "parens-new-line",
@@ -88,21 +92,17 @@
     "react/no-children-prop": "off",
 
     // Tests
-    "jest/prefer-spy-on": "warn",
     "jest/no-deprecated-functions": "error",
     "jest/prefer-called-with": "error",
     "jest/prefer-todo": "error",
-    "jest/valid-title": "error"
+    "jest/valid-title": "error",
+    "jest/no-commented-out-tests": "error"
   },
   "overrides": [
     {
-      "files": "*.test.js",
+      "files": ["*.test.js", "tests.js"],
       "rules": {
-        "react/display-name": 0
-      }
-    }, {
-      "files": "*.test.js",
-      "rules": {
+        "react/display-name": 0,
         "react/prop-types": 0
       }
     }

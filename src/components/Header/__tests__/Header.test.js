@@ -1,10 +1,10 @@
 import React from 'react'
-import {fireEvent, render} from '@testing-library/react'
 
-import {ScreenDimensionsProvider} from 'contexts'
+import {fireEvent, render} from 'shared/tests'
 import Header, {BOUNDARY} from '../Header'
 import {isIpad as mockIsIpad} from 'shared/utils'
 
+// TODO consider not mocking these modules
 jest.mock('../HeaderDesktop', () => () => 'header-desktop')
 jest.mock('../HeaderMobile', () => () => 'header-mobile')
 jest.mock('shared/utils')
@@ -13,9 +13,7 @@ const HEADER_DESKTOP = 'header-desktop'
 const HEADER_MOBILE = 'header-mobile'
 
 test('should display mobile header for mobiles and iPads, for bigger screens desktop header is expected', () => {
-  const {getByText, queryByText} = render(
-    <Header />, {wrapper: ScreenDimensionsProvider}
-  )
+  const {getByText, queryByText} = render(<Header />)
 
   // smaller screen
   window.innerWidth = BOUNDARY

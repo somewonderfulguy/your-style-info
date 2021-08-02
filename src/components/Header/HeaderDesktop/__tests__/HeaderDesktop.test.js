@@ -1,114 +1,85 @@
 import React from 'react'
-import {MemoryRouter} from 'react-router-dom'
-import {act, fireEvent, render, wait} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
-import user from '@testing-library/user-event'
 
+import {act, render, screen, userEvent, waitFor} from 'shared/tests'
 import HeaderDesktop from '..'
 import {ThemeProvider, useTheme} from 'contexts'
-import { PRIME_ROUTES } from 'constants/index'
 
 // TODO remove all waits once react-spring 9.0.0 released
 
-const setup = () => render(<HeaderDesktop />, {
-  wrapper: props => (
-    <MemoryRouter>
-      <ThemeProvider {...props} />
-    </MemoryRouter>
-  )
-})
+const navigationTranslation = {
+  '/': 'Home',
+  '/guides-topics': 'Guides & generic topics',
+  '/colors-how-to': 'How to combine colors'
+}
 
 test('renders headers and social media icons', () => {
-  const {getByText, getByTitle, container} = setup()
-  const header = getByText(/your style/i)
+  const {container} = render(<HeaderDesktop />)
+  const header = screen.getByText(/your style/i)
   const subtitle = container.querySelector('p')
   const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
 
-  // TODO fix 18next
   expect(header).toBeInTheDocument()
-  expect(subtitle).toMatchSnapshot()
-  socialMedia.forEach(icon => expect(getByTitle(icon)).toBeInTheDocument())
+  expect(subtitle).toBeInTheDocument()
+  socialMedia.forEach(icon => expect(screen.getByTitle(icon)).toBeInTheDocument())
 })
 
 test('menu (navigation) works as expected', async () => {
-  const {getByText, getByTestId} = setup()
-
-  const primeRoutes = Object.values(PRIME_ROUTES)
+  render(<HeaderDesktop />)
 
   // root menu items check
-  const expectedRootMenuItems = primeRoutes.map(o => o.name)
-  const expectedRootDisabledItems = primeRoutes.filter(o => o.inactive).map(o => o.name)
-
-  expectedRootMenuItems.forEach(item => expect(getByText(item)).toBeInTheDocument())
-  expectedRootDisabledItems.forEach(disabledItem => (
-    expect(getByText(disabledItem)).toHaveAttribute('aria-disabled', 'true')
-  ))
-
-  // TODO when react-spring 9.0 released, disable animations and test all cases
-  // the cases are: 1) changing content when hovering on other root menu items,
-  // 2) changing thumbnails when hover on both root and submenu items
+  const expectedRootMenuItems = Object.values(navigationTranslation)
+  expectedRootMenuItems.forEach(
+    async item => expect(await screen.findByText(item)).toBeInTheDocument()
+  )
 
   // submenu test
-  const predefinedItemsWithSubmenu = primeRoutes.filter(o => o.sub)
-  const dropDownTestId = 'drop-down-navigation'
-  const dropDown = getByTestId(dropDownTestId)
+  const dropDown = screen.getByTestId('drop-down-navigation')
 
   expect(dropDown).not.toBeVisible()
 
-  for(let i = 0; i < predefinedItemsWithSubmenu.length; i ++) {
-    const item = getByText(predefinedItemsWithSubmenu[i].name)
-
-    fireEvent.mouseEnter(item)
-    await wait(() => expect(dropDown).toBeVisible())
-
-    fireEvent.mouseOut(item)
-    await wait(() => expect(dropDown).not.toBeVisible())
-  }
-
-  // test closing submenu when hover out from submenu
-  fireEvent.mouseEnter(getByText(predefinedItemsWithSubmenu[0].name))
-  await wait(() => expect(dropDown).toBeVisible())
-  fireEvent.mouseOut(dropDown)
-  await wait(() => expect(dropDown).not.toBeVisible())
+  // TODO 1) changing content when hovering on other root menu items,
+  // TODO 2) changing thumbnails when hover on both root and submenu items
 })
 
-test('theme switching works as expected', () => {
-  const {getByRole} = setup()
+test('theme switching works as expected', async () => {
+  render(<HeaderDesktop />)
   const getThemeHook = () => renderHook(() => useTheme(), {
     wrapper: ThemeProvider
   })
-  const themeSwitcher = getByRole('checkbox')
+  const themeSwitcher = screen.getByRole('checkbox')
 
   expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
 
-  user.click(themeSwitcher)
-  expect(getThemeHook().result.current.isDarkTheme).toBeTruthy()
+  act(() => userEvent.click(themeSwitcher))
+  await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeTruthy())
 
-  user.click(themeSwitcher)
-  expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
+  userEvent.click(themeSwitcher)
+  await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeFalsy())
 })
 
-test('language switcher works as expected', () => {
-  const { getByLabelText, getByRole, queryByRole } = setup()
+test('language switcher works as expected', async () => {
+  const { getByLabelText, getByRole, queryByRole } = render(<HeaderDesktop />)
   const langSelectorBtn = getByLabelText(/switch language/i)
 
-  expect(queryByRole('menu')).toBeNull()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
-  user.click(langSelectorBtn)
+  await waitFor(() => expect(langSelectorBtn).not.toBeDisabled())
+  userEvent.click(langSelectorBtn)
   expect(getByRole('menu')).toBeInTheDocument()
 
   // close
-  user.click(langSelectorBtn)
-  expect(queryByRole('menu')).toBeNull()
+  userEvent.click(langSelectorBtn)
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 
   // open
-  user.click(langSelectorBtn)
+  userEvent.click(langSelectorBtn)
   expect(getByRole('menu')).toBeInTheDocument()
 
-  // TODO check language switching
-
   // close by clicking outside
-  act(() => user.click(document.body))
-  expect(queryByRole('menu')).toBeNull()
+  act(() => userEvent.click(document.body))
+  expect(queryByRole('menu')).not.toBeInTheDocument()
 })
+
+test.todo('clicking on a menu or submenu item should hide dropdown')

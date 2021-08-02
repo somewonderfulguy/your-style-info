@@ -1,9 +1,10 @@
 import React, {useRef, useState} from 'react'
 import {bool} from 'prop-types'
 
-import {useTheme} from 'contexts'
+import {setLocale, useLocalization, useTheme} from 'contexts'
 import {useOutsideClick} from 'shared/hooks'
 import {LanguageIcon} from 'assets/images'
+import {LANGUAGES, LOCALES} from 'constants/index'
 import styles from './LangSelector.module.css'
 
 const propTypes = {
@@ -17,10 +18,15 @@ const defaultProps = {
 }
 
 const LangSelector = ({showAbove, gray}) => {
+  const [
+    {locale: currentLocale},
+    setLocaleState,
+    {isLoading: isLanguageLoading, data: localeData}
+  ] = useLocalization()
+
   const {isDarkTheme} = useTheme()
   const langSelectorRef = useRef(null)
   const menuRef = useRef(null)
-
   const [isOpen, setOpen] = useState(false)
 
   useOutsideClick(langSelectorRef, () => setOpen(false))
@@ -41,13 +47,14 @@ const LangSelector = ({showAbove, gray}) => {
         onClick={() => setOpen(isOpen => !isOpen)}
         className={styles.langSelectorInner}
         type="button"
-        // TODO switch label depending on language
-        aria-label="Switch language"
+        disabled={isLanguageLoading}
+        aria-label={localeData?.switchLanguage.switchLang ?? 'Switch language'}
         aria-expanded={isOpen}
         aria-haspopup
+        data-testid="langSelector"
       >
         <LanguageIcon width={20} height={20} className={styles.icon} />
-        <span>English</span>
+        <span>{LANGUAGES.get(currentLocale)}</span>
         <div className={triangleClass} />
       </button>
 
@@ -57,12 +64,20 @@ const LangSelector = ({showAbove, gray}) => {
           className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}
           role="menu"
         >
-          <li role="menuitem">
-            <button type="button" disabled>English</button>
-          </li>
-          <li role="menuitem">
-            <button onClick={() => setOpen(false)} type="button">Русский</button>
-          </li>
+          {LOCALES.map(locale => (
+            <li role="menuitem" key={locale}>
+              <button
+                type="button"
+                disabled={locale === currentLocale}
+                onClick={() => {
+                  setLocale(setLocaleState, locale)
+                  setOpen(false)
+                }}
+              >
+                {LANGUAGES.get(locale)}
+              </button>
+            </li>
+          ))}
         </ul>
       )}
     </div>

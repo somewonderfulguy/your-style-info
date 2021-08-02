@@ -1,15 +1,19 @@
 import React from 'react'
 
-import {HeaderHeightProvider, ScreenDimensionsProvider, ThemeProvider} from 'contexts'
+import {
+  HeaderHeightProvider, LocalizationProvider, ScreenDimensionsProvider, ThemeProvider
+} from 'contexts'
 
 const withContext = WrappedComponent => {
   const Component = props => (
     <HeaderHeightProvider>
-      <ThemeProvider>
-        <ScreenDimensionsProvider>
-          <WrappedComponent {...props} />
-        </ScreenDimensionsProvider>
-      </ThemeProvider>
+      <LocalizationProvider>
+        <ThemeProvider>
+          <ScreenDimensionsProvider>
+            <WrappedComponent {...props} />
+          </ScreenDimensionsProvider>
+        </ThemeProvider>
+      </LocalizationProvider>
     </HeaderHeightProvider>
   )
   Component.displayName = `WithContext(${WrappedComponent.displayName || WrappedComponent.name})`

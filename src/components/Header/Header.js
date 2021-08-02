@@ -8,8 +8,7 @@ import HeaderMobile from './HeaderMobile'
 export const BOUNDARY = 1024
 
 const Header = () => {
-  const {screenWidth} = useScreenDimensions()
-  const isDesktop = screenWidth > BOUNDARY
+  const {isDesktop} = useScreenDimensions()
 
   return (isDesktop && !isIpad())
     ? <HeaderDesktop />

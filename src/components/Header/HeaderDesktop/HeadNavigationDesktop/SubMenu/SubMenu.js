@@ -1,5 +1,5 @@
 import React, {memo, useRef} from 'react'
-import {bool, object, string} from 'prop-types'
+import {bool, func, object, string} from 'prop-types'
 import {animated, useSpring, useTransition} from 'react-spring'
 
 import SubMenuContent from './SubMenuContent'
@@ -10,7 +10,8 @@ const propTypes = {
   basePath: string,
   isOpen: bool,
   openNowAndBefore: bool,
-  mainThumbnail: object
+  mainThumbnail: object,
+  setMenuOpen: func.isRequired
 }
 
 const defaultProps = {
@@ -21,7 +22,7 @@ const defaultProps = {
   mainThumbnail: null
 }
 
-const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) => {
+const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail, setMenuOpen}) => {
   // old transitions clean up
   const transitionCancelArray = useRef([])
   transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
@@ -48,15 +49,13 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
   return (
     <div className={styles.subMenu} submenupersist="1">
       {transitions.map(({item: menuItems, props: {opacity: opacityTransition}, key, state}) => {
-        const range = [0, 0.33, 0.66, 1]
-
         let opacity = opacityTransition
         switch(state) {
           case 'enter':
-            opacity = opacityTransition.interpolate({range, output: [0, 0, 0, 1]})
+            opacity = opacityTransition.interpolate({range: [0, 0.33, 0.66, 1], output: [0, 0, 0, 1]})
             break
           case 'leave':
-            opacity = opacityTransition.interpolate({range, output: [1, 0, 0, 0]})
+            opacity = 0
             break
           default:
             break
@@ -78,6 +77,7 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail}) =
               mainThumbnail={mainThumbnail}
               isOpen={isOpen}
               basePath={basePath}
+              setMenuOpen={setMenuOpen}
             />
           </animated.div>
         )
