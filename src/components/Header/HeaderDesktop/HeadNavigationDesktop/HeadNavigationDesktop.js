@@ -30,7 +30,7 @@ const defaultProps = {
   setPersistRootMenu: () => {}
 }
 
-const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
+const HeadNavigationDesktop = ({setRootMenuOpen, setPersistRootMenu}) => {
   const [, , {data: translations}] = useLocalization()
   const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
 
@@ -144,7 +144,7 @@ const HeadNavigation = ({setRootMenuOpen, setPersistRootMenu}) => {
   )
 }
 
-HeadNavigation.propTypes = propTypes
-HeadNavigation.defaultProps = defaultProps
+HeadNavigationDesktop.propTypes = propTypes
+HeadNavigationDesktop.defaultProps = defaultProps
 
-export default HeadNavigation
+export default HeadNavigationDesktop

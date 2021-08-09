@@ -3,12 +3,23 @@ import React, {createContext, useContext, useEffect, useMemo, useReducer} from '
 import {LOCALES} from 'constants/index'
 import {useLocaleQuery} from 'api'
 
-const LocalizationContext = createContext()
+type localeType = 'en' | 'ru'
+type localeState = {
+  locale: localeType,
+  upcomingLocale?: localeType | null
+}
+type localeAction = (s: localeState, a: Partial<localeState>) => localeState
+
+type dispatchType = React.Dispatch<Partial<localeState>>
+
+type contextType = [localeState, dispatchType]
+
+const LocalizationContext = createContext<contextType | undefined>(undefined)
 LocalizationContext.displayName = 'LocalizationContext'
 
-const getNavigatorLang = () => {
+const getNavigatorLang = (): localeType => {
   try {
-    return window.navigator.language.slice(0, 2)
+    return window.navigator.language.slice(0, 2) as localeType
   } catch (e) {
     console.error(e)
     return 'en'
@@ -16,8 +27,8 @@ const getNavigatorLang = () => {
 }
 
 const LocalizationProvider = props => {
-  const [localeState, setLocaleState] = useReducer((s, a) => ({...s, ...a}), {
-    locale: window.localStorage.getItem('locale') || getNavigatorLang(),
+  const [localeState, setLocaleState] = useReducer<localeAction>((s, a) => ({...s, ...a}), {
+    locale: window.localStorage.getItem('locale') as localeType || getNavigatorLang(),
     upcomingLocale: null, // upcoming locale is for animated transitions
   })
 
@@ -37,14 +48,16 @@ const useLocalization = () => {
 
   // on init there's no upcomingLocale - using locale instead
   const theLocale = upcomingLocale || locale
-  const queryData = useLocaleQuery(theLocale, {
-    onSuccess: () => setLocaleState({locale: theLocale})
-  })
+  const queryData = useLocaleQuery(theLocale)
 
-  return [...context, queryData]
+  useEffect(() => {
+    setLocaleState({locale: theLocale})
+  }, [queryData.data, theLocale, setLocaleState])
+
+  return [...context, queryData] as [localeState, dispatchType, typeof queryData]
 }
 
-const setLocale = (setLocaleState, locale) => {
+const setLocale = (setLocaleState: dispatchType, locale: localeType) => {
   const isLocaleExists = !!LOCALES.find(el => el === locale)
 
   if(!isLocaleExists) {

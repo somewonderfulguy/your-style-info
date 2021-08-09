@@ -13,7 +13,7 @@ export type localeTranslationsType = {
 
 const getLocaleTranslations = (locale: string) => request<localeTranslationsType>(`locales/${locale}.json`)
 
-export const useLocaleQuery = (locale: string, options: UseQueryOptions<localeTranslationsType>) => (
+export const useLocaleQuery = (locale: string, options: UseQueryOptions<localeTranslationsType> = {}) => (
   useQuery(
     ['locale', locale],
     () => getLocaleTranslations(locale),
