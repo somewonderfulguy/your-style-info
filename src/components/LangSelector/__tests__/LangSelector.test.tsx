@@ -63,6 +63,7 @@ test('should show/hide menu when clicking on language selector', async () => {
   expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 
   // open
+  await waitFor(() => expect(langSelectorBtn).not.toBeDisabled())
   userEvent.click(langSelectorBtn)
   expect(screen.getByRole('menu')).toBeInTheDocument()
 
@@ -78,6 +79,7 @@ test('should show/hide menu when clicking on language selector', async () => {
   await waitFor(() => expect(langSelectorBtn).toHaveTextContent(russianRegExp))
 
   // open
+  await waitFor(() => expect(langSelectorBtn).not.toBeDisabled())
   userEvent.click(langSelectorBtn)
   expect(getEnglishMenuItem()).not.toBeDisabled()
   expect(getRussianMenuItem()).toBeDisabled()
