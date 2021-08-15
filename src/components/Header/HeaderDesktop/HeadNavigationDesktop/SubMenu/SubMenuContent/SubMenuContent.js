@@ -4,7 +4,7 @@ import {animated, useTransition} from 'react-spring'
 
 import LinkExtended from 'components/LinkExtended'
 import {usePrevious} from 'shared/hooks'
-import {useTheme} from 'contexts'
+import {useLocalization, useTheme} from 'contexts'
 import styles from './SubMenuContent.module.css'
 
 const propTypes = {
@@ -23,6 +23,7 @@ const defaultProps = {
 
 const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen, setMenuOpen}) => {
   const {isDarkTheme} = useTheme()
+  const [, , {data: translations}] = useLocalization()
   const [subItemThumbnail, setSubItemThumbnail] = useState(null)
   const prevOpen = usePrevious(isOpen)
 
@@ -58,7 +59,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen, setMenuOpen
               onMouseLeave={() => thumbnail && setSubItemThumbnail(null)}
               onClick={() => setMenuOpen(false)}
             >
-              {name}
+              {translations.navigation[path]}
             </LinkExtended>
           </li>
         ))}

@@ -1,9 +1,7 @@
 {
-  "header": "Home",
+  "id": "about_ru",
+  "header": "О сайте",
   "components": [{
-    "type": "image",
-    "url": "/img/your-style-01.jpg"
-  }, {
     "type": "text",
     "text": "Lorem ipsum dolor sit amet."
   }]

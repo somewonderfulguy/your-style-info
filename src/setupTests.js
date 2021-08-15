@@ -40,25 +40,6 @@ window.resizeTo = function resizeTo(width, height) {
 Object.defineProperty(window, 'innerWidth', {writable: true, configurable: true, value: 1800})
 Object.defineProperty(window, 'innerHeight', {writable: true, configurable: true, value: 1800})
 
-// TODO dispose of it!!!!
-// react-router hooks
-// jest.mock('react-router-dom', () => ({
-//   ...jest.requireActual('react-router-dom'),
-//   useParams: () => ({
-//     locale: 'en'
-//   }),
-//   useRouteMatch: () => ({
-//     url: '/en/outerwear/trench-coat',
-//     params: {locale: 'en'}
-//   }),
-//   useLocation: () => ({
-//     pathname: '/en/outerwear/trench-coat',
-//     hash: '',
-//     search: '',
-//     state: ''
-//   })
-// }))
-
 // react-spring: make animations instant
 jest.mock('react-spring', () => {
   const actualReactSpring = jest.requireActual('react-spring')

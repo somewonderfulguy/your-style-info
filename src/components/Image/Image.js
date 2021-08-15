@@ -130,6 +130,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                         className={isSmallerSize ? styles.reloadTitleSmaller : styles.reloadTitle}
                         style={props}
                       >
+                        {/* TODO: translate */}
                         An error occured during image loading
                       </animated.span>
                     )
@@ -137,6 +138,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
                   {subtitleAppear.map(({item, key, props}) => (
                     item && (
                       <animated.span key={key} style={props} className={styles.reloadSubitle}>
+                        {/* TODO: translate */}
                         Click on this to try to load again.
                       </animated.span>
                     )

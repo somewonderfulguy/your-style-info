@@ -5,6 +5,9 @@ import {animateScroll as scroll} from 'react-scroll'
 
 import {SCROLL_TOP_DURATION} from 'constants/index'
 import {debounce} from 'shared/utils'
+import {usePageQuery} from 'api/pageQueries'
+
+// TODO refactor how navigation works - should first wait for content being loaded, then scroll top, then perform animation
 
 const propTypes = {
   activeClassName: string,
@@ -43,6 +46,8 @@ const LinkExtended = ({
   staticContext, // exclude from ...rest
   ...rest
 }) => {
+  const {refetch} = usePageQuery(to, {enabled: false})
+
   const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
 
   function onScrollEnd() {
@@ -52,6 +57,9 @@ const LinkExtended = ({
 
   const clickHandler = e => {
     e.preventDefault()
+
+    console.log('the revolution begins!')
+    // refetch()
 
     onClick()
 

@@ -116,8 +116,8 @@ export const PRIME_ROUTES = {
           background: '#5d4738'
         }
       },
-      '/care': {
-        name: 'Care',
+      '/maintenance': {
+        name: 'Wardrobe maintenance',
         thumbnail: {
           url: '/img/thumbs/steamer.png',
           alt: 'A man with steamer',

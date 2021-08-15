@@ -1,7 +1,8 @@
 {
+  "id": "outerwear_en",
   "header": "Outerwear",
   "components": [{
-    "alt": "Outerwear head main image - Mark Ruffalo and Leonardo DiCaprio wearing beige raincoats",
+    "alt": "Mark Ruffalo and Leonardo DiCaprio wearing beige raincoats",
     "caption": "Mark Ruffalo and Leonardo DiCaprio wearing beige raincoats. Picture from Shutter Island movie",
     "lowresBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAMAAACejr5sAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAGJUExURZB6YiYiHIx4XoFqSpiCaBcUFWtaR4hyU25eSlxMN2tVO05AL0A3LTcwLGJDMXxXRHFhTV9PO3hjRWNUQI14VQMEBXppU5Z0YZ2Ha6GXh6WManJpUpJ6WEg3J2dKOb2tlDo1KJFmTC0pJxYWGhAPEgkIC2xaQ3NgQZd/Y4NwWYd7X35uVItwWoVkUZVmTZiQfyQuP5qFca54VpeOh593bVQ6Kceykpt7aXxyV1RRTod0V1BMSGphUpR9aI98aEQ8NIxmUbKXc9nNuoJRPP3+/R0cH5qLeHBbPB0dJSMjK4V1ZqmUbbuZhEVDRa+rpCosM1BEN1ZHN6d0VayTe65yUrSKcVJJPXxjWrSleo9cQT5ASYthSaWSgJaFbZuCXGRRTXlTOXtUPHRWSquAZp+HZIphRLGeemBJQINyaJGLgF1CM6R5YVo/LSEpMEdGSZdoRsm4tJ5zTbKHc9WngtTHsLWZhjQhF29fRIeAcrOrl2JgW2VfUqNpSt3k3Nza1+/t63dJNIhvXZN1Wv1Uea8AAAELSURBVBjTDcjVQsIAFADQu+4NGAy2MZCQLulusbu7u7sV/1zP44Hab7/TvLdby6p6lukVLs5dTQ90u+5PT9IRjduhcFoqucTrKxG+f76gwyGCuLaYzuWOxEvWtQeC10tLz8bN7sZ8IuFJHwgn+zvQ+Hh/rT893EnS0uTCUGwzk0qtg158a+cfb+tbcbsbVafRfHVmCtrVl1bLnc2uarEo9JKhkGlsFCp8GdOOpZWJoE7iRR0P08QgDNBO9nB7uWIdCdC1SASnSeQ/FcpwOmWBDco01MdRkxkhwMZbOMxKCWYLo+AyB7jJ7wMbQmkUFvAyGKk4zBw4eJsP+AZDURZmmGFnwzBnoCRB+P8AenwtIuAAZ1IAAAAASUVORK5CYII=",
     "type": "image",

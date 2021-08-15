@@ -26,19 +26,19 @@ const Page = ({location: {pathname}}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   ), [pathname])
 
-  const {header, components} = usePageFetch(pathname, isLocaleChanged)
+  const {id, header, components} = usePageFetch(pathname, isLocaleChanged)
   const pageContent = useMemo(() => (
     <>
-      <h1 style={{marginTop: 0}}>{header}</h1>
+      {header && <h1 style={{marginTop: 0}}>{header}</h1>}
       {!!components.length && componentRenderer(components)}
     </>
   ), [components, header])
 
   const {
     shadowRenderRef, pageContainerRef, footerRef, page, footerSpring, pageHeightSpring
-  } = useFooterAnimation(headerHeight, header, pageContent, isDesktop)
+  } = useFooterAnimation(id, headerHeight, pageContent, isDesktop)
 
-  const pageTransitions = useTransition(page.content, page.header, { // TODO better use unique id instead of header
+  const pageTransitions = useTransition(page.content, page.id, {
     config: {duration: 700},
     from: {
       opacity: 0,

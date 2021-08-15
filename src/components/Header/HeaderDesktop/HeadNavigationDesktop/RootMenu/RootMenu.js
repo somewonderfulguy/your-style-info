@@ -40,7 +40,7 @@ const RootMenu = ({
               setShowMenu(true)
               setSubMenu({
                 content: sub,
-                basePath: path,
+                basePath: `/${locale}${path}`,
                 mainThumbnail: thumbnail,
               })
             }
