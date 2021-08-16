@@ -4,7 +4,7 @@ import {throttle} from 'shared/utils'
 
 export function useResizeObserver(delay = 0) {
   const initalBounds = {left: 0, top: 0, width: 0, height: 0}
-  const elemRef = useRef(null)
+  const elemRef = useRef<Element>(null)
   const [bounds, setBounds] = useState(initalBounds)
 
   const observer = throttle(([entry]) => setBounds(entry.contentRect), delay)
