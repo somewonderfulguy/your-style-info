@@ -3,14 +3,8 @@ import {renderHook} from '@testing-library/react-hooks'
 
 import {act, fireEvent, render, screen, userEvent, waitFor, waitForElementToBeRemoved} from 'shared/tests'
 import HeaderMobile from '..'
-import {ThemeProvider, useTheme} from 'contexts'
+import {ThemeProvider, useThemeState} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
-
-test('header renders', () => {
-  const {getByText} = render(<HeaderMobile />)
-  const header = getByText(/your style/i)
-  expect(header).toBeInTheDocument()
-})
 
 test('menu (navigation) works as expected', async () => {
   render(<HeaderMobile />)
@@ -31,14 +25,14 @@ test('menu (navigation) works as expected', async () => {
 
   const expectedExpandableItems = Object.values(PRIME_ROUTES).filter(val => val.sub)
 
-  const expectedItems = []
+  const expectedItems: string[] = []
   const findItems = (arr = Object.values(PRIME_ROUTES)) => arr.forEach(route => {
     route.name && expectedItems.push(route.name)
     route.sub && findItems(Object.values(route.sub))
   })
   findItems()
 
-  const expectedDisabled = []
+  const expectedDisabled: string[] = []
   const findDisabled = (arr = Object.values(PRIME_ROUTES)) => arr.forEach(route => {
     route.inactive && expectedDisabled.push(route.name)
     route.sub && findDisabled(Object.values(route.sub))
@@ -75,6 +69,7 @@ test('menu (navigation) works as expected', async () => {
 
 test('options work as expected', async () => {
   render(<HeaderMobile />)
+
   const optionsButton = screen.getByTitle(/options/i)
   const getOptions = () => screen.getByRole('menu')
   const queryOptions = () => screen.queryByRole('menu')
@@ -111,20 +106,20 @@ test('options work as expected', async () => {
   await openOptionsMenu()
 
   // switching dark/light theme
-  const getThemeHook = () => renderHook(() => useTheme(), {
+  const getThemeHook = () => renderHook(() => useThemeState(), {
     wrapper: ThemeProvider
   })
 
   // two themeSwitchers in the documents because of animation (I guess) - selecting one
   const [themeSwitcher] = screen.getAllByLabelText(/switch theme/i)
 
-  expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
+  expect(getThemeHook().result.current).toBeFalsy()
 
   act(() => userEvent.click(themeSwitcher))
-  expect(getThemeHook().result.current.isDarkTheme).toBeTruthy()
+  expect(getThemeHook().result.current).toBeTruthy()
 
   act(() => userEvent.click(themeSwitcher))
-  expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
+  expect(getThemeHook().result.current).toBeFalsy()
 
   // TODO: language switching
 

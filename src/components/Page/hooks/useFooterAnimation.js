@@ -2,7 +2,7 @@ import {useCallback, useEffect, useRef, useState} from 'react'
 import {useSpring, config} from 'react-spring'
 
 import {usePrevious} from 'shared/hooks'
-import {useScreenDimensions} from 'contexts'
+import {useScreenHeight, useScreenWidth} from 'contexts'
 
 export const useFooterAnimation = (id, headerHeight, pageContent, isDesktop) => {
   const shadowRenderRef = useRef(null)
@@ -10,7 +10,8 @@ export const useFooterAnimation = (id, headerHeight, pageContent, isDesktop) => 
   const footerRef = useRef(null)
 
   const [page, setPage] = useState({id: null, content: null})
-  const {screenWidth, screenHeight} = useScreenDimensions()
+  const screenHeight = useScreenHeight()
+  const screenWidth = useScreenWidth()
 
   const paddingTopCSSVar = '--paddingTop'
   const pagePaddingTop = shadowRenderRef.current &&

@@ -1,7 +1,7 @@
 import React, {useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
-import {useHeaderHeight} from 'contexts'
+import {useHeaderHeightDispatch} from 'contexts'
 import {useStickyNavBar} from '../hooks'
 import {useAnimatedAppearing} from './hooks'
 import HamburgerIcon from './HamburgerIcon'
@@ -11,14 +11,14 @@ import OptionsBtn from './OptionsBtn'
 import styles from './HeaderMobile.module.css'
 
 const HeaderMobile = () => {
-  const {setHeaderHeight} = useHeaderHeight()
+  const setHeaderHeight = useHeaderHeightDispatch()
   const [isMenuOpen, setMenuOpen] = useState(false)
   const [isOptionsOpen, setOptionsOpen] = useState(false)
 
   const {appearingSpring} = useAnimatedAppearing()
 
   const headerDOM = useRef()
-  const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
+  const headerHeight = headerDOM.current?.offsetHeight ?? 0
 
   const optionsBtnRef = useRef()
   const optionsBtnDOM = optionsBtnRef?.current?.optionsBtnDOM.current || null

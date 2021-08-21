@@ -52,22 +52,3 @@ exports[`should match snapshot 1`] = `
   </label>
 </DocumentFragment>
 `;
-
-exports[`switching theme should work properly 1`] = `
-Snapshot Diff:
-- dark theme on
-+ light theme on
-
-@@ -13,9 +13,9 @@
-        <div
-          class="round"
--         style="background-image: url(sun.svg); opacity: 0;"
-+         style="background-image: url(sun.svg); opacity: 1;"
-        />
-        <div
-          class="round"
--         style="background-image: url(moon.svg); opacity: 1; z-index: 1;"
-+         style="background-image: url(moon.svg); opacity: 0; z-index: 1;"
-        />
-      </div>
-`;

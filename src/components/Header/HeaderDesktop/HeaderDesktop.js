@@ -7,14 +7,14 @@ import HeadNavigationDesktop from './HeadNavigationDesktop'
 import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
 import LangSelector from 'components/LangSelector'
 import SocialMediaIcons from 'components/SocialMediaIcons'
-import {useHeaderHeight, useLocalization} from 'contexts'
+import {useHeaderHeightDispatch, useLocalization} from 'contexts'
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {
   const [, , {data: translations}] = useLocalization()
   const {appearingSprings: [firstAppearing, secondAppearing, thirdAppearing, forthAppearing]} = useAnimatedAppearing()
 
-  const {setHeaderHeight} = useHeaderHeight()
+  const setHeaderHeight = useHeaderHeightDispatch()
 
   const navBarDOM = useRef(null)
   const headerDOM = useRef(null)

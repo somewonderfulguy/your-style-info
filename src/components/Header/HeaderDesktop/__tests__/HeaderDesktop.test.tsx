@@ -1,9 +1,9 @@
 import React from 'react'
 import {renderHook} from '@testing-library/react-hooks'
 
-import {act, render, screen, userEvent, waitFor} from 'shared/tests'
+import {act, render, renderWholeApp, screen, userEvent, waitFor} from 'shared/tests'
 import HeaderDesktop from '..'
-import {ThemeProvider, useTheme} from 'contexts'
+import {ThemeProvider, useThemeState} from 'contexts'
 
 // TODO remove all waits once react-spring 9.0.0 released
 
@@ -44,42 +44,42 @@ test('menu (navigation) works as expected', async () => {
 
 test('theme switching works as expected', async () => {
   render(<HeaderDesktop />)
-  const getThemeHook = () => renderHook(() => useTheme(), {
+  const getThemeHook = () => renderHook(() => useThemeState(), {
     wrapper: ThemeProvider
   })
   const themeSwitcher = screen.getByRole('checkbox')
 
-  expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
+  expect(getThemeHook().result.current).toBeFalsy()
 
   act(() => userEvent.click(themeSwitcher))
-  await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeTruthy())
+  await waitFor(() => expect(getThemeHook().result.current).toBeTruthy())
 
   userEvent.click(themeSwitcher)
-  await waitFor(() => expect(getThemeHook().result.current.isDarkTheme).toBeFalsy())
+  await waitFor(() => expect(getThemeHook().result.current).toBeFalsy())
 })
 
 test('language switcher works as expected', async () => {
-  const { getByLabelText, getByRole, queryByRole } = render(<HeaderDesktop />)
-  const langSelectorBtn = getByLabelText(/switch language/i)
+  renderWholeApp()
+  const [langSelectorBtn] = screen.getAllByLabelText(/switch language/i)
 
-  expect(queryByRole('menu')).not.toBeInTheDocument()
+  expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 
   // open
   await waitFor(() => expect(langSelectorBtn).not.toBeDisabled())
   userEvent.click(langSelectorBtn)
-  expect(getByRole('menu')).toBeInTheDocument()
+  expect(screen.getByRole('menu')).toBeInTheDocument()
 
   // close
   userEvent.click(langSelectorBtn)
-  expect(queryByRole('menu')).not.toBeInTheDocument()
+  expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 
   // open
   userEvent.click(langSelectorBtn)
-  expect(getByRole('menu')).toBeInTheDocument()
+  expect(screen.getByRole('menu')).toBeInTheDocument()
 
   // close by clicking outside
   act(() => userEvent.click(document.body))
-  expect(queryByRole('menu')).not.toBeInTheDocument()
+  expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 })
 
 test.todo('clicking on a menu or submenu item should hide dropdown')

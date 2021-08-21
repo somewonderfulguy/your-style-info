@@ -2,7 +2,7 @@ import React from 'react'
 import {renderHook} from '@testing-library/react-hooks'
 
 import {act, screen, render, waitFor, userEvent} from 'shared/tests'
-import {ThemeProvider, useTheme} from 'contexts'
+import {ThemeProvider, useThemeState} from 'contexts'
 import {PRIME_ROUTES} from 'constants/index'
 import FooterContent from '..'
 
@@ -19,18 +19,18 @@ test('renders and acts as expected', async () => {
   expect(expectedNavLinks).toEqual(actualNavLinks)
 
   // theme switching
-  const getThemeHook = () => renderHook(() => useTheme(), {
+  const getThemeHook = () => renderHook(() => useThemeState(), {
     wrapper: ThemeProvider
   })
   const themeSwitcher = screen.getByRole('checkbox')
 
-  expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
+  expect(getThemeHook().result.current).toBeFalsy()
 
   userEvent.click(themeSwitcher)
-  expect(getThemeHook().result.current.isDarkTheme).toBeTruthy()
+  expect(getThemeHook().result.current).toBeTruthy()
 
   userEvent.click(themeSwitcher)
-  expect(getThemeHook().result.current.isDarkTheme).toBeFalsy()
+  expect(getThemeHook().result.current).toBeFalsy()
 
   // switching language
   const langSelectorBtn = screen.getByLabelText(/switch language/i)

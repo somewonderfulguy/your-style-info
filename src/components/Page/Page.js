@@ -5,7 +5,7 @@ import {animated, useTransition} from 'react-spring'
 import {componentRenderer} from './helpers'
 import FooterContent from './FooterContent'
 import {usePrevious} from 'shared/hooks'
-import {useHeaderHeight, useScreenDimensions} from 'contexts'
+import {useHeaderHeightState, useIsDesktop} from 'contexts'
 import {useFooterAnimation, usePageFetch} from './hooks'
 import styles from './Page.module.css'
 
@@ -16,8 +16,8 @@ const propTypes = {
 }
 
 const Page = ({location: {pathname}}) => {
-  const {headerHeight} = useHeaderHeight()
-  const {isDesktop} = useScreenDimensions()
+  const headerHeight = useHeaderHeightState()
+  const isDesktop = useIsDesktop()
 
   const previousPath = String(usePrevious(pathname))
   const removeLangInPath = str => str.replace(/^\/\w{2}/, '')

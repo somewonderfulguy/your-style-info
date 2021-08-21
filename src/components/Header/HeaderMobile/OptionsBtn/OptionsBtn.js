@@ -2,7 +2,7 @@ import React, {forwardRef, useImperativeHandle, useRef} from 'react'
 import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
-import {useTheme} from 'contexts'
+import {useThemeState} from 'contexts'
 import styles from './OptionsBtn.module.css'
 
 const propTypes = {
@@ -19,7 +19,7 @@ const OptionsBtn = forwardRef(({isOpen, onClick}, ref) => {
   const optionsBtnDOM = useRef(null)
   useImperativeHandle(ref, () => ({optionsBtnDOM}))
 
-  const {isDarkTheme} = useTheme()
+  const isDarkTheme = useThemeState()
 
   const optionsHeight = optionsBtnDOM.current ? optionsBtnDOM.current.clientHeight : 0
 
@@ -60,6 +60,7 @@ const OptionsBtn = forwardRef(({isOpen, onClick}, ref) => {
       onClick={onClick}
       className={styles[isDarkTheme ? 'darkBtn' : 'btn']}
       type="button"
+      // TODO: do it dynamic
       title="Options"
     >
       <animated.div className={styles.dot} style={topDot} />

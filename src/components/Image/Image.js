@@ -4,7 +4,7 @@ import {animated, useTransition} from 'react-spring'
 
 import {useImageLoadQuery} from 'api'
 import {useIntersectionObserver, useResizeObserver} from 'shared/hooks'
-import {useTheme, useScreenDimensions} from 'contexts'
+import {useThemeState, useIsDesktop} from 'contexts'
 import styles from './Image.module.css'
 
 const propTypes = {
@@ -28,8 +28,8 @@ export const getAspectRatio = (width, height) => height / width * 100
 // TODO: zoom to fullscreen (+ hide fullscreen on scroll)
 
 const Image = ({url, alt, lowresBase64, width, height, caption}) => {
-  const {isDarkTheme} = useTheme()
-  const {isDesktop} = useScreenDimensions()
+  const isDarkTheme = useThemeState()
+  const isDesktop = useIsDesktop()
   const intersectionOffset = isDesktop ? 600 : 350
   const [bindIntersectionObserver, isIntersecting, disconnectInersection] = useIntersectionObserver({
     rootMargin: `${intersectionOffset}px 0px ${intersectionOffset}px 0px`

@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {FunctionComponent, ReactElement, ReactNode} from 'react'
 import {render as rtlRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Router} from 'react-router-dom'
@@ -28,13 +28,15 @@ server.listen({onUnhandledRequest: 'error'})
 
 const render = (ui: ReactElement, {route = '/', ...options} = {}) => {
   const history = createMemoryHistory({initialEntries: [route]})
-  const Wrapper = (props = {}) => (
+  const Wrapper = ({children}: {children: ReactNode | ReactNode[]}) => (
     <QueryClientProvider client={queryClient}>
       <Router history={history}>
         <HeaderHeightProvider>
           <LocalizationProvider>
             <ThemeProvider>
-              <ScreenDimensionsProvider {...props} />
+              <ScreenDimensionsProvider>
+                {children}
+              </ScreenDimensionsProvider>
             </ThemeProvider>
           </LocalizationProvider>
         </HeaderHeightProvider>
@@ -42,7 +44,7 @@ const render = (ui: ReactElement, {route = '/', ...options} = {}) => {
     </QueryClientProvider>
   )
   return {
-    ...rtlRender(ui, {wrapper: Wrapper, ...options}),
+    ...rtlRender(ui, {wrapper: Wrapper as FunctionComponent, ...options}),
     history
   }
 }

@@ -9,7 +9,7 @@ import Routes from './Routes'
 import Header from 'components/Header'
 import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
-import {useTheme} from 'contexts'
+import {useThemeState} from 'contexts'
 import 'services/resizeObserverPolyfill'
 
 import styles from './ApplicationNode.module.css'
@@ -29,7 +29,7 @@ export const defaultOptions = {
 const queryClient = new QueryClient({defaultOptions})
 
 const ApplicationNodeComponent = () => {
-  const {isDarkTheme} = useTheme()
+  const isDarkTheme = useThemeState()
 
   const isFetching = useIsFetching()
   const isMutating = useIsMutating()

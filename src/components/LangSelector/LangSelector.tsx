@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import {bool} from 'prop-types'
 
-import {setLocale, useLocalization, useTheme} from 'contexts'
+import {useLocalization, useThemeState} from 'contexts'
 import {useOutsideClick} from 'shared/hooks'
 import {LanguageIcon} from 'assets/images'
 import {LANGUAGES, LOCALES} from 'constants/index'
@@ -24,7 +24,7 @@ const LangSelector = ({showAbove, gray}) => {
     {isLoading: isLanguageLoading, data: localeData}
   ] = useLocalization()
 
-  const {isDarkTheme} = useTheme()
+  const isDarkTheme = useThemeState()
   const langSelectorRef = useRef(null)
   const menuRef = useRef(null)
   const [isOpen, setOpen] = useState(false)
@@ -70,7 +70,7 @@ const LangSelector = ({showAbove, gray}) => {
                 type="button"
                 disabled={locale === currentLocale}
                 onClick={() => {
-                  setLocale(setLocaleState, locale as 'en' | 'ru')
+                  setLocaleState(locale as 'en' | 'ru')
                   setOpen(false)
                 }}
               >

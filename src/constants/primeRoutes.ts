@@ -1,4 +1,17 @@
-export const PRIME_ROUTES = {
+type primeRoutesType = {
+  [key: string]: {
+    name: string
+    thumbnail?: {
+      url: string
+      alt?: string
+      background: string
+    }
+    sub?: primeRoutesType
+    inactive?: boolean
+  }
+}
+
+export const PRIME_ROUTES: primeRoutesType = {
   '/': {
     name: 'Home'
   },

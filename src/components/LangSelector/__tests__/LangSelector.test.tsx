@@ -132,14 +132,6 @@ test('header and footer lang selectors, light/dark themes, desktop/mobile', asyn
   const desktopFooterLight = footerLangSelectorWrapper?.className
   expect(desktopFooterLight).toMatchDiffSnapshot(desktopFooterDark, diffSnapshotOptions)
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  window.innerWidth = 320
-  fireEvent(window, new Event('resize'))
-
-  // note: mobile header is in another component - Options
-  expect(headerLangSelector).not.toBeInTheDocument()
-
   userEvent.click(footerLangSelector as HTMLButtonElement)
   expect(getMenu().className).toMatchSnapshot('mobile footer drop up')
 

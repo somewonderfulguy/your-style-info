@@ -1,16 +1,14 @@
-import React from 'react'
-import {render, waitFor} from '@testing-library/react'
+import React, {FunctionComponent} from 'react'
+import {render, screen, waitFor} from '@testing-library/react'
 
-import * as spyThemeContext from 'contexts/themeContext'
+import {ThemeProvider} from 'contexts'
 import OptionsBtn from '..'
+import { renderWholeApp, userEvent } from 'shared/tests'
 
-jest.spyOn(spyThemeContext, 'useTheme')
-
-beforeEach(() => spyThemeContext.useTheme.mockReturnValue({isDarkTheme: false}))
-afterEach(() => jest.clearAllMocks())
+const setup = () => render(<OptionsBtn />, {wrapper: ThemeProvider as FunctionComponent})
 
 test('snapshot diffrenece between default and clicked states', async () => {
-  const {container, rerender} = render(<OptionsBtn />)
+  const {container, rerender} = setup()
   const dots = container.querySelectorAll('.dot')
 
   const defaultStyles = [
@@ -31,23 +29,25 @@ test('snapshot diffrenece between default and clicked states', async () => {
 
   // clicked state asserts
   await waitFor(() => dots.forEach((dot, idx) => expect(dot).toHaveStyle(clickedStyles[idx])))
-
-  expect(spyThemeContext.useTheme).toHaveBeenCalledTimes(2)
 })
 
 test('snapshot difference in dark/light theme', () => {
-  const {asFragment, rerender} = render(<OptionsBtn />)
-  const lightTheme = asFragment()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  window.innerWidth = 320
 
-  spyThemeContext.useTheme.mockReturnValueOnce({isDarkTheme: true})
-  rerender(<OptionsBtn />)
-  const darkTheme = asFragment()
+  renderWholeApp()
 
-  expect(lightTheme).toMatchDiffSnapshot(darkTheme, {
+  const optionsBtn = screen.getByTitle(/options/i)
+  const lightThemeClass = optionsBtn.className
+
+  userEvent.click(screen.getAllByLabelText(/switch theme/i)[0])
+
+  const darkThemeClass = optionsBtn.className
+
+  expect(lightThemeClass).toMatchDiffSnapshot(darkThemeClass, {
     contextLines: 0,
     aAnnotation: 'light theme',
     bAnnotation: 'dark theme'
   })
-
-  expect(spyThemeContext.useTheme).toHaveBeenCalledTimes(2)
 })

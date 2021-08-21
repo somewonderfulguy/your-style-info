@@ -2,8 +2,8 @@ import React from 'react'
 import {renderHook} from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
-import {screen, render} from 'shared/tests'
-import {ThemeProvider, useTheme} from 'contexts'
+import {screen, render, renderWholeApp} from 'shared/tests'
+import {ThemeProvider, useThemeState} from 'contexts'
 import DarkThemeSwitcher from '..'
 
 const setup = (darkerPalette = false, labelText = false) => {
@@ -39,32 +39,25 @@ test('should change depending on labelText prop', () => {
 })
 
 test('switching theme should work properly', async () => {
-  const {asFragment} = setup()
-  const getHook = () => renderHook(() => useTheme(), {
+  renderWholeApp()
+
+  const [themeSwitcher] = screen.getAllByLabelText(/switch theme/i)
+
+  const getHook = () => renderHook(() => useThemeState(), {
     wrapper: ThemeProvider
   })
-  const checkbox = screen.getByRole('checkbox')
 
   // default (light)
-  expect(getHook().result.current.isDarkTheme).toBeFalsy()
+  expect(getHook().result.current).toBeFalsy()
   expect(window.localStorage.getItem('isDarkTheme')).toEqual('false')
 
   // switch to dark
-  user.click(checkbox)
-  expect(getHook().result.current.isDarkTheme).toBeTruthy()
+  user.click(themeSwitcher)
+  expect(getHook().result.current).toBeTruthy()
   expect(window.localStorage.getItem('isDarkTheme')).toEqual('true')
-  const darkComponent = asFragment()
 
   // switch to light
-  user.click(checkbox)
-  expect(getHook().result.current.isDarkTheme).toBeFalsy()
+  user.click(themeSwitcher)
+  expect(getHook().result.current).toBeFalsy()
   expect(window.localStorage.getItem('isDarkTheme')).toEqual('false')
-  const lightComponent = asFragment()
-
-  // snapshot difference
-  expect(darkComponent).toMatchDiffSnapshot(lightComponent, {
-    contextLines: 2,
-    aAnnotation: 'dark theme on',
-    bAnnotation: 'light theme on'
-  })
 })

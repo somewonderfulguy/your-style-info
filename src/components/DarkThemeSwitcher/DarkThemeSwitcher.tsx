@@ -1,23 +1,18 @@
 import React from 'react'
-import {bool} from 'prop-types'
 
-import {useTheme} from 'contexts'
+import {useThemeState, useThemeSwitch} from 'contexts'
 import moonIcon from 'assets/images/moon.svg'
 import sunIcon from 'assets/images/sun.svg'
 import styles from './DarkThemeSwitcher.module.css'
 
-const propTypes = {
-  darkerPalette: bool,
-  labelText: bool
+type propType = {
+  darkerPalette?: boolean;
+  labelText?: boolean;
 }
 
-const defaultProps = {
-  darkerPalette: false,
-  labelText: false
-}
-
-const DarkThemeSwitcher = ({darkerPalette, labelText}) => {
-  const {isDarkTheme, switchTheme} = useTheme()
+const DarkThemeSwitcher = ({darkerPalette = false, labelText = false}: propType) => {
+  const isDarkTheme = useThemeState()
+  const switchTheme = useThemeSwitch()
 
   return (
     // TODO: dynamically change aria label text
@@ -51,8 +46,5 @@ const DarkThemeSwitcher = ({darkerPalette, labelText}) => {
     </label>
   )
 }
-
-DarkThemeSwitcher.propTypes = propTypes
-DarkThemeSwitcher.defaultProps = defaultProps
 
 export default DarkThemeSwitcher

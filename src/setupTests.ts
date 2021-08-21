@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import '@testing-library/jest-dom/extend-expect'
 import {toMatchDiffSnapshot} from 'snapshot-diff'
 import ResizeObserver from 'resize-observer-polyfill'
@@ -10,16 +11,18 @@ expect.extend({toMatchDiffSnapshot})
 // remove double slashes in toMatchDiffSnapshot
 expect.addSnapshotSerializer({
   test(val) {return typeof val === 'string' && val.search(/Snapshot Diff/i) !== -1},
-  print(val) {return val.replace(/\\\\/gm, '')}
+  print(val) {return (val as string).replace(/\\\\/gm, '')}
 })
 
 // resizeObserver polyfill
 window.ResizeObserver = ResizeObserver
 
 // mock Image
+// @ts-ignore
 window.Image = class {
   constructor() {
     setTimeout(() => {
+      // @ts-ignore
       this.onload() // simulate success
     }, 100)
   }
