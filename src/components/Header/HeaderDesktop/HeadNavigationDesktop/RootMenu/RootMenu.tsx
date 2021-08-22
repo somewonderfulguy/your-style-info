@@ -1,28 +1,26 @@
-import React, {memo} from 'react'
-import {func, object, string} from 'prop-types'
+import React, {Dispatch, memo, SetStateAction} from 'react'
 
 import {PRIME_ROUTES} from 'constants/index'
 import LinkExtended from 'components/LinkExtended'
 import {useLocalization} from 'contexts'
+import {subMenuContentType} from '..'
 import styles from './RootMenu.module.css'
 
-const propTypes = {
-  setShowMenu: func.isRequired,
-  setSubMenu: func.isRequired,
-  activeMenuItem: string,
-  setActiveMenuItem: func.isRequired,
-  clearActiveMenuItem: func.isRequired,
-  setRootMenuOpen: func.isRequired,
-  navigationTranslations: object.isRequired
-}
+type obj = {[key: string]: string}
 
-const defaultProps = {
-  activeMenuItem: null
+type propsType = {
+  setShowMenu: Dispatch<boolean>
+  setSubMenu: Dispatch<SetStateAction<subMenuContentType>>
+  activeMenuItem?: string | null
+  setActiveMenuItem: Dispatch<SetStateAction<string | null>>
+  clearActiveMenuItem: () => void
+  setRootMenuOpen: Dispatch<SetStateAction<boolean>>
+  navigationTranslations: obj
 }
 
 const RootMenu = ({
-  setShowMenu, setSubMenu, activeMenuItem, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen, navigationTranslations,
-}) => {
+  setShowMenu, setSubMenu, activeMenuItem = null, clearActiveMenuItem, setActiveMenuItem, setRootMenuOpen, navigationTranslations,
+}: propsType) => {
   const [{locale}] = useLocalization()
 
   return (
@@ -47,10 +45,13 @@ const RootMenu = ({
             setActiveMenuItem(name)
           }}
           onMouseLeave={e => {
-            if(e.relatedTarget.getAttribute && e.relatedTarget.getAttribute('submenupersist') === '1') return
+            if((e?.relatedTarget as HTMLLIElement)?.getAttribute?.('submenupersist') === '1') return
             setShowMenu(false)
             clearActiveMenuItem()
           }}
+          // TODO find another way to persist menu
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           submenupersist={sub ? 1 : 0}
         >
           <LinkExtended
@@ -59,6 +60,9 @@ const RootMenu = ({
             className={inactive ? '' : styles.link}
             activeClassName={styles.activeLink}
             inactive={inactive}
+            // TODO find another way to persist menu
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             submenupersist={sub ? 1 : 0} // TODO consider using refs instead of such attribute (as expample: <Options> & useOutsideClick)
             onFocus={() => setRootMenuOpen(true)}
             onClick={() => setShowMenu(false)}
@@ -70,8 +74,5 @@ const RootMenu = ({
     </ul>
   )
 }
-
-RootMenu.propTypes = propTypes
-RootMenu.defaultProps = defaultProps
 
 export default memo(RootMenu)

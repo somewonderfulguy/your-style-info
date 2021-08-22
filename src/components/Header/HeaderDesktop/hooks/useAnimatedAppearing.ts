@@ -1,7 +1,12 @@
-import {useSprings} from 'react-spring'
+import {CSSProperties} from 'react'
+import {useSprings, ForwardedProps} from 'react-spring'
+
+interface CustomCSSProperties extends CSSProperties {
+  reverseTransform: string
+}
 
 export function useAnimatedAppearing() {
-  const appearingSprings = useSprings(4, [...Array(4)].map((i, n) => ({
+  const appearingSprings: ForwardedProps<CustomCSSProperties>[] = useSprings(4, [...Array(4)].map((i, n) => ({
     config: {mass: 1, tension: 280, friction: 50},
     from: {
       opacity: 0,

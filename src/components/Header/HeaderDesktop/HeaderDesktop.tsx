@@ -16,15 +16,15 @@ const HeaderDesktop = () => {
 
   const setHeaderHeight = useHeaderHeightDispatch()
 
-  const navBarDOM = useRef(null)
-  const headerDOM = useRef(null)
+  const navBarDOM = useRef<HTMLElement>(null)
+  const headerDOM = useRef<HTMLElement>(null)
 
-  const headerHeight = headerDOM.current && (headerDOM.current.offsetHeight || 0)
-  const navbarHeight = navBarDOM.current && (navBarDOM.current.offsetHeight || 0)
+  const headerHeight = headerDOM.current?.offsetHeight ?? 0
+  const navbarHeight = navBarDOM.current?.offsetHeight ?? 0
   const [navBarTopLine, setNavBarTopLine] = useState(0)
 
   useEffect(() => {
-    setNavBarTopLine(headerDOM.current && headerDOM.current.offsetHeight)
+    headerDOM.current && setNavBarTopLine(headerDOM.current.offsetHeight)
   }, [setNavBarTopLine])
 
   useEffect(() => {

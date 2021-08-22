@@ -1,6 +1,5 @@
-import React from 'react'
-import {any, arrayOf, bool, func, node, oneOfType, shape, string} from 'prop-types'
-import {withRouter} from 'react-router-dom'
+import React, {ReactNode} from 'react'
+import {RouteComponentProps, withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
 import {SCROLL_TOP_DURATION} from 'constants/index'
@@ -9,43 +8,28 @@ import {usePageQuery} from 'api/pageQueries'
 
 // TODO refactor how navigation works - should first wait for content being loaded, then scroll top, then perform animation
 
-const propTypes = {
-  activeClassName: string,
-  children: oneOfType([
-    arrayOf(node),
-    node
-  ]),
-  className: string,
-  history: shape({push: func}).isRequired,
-  inactive: bool,
-  location: shape({pathname: string}).isRequired,
-  to: string,
-  onClick: func,
-  staticContext: any
-}
-
-const defaultProps = {
-  activeClassName: '',
-  children: <></>,
-  className: '',
-  inactive: false,
-  to: '/',
-  onClick: () => {}
+type propType = RouteComponentProps & {
+  activeClassName?: string
+  children?: ReactNode | ReactNode[]
+  className?: string
+  inactive?: boolean
+  to?: string
+  // TODO check it out
+  onClick: () => void
 }
 
 const LinkExtended = ({
   history,
-  activeClassName,
-  children,
-  className,
-  inactive,
+  activeClassName = '',
+  children = <></>,
+  className = '',
+  inactive = false,
   location: {pathname},
-  to,
-  onClick,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  to = '/',
+  onClick = () => {},
   staticContext, // exclude from ...rest
   ...rest
-}) => {
+}: propType) => {
   const {refetch} = usePageQuery(to, {enabled: false})
 
   const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
@@ -55,6 +39,7 @@ const LinkExtended = ({
     window.removeEventListener('scroll', debouncedOnScrollEnd)
   }
 
+  // FIXME
   const clickHandler = e => {
     e.preventDefault()
 
@@ -87,8 +72,5 @@ const LinkExtended = ({
     )
   )
 }
-
-LinkExtended.propTypes = propTypes
-LinkExtended.defaultProps = defaultProps
 
 export default withRouter(LinkExtended)
