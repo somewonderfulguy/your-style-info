@@ -1,40 +1,36 @@
-import React, {Fragment, memo, useState, useRef} from 'react'
-import {bool, func, object, string} from 'prop-types'
+import React, {Dispatch, Fragment, memo, useState, useRef} from 'react'
 import {animated, useTransition} from 'react-spring'
 
 import LinkExtended from 'components/LinkExtended'
 import {usePrevious} from 'shared/hooks'
 import {useLocalization, useThemeState} from 'contexts'
+import {primeRoutesType, thumbnailType} from 'constants/index'
 import styles from './SubMenuContent.module.css'
 
-const propTypes = {
-  menuItems: object.isRequired,
-  basePath: string,
-  mainThumbnail: object,
-  isOpen: bool,
-  setMenuOpen: func.isRequired
+type propType = {
+  menuItems: primeRoutesType
+  basePath?: string
+  mainThumbnail?: thumbnailType
+  isOpen?: boolean
+  setMenuOpen: Dispatch<boolean>
 }
 
-const defaultProps = {
-  basePath: '',
-  mainThumbnail: null,
-  isOpen: false
-}
-
-const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen, setMenuOpen}) => {
+const SubMenuContent = ({menuItems, basePath = '', mainThumbnail = null, isOpen = false, setMenuOpen}: propType) => {
   const isDarkTheme = useThemeState()
   const [, , {data: translations}] = useLocalization()
-  const [subItemThumbnail, setSubItemThumbnail] = useState(null)
+  const [subItemThumbnail, setSubItemThumbnail] = useState<thumbnailType>(null)
   const prevOpen = usePrevious(isOpen)
 
   // old transitions clean up
-  const transitionCancelArray = useRef([])
+  const transitionCancelArray = useRef<(() => void)[]>([])
   transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
   transitionCancelArray.current.splice(2)
 
   const transitions = useTransition(subItemThumbnail || mainThumbnail, item => item && item.url, {
     config: {duration: isOpen !== prevOpen ? 0 : 200},
     from: {opacity: 0},
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     enter: () => async (next, cancel) => {
       transitionCancelArray.current.unshift(cancel)
       await next({opacity: 1})
@@ -59,7 +55,7 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen, setMenuOpen
               onMouseLeave={() => thumbnail && setSubItemThumbnail(null)}
               onClick={() => setMenuOpen(false)}
             >
-              {translations.navigation[path]}
+              {translations?.navigation[path]}
             </LinkExtended>
           </li>
         ))}
@@ -74,7 +70,8 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen, setMenuOpen
             style={{
               // when menu opens / closes opacity.value sometimes becomes NaN and a warning
               // in console happens - this isNaN check is a simple fix
-              opacity: typeof opacity.value !== 'undefined' && isNaN(opacity.value) ? 1 : opacity,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              opacity: typeof (opacity as any)?.value !== 'undefined' && isNaN((opacity as any)?.value) ? 1 : opacity,
               background: (item && item.background) || '#7d7d7d4c'
             }}
             alt={(item && item.alt) || ''}
@@ -84,8 +81,5 @@ const SubMenuContent = ({menuItems, basePath, mainThumbnail, isOpen, setMenuOpen
     </>
   )
 }
-
-SubMenuContent.propTypes = propTypes
-SubMenuContent.defaultProps = defaultProps
 
 export default memo(SubMenuContent)

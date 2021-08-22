@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import React, {MouseEvent, ReactNode} from 'react'
 import {RouteComponentProps, withRouter} from 'react-router-dom'
 import {animateScroll as scroll} from 'react-scroll'
 
@@ -16,6 +16,8 @@ type propType = RouteComponentProps & {
   to?: string
   // TODO check it out
   onClick: () => void
+  onMouseEnter?: (e: MouseEvent<HTMLSpanElement>) => void
+  onMouseLeave?: (e: MouseEvent<HTMLSpanElement>) => void
 }
 
 const LinkExtended = ({
@@ -64,7 +66,7 @@ const LinkExtended = ({
 
   return (
     isCurrent ? (
-      <span className={activeClassName} {...rest}>{children}</span>
+      <span className={activeClassName} {...rest} onMouseEnter={() => {}}>{children}</span>
     ) : (
       <a href={to} onClick={clickHandler} className={className} {...rest}>
         {children}

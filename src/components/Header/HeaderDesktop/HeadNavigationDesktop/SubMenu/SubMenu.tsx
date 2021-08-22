@@ -1,37 +1,39 @@
-import React, {memo, useRef} from 'react'
-import {bool, func, object, string} from 'prop-types'
+import React, {Dispatch, memo, useRef} from 'react'
 import {animated, useSpring, useTransition} from 'react-spring'
 
 import SubMenuContent from './SubMenuContent'
 import styles from './SubMenu.module.css'
+import {primeRoutesType, thumbnailType} from 'constants/index'
 
-const propTypes = {
-  content: object,
-  basePath: string,
-  isOpen: bool,
-  openNowAndBefore: bool,
-  mainThumbnail: object,
-  setMenuOpen: func.isRequired
+type propType = {
+  content: primeRoutesType
+  basePath?: string
+  isOpen?: boolean
+  openNowAndBefore?: boolean
+  mainThumbnail?: thumbnailType
+  setMenuOpen: Dispatch<boolean>
 }
 
-const defaultProps = {
-  content: {},
-  basePath: '',
-  isOpen: false,
-  openNowAndBefore: false,
-  mainThumbnail: null
-}
-
-const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail, setMenuOpen}) => {
+const SubMenu = ({
+  content = {},
+  basePath = '',
+  isOpen = false,
+  openNowAndBefore = false,
+  mainThumbnail = null,
+  setMenuOpen
+}: propType) => {
   // old transitions clean up
-  const transitionCancelArray = useRef([])
+  const transitionCancelArray = useRef<(() => void)[]>([])
   transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
   transitionCancelArray.current.splice(2)
 
   // fade out / in submenu content
-  const transitions = useTransition(isOpen ? content : {}, basePath, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const transitions = useTransition((isOpen ? content : {}) as any, basePath, {
     config: {duration: openNowAndBefore ? 400 : 0},
     from: {opacity: 0},
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     enter: () => async (next, cancel) => {
       transitionCancelArray.current.unshift(cancel)
       await next({opacity: 1})
@@ -44,15 +46,20 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail, se
   const {transform} = useSpring({
     from: {transform: `translate3d(0, -10px, 0)`},
     to: {transform: `translate3d(0, ${isOpen ? 0 : -10}px, 0)`}
-  })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }) as any
 
   return (
+    // TODO find another way to persist menu
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <div className={styles.subMenu} submenupersist="1">
       {transitions.map(({item: menuItems, props: {opacity: opacityTransition}, key, state}) => {
-        let opacity = opacityTransition
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let opacity: any = opacityTransition
         switch(state) {
           case 'enter':
-            opacity = opacityTransition.interpolate({range: [0, 0.33, 0.66, 1], output: [0, 0, 0, 1]})
+            opacity = opacityTransition?.interpolate({range: [0, 0.33, 0.66, 1], output: [0, 0, 0, 1]})
             break
           case 'leave':
             opacity = 0
@@ -85,8 +92,5 @@ const SubMenu = ({content, basePath, isOpen, openNowAndBefore, mainThumbnail, se
     </div>
   )
 }
-
-SubMenu.propTypes = propTypes
-SubMenu.defaultProps = defaultProps
 
 export default memo(SubMenu)
