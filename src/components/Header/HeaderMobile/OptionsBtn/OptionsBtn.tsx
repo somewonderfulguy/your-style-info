@@ -1,22 +1,16 @@
 import React, {forwardRef, useImperativeHandle, useRef} from 'react'
-import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
 import {useThemeState} from 'contexts'
 import styles from './OptionsBtn.module.css'
 
-const propTypes = {
-  isOpen: bool,
-  onClick: func.isRequired
+type propType = {
+  isOpen?: boolean
+  onClick?: () => void
 }
 
-const defaultProps = {
-  isOpen: false,
-  onClick: () => {}
-}
-
-const OptionsBtn = forwardRef(({isOpen, onClick}, ref) => {
-  const optionsBtnDOM = useRef(null)
+const OptionsBtn = forwardRef(({isOpen = false, onClick = () => {}}: propType, ref) => {
+  const optionsBtnDOM = useRef<HTMLButtonElement>(null)
   useImperativeHandle(ref, () => ({optionsBtnDOM}))
 
   const isDarkTheme = useThemeState()
@@ -27,10 +21,12 @@ const OptionsBtn = forwardRef(({isOpen, onClick}, ref) => {
   const shrinkedDotSize = dotSize / 2
   const middlePosition = (optionsHeight / 2) - shrinkedDotSize / 2
 
-  const {timeline} = useSpring({
+  const {timeline: t} = useSpring({
     config: {duration: 300},
     timeline: isOpen ? 1 : 0
   })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const timeline = t as any
 
   const range = [0, 0.4, 0.6, 1]
 
@@ -69,8 +65,5 @@ const OptionsBtn = forwardRef(({isOpen, onClick}, ref) => {
     </button>
   )
 })
-
-OptionsBtn.propTypes = propTypes
-OptionsBtn.defaultProps = defaultProps
 
 export default OptionsBtn

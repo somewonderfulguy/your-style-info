@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback, useRef, useState} from 'react'
+import React, {RefObject, useEffect, useCallback, useRef, useState} from 'react'
 import {animated, useSpring} from 'react-spring'
 
 import {useHeaderHeightDispatch} from 'contexts'
@@ -17,11 +17,13 @@ const HeaderMobile = () => {
 
   const {appearingSpring} = useAnimatedAppearing()
 
-  const headerDOM = useRef()
+  const headerDOM = useRef<HTMLElement>(null)
   const headerHeight = headerDOM.current?.offsetHeight ?? 0
 
-  const optionsBtnRef = useRef()
-  const optionsBtnDOM = optionsBtnRef?.current?.optionsBtnDOM.current || null
+  // used via useImperativeHandle in OptionsBtn
+  type optionsBtnRefType = {optionsBtnDOM: RefObject<HTMLButtonElement>}
+  const optionsBtnRef = useRef<optionsBtnRefType>()
+  const optionsBtnDOM = (optionsBtnRef?.current?.optionsBtnDOM.current || null) as Element
 
   useEffect(() => {
     setHeaderHeight(headerHeight)

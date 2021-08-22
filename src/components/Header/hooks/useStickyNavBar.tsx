@@ -1,10 +1,10 @@
 import {useEffect, useReducer} from 'react'
 
-const HIDE = 'hide'
-const SHOW = 'show'
-const SCROLL_UP = 'scroll_up'
-const SCROLL_DOWN = 'scroll_down'
-const UNSET = 'unset'
+const HIDE = 'hide' as const
+const SHOW = 'show' as const
+const SCROLL_UP = 'scroll_up' as const
+const SCROLL_DOWN = 'scroll_down' as const
+const UNSET = 'unset' as const
 
 const navBarInitialState = {
   isFixed: false,
@@ -12,7 +12,11 @@ const navBarInitialState = {
   isScrollDown: false
 }
 
-const navBarReducer = (state, action) => {
+type actionType = {
+  type: typeof HIDE | typeof SHOW | typeof SCROLL_UP | typeof SCROLL_DOWN | typeof UNSET
+}
+
+const navBarReducer = (state: typeof navBarInitialState, action: actionType) => {
   switch(action.type) {
     case HIDE: return {...state, isFixed: true, isShown: false}
     case SHOW: return {...state, isFixed: true, isShown: true}
