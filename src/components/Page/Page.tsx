@@ -1,5 +1,4 @@
 import React, {useMemo} from 'react'
-import {shape, string} from 'prop-types'
 import {animated, useTransition} from 'react-spring'
 
 import {componentRenderer} from './helpers'
@@ -9,24 +8,22 @@ import {useHeaderHeightState, useIsDesktop} from 'contexts'
 import {useFooterAnimation, usePageFetch} from './hooks'
 import styles from './Page.module.css'
 
-const propTypes = {
-  location: shape({
-    pathname: string.isRequired
-  }).isRequired
+type propType = {
+  location: {pathname: string}
 }
 
-const Page = ({location: {pathname}}) => {
+const Page = ({location: {pathname}}: propType) => {
   const headerHeight = useHeaderHeightState()
   const isDesktop = useIsDesktop()
 
   const previousPath = String(usePrevious(pathname))
-  const removeLangInPath = str => str.replace(/^\/\w{2}/, '')
+  const removeLangInPath = (str: string) => str.replace(/^\/\w{2}/, '')
   const isLocaleChanged = useMemo(() => (
     removeLangInPath(previousPath) === removeLangInPath(pathname)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   ), [pathname])
 
-  const {id, header, components} = usePageFetch(pathname, isLocaleChanged)
+  const {id, header, components} = usePageFetch(pathname)
   const pageContent = useMemo(() => (
     <>
       {header && <h1 style={{marginTop: 0}}>{header}</h1>}
@@ -83,7 +80,5 @@ const Page = ({location: {pathname}}) => {
     </>
   )
 }
-
-Page.propTypes = propTypes
 
 export default Page

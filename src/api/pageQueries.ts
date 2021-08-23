@@ -2,14 +2,14 @@ import {useQuery, UseQueryOptions} from 'react-query'
 
 import {request, pagePathPair, imageComponent, textComponent} from '.'
 
-type component =
+export type componentType =
   imageComponent
   | textComponent
 
 export type pageType = {
   id: string
   header: string
-  components: component[]
+  components: componentType[]
 }
 
 const getPage = (url: string) => request<pageType>(url)

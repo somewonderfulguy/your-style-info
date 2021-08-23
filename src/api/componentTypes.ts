@@ -1,5 +1,10 @@
+export enum componentTypes {
+  image = 'image',
+  text = 'text'
+}
+
 export type imageComponent = {
-  type: 'image'
+  type: componentTypes.image
   url: string
   lowresBase64: string
   alt: string
@@ -9,6 +14,6 @@ export type imageComponent = {
 }
 
 export type textComponent = {
-  type: 'text'
+  type: componentTypes.text
   text: string
 }

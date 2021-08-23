@@ -1,15 +1,15 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {ReactNode, useCallback, useEffect, useRef, useState} from 'react'
 import {useSpring, config} from 'react-spring'
 
 import {usePrevious} from 'shared/hooks'
 import {useScreenHeight, useScreenWidth} from 'contexts'
 
-export const useFooterAnimation = (id, headerHeight, pageContent, isDesktop) => {
-  const shadowRenderRef = useRef(null)
-  const pageContainerRef = useRef(null)
-  const footerRef = useRef(null)
+export const useFooterAnimation = (id: string, headerHeight: number, pageContent: ReactNode, isDesktop: boolean) => {
+  const shadowRenderRef = useRef<HTMLDivElement>(null)
+  const pageContainerRef = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLDivElement>(null)
 
-  const [page, setPage] = useState({id: null, content: null})
+  const [page, setPage] = useState<{id: string | null, content: ReactNode | null}>({id: null, content: null})
   const screenHeight = useScreenHeight()
   const screenWidth = useScreenWidth()
 
@@ -17,12 +17,12 @@ export const useFooterAnimation = (id, headerHeight, pageContent, isDesktop) => 
   const pagePaddingTop = shadowRenderRef.current &&
     getComputedStyle(shadowRenderRef.current).getPropertyValue(paddingTopCSSVar).replace('px', '')
 
-  if(shadowRenderRef.current !== null && !pagePaddingTop.length) {
-    !process.env.NODE_ENV === 'test' && console.warn(`unable to find variable ${paddingTopCSSVar}`)
+  if(shadowRenderRef.current !== null && !pagePaddingTop?.length) {
+    !(process.env.NODE_ENV === 'test') && console.warn(`unable to find variable ${paddingTopCSSVar}`)
   }
 
-  const footerHeight = footerRef.current?.offsetHeight || 0
-  const pageMinHeight = (screenHeight - headerHeight - footerHeight) - (+pagePaddingTop) || 0
+  const footerHeight = footerRef.current?.offsetHeight ?? 0
+  const pageMinHeight = (screenHeight - headerHeight - footerHeight) - (+(pagePaddingTop ?? 0)) || 0
 
   const [footerSpring, setFS] = useSpring(() => ({
     from: {opacity: 0, transform: 'translate3d(0, 0px, 0)'},
@@ -38,9 +38,10 @@ export const useFooterAnimation = (id, headerHeight, pageContent, isDesktop) => 
     })
   }, [setFS])
 
-  const [pageHeightSpring, setPgHS] = useSpring(() => ({from: {height: 'auto'}}))
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [pageHeightSpring, setPgHS] = useSpring(() => ({from: {height: 'auto'}})) as any
   const setPageHeightSpring = useCallback((immediate = true, config = {}) => {
-    const upcomingPageHeight = shadowRenderRef.current.offsetHeight
+    const upcomingPageHeight = shadowRenderRef.current?.offsetHeight ?? 0
 
     const animateHeightTo = upcomingPageHeight < pageMinHeight
       ? pageMinHeight
@@ -64,7 +65,7 @@ export const useFooterAnimation = (id, headerHeight, pageContent, isDesktop) => 
 
     if(!previousId) {
       // page initialisation
-      return setTimeout(() => {
+      return void setTimeout(() => {
         // TODO use react suspense(?) for faster initialisation - without delays page animation is jumpy
         setPageHeightSpring()
         triggerPageTransition()
@@ -74,11 +75,11 @@ export const useFooterAnimation = (id, headerHeight, pageContent, isDesktop) => 
     }
 
     // doing animations only when page changed
-    if(id === previousId) return
+    if(id === previousId) return undefined
 
-    const upcomingPageHeight = shadowRenderRef.current.offsetHeight
-    const currentPageHeight = pageContainerRef.current.offsetHeight
-    const footerHeight = footerRef.current?.offsetHeight || 0
+    const upcomingPageHeight = shadowRenderRef.current?.offsetHeight ?? 0
+    const currentPageHeight = pageContainerRef.current?.offsetHeight ?? 0
+    const footerHeight = footerRef.current?.offsetHeight ?? 0
 
     const isFooterVisible = headerHeight + currentPageHeight < screenHeight
     const willFooterBeVisible = headerHeight + upcomingPageHeight < screenHeight

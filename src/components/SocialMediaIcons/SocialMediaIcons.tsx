@@ -1,17 +1,11 @@
 import React from 'react'
-import {bool, oneOf} from 'prop-types'
 
 import {FacebookIcon, InstagramIcon, VKontakteIcon, YouTubeIcon, TwitterIcon} from 'assets/images'
 import styles from './SocialMediaIcons.module.css'
 
-const propTypes = {
-  small: bool,
-  color: oneOf(['lightgray', 'darkgray'])
-}
-
-const defaultProps = {
-  small: false,
-  color: 'darkgray'
+type propType = {
+  small?: boolean
+  color?: 'lightgray' | 'darkgray'
 }
 
 const SMALL_SIZES = new Map([
@@ -27,7 +21,7 @@ const COLORS = new Map([
   ['darkgray', '#636363']
 ])
 
-const SocialMediaIcons = ({small, color}) => {
+const SocialMediaIcons = ({small = false, color = 'darkgray'}: propType) => {
   const targetBlank = {rel: 'noopener noreferrer', target: '_blank'}
 
   const getStyles = type => ({
@@ -55,8 +49,5 @@ const SocialMediaIcons = ({small, color}) => {
     </div>
   )
 }
-
-SocialMediaIcons.propTypes = propTypes
-SocialMediaIcons.defaultProps = defaultProps
 
 export default SocialMediaIcons

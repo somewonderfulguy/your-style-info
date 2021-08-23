@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef} from 'react'
+import React, {MutableRefObject, useLayoutEffect, useRef} from 'react'
 import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from 'react-router-dom'
 
 import Page from 'components/Page'
@@ -7,7 +7,7 @@ import {useLocalization} from 'contexts'
 
 const Routes = () => {
   const pathLocale = '/:locale'
-  const routeMatch = useRouteMatch(pathLocale)
+  const routeMatch = useRouteMatch<{locale: string}>(pathLocale)
   const history = useHistory()
   const {pathname} = useLocation()
 
@@ -16,7 +16,7 @@ const Routes = () => {
   const urlLocale = routeMatch?.params.locale
   const isLocaleExist = LOCALES.some(locale => locale === urlLocale)
 
-  const prevLocale = useRef(null)
+  const prevLocale: MutableRefObject<string | null> = useRef<string>(null)
   useLayoutEffect(() => {
     if(!locale || locale === prevLocale.current || !isLocaleExist) return
     prevLocale.current = locale

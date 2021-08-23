@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 
 import {render, screen} from 'shared/tests'
 import FooterNavigation from '..'
 
-jest.mock('components/LinkExtended', () => ({to, children}) => <a href={to}>{children}</a>)
+// eslint-disable-next-line react/display-name
+jest.mock('components/LinkExtended', () => ({to, children}: {to: string, children: ReactNode}) => <a href={to}>{children}</a>)
 
 test('should match snapshot', () => {
   const {asFragment} = render(<FooterNavigation />)

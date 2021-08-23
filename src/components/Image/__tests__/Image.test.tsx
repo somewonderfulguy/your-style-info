@@ -60,9 +60,13 @@ test('"try again" block on failed image load works as expected', async () => {
 
   const OriginalImage = window.Image
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   window.Image = class {
     constructor() {
       setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         this.onerror() // simulate error
       }, 100)
     }

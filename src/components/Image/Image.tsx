@@ -1,5 +1,4 @@
-import React, {useEffect, useReducer} from 'react'
-import {number, string} from 'prop-types'
+import React, {MutableRefObject, useEffect, useReducer} from 'react'
 import {animated, useTransition} from 'react-spring'
 
 import {useImageLoadQuery} from 'api'
@@ -7,43 +6,44 @@ import {useIntersectionObserver, useResizeObserver} from 'shared/hooks'
 import {useThemeState, useIsDesktop} from 'contexts'
 import styles from './Image.module.css'
 
-const propTypes = {
-  url: string.isRequired,
-  alt: string.isRequired,
-  lowresBase64: string.isRequired,
-  width: number.isRequired,
-  height: number.isRequired,
-  caption: string
+type propType = {
+  url: string
+  alt: string
+  lowresBase64?: string | null
+  width?: number | string
+  height: number
+  caption?: string
 }
 
-const defaultProps = {
-  lowresBase64: null,
-  width: '100%'
-}
-
-export const getAspectRatio = (width, height) => height / width * 100
+export const getAspectRatio = (width: number, height: number) => height / width * 100
 
 // TODO: check mobiles
 // TODO: different translations
 // TODO: zoom to fullscreen (+ hide fullscreen on scroll)
 
-const Image = ({url, alt, lowresBase64, width, height, caption}) => {
+const Image = ({url, alt, lowresBase64 = null, width = '100%', height, caption}: propType) => {
   const isDarkTheme = useThemeState()
   const isDesktop = useIsDesktop()
   const intersectionOffset = isDesktop ? 600 : 350
-  const [bindIntersectionObserver, isIntersecting, disconnectInersection] = useIntersectionObserver({
+  const [bindInterObs, isIntersecting, disconnectInersection] = useIntersectionObserver({
     rootMargin: `${intersectionOffset}px 0px ${intersectionOffset}px 0px`
   })
+  const bindIntersectionObserver = bindInterObs as MutableRefObject<HTMLDivElement>
 
   const {isError, isSuccess, refetch: retry} = useImageLoadQuery(url, {
-    enabled: !!url && isIntersecting
+    enabled: Boolean(!!url && isIntersecting)
   })
 
-  const [bindResizeObserver, {width: imageWidth}] = useResizeObserver()
+  const [bindResObs, {width: imageWidth}] = useResizeObserver()
+  const bindResizeObserver = bindResObs as MutableRefObject<HTMLDivElement>
   const isSmallerSize = imageWidth < 424
 
+  type delayedType = {
+    delayedShowTitle: boolean
+    delayedShowSubtitle: boolean
+  }
   const [{delayedShowTitle, delayedShowSubtitle}, setAppear] = useReducer(
-    (s, a) => ({...s, ...a}), {
+    (s: delayedType, a: Partial<delayedType>) => ({...s, ...a}), {
       delayedShowTitle: false,
       delayedShowSubtitle: false
     }
@@ -86,7 +86,8 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
   }, [disconnectInersection, isIntersecting])
 
   useEffect(() => {
-    let timerTitle, timerSubtitle
+    let timerTitle: NodeJS.Timeout | undefined
+    let timerSubtitle: NodeJS.Timeout | undefined
     if(isError) {
       timerTitle = setTimeout(() => setAppear({delayedShowTitle: true}), 400)
       timerSubtitle = setTimeout(() => setAppear({delayedShowSubtitle: true}), 700)
@@ -97,8 +98,8 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
       })
     }
     return () => {
-      clearTimeout(timerTitle)
-      clearTimeout(timerSubtitle)
+      timerTitle && clearTimeout(timerTitle)
+      timerSubtitle && clearTimeout(timerSubtitle)
     }
   }, [isError])
 
@@ -109,7 +110,11 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
           style={{maxWidth: width}}
           className={isError ? styles.aspectRatioOuterError : styles.aspectRatioOuter}
         >
-          <div style={{paddingBottom: `${getAspectRatio(width, height)}%`}} className={styles.aspectRatioInner} aria-hidden>
+          <div
+            style={{paddingBottom: `${getAspectRatio((typeof width === 'string' ? +width.replace(/\D/g, '') : width), height)}%`}}
+            className={styles.aspectRatioInner}
+            aria-hidden
+          >
             <div
               className={styles.preloadPlaceholder}
               style={{backgroundImage: `url('${lowresBase64}')`}}
@@ -120,7 +125,7 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
               <animated.div className={styles.errorMessage} role="alert" key={key} style={props}>
                 <button
                   className={styles.reloadImageBtn}
-                  onClick={retry}
+                  onClick={() => retry()}
                   type="button"
                 >
                   {titleAppear.map(({item, key, props}) => (
@@ -160,8 +165,5 @@ const Image = ({url, alt, lowresBase64, width, height, caption}) => {
     </figure>
   )
 }
-
-Image.propTypes = propTypes
-Image.defaultProps = defaultProps
 
 export default Image

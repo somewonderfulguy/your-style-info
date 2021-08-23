@@ -15,5 +15,5 @@ export const useIntersectionObserver = (options: IntersectionObserverInit = {}) 
     return disconnect
   }, [intersectionObserver, disconnect])
 
-  return [elemRef, isIntersecting, disconnect]
+  return [elemRef, isIntersecting, disconnect] as [typeof elemRef, boolean, typeof disconnect]
 }

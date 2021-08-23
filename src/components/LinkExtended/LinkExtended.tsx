@@ -15,7 +15,7 @@ type propType = RouteComponentProps & {
   inactive?: boolean
   to?: string
   // TODO check it out
-  onClick: () => void
+  onClick?: () => void
   onMouseEnter?: (e: MouseEvent<HTMLSpanElement>) => void
   onMouseLeave?: (e: MouseEvent<HTMLSpanElement>) => void
 }
