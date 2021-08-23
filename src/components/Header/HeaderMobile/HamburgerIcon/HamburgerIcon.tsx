@@ -1,32 +1,27 @@
 import React, {memo, useRef} from 'react'
-import {bool, func} from 'prop-types'
 import {useSpring, animated} from 'react-spring'
 
 import {useThemeState} from 'contexts'
 import styles from './HamburgerIcon.module.css'
 
-const propTypes = {
-  isOpen: bool,
-  onClick: func
+type propType = {
+  isOpen?: boolean
+  onClick?: () => void
 }
 
-const defaultProps = {
-  isOpen: false,
-  onClick: () => {}
-}
-
-const HamburgerIcon = ({isOpen, onClick}) => {
+const HamburgerIcon = ({isOpen = false, onClick = () => {}}: propType) => {
   const isDarkTheme = useThemeState()
-  const hamburgerDOM = useRef(null)
-  const hamburgerHeight = hamburgerDOM.current ? hamburgerDOM.current.clientHeight : 0
-  const lineHeight = hamburgerDOM.current ? hamburgerDOM.current.querySelector('div').clientHeight : 0
+  const hamburgerDOM = useRef<HTMLButtonElement>(null)
+  const hamburgerHeight = hamburgerDOM.current?.clientHeight ?? 0
+  const lineHeight = hamburgerDOM.current?.querySelector('div')?.clientHeight ?? 0
   const middlePosition = hamburgerHeight / 2 - lineHeight / 2
   const lineColor = isDarkTheme ? 'lightgray' : '#000'
 
   const {timeline} = useSpring({
     config: {duration: 350},
     timeline: isOpen ? 1 : 0
-  })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }) as any
 
   const range = [0, 0.4, 0.6, 1]
 
@@ -58,8 +53,5 @@ const HamburgerIcon = ({isOpen, onClick}) => {
     </button>
   )
 }
-
-HamburgerIcon.propTypes = propTypes
-HamburgerIcon.defaultProps = defaultProps
 
 export default memo(HamburgerIcon)

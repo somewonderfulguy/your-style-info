@@ -1,30 +1,28 @@
-import React, {memo, useState} from 'react'
-import {arrayOf, bool, node, object, oneOfType, string} from 'prop-types'
+import React, {CSSProperties, memo, MutableRefObject, ReactNode, useState} from 'react'
 import {useSpring, animated} from 'react-spring'
 
 import {ArrowForwardIos} from 'assets/images'
 import {useResizeObserver} from 'shared/hooks'
 import styles from './Tree.module.css'
 
-const propTypes = {
-  children: oneOfType([arrayOf(node), node]),
-  lineClassName: string,
-  title: oneOfType([node, string]),
-  style: object,
-  defaultOpen: bool
+type propType = {
+  children?: ReactNode | ReactNode[] | null
+  lineClassName?: string
+  title?: ReactNode | ReactNode[] | string
+  style?: CSSProperties
+  defaultOpen?: boolean
 }
 
-const defaultProps = {
-  children: null,
-  lineClassName: '',
-  title: '',
-  style: {},
-  defaultOpen: false
-}
-
-const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
+const Tree = ({
+  children = null,
+  lineClassName = '',
+  title = '',
+  style = {},
+  defaultOpen
+}: propType) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
-  const [bindResizeObserver, {height: viewHeight}] = useResizeObserver()
+  const [bindResObs, {height: viewHeight}] = useResizeObserver()
+  const bindResizeObserver = bindResObs as MutableRefObject<HTMLUListElement>
 
   const {height, opacity, transform} = useSpring({
     from: {height: 0, opacity: 0, transform: 'translate3d(20px, 0, 0)'},
@@ -33,7 +31,8 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
       opacity: isOpen ? 1 : 0,
       transform: `translate3d(${isOpen ? 0 : 20}px, 0, 0)`
     }
-  })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }) as any
 
   return (
     <div className={styles.frame}>
@@ -58,8 +57,5 @@ const Tree = ({children, lineClassName, title, style, defaultOpen}) => {
     </div>
   )
 }
-
-Tree.propTypes = propTypes
-Tree.defaultProps = defaultProps
 
 export default memo(Tree)

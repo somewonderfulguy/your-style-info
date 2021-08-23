@@ -1,32 +1,27 @@
-import React, {memo, useEffect, useRef} from 'react'
-import {bool, func, number} from 'prop-types'
+import React, {Dispatch, memo, SetStateAction, useEffect, useRef} from 'react'
 import {useSpring, animated, config} from 'react-spring'
 import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
 
 import MobileMenu from './MobileMenu'
 import styles from './HeadNavigationMobile.module.css'
 
-const propTypes = {
-  menuHeight: number,
-  isOpen: bool,
-  setMenuOpen: func.isRequired
+type propType = {
+  menuHeight: number
+  isOpen: boolean
+  setMenuOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const defaultProps = {
-  menuHeight: 0,
-  isOpen: false
-}
-
-const HeadNavigationMobile = ({menuHeight, isOpen, setMenuOpen}) => {
-  const subMenuDOM = useRef(null)
-  const mobileMenuDOM = useRef(null)
+const HeadNavigationMobile = ({menuHeight, isOpen, setMenuOpen}: propType) => {
+  const subMenuDOM = useRef<HTMLDivElement>(null)
+  // used via useImperativeHandle in MobileMenu
+  const mobileMenuDOM = useRef<{ resetAnimation: () => void }>()
 
   // animating menu height
   const {bottom: menuBottom} = useSpring({
     config: isOpen ? config.slow : config.default,
     delay: isOpen ? 150 : 0,
     bottom: isOpen ? '0' : '100%',
-    onRest: () => !isOpen && mobileMenuDOM.current.resetAnimation()
+    onRest: () => !isOpen && mobileMenuDOM.current?.resetAnimation()
   })
 
   // animating menu "lining"
@@ -54,8 +49,8 @@ const HeadNavigationMobile = ({menuHeight, isOpen, setMenuOpen}) => {
       className={styles.lining}
       style={{
         top: menuHeight,
-        background: liningOpacity && liningOpacity.interpolate(o => `rgba(0, 0, 0, ${o / 1.3})`),
-        visibility: liningOpacity.interpolate(o => o > 0 ? 'visible' : 'hidden')
+        background: liningOpacity?.interpolate(o => `rgba(0, 0, 0, ${o ?? 0 / 1.3})`),
+        visibility: liningOpacity?.interpolate(o => !!o && o > 0 ? 'visible' : 'hidden')
       }}
     >
       <animated.div
@@ -63,7 +58,7 @@ const HeadNavigationMobile = ({menuHeight, isOpen, setMenuOpen}) => {
         style={{
           top: menuHeight,
           bottom: menuBottom,
-          borderWidth: menuBottom.interpolate(b => +b.slice(0, -1) < 90 ? 1 : 0)
+          borderWidth: menuBottom.interpolate(b => +(b ? String(b).slice(0, -1) : 0) < 90 ? 1 : 0)
         }}
         ref={subMenuDOM}
       >
@@ -72,8 +67,5 @@ const HeadNavigationMobile = ({menuHeight, isOpen, setMenuOpen}) => {
     </animated.nav>
   )
 }
-
-HeadNavigationMobile.propTypes = propTypes
-HeadNavigationMobile.defaultProps = defaultProps
 
 export default memo(HeadNavigationMobile)

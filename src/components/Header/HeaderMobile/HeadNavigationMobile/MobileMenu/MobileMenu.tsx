@@ -1,26 +1,30 @@
-import React, {forwardRef, useEffect, useImperativeHandle} from 'react'
-import {bool, func} from 'prop-types'
+import React, {Dispatch, forwardRef, SetStateAction, useEffect, useImperativeHandle} from 'react'
 import {useSpring, useSprings, animated} from 'react-spring'
 
-import {PRIME_ROUTES} from 'constants/index'
+import {PRIME_ROUTES, primeRoutesType} from 'constants/index'
 import {useLocalization} from 'contexts'
 import LinkExtended from 'components/LinkExtended'
 import SocialMediaIcons from 'components/SocialMediaIcons'
 import Tree from './Tree'
 import styles from './MobileMenu.module.css'
 
-const propTypes = {
-  isOpen: bool,
-  setMenuOpen: func.isRequired
+type propType = {
+  isOpen?: boolean;
+  setMenuOpen: Dispatch<SetStateAction<boolean>>
 }
-const defaultProps = {isOpen: false}
 
-const renderItem = ([path, {name, sub, inactive}], locale, setMenuOpen, isSubItem = false) => {
+type firstParam = [string, {name: string, sub?: primeRoutesType, inactive?: boolean}]
+const renderItem = (
+  [path, {name, sub, inactive}]: firstParam,
+  locale: string,
+  setMenuOpen: Dispatch<SetStateAction<boolean>>,
+  isSubItem: boolean | undefined
+) => {
   const Link = (
     <LinkExtended
       to={`/${locale}${path}`}
       children={name}
-      inactive={inactive}
+      inactive={!!inactive}
       className={inactive ? styles.inactiveListItems : ''}
       onClick={() => setMenuOpen(false)}
     />
@@ -39,7 +43,7 @@ const renderItem = ([path, {name, sub, inactive}], locale, setMenuOpen, isSubIte
   )
 }
 
-const MobileMenu = forwardRef(({isOpen, setMenuOpen}, ref) => {
+const MobileMenu = forwardRef(({isOpen, setMenuOpen}: propType, ref) => {
   const routesEntries = Object.entries(PRIME_ROUTES)
   const [{locale}] = useLocalization()
 
@@ -58,9 +62,11 @@ const MobileMenu = forwardRef(({isOpen, setMenuOpen}, ref) => {
     },
     delay: isOpen ? (idx === 0 ? DELAY : DELAY * (idx + 1)) : 0,
     immediate: false
-  })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }) as any
 
-  const [menuItemsSprings, setMenuItemsSprings] = useSprings(routesEntries.length, springsFunction(isOpen))
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [menuItemsSprings, setMenuItemsSprings] = useSprings(routesEntries.length, springsFunction(isOpen)) as any
 
   const socialMediaAppearing = useSpring({
     config: {duration: 500},
@@ -103,8 +109,5 @@ const MobileMenu = forwardRef(({isOpen, setMenuOpen}, ref) => {
     </div>
   )
 })
-
-MobileMenu.propTypes = propTypes
-MobileMenu.defaultProps = defaultProps
 
 export default MobileMenu
