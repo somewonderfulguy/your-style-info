@@ -32,7 +32,7 @@ const LinkExtended = ({
   staticContext, // exclude from ...rest
   ...rest
 }: propType) => {
-  const {refetch} = usePageQuery(to, {enabled: false})
+  usePageQuery(to, {enabled: false})
 
   const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
 
@@ -44,9 +44,6 @@ const LinkExtended = ({
   // FIXME
   const clickHandler = e => {
     e.preventDefault()
-
-    console.log('the revolution begins!')
-    // refetch()
 
     onClick()
 

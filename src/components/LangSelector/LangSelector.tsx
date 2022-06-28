@@ -5,6 +5,7 @@ import {useLocalization, useThemeState} from 'contexts'
 import {useOutsideClick} from 'shared/hooks'
 import {LanguageIcon} from 'assets/images'
 import {LANGUAGES, LOCALES} from 'constants/index'
+
 import styles from './LangSelector.module.css'
 
 const propTypes = {

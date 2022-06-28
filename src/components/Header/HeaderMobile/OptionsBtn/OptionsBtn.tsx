@@ -65,5 +65,6 @@ const OptionsBtn = forwardRef(({isOpen = false, onClick = () => {}}: propType, r
     </button>
   )
 })
+OptionsBtn.displayName = 'OptionsBtn'
 
 export default OptionsBtn

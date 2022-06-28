@@ -6,7 +6,7 @@ export function useResizeObserver(delay = 0, initialBounds = {left: 0, top: 0, w
   const elemRef = useRef<Element>(null)
   const [bounds, setBounds] = useState(initialBounds)
 
-  const observer = throttle(([entry]) => setBounds(entry.contentRect), delay)
+  const observer = throttle(([entry]) => setBounds(Array.isArray(entry) ? entry[0].contentRect : entry.contentRect), delay)
   const [resizeObserver] = useState(() => new ResizeObserver(observer))
   const disconnect = useCallback(() => resizeObserver.disconnect(), [resizeObserver])
 

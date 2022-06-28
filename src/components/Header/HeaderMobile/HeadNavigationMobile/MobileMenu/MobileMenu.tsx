@@ -5,7 +5,9 @@ import {PRIME_ROUTES, primeRoutesType} from 'constants/index'
 import {useLocalization} from 'contexts'
 import LinkExtended from 'components/LinkExtended'
 import SocialMediaIcons from 'components/SocialMediaIcons'
+
 import Tree from './Tree'
+
 import styles from './MobileMenu.module.css'
 
 type propType = {
@@ -109,5 +111,6 @@ const MobileMenu = forwardRef(({isOpen, setMenuOpen}: propType, ref) => {
     </div>
   )
 })
+MobileMenu.displayName = 'MobileMenu'
 
 export default MobileMenu
