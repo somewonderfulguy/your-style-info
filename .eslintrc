@@ -96,7 +96,8 @@
     "jest/prefer-called-with": "error",
     "jest/prefer-todo": "error",
     "jest/valid-title": "error",
-    "jest/no-commented-out-tests": "error"
+    "jest/no-commented-out-tests": "error",
+    "jest/prefer-to-be": 0
   },
   "overrides": [
     {

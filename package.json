@@ -14,7 +14,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore .",
     "postinstall": "husky install",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
     "@tanem/react-nprogress": "^3.0.30",
@@ -29,6 +31,17 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^6.5.9",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/node-logger": "^6.5.9",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",
@@ -42,6 +55,7 @@
     "@types/react-scroll": "^1.8.3",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^4.28.1",
+    "babel-plugin-named-exports-order": "^0.0.2",
     "cross-env": "^7.0.2",
     "eslint": "^8.18.0",
     "eslint-config-react-app": "^6.0.0",
@@ -50,11 +64,23 @@
     "intersection-observer": "^0.12.0",
     "mq-polyfill": "^1.1.8",
     "msw": "^0.34.0",
+    "prop-types": "^15.8.1",
     "snapshot-diff": "^0.8.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "webpack": "^5.73.0"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [
