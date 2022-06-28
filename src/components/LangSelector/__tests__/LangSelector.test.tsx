@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {act, fireEvent, render, renderWholeApp, userEvent, screen, waitFor} from 'shared/tests'
+import {act, render, renderWholeApp, userEvent, screen, waitFor} from 'shared/tests'
 import LangSelector from '..'
 import {FULL_LOCALES} from 'constants/index'
 
