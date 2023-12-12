@@ -23,14 +23,14 @@
 }
 
 /* tablet */
-@media(max-width: 1024px) {
+@media (max-width: 1024px) {
   .layout {
     padding: 50px 75px;
   }
 }
 
 /* mobile */
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .layout {
     padding: 0;
     margin: 25px;

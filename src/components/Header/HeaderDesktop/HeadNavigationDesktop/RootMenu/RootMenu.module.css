@@ -10,7 +10,7 @@
 
 .listItem {
   display: inline-block;
-  transition: background-color .2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .listItemActive {
@@ -18,17 +18,21 @@
   background-color: rgb(var(--primaryHoverHighlight));
 }
 
-.listItemActive .link {color: #0a4fff;}
+.listItemActive .link {
+  color: #0a4fff;
+}
 
 .listItemInactive {
   composes: listItem;
   color: rgb(var(--primaryDisabled));
-  transition: color .2s ease;
+  transition: color 0.2s ease;
   cursor: inherit;
   padding: 15px;
 }
 
-.listItemInactive:hover {background-color: transparent;}
+.listItemInactive:hover {
+  background-color: transparent;
+}
 
 .link {
   display: block;

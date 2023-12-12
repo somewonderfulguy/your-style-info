@@ -32,6 +32,12 @@
   background-color: lightgray;
 }
 
-.hamburger > div:nth-child(1) {top: 0;}
-.hamburger > div:nth-child(2) {top: calc(50% - var(--mobile-menu-hamburger-line) / 2);}
-.hamburger > div:nth-child(3) {bottom: 0;}
+.hamburger > div:nth-child(1) {
+  top: 0;
+}
+.hamburger > div:nth-child(2) {
+  top: calc(50% - var(--mobile-menu-hamburger-line) / 2);
+}
+.hamburger > div:nth-child(3) {
+  bottom: 0;
+}

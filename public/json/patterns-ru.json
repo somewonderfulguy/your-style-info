@@ -1,8 +1,10 @@
 {
   "id": "pattenrs_ru",
   "header": "Паттерны",
-  "components": [{
-    "type": "text",
-    "text": "Таков путь."
-  }]
+  "components": [
+    {
+      "type": "text",
+      "text": "Таков путь."
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-import {anyFunctionType} from '..'
+import { anyFunctionType } from '..'
 
 export const throttle = (func: anyFunctionType, delay = 0) => {
   let isThrottled = false
@@ -6,7 +6,7 @@ export const throttle = (func: anyFunctionType, delay = 0) => {
   let savedArgs: any[] | null
 
   const wrapper = (...args) => {
-    if(isThrottled) {
+    if (isThrottled) {
       savedArgs = args
       return
     }
@@ -16,7 +16,7 @@ export const throttle = (func: anyFunctionType, delay = 0) => {
 
     setTimeout(() => {
       isThrottled = false
-      if(savedArgs) {
+      if (savedArgs) {
         wrapper(savedArgs)
         savedArgs = null
       }

@@ -1,1 +1,1 @@
-export {default} from './OptionsBtn'
+export { default } from './OptionsBtn'

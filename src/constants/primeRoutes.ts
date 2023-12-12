@@ -1,8 +1,11 @@
-export type thumbnailType = {
-  url: string
-  alt?: string
-  background: string
-} | null | undefined
+export type thumbnailType =
+  | {
+      url: string
+      alt?: string
+      background: string
+    }
+  | null
+  | undefined
 
 export type primeRoutesType = {
   [key: string]: {

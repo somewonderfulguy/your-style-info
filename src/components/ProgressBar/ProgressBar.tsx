@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef} from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 
 import styles from './ProgressBar.module.css'
 
@@ -8,7 +8,7 @@ type propType = {
   value?: string | number
 }
 
-const ProgressBar = ({width = '100%', height = 5, value = 0}: propType) => {
+const ProgressBar = ({ width = '100%', height = 5, value = 0 }: propType) => {
   const progressDOM = useRef<HTMLProgressElement>(null)
 
   useLayoutEffect(() => {
@@ -17,7 +17,7 @@ const ProgressBar = ({width = '100%', height = 5, value = 0}: propType) => {
 
   return (
     <progress
-      style={{width, height}}
+      style={{ width, height }}
       className={styles.progressBar}
       value={value}
       max="100"

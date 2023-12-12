@@ -1,18 +1,18 @@
-import {renderHook} from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 
-import {usePrevious} from '..'
+import { usePrevious } from '..'
 
 test('should return previous value if value updates (null is inital value)', () => {
-  const {result, rerender} = renderHook(
-    ({initialValue}) => usePrevious(initialValue),
-    {initialProps: {initialValue: 'Trench'}}
+  const { result, rerender } = renderHook(
+    ({ initialValue }) => usePrevious(initialValue),
+    { initialProps: { initialValue: 'Trench' } }
   )
 
   expect(result.current).toBeNull()
 
-  rerender({initialValue: 'coat'})
+  rerender({ initialValue: 'coat' })
   expect(result.current).toEqual('Trench')
 
-  rerender({initialValue: 'outerwear'})
+  rerender({ initialValue: 'outerwear' })
   expect(result.current).toEqual('coat')
 })

@@ -1,1 +1,1 @@
-export {default} from './HeaderDesktop'
+export { default } from './HeaderDesktop'

@@ -1,12 +1,16 @@
 import React from 'react'
 
-import {componentTypes} from 'api'
+import { componentTypes } from 'api'
 import Image from 'components/Image'
 import TextBlock from 'components/TextBlock'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getComponent = (type: componentTypes, props: any, idx: number | string) => {
-  switch(type) {
+export const getComponent = (
+  type: componentTypes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  props: any,
+  idx: number | string
+) => {
+  switch (type) {
     case 'image':
       return <Image key={idx} {...props} />
 

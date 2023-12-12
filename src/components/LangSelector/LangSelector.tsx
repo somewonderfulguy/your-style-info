@@ -1,10 +1,10 @@
-import React, {useRef, useState} from 'react'
-import {bool} from 'prop-types'
+import React, { useRef, useState } from 'react'
+import { bool } from 'prop-types'
 
-import {useLocalization, useThemeState} from 'contexts'
-import {useOutsideClick} from 'shared/hooks'
-import {LanguageIcon} from 'assets/images'
-import {LANGUAGES, LOCALES} from 'constants/index'
+import { useLocalization, useThemeState } from 'contexts'
+import { useOutsideClick } from 'shared/hooks'
+import { LanguageIcon } from 'assets/images'
+import { LANGUAGES, LOCALES } from 'constants/index'
 
 import styles from './LangSelector.module.css'
 
@@ -18,11 +18,11 @@ const defaultProps = {
   gray: false
 }
 
-const LangSelector = ({showAbove, gray}) => {
+const LangSelector = ({ showAbove, gray }) => {
   const [
-    {locale: currentLocale},
+    { locale: currentLocale },
     setLocaleState,
-    {isLoading: isLanguageLoading, data: localeData}
+    { isLoading: isLanguageLoading, data: localeData }
   ] = useLocalization()
 
   const isDarkTheme = useThemeState()
@@ -32,20 +32,23 @@ const LangSelector = ({showAbove, gray}) => {
 
   useOutsideClick(langSelectorRef, () => setOpen(false))
 
-  const langSelectorClass = isDarkTheme ? styles.langSelectorDark : styles.langSelector
+  const langSelectorClass = isDarkTheme
+    ? styles.langSelectorDark
+    : styles.langSelector
   const grayClass = gray ? styles.gray : ''
 
   const triangleClass = showAbove
-    ? (isOpen ? styles.triangle : styles.triangleReverse)
-    : (isOpen ? styles.triangleReverse : styles.triangle)
+    ? isOpen
+      ? styles.triangle
+      : styles.triangleReverse
+    : isOpen
+      ? styles.triangleReverse
+      : styles.triangle
 
   return (
-    <div
-      ref={langSelectorRef}
-      className={`${langSelectorClass} ${grayClass}`}
-    >
+    <div ref={langSelectorRef} className={`${langSelectorClass} ${grayClass}`}>
       <button
-        onClick={() => setOpen(isOpen => !isOpen)}
+        onClick={() => setOpen((isOpen) => !isOpen)}
         className={styles.langSelectorInner}
         type="button"
         disabled={isLanguageLoading}
@@ -65,7 +68,7 @@ const LangSelector = ({showAbove, gray}) => {
           className={showAbove ? styles.dropDownAbove : styles.dropDownBelow}
           role="menu"
         >
-          {LOCALES.map(locale => (
+          {LOCALES.map((locale) => (
             <li role="menuitem" key={locale}>
               <button
                 type="button"

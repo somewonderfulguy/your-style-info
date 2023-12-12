@@ -5,18 +5,22 @@
   overflow: hidden;
 }
 
-.progressBar::-webkit-progress-bar {background: none;}
-.progressBar::-webkit-progress-value {background-color: #3e82f4;}
+.progressBar::-webkit-progress-bar {
+  background: none;
+}
 .progressBar::-webkit-progress-value {
-  transition: width .2s;
+  background-color: #3e82f4;
+}
+.progressBar::-webkit-progress-value {
+  transition: width 0.2s;
 }
 
 .progressBar::-moz-progress-bar {
-  transition: padding-bottom .3s;
+  transition: padding-bottom 0.3s;
   padding-left: 60px;
   padding-bottom: var(--value);
   background-color: #3e82f4;
   height: 0;
   transform-origin: 0 0;
-  transform: rotate(-90deg) translateX(-60px) ;
+  transform: rotate(-90deg) translateX(-60px);
 }

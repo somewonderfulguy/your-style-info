@@ -7,7 +7,9 @@
   fill: gray;
 }
 
-.title {vertical-align: middle;}
+.title {
+  vertical-align: middle;
+}
 
 .content {
   margin-left: 15px;
@@ -26,7 +28,7 @@
   cursor: pointer;
   vertical-align: middle;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  transition: transform .2s ease-in;
+  transition: transform 0.2s ease-in;
 }
 
 .iconOpen {

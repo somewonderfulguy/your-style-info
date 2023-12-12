@@ -1,6 +1,6 @@
-import {MutableRefObject, useEffect} from 'react'
+import { MutableRefObject, useEffect } from 'react'
 
-import {anyFunctionType} from '..'
+import { anyFunctionType } from '..'
 
 export const useOutsideClick = (
   ref: MutableRefObject<Element | null>,
@@ -9,9 +9,12 @@ export const useOutsideClick = (
 ) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if(
-        (ref.current && !ref.current.contains(event.target as Node))
-        && (!(ignoreElements.some(element => element.contains(event.target as Node))))
+      if (
+        ref.current &&
+        !ref.current.contains(event.target as Node) &&
+        !ignoreElements.some((element) =>
+          element.contains(event.target as Node)
+        )
       ) {
         cb()
       }

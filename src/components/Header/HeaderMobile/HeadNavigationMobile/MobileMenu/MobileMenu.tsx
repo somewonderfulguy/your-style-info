@@ -1,8 +1,14 @@
-import React, {Dispatch, forwardRef, SetStateAction, useEffect, useImperativeHandle} from 'react'
-import {useSpring, useSprings, animated} from 'react-spring'
+import React, {
+  Dispatch,
+  forwardRef,
+  SetStateAction,
+  useEffect,
+  useImperativeHandle
+} from 'react'
+import { useSpring, useSprings, animated } from 'react-spring'
 
-import {PRIME_ROUTES, primeRoutesType} from 'constants/index'
-import {useLocalization} from 'contexts'
+import { PRIME_ROUTES, primeRoutesType } from 'constants/index'
+import { useLocalization } from 'contexts'
 import LinkExtended from 'components/LinkExtended'
 import SocialMediaIcons from 'components/SocialMediaIcons'
 
@@ -11,13 +17,16 @@ import Tree from './Tree'
 import styles from './MobileMenu.module.css'
 
 type propType = {
-  isOpen?: boolean;
+  isOpen?: boolean
   setMenuOpen: Dispatch<SetStateAction<boolean>>
 }
 
-type firstParam = [string, {name: string, sub?: primeRoutesType, inactive?: boolean}]
+type firstParam = [
+  string,
+  { name: string; sub?: primeRoutesType; inactive?: boolean }
+]
 const renderItem = (
-  [path, {name, sub, inactive}]: firstParam,
+  [path, { name, sub, inactive }]: firstParam,
   locale: string,
   setMenuOpen: Dispatch<SetStateAction<boolean>>,
   isSubItem: boolean | undefined
@@ -36,42 +45,50 @@ const renderItem = (
       key={path}
       title={Link}
       children={Object.entries(sub).map((entry, i) => (
-        <li className={styles.subItemLine} key={i}>{renderItem(entry, locale, setMenuOpen, true)}</li>
+        <li className={styles.subItemLine} key={i}>
+          {renderItem(entry, locale, setMenuOpen, true)}
+        </li>
       ))}
       lineClassName={styles.line}
     />
   ) : (
-    <div key={path} className={isSubItem ? '' : styles.lineLink}>{Link}</div>
+    <div key={path} className={isSubItem ? '' : styles.lineLink}>
+      {Link}
+    </div>
   )
 }
 
-const MobileMenu = forwardRef(({isOpen, setMenuOpen}: propType, ref) => {
+const MobileMenu = forwardRef(({ isOpen, setMenuOpen }: propType, ref) => {
   const routesEntries = Object.entries(PRIME_ROUTES)
-  const [{locale}] = useLocalization()
+  const [{ locale }] = useLocalization()
 
   const DURATION = 250
   const DELAY = 150
 
-  const springsFunction = isOpen => idx => ({
-    config: {duration: DURATION},
-    from: {
-      opacity: 0,
-      transform: 'translate3d(16px, 0, 0)'
-    },
-    to: {
-      opacity: 1,
-      transform: 'translate3d(0, 0, 0)'
-    },
-    delay: isOpen ? (idx === 0 ? DELAY : DELAY * (idx + 1)) : 0,
-    immediate: false
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  }) as any
+  const springsFunction = (isOpen) => (idx) =>
+    ({
+      config: { duration: DURATION },
+      from: {
+        opacity: 0,
+        transform: 'translate3d(16px, 0, 0)'
+      },
+      to: {
+        opacity: 1,
+        transform: 'translate3d(0, 0, 0)'
+      },
+      delay: isOpen ? (idx === 0 ? DELAY : DELAY * (idx + 1)) : 0,
+      immediate: false
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    }) as any
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [menuItemsSprings, setMenuItemsSprings] = useSprings(routesEntries.length, springsFunction(isOpen)) as any
+    const [menuItemsSprings, setMenuItemsSprings] = useSprings(
+      routesEntries.length,
+      springsFunction(isOpen)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) as any
 
   const socialMediaAppearing = useSpring({
-    config: {duration: 500},
+    config: { duration: 500 },
     from: {
       opacity: 0,
       transform: 'translate3d(0, 10px, 0)'
@@ -88,12 +105,13 @@ const MobileMenu = forwardRef(({isOpen, setMenuOpen}: propType, ref) => {
   }, [isOpen, setMenuItemsSprings])
 
   useImperativeHandle(ref, () => ({
-    resetAnimation: () => setMenuItemsSprings({
-      opacity: 0,
-      transform: 'translate3d(16px, 0, 0)',
-      delay: 0,
-      immediate: true
-    })
+    resetAnimation: () =>
+      setMenuItemsSprings({
+        opacity: 0,
+        transform: 'translate3d(16px, 0, 0)',
+        delay: 0,
+        immediate: true
+      })
   }))
 
   return (
@@ -105,7 +123,10 @@ const MobileMenu = forwardRef(({isOpen, setMenuOpen}: propType, ref) => {
           </animated.li>
         ))}
       </ul>
-      <animated.div style={socialMediaAppearing} className={styles.socialMediaContainer}>
+      <animated.div
+        style={socialMediaAppearing}
+        className={styles.socialMediaContainer}
+      >
         <SocialMediaIcons />
       </animated.div>
     </div>

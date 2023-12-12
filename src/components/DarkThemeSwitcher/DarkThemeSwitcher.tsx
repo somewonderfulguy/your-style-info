@@ -1,23 +1,29 @@
 import React from 'react'
 
-import {useThemeState, useThemeSwitch} from 'contexts'
+import { useThemeState, useThemeSwitch } from 'contexts'
 
 import moonIcon from 'assets/images/moon.svg'
 import sunIcon from 'assets/images/sun.svg'
 import styles from './DarkThemeSwitcher.module.css'
 
 type propType = {
-  darkerPalette?: boolean;
-  labelText?: boolean;
+  darkerPalette?: boolean
+  labelText?: boolean
 }
 
-const DarkThemeSwitcher = ({darkerPalette = false, labelText = false}: propType) => {
+const DarkThemeSwitcher = ({
+  darkerPalette = false,
+  labelText = false
+}: propType) => {
   const isDarkTheme = useThemeState()
   const switchTheme = useThemeSwitch()
 
   return (
     // TODO: dynamically change aria label text
-    <label className={darkerPalette ? styles.switchDarker : styles.switch} aria-label="switch theme">
+    <label
+      className={darkerPalette ? styles.switchDarker : styles.switch}
+      aria-label="switch theme"
+    >
       <input
         className={styles.checkbox}
         type="checkbox"
@@ -41,9 +47,7 @@ const DarkThemeSwitcher = ({darkerPalette = false, labelText = false}: propType)
           }}
         />
       </div>
-      {labelText && (
-        <span className={styles.text}>Switch theme</span>
-      )}
+      {labelText && <span className={styles.text}>Switch theme</span>}
     </label>
   )
 }

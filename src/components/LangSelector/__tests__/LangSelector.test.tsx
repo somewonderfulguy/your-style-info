@@ -1,12 +1,23 @@
 import React from 'react'
 
-import {act, render, renderWholeApp, userEvent, screen, waitFor} from 'shared/tests'
+import {
+  act,
+  render,
+  renderWholeApp,
+  userEvent,
+  screen,
+  waitFor
+} from 'shared/tests'
 import LangSelector from '..'
-import {FULL_LOCALES} from 'constants/index'
+import { FULL_LOCALES } from 'constants/index'
 
 expect.addSnapshotSerializer({
-  test(val) {return true},
-  print(val) {return (val as string).replace(/\n\+\s{0,}<ul(\n.*){1,}/gm, '')}
+  test(val) {
+    return true
+  },
+  print(val) {
+    return (val as string).replace(/\n\+\s{0,}<ul(\n.*){1,}/gm, '')
+  }
 })
 
 const [english, russian] = FULL_LOCALES
@@ -14,10 +25,9 @@ const englishRegExp = new RegExp(english, 'i')
 const russianRegExp = new RegExp(russian, 'i')
 
 const setup = (showAbove?: boolean, gray?: boolean, path = '/') => {
-  const utils = render(
-    <LangSelector showAbove={showAbove} gray={gray} />,
-    {route: path}
-  )
+  const utils = render(<LangSelector showAbove={showAbove} gray={gray} />, {
+    route: path
+  })
 
   const getSwitchLanguageBtn = () => screen.getByTestId('langSelector')
 
@@ -34,7 +44,7 @@ test('snapshot diff: aria state and css-class of triangle when open/hidden menu 
     bAnnotation: 'expanded menu'
   }
 
-  const {getSwitchLanguageBtn, asFragment, rerender} = setup()
+  const { getSwitchLanguageBtn, asFragment, rerender } = setup()
   const beforeClick = asFragment()
   const switchLanguageBtn = getSwitchLanguageBtn()
 
@@ -52,12 +62,15 @@ test('snapshot diff: aria state and css-class of triangle when open/hidden menu 
 
   const beforeClickShowAbove = asFragment()
   userEvent.click(switchLanguageBtn)
-  expect(beforeClickShowAbove).toMatchDiffSnapshot(asFragment(), diffSnapshotOptions)
+  expect(beforeClickShowAbove).toMatchDiffSnapshot(
+    asFragment(),
+    diffSnapshotOptions
+  )
 })
 
 test('should show/hide menu when clicking on language selector', async () => {
   const url = '/en/outerwear/trench-coat'
-  const {getSwitchLanguageBtn} = setup(false, false, url)
+  const { getSwitchLanguageBtn } = setup(false, false, url)
   const langSelectorBtn = getSwitchLanguageBtn()
 
   expect(screen.queryByRole('menu')).not.toBeInTheDocument()
@@ -68,13 +81,23 @@ test('should show/hide menu when clicking on language selector', async () => {
   expect(screen.getByRole('menu')).toBeInTheDocument()
 
   // select language - hides menu (also check that button text changes depending on current lang, and current lang in menu must be disabled)
-  const getEnglishMenuItem = () => screen.getByRole('menuitem', {name: englishRegExp}).querySelector('button')
-  const getRussianMenuItem = () => screen.getByRole('menuitem', {name: russianRegExp}).querySelector('button')
+  const getEnglishMenuItem = () =>
+    screen
+      .getByRole('menuitem', { name: englishRegExp })
+      .querySelector('button')
+  const getRussianMenuItem = () =>
+    screen
+      .getByRole('menuitem', { name: russianRegExp })
+      .querySelector('button')
 
   expect(langSelectorBtn).toHaveTextContent(new RegExp(english, 'i'))
   expect(getEnglishMenuItem()).toBeDisabled()
   expect(getRussianMenuItem()).not.toBeDisabled()
-  userEvent.click(screen.getByRole('menu').querySelector('button:not(:disabled)') as HTMLElement)
+  userEvent.click(
+    screen
+      .getByRole('menu')
+      .querySelector('button:not(:disabled)') as HTMLElement
+  )
   expect(screen.queryByRole('menu')).not.toBeInTheDocument()
   await waitFor(() => expect(langSelectorBtn).toHaveTextContent(russianRegExp))
 
@@ -104,7 +127,8 @@ test('header and footer lang selectors, light/dark themes, desktop/mobile', asyn
     bAnnotation: 'dark theme'
   }
 
-  const [blockHeaderLangSelector, blockFooterLangSelector] = screen.getAllByText(russianRegExp)
+  const [blockHeaderLangSelector, blockFooterLangSelector] =
+    screen.getAllByText(russianRegExp)
   const headerLangSelector = blockHeaderLangSelector.closest('button')
   const footerLangSelector = blockFooterLangSelector.closest('button')
   const headerLangSelectorWrapper = headerLangSelector?.parentElement
@@ -124,13 +148,19 @@ test('header and footer lang selectors, light/dark themes, desktop/mobile', asyn
   const desktopHeaderLight = headerLangSelectorWrapper?.className
   userEvent.click(themeSwitcher)
   const desktopHeaderDark = headerLangSelectorWrapper?.className
-  expect(desktopHeaderLight).toMatchDiffSnapshot(desktopHeaderDark, diffSnapshotOptions)
+  expect(desktopHeaderLight).toMatchDiffSnapshot(
+    desktopHeaderDark,
+    diffSnapshotOptions
+  )
 
   // desktop footer theme
   const desktopFooterDark = footerLangSelectorWrapper?.className
   userEvent.click(themeSwitcher)
   const desktopFooterLight = footerLangSelectorWrapper?.className
-  expect(desktopFooterLight).toMatchDiffSnapshot(desktopFooterDark, diffSnapshotOptions)
+  expect(desktopFooterLight).toMatchDiffSnapshot(
+    desktopFooterDark,
+    diffSnapshotOptions
+  )
 
   userEvent.click(footerLangSelector as HTMLButtonElement)
   expect(getMenu().className).toMatchSnapshot('mobile footer drop up')
@@ -140,5 +170,8 @@ test('header and footer lang selectors, light/dark themes, desktop/mobile', asyn
   userEvent.click(themeSwitcher)
   const mobileFooterDark = footerLangSelectorWrapper?.className
 
-  expect(mobileFooterLight).toMatchDiffSnapshot(mobileFooterDark, diffSnapshotOptions)
+  expect(mobileFooterLight).toMatchDiffSnapshot(
+    mobileFooterDark,
+    diffSnapshotOptions
+  )
 })

@@ -1,1 +1,1 @@
-export {default} from './FooterNavigation'
+export { default } from './FooterNavigation'

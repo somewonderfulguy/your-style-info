@@ -37,30 +37,6 @@
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
 
-    // Stylistic Issues
-    // "indent": ["error", 2, {"SwitchCase": 1}],
-    // "semi": ["error", "never"],
-    // "space-in-parens": ["error", "never"],
-    // "array-bracket-spacing": ["error", "never"],
-    // "block-spacing": ["error", "never"],
-    // "brace-style": ["error", "1tbs", {"allowSingleLine": true}],
-    // "keyword-spacing": ["error", {
-    //   "overrides": {
-    //     "if": {"after": false},
-    //     "for": {"after": false},
-    //     "while": {"after": false},
-    //     "switch": {"after": false}
-    //   }
-    // }],
-    // "camelcase": "error",
-    // "computed-property-spacing": ["error", "never"],
-    // "eol-last": ["error", "never"],
-    // "no-multiple-empty-lines": ["error", {"max": 1}],
-    // "nonblock-statement-body-position": ["error", "beside"],
-    // "padded-blocks": ["error", "never"],
-    // "quotes": ["error", "single", {"allowTemplateLiterals": true}],
-    // "import/no-anonymous-default-export": "off",
-
     // ECMAScript 6
     "arrow-body-style": ["error", "as-needed"],
     "template-curly-spacing": ["error", "never"],

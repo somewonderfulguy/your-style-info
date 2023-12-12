@@ -10,9 +10,10 @@ const componentMeta: ComponentMeta<typeof SocialMediaIcons> = {
 }
 export default componentMeta
 
-const Template: ComponentStory<typeof SocialMediaIcons> = (args) => <SocialMediaIcons {...args} />
+const Template: ComponentStory<typeof SocialMediaIcons> = (args) => (
+  <SocialMediaIcons {...args} />
+)
 
 export const SocialMediaIconsDefault = Template.bind({})
 
-SocialMediaIconsDefault.args = {
-}
+SocialMediaIconsDefault.args = {}

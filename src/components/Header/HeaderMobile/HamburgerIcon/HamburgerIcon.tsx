@@ -1,7 +1,7 @@
-import React, {memo, useRef} from 'react'
-import {useSpring, animated} from 'react-spring'
+import React, { memo, useRef } from 'react'
+import { useSpring, animated } from 'react-spring'
 
-import {useThemeState} from 'contexts'
+import { useThemeState } from 'contexts'
 import styles from './HamburgerIcon.module.css'
 
 type propType = {
@@ -9,34 +9,47 @@ type propType = {
   onClick?: () => void
 }
 
-const HamburgerIcon = ({isOpen = false, onClick = () => {}}: propType) => {
+const HamburgerIcon = ({ isOpen = false, onClick = () => {} }: propType) => {
   const isDarkTheme = useThemeState()
   const hamburgerDOM = useRef<HTMLButtonElement>(null)
   const hamburgerHeight = hamburgerDOM.current?.clientHeight ?? 0
-  const lineHeight = hamburgerDOM.current?.querySelector('div')?.clientHeight ?? 0
+  const lineHeight =
+    hamburgerDOM.current?.querySelector('div')?.clientHeight ?? 0
   const middlePosition = hamburgerHeight / 2 - lineHeight / 2
   const lineColor = isDarkTheme ? 'lightgray' : '#000'
 
-  const {timeline} = useSpring({
-    config: {duration: 350},
+  const { timeline } = useSpring({
+    config: { duration: 350 },
     timeline: isOpen ? 1 : 0
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }) as any
 
   const range = [0, 0.4, 0.6, 1]
 
   const topLine = {
-    top: timeline.interpolate(range, [0, middlePosition, middlePosition, middlePosition]),
-    transform: timeline.interpolate({range, output: [0, 0, 0, 45]}).interpolate(x => `rotate(${x}deg)`)
+    top: timeline.interpolate(range, [
+      0,
+      middlePosition,
+      middlePosition,
+      middlePosition
+    ]),
+    transform: timeline
+      .interpolate({ range, output: [0, 0, 0, 45] })
+      .interpolate((x) => `rotate(${x}deg)`)
   }
 
   const bottomLine = {
     bottom: topLine.top,
-    transform: timeline.interpolate({range, output: [0, 0, 0, 45]}).interpolate(x => `rotate(-${x}deg)`)
+    transform: timeline
+      .interpolate({ range, output: [0, 0, 0, 45] })
+      .interpolate((x) => `rotate(-${x}deg)`)
   }
 
   const midLine = {
-    background: timeline.interpolate({range, output: [lineColor, 'transparent', 'transparent', 'transparent']})
+    background: timeline.interpolate({
+      range,
+      output: [lineColor, 'transparent', 'transparent', 'transparent']
+    })
   }
 
   return (

@@ -13,8 +13,9 @@
     font-family: 'Inconsolata', monospace;
 */
 
-body, button {
-  font-family: "Ubuntu", sans-serif;
+body,
+button {
+  font-family: 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -5,27 +5,35 @@
 
   display: flex;
   justify-content: center;
-  
+
   outline: none;
 }
 
-.darkBtn { composes: btn; }
+.darkBtn {
+  composes: btn;
+}
 
 .dot {
   background-color: #000;
   border-radius: 50%;
 
   position: absolute;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 }
 
 .darkBtn .dot {
   background-color: lightgray;
 }
 
-.dot:nth-child(1) {top: 0; transform: rotate(-45deg);}
+.dot:nth-child(1) {
+  top: 0;
+  transform: rotate(-45deg);
+}
 .dot:nth-child(2) {
   top: 50%;
   transform: translateY(-50%);
 }
-.dot:nth-child(3) {bottom: 0; transform: rotate(45deg);}
+.dot:nth-child(3) {
+  bottom: 0;
+  transform: rotate(45deg);
+}

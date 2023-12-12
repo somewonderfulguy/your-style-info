@@ -1,7 +1,13 @@
 import React from 'react'
 
-import {render, screen, userEvent, waitFor, waitForElementToBeRemoved} from 'shared/tests'
-import Image, {getAspectRatio} from '../Image'
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  waitForElementToBeRemoved
+} from 'shared/tests'
+import Image, { getAspectRatio } from '../Image'
 
 jest.mock('shared/hooks/useIntersectionObserver')
 
@@ -19,7 +25,8 @@ const setup = (props = {}) => {
       {...props}
     />
   )
-  const getPreloadBlock = () => utils.container.querySelector('.preloadPlaceholder')
+  const getPreloadBlock = () =>
+    utils.container.querySelector('.preloadPlaceholder')
   return {
     getPreloadBlock,
     ...utils
@@ -36,7 +43,7 @@ test('getAspectRatio fn calculates paddingBottom value correctly', () => {
 })
 
 test('image works as expected', async () => {
-  const {getPreloadBlock} = setup()
+  const { getPreloadBlock } = setup()
 
   // preload block only, image loads and appears
   expect(getPreloadBlock()).toBeInTheDocument()
@@ -49,7 +56,7 @@ test('image works as expected', async () => {
 })
 
 test('should not show figcaption if no caption passed as a prop', async () => {
-  const {container} = setup({caption: undefined})
+  const { container } = setup({ caption: undefined })
   const figcaption = container.querySelector('figcaption')
   expect(figcaption).not.toBeInTheDocument()
 })
@@ -73,7 +80,7 @@ test('"try again" block on failed image load works as expected', async () => {
   }
 
   // for some reason to make test pass, the new url has to be set
-  const {getPreloadBlock} = setup({url: '/img/trench-coat-02.jpg'})
+  const { getPreloadBlock } = setup({ url: '/img/trench-coat-02.jpg' })
 
   // preloader, no image
   expect(getPreloadBlock()).toBeInTheDocument()

@@ -1,8 +1,8 @@
-import {useSpring} from 'react-spring'
+import { useSpring } from 'react-spring'
 
 export function useAnimatedAppearing() {
   const appearingSpring = useSpring({
-    config: {mass: 1, tension: 120, friction: 60},
+    config: { mass: 1, tension: 120, friction: 60 },
     from: {
       opacity: 0,
       top: -10
@@ -13,5 +13,5 @@ export function useAnimatedAppearing() {
     }
   })
 
-  return {appearingSpring}
+  return { appearingSpring }
 }

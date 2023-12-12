@@ -1,13 +1,19 @@
-import React, {ReactNode} from 'react'
+import React, { ReactNode } from 'react'
 
-import {render, screen} from 'shared/tests'
+import { render, screen } from 'shared/tests'
 import FooterNavigation from '..'
 
-// eslint-disable-next-line react/display-name
-jest.mock('components/LinkExtended', () => ({to, children}: {to: string, children: ReactNode}) => <a href={to}>{children}</a>)
+jest.mock(
+  'components/LinkExtended',
+  () =>
+  // eslint-disable-next-line react/display-name
+    ({ to, children }: { to: string; children: ReactNode }) => (
+      <a href={to}>{children}</a>
+    )
+)
 
 test('should match snapshot', () => {
-  const {asFragment} = render(<FooterNavigation />)
+  const { asFragment } = render(<FooterNavigation />)
   expect(asFragment()).toMatchSnapshot()
 })
 
@@ -16,7 +22,9 @@ test('should render menu items as links and inactive items as usual text', () =>
 
   const listItems = screen.getAllByRole('listitem')
   const links = screen.getAllByRole('link')
-  const inactiveItems = screen.getByRole('list').querySelectorAll('*[aria-disabled="true"]')
+  const inactiveItems = screen
+    .getByRole('list')
+    .querySelectorAll('*[aria-disabled="true"]')
 
   expect(listItems).toHaveLength(7)
   expect(links).toHaveLength(6)

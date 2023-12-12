@@ -22,5 +22,5 @@
   min-height: 230px;
   position: absolute;
   border-bottom: 1px solid;
-  background-color: rgba(var(--primaryBackground), .95);
+  background-color: rgba(var(--primaryBackground), 0.95);
 }

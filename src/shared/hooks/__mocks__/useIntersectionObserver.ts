@@ -1,1 +1,5 @@
-export const useIntersectionObserver = () => ([{current: null}, true, jest.fn()])
+export const useIntersectionObserver = () => [
+  { current: null },
+  true,
+  jest.fn()
+]

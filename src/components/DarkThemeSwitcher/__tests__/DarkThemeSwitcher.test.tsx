@@ -1,18 +1,20 @@
 import React from 'react'
-import {renderHook} from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 import user from '@testing-library/user-event'
 
-import {screen, render, renderWholeApp} from 'shared/tests'
-import {ThemeProvider, useThemeState} from 'contexts'
+import { screen, render, renderWholeApp } from 'shared/tests'
+import { ThemeProvider, useThemeState } from 'contexts'
 import DarkThemeSwitcher from '..'
 
 const setup = (darkerPalette = false, labelText = false) => {
-  const utils = render(<DarkThemeSwitcher darkerPalette={darkerPalette} labelText={labelText} />)
+  const utils = render(
+    <DarkThemeSwitcher darkerPalette={darkerPalette} labelText={labelText} />
+  )
   return utils
 }
 
 test('should match snapshot', () => {
-  const {asFragment} = setup()
+  const { asFragment } = setup()
   expect(asFragment()).toMatchSnapshot()
 })
 
@@ -43,9 +45,10 @@ test('switching theme should work properly', async () => {
 
   const [themeSwitcher] = screen.getAllByLabelText(/switch theme/i)
 
-  const getHook = () => renderHook(() => useThemeState(), {
-    wrapper: ThemeProvider
-  })
+  const getHook = () =>
+    renderHook(() => useThemeState(), {
+      wrapper: ThemeProvider
+    })
 
   // default (light)
   expect(getHook().result.current).toBeFalsy()

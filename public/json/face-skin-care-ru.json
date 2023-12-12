@@ -1,8 +1,10 @@
 {
   "id": "face-skin-care_ru",
   "header": "Уход за лицом",
-  "components": [{
-    "type": "text",
-    "text": "Таков путь."
-  }]
+  "components": [
+    {
+      "type": "text",
+      "text": "Таков путь."
+    }
+  ]
 }

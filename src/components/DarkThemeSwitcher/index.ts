@@ -1,1 +1,1 @@
-export {default} from './DarkThemeSwitcher'
+export { default } from './DarkThemeSwitcher'

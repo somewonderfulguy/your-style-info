@@ -1,4 +1,6 @@
-.menuWrapper {padding: 10px;}
+.menuWrapper {
+  padding: 10px;
+}
 
 .line {
   display: flex;
@@ -26,11 +28,17 @@
   font-size: 85%;
   height: 30px;
 }
-.subItemLine:last-child {margin-bottom: 23px;}
+.subItemLine:last-child {
+  margin-bottom: 23px;
+}
 
-.menuWrapper ul {list-style: none;}
+.menuWrapper ul {
+  list-style: none;
+}
 
-.menuWrapper ul li:first-child > .line {border-top: none;}
+.menuWrapper ul li:first-child > .line {
+  border-top: none;
+}
 
 .socialMediaContainer {
   margin: 20px 0;

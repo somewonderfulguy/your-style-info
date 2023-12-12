@@ -1,1 +1,1 @@
-export {default} from './HeaderMobile'
+export { default } from './HeaderMobile'

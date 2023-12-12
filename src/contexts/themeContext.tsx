@@ -1,6 +1,12 @@
 import React, {
-  createContext, Dispatch, ReactNode, SetStateAction,
-  useCallback, useContext, useEffect, useState
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
 } from 'react'
 
 type dispatchType = Dispatch<SetStateAction<boolean>>
@@ -42,7 +48,7 @@ const ThemeProvider = ({ children }: { children: ReactNode | ReactNode[] }) => {
 const useThemeState = () => {
   const isDarkTheme = useContext(ThemeStateContext)
 
-  if(isDarkTheme === undefined) {
+  if (isDarkTheme === undefined) {
     throw new Error('useThemeState must be used within a ThemeProvider')
   }
 
@@ -52,16 +58,16 @@ const useThemeState = () => {
 const useThemeSwitch = () => {
   const setDarkTheme = useContext(ThemeDispatchContext)
 
-  if(setDarkTheme === undefined) {
+  if (setDarkTheme === undefined) {
     throw new Error('useThemeSwitch must be used within a ThemeProvider')
   }
 
   const switchTheme = useCallback(
-    () => setDarkTheme(prevTheme => !prevTheme),
+    () => setDarkTheme((prevTheme) => !prevTheme),
     [setDarkTheme]
   )
 
   return switchTheme
 }
 
-export {ThemeProvider, useThemeState, useThemeSwitch}
+export { ThemeProvider, useThemeState, useThemeSwitch }

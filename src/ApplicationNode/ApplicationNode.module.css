@@ -21,7 +21,9 @@
   background-color: rgb(var(--primaryBackground));
   color: rgb(var(--primaryColor));
 
-  transition: background-color .2s, color .2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 .themeWrapper * {

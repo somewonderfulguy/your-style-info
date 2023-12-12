@@ -1,2 +1,2 @@
 export * from './ApplicationNode'
-export {default} from './ApplicationNode'
+export { default } from './ApplicationNode'

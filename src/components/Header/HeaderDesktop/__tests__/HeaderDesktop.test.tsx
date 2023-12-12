@@ -1,9 +1,16 @@
 import React from 'react'
-import {renderHook} from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 
-import {act, render, renderWholeApp, screen, userEvent, waitFor} from 'shared/tests'
+import {
+  act,
+  render,
+  renderWholeApp,
+  screen,
+  userEvent,
+  waitFor
+} from 'shared/tests'
 import HeaderDesktop from '..'
-import {ThemeProvider, useThemeState} from 'contexts'
+import { ThemeProvider, useThemeState } from 'contexts'
 
 // TODO remove all waits once react-spring 9.0.0 released
 
@@ -14,14 +21,22 @@ const navigationTranslation = {
 }
 
 test('renders headers and social media icons', () => {
-  const {container} = render(<HeaderDesktop />)
+  const { container } = render(<HeaderDesktop />)
   const header = screen.getByText(/your style/i)
   const subtitle = container.querySelector('p')
-  const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /vkontakte/i, /youtube/i]
+  const socialMedia = [
+    /instagram/i,
+    /facebook/i,
+    /twitter/i,
+    /vkontakte/i,
+    /youtube/i
+  ]
 
   expect(header).toBeInTheDocument()
   expect(subtitle).toBeInTheDocument()
-  socialMedia.forEach(icon => expect(screen.getByTitle(icon)).toBeInTheDocument())
+  socialMedia.forEach((icon) =>
+    expect(screen.getByTitle(icon)).toBeInTheDocument()
+  )
 })
 
 test('menu (navigation) works as expected', async () => {
@@ -29,8 +44,8 @@ test('menu (navigation) works as expected', async () => {
 
   // root menu items check
   const expectedRootMenuItems = Object.values(navigationTranslation)
-  expectedRootMenuItems.forEach(
-    async item => expect(await screen.findByText(item)).toBeInTheDocument()
+  expectedRootMenuItems.forEach(async (item) =>
+    expect(await screen.findByText(item)).toBeInTheDocument()
   )
 
   // submenu test
@@ -44,9 +59,10 @@ test('menu (navigation) works as expected', async () => {
 
 test('theme switching works as expected', async () => {
   render(<HeaderDesktop />)
-  const getThemeHook = () => renderHook(() => useThemeState(), {
-    wrapper: ThemeProvider
-  })
+  const getThemeHook = () =>
+    renderHook(() => useThemeState(), {
+      wrapper: ThemeProvider
+    })
   const themeSwitcher = screen.getByRole('checkbox')
 
   expect(getThemeHook().result.current).toBeFalsy()

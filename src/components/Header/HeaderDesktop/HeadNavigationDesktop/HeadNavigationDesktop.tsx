@@ -1,12 +1,27 @@
-import React, {Dispatch, MouseEvent, MutableRefObject, SetStateAction, useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState} from 'react'
-import {animated, useSpring, useTransition} from 'react-spring'
+import React, {
+  Dispatch,
+  MouseEvent,
+  MutableRefObject,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
+  useState
+} from 'react'
+import { animated, useSpring, useTransition } from 'react-spring'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
-import {primeRoutesType, ROOT_MENU_THUMBS, thumbnailType} from 'constants/index'
-import {useLocalization} from 'contexts'
-import {imgPreload} from 'shared/utils'
-import {useResizeObserver} from 'shared/hooks'
+import {
+  primeRoutesType,
+  ROOT_MENU_THUMBS,
+  thumbnailType
+} from 'constants/index'
+import { useLocalization } from 'contexts'
+import { imgPreload } from 'shared/utils'
+import { useResizeObserver } from 'shared/hooks'
 import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {
@@ -14,7 +29,10 @@ const openMenuInitialState = {
   openNowAndBefore: false
 }
 
-const openMenuReducer = (state: typeof openMenuInitialState, action: boolean) => ({
+const openMenuReducer = (
+  state: typeof openMenuInitialState,
+  action: boolean
+) => ({
   isOpen: action,
   openNowAndBefore: state.isOpen && action
 })
@@ -30,9 +48,15 @@ type propType = {
   setPersistRootMenu: Dispatch<SetStateAction<boolean>>
 }
 
-const HeadNavigationDesktop = ({setRootMenuOpen, setPersistRootMenu}: propType) => {
-  const [, , {data: translations}] = useLocalization()
-  const [openMenuState, setMenuOpen] = useReducer(openMenuReducer, openMenuInitialState)
+const HeadNavigationDesktop = ({
+  setRootMenuOpen,
+  setPersistRootMenu
+}: propType) => {
+  const [, , { data: translations }] = useLocalization()
+  const [openMenuState, setMenuOpen] = useReducer(
+    openMenuReducer,
+    openMenuInitialState
+  )
 
   const [subMenuContent, setSubMenuContent] = useState<subMenuContentType>({
     content: {},
@@ -48,7 +72,11 @@ const HeadNavigationDesktop = ({setRootMenuOpen, setPersistRootMenu}: propType) 
   const clearActiveMenuItem = useCallback(() => setActiveMenuItem(null), [])
 
   const closeMenu = (e: MouseEvent) => {
-    if((e?.relatedTarget as HTMLLIElement)?.getAttribute?.('submenupersist') === '1') return
+    if (
+      (e?.relatedTarget as HTMLLIElement)?.getAttribute?.('submenupersist') ===
+      '1'
+    )
+      return
     setMenuOpen(false)
     clearActiveMenuItem()
   }
@@ -57,7 +85,7 @@ const HeadNavigationDesktop = ({setRootMenuOpen, setPersistRootMenu}: propType) 
   useEffect(() => void imgPreload(ROOT_MENU_THUMBS), [])
 
   // drop-down fade-in-out
-  const {opacity: subMenuOpacity} = useSpring({
+  const { opacity: subMenuOpacity } = useSpring({
     config: {
       mass: 1,
       tension: 500,
@@ -72,12 +100,14 @@ const HeadNavigationDesktop = ({setRootMenuOpen, setPersistRootMenu}: propType) 
 
   // drop-down menu height
   const prevHeight = useRef(0)
-  const [bindResObs, {height: newSubMenuHeight}] = useResizeObserver()
+  const [bindResObs, { height: newSubMenuHeight }] = useResizeObserver()
   const bindResizeObserver = bindResObs as MutableRefObject<HTMLDivElement>
-  useLayoutEffect(() => {prevHeight.current = newSubMenuHeight}, [newSubMenuHeight])
-  const {height: subMenuHeight} = useSpring({
+  useLayoutEffect(() => {
+    prevHeight.current = newSubMenuHeight
+  }, [newSubMenuHeight])
+  const { height: subMenuHeight } = useSpring({
     immediate: !openMenuState.openNowAndBefore,
-    from: {height: 'auto'},
+    from: { height: 'auto' },
     to: {
       height: openMenuState.isOpen
         ? newSubMenuHeight
@@ -89,50 +119,63 @@ const HeadNavigationDesktop = ({setRootMenuOpen, setPersistRootMenu}: propType) 
   }) as any
 
   // root menu language transition
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const rootMenuTransitions = useTransition(translations?.navigation as any, translations?.subtitle as string, {
-    config: {duration: 700},
-    from: {opacity: 0},
-    enter: {opacity: 1},
-    leave: {opacity: 0}
-  })
+  const rootMenuTransitions = useTransition(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    translations?.navigation as any,
+    translations?.subtitle as string,
+    {
+      config: { duration: 700 },
+      from: { opacity: 0 },
+      enter: { opacity: 1 },
+      leave: { opacity: 0 }
+    }
+  )
 
   return (
     <>
       <div className={styles.rootMenuContainer}>
-        {rootMenuTransitions.map(({item, key, props, state}) => (
-          !!item && (
-            <animated.div
-              className={state === 'leave' ? styles.rootMenuTransitionLeave : ''}
-              style={props}
-              key={key}
-            >
-              <RootMenu
-                setShowMenu={setMenuOpen}
-                setSubMenu={setSubMenuContent}
-                activeMenuItem={activeMenuItem}
-                setActiveMenuItem={setActiveMenuItem}
-                clearActiveMenuItem={clearActiveMenuItem}
-                setRootMenuOpen={setRootMenuOpen}
-                navigationTranslations={item}
-              />
-            </animated.div>
-          )
-        ))}
-        {/* TODO find how to persist menu in other way */}
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-ignore */}
-        <div className={styles.borderBottom} submenupersist="1" onMouseLeave={e => closeMenu(e)} />
+        {rootMenuTransitions.map(
+          ({ item, key, props, state }) =>
+            !!item && (
+              <animated.div
+                className={
+                  state === 'leave' ? styles.rootMenuTransitionLeave : ''
+                }
+                style={props}
+                key={key}
+              >
+                <RootMenu
+                  setShowMenu={setMenuOpen}
+                  setSubMenu={setSubMenuContent}
+                  activeMenuItem={activeMenuItem}
+                  setActiveMenuItem={setActiveMenuItem}
+                  clearActiveMenuItem={clearActiveMenuItem}
+                  setRootMenuOpen={setRootMenuOpen}
+                  navigationTranslations={item}
+                />
+              </animated.div>
+            )
+        )}
+        <div
+          className={styles.borderBottom}
+          // TODO find how to persist menu in other way
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          submenupersist="1"
+          onMouseLeave={(e) => closeMenu(e)}
+        />
       </div>
 
       <animated.div
         style={{
           opacity: subMenuOpacity,
-          visibility: subMenuOpacity.interpolate(o => o ?? 0 > 0.1 ? 'visible' : 'hidden'),
+          visibility: subMenuOpacity.interpolate((o) =>
+            o ?? 0 > 0.1 ? 'visible' : 'hidden'
+          ),
           height: subMenuHeight
         }}
         className={styles.subMenuContainer}
-        onMouseLeave={e => closeMenu(e)}
+        onMouseLeave={(e) => closeMenu(e)}
         data-testid="drop-down-navigation"
       >
         {/* TODO find how to persist menu in other way */}

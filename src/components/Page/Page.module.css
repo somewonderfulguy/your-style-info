@@ -23,13 +23,13 @@
   text-align: justify;
 }
 
-@media(max-width: 1024px) {
+@media (max-width: 1024px) {
   .page {
     padding: 0 75px;
   }
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .page {
     padding: 0 25px;
   }

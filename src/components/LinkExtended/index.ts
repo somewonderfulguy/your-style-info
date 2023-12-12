@@ -1,1 +1,1 @@
-export {default} from './LinkExtended'
+export { default } from './LinkExtended'

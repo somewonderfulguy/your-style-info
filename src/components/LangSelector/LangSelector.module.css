@@ -19,17 +19,22 @@
   cursor: pointer;
 }
 
-.gray button { color: #696969;
+.gray button {
+  color: #696969;
 }
 
-.langSelectorDark.gray button { color: #919191; }
-.langSelectorDark.gray > button { color: #696969; }
+.langSelectorDark.gray button {
+  color: #919191;
+}
+.langSelectorDark.gray > button {
+  color: #696969;
+}
 
 .langSelectorInner {
   display: flex;
   align-items: center;
 
-  opacity: .7;
+  opacity: 0.7;
   transition: opacity 200ms;
 }
 
@@ -38,10 +43,11 @@
 }
 
 .langSelectorInner:disabled {
-  opacity: .4;
+  opacity: 0.4;
 }
 
-.icon, .langSelectorDark.gray .icon {
+.icon,
+.langSelectorDark.gray .icon {
   margin-right: 5px;
   fill: #696969;
 }
@@ -52,8 +58,8 @@
 
 .langSelector .triangle {
   margin-left: 5px;
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid rgb(105, 105, 105);
@@ -74,7 +80,7 @@
   margin: 2px 0;
   padding: 8px 0;
 
-  border: 1px solid rgba(var(--primaryBorder), .6);
+  border: 1px solid rgba(var(--primaryBorder), 0.6);
   border-radius: 4px;
   background-color: rgb(var(--primaryBackground));
 }
@@ -95,11 +101,11 @@
   width: 100%;
   padding: 4px 24px;
   text-align: left;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 }
 
 .dropDown button:hover {
-  background-color: rgba(var(--primaryHoverHighlight), .7);
+  background-color: rgba(var(--primaryHoverHighlight), 0.7);
 }
 
 .dropDown button:disabled {

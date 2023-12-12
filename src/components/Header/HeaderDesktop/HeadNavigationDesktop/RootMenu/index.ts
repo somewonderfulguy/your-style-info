@@ -1,1 +1,1 @@
-export {default} from './RootMenu'
+export { default } from './RootMenu'

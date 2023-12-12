@@ -1,11 +1,11 @@
 .optionsContainer {
   left: 0;
   right: 0;
-  background-color: rgba(var(--primaryBackground), .95);
+  background-color: rgba(var(--primaryBackground), 0.95);
   border-bottom: 1px rgb(var(--primaryBorder)) solid;
   z-index: 1500;
   padding: 15px 25px;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 }
 
 .langBtn {
@@ -13,8 +13,8 @@
   font-size: 15px;
   margin-bottom: 13px;
   margin-left: 3px;
-  color: rgba(var(--primaryColor), .9);
-  transition: color .2s;
+  color: rgba(var(--primaryColor), 0.9);
+  transition: color 0.2s;
 }
 
 .langTxt {

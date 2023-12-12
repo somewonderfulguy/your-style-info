@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -31,10 +33,12 @@ a {
 
   text-decoration: none;
   color: #578cff;
-  transition: color .2s;
+  transition: color 0.2s;
 }
 
-a:hover {color: #0a4fff;}
+a:hover {
+  color: #0a4fff;
+}
 
 ul {
   margin: 0;

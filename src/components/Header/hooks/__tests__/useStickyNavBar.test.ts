@@ -1,18 +1,24 @@
-import {fireEvent} from '@testing-library/react'
-import {act, renderHook} from '@testing-library/react-hooks'
+import { fireEvent } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react-hooks'
 
-import {useStickyNavBar} from '..'
+import { useStickyNavBar } from '..'
 
 // very much implementation details, but for this case, it's okay
 // (doing it without implementation details will be perverted)
 test('sticky navbar should work as expected', () => {
   const navBarHeight = 49
   const headerHeight = 133
-  const {result} = renderHook(() => useStickyNavBar(headerHeight + navBarHeight, headerHeight))
+  const { result } = renderHook(() =>
+    useStickyNavBar(headerHeight + navBarHeight, headerHeight)
+  )
 
-  const defaultState = {isFixed: false, isShown: false, isScrollDown: false}
-  const scrolledDownBelowNav = {isFixed: true, isShown: false, isScrollDown: true}
-  const scrolledUp = {isFixed: true, isShown: true, isScrollDown: false}
+  const defaultState = { isFixed: false, isShown: false, isScrollDown: false }
+  const scrolledDownBelowNav = {
+    isFixed: true,
+    isShown: false,
+    isScrollDown: true
+  }
+  const scrolledUp = { isFixed: true, isShown: true, isScrollDown: false }
 
   // check defaults
   expect(result.current).toEqual(defaultState)
@@ -22,7 +28,7 @@ test('sticky navbar should work as expected', () => {
     document.body.scrollTop = headerHeight
     fireEvent.scroll(window)
   })
-  expect(result.current).toEqual({...defaultState, isScrollDown: true})
+  expect(result.current).toEqual({ ...defaultState, isScrollDown: true })
 
   // scrolling below header & navbar should hide navbar
   act(() => {
