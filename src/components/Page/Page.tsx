@@ -1,18 +1,21 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { animated, useTransition } from 'react-spring'
+
+import { usePrevious } from '~shared/hooks'
+import { useIsDesktop } from '~contexts/screenDimensionsContext'
+import { useHeaderHeightState } from '~contexts/headerHeightContext'
 
 import { componentRenderer } from './helpers'
 import FooterContent from './FooterContent'
-import { usePrevious } from 'shared/hooks'
-import { useHeaderHeightState, useIsDesktop } from 'contexts'
 import { useFooterAnimation, usePageFetch } from './hooks'
+
 import styles from './Page.module.css'
 
-type propType = {
+type Props = {
   location: { pathname: string }
 }
 
-const Page = ({ location: { pathname } }: propType) => {
+const Page = ({ location: { pathname } }: Props) => {
   const headerHeight = useHeaderHeightState()
   const isDesktop = useIsDesktop()
 

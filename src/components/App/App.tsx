@@ -1,6 +1,11 @@
-import React, { useEffect } from 'react'
+import { ComponentClass, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { Router, BrowserRouter } from 'react-router-dom'
+import {
+  Router as _Router,
+  BrowserRouter as _BrowserRouter,
+  type RouterProps,
+  type BrowserRouterProps
+} from 'react-router-dom'
 import { useNProgress } from '@tanem/react-nprogress'
 import {
   QueryClient,
@@ -22,7 +27,12 @@ import '~assets/styles/fonts.css'
 import Routes from './Routes'
 import withContext from './withContext'
 
-import styles from './ApplicationNode.module.css'
+import styles from './App.module.css'
+
+// TODO: migrate to latest version of react-router and remove this hack
+const Router = _Router as unknown as ComponentClass<RouterProps>
+const BrowserRouter =
+  _BrowserRouter as unknown as ComponentClass<BrowserRouterProps>
 
 // intentionally making cache never stale, so once fetched - always used cache, like desktop app
 export const defaultOptions = {

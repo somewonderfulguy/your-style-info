@@ -1,15 +1,14 @@
-import React from 'react'
-
+// TODO: colocate
 import {
   FacebookIcon,
   InstagramIcon,
-  VKontakteIcon,
   YouTubeIcon,
   TwitterIcon
-} from 'assets/images'
+} from '~assets/images'
+
 import styles from './SocialMediaIcons.module.css'
 
-type propType = {
+type Props = {
   small?: boolean
   color?: 'lightgray' | 'darkgray'
 }
@@ -27,7 +26,7 @@ const COLORS = new Map([
   ['darkgray', '#636363']
 ])
 
-const SocialMediaIcons = ({ small = false, color = 'darkgray' }: propType) => {
+const SocialMediaIcons = ({ small = false, color = 'darkgray' }: Props) => {
   const targetBlank = { rel: 'noopener noreferrer', target: '_blank' }
 
   const getStyles = (type) => ({
@@ -55,9 +54,6 @@ const SocialMediaIcons = ({ small = false, color = 'darkgray' }: propType) => {
         {...targetBlank}
       >
         <TwitterIcon style={getStyles('twitter')} />
-      </a>
-      <a href="https://vk.com/" title="VKontakte" {...targetBlank}>
-        <VKontakteIcon style={getStyles('vk')} />
       </a>
       <a href="https://www.youtube.com/" title="YouTube" {...targetBlank}>
         <YouTubeIcon style={getStyles('youTube')} />

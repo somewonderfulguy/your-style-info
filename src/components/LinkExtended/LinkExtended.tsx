@@ -1,14 +1,14 @@
-import React, { MouseEvent, ReactNode } from 'react'
-import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { ComponentClass, MouseEvent, ReactNode } from 'react'
+import { RouteComponentProps, withRouter, LinkProps } from 'react-router-dom'
 import { animateScroll as scroll } from 'react-scroll'
 
-import { SCROLL_TOP_DURATION } from 'constants/index'
-import { debounce } from 'shared/utils'
-import { usePageQuery } from 'api/pageQueries'
+import { SCROLL_TOP_DURATION } from '~constants/index'
+import { debounce } from '~shared/utils'
+import { usePageQuery } from '~api/pageQueries'
 
 // TODO refactor how navigation works - should first wait for content being loaded, then scroll top, then perform animation
 
-type propType = RouteComponentProps & {
+type Props = {
   activeClassName?: string
   children?: ReactNode | ReactNode[]
   className?: string
@@ -20,6 +20,8 @@ type propType = RouteComponentProps & {
   onMouseLeave?: (e: MouseEvent<HTMLSpanElement>) => void
 }
 
+type ExtendedProps = Props & RouteComponentProps
+
 const LinkExtended = ({
   history,
   activeClassName = '',
@@ -29,9 +31,10 @@ const LinkExtended = ({
   location: { pathname },
   to = '/',
   onClick = () => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   staticContext, // exclude from ...rest
   ...rest
-}: propType) => {
+}: ExtendedProps) => {
   usePageQuery(to, { enabled: false })
 
   const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
@@ -77,4 +80,6 @@ const LinkExtended = ({
   )
 }
 
-export default withRouter(LinkExtended)
+export default withRouter(LinkExtended) as unknown as ComponentClass<
+  Props & LinkProps
+>

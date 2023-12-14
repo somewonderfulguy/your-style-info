@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { animated, useSpring, useTransition } from 'react-spring'
+
+import DarkThemeSwitcher from '~components/DarkThemeSwitcher'
+import LangSelector from '~components/LangSelector'
+import SocialMediaIcons from '~components/SocialMediaIcons'
+import { useLocalization } from '~contexts/localizationContext'
+import { useHeaderHeightDispatch } from '~contexts/headerHeightContext'
 
 import { useAnimatedAppearing } from './hooks'
 import { useStickyNavBar } from '../hooks'
 import HeadNavigationDesktop from './HeadNavigationDesktop'
-import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
-import LangSelector from 'components/LangSelector'
-import SocialMediaIcons from 'components/SocialMediaIcons'
-import { useHeaderHeightDispatch, useLocalization } from 'contexts'
+
 import styles from './HeaderDesktop.module.css'
 
 const HeaderDesktop = () => {

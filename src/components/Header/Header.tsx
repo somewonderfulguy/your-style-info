@@ -1,7 +1,6 @@
-import React from 'react'
+import { useIsDesktop } from '~contexts/screenDimensionsContext'
+import { isIpad } from '~shared/utils'
 
-import { useIsDesktop } from 'contexts'
-import { isIpad } from 'shared/utils'
 import HeaderDesktop from './HeaderDesktop'
 import HeaderMobile from './HeaderMobile'
 

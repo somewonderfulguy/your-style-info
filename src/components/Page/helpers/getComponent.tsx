@@ -1,8 +1,6 @@
-import React from 'react'
-
-import { componentTypes } from 'api'
-import Image from 'components/Image'
-import TextBlock from 'components/TextBlock'
+import { componentTypes } from '~api/componentTypes'
+import Image from '~components/Image'
+import TextBlock from '~components/TextBlock'
 
 export const getComponent = (
   type: componentTypes,

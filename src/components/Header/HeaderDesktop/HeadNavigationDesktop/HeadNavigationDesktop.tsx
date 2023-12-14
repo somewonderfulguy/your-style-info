@@ -1,4 +1,4 @@
-import React, {
+import {
   Dispatch,
   MouseEvent,
   MutableRefObject,
@@ -12,16 +12,18 @@ import React, {
 } from 'react'
 import { animated, useSpring, useTransition } from 'react-spring'
 
-import RootMenu from './RootMenu'
-import SubMenu from './SubMenu'
 import {
   primeRoutesType,
   ROOT_MENU_THUMBS,
   thumbnailType
-} from 'constants/index'
-import { useLocalization } from 'contexts'
-import { imgPreload } from 'shared/utils'
-import { useResizeObserver } from 'shared/hooks'
+} from '~constants/index'
+import { useLocalization } from '~contexts/localizationContext'
+import { imgPreload } from '~shared/utils'
+import { useResizeObserver } from '~shared/hooks'
+
+import RootMenu from './RootMenu'
+import SubMenu from './SubMenu'
+
 import styles from './HeadNavigationDesktop.module.css'
 
 const openMenuInitialState = {
@@ -37,13 +39,13 @@ const openMenuReducer = (
   openNowAndBefore: state.isOpen && action
 })
 
-export type subMenuContentType = {
+export type SubMenuContentType = {
   content: primeRoutesType
   basePath: string
   mainThumbnail: thumbnailType
 }
 
-type propType = {
+type Props = {
   setRootMenuOpen: Dispatch<SetStateAction<boolean>>
   setPersistRootMenu: Dispatch<SetStateAction<boolean>>
 }
@@ -51,14 +53,14 @@ type propType = {
 const HeadNavigationDesktop = ({
   setRootMenuOpen,
   setPersistRootMenu
-}: propType) => {
+}: Props) => {
   const [, , { data: translations }] = useLocalization()
   const [openMenuState, setMenuOpen] = useReducer(
     openMenuReducer,
     openMenuInitialState
   )
 
-  const [subMenuContent, setSubMenuContent] = useState<subMenuContentType>({
+  const [subMenuContent, setSubMenuContent] = useState<SubMenuContentType>({
     content: {},
     basePath: '',
     mainThumbnail: null
@@ -161,6 +163,7 @@ const HeadNavigationDesktop = ({
           // TODO find how to persist menu in other way
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
+          // eslint-disable-next-line react/no-unknown-property
           submenupersist="1"
           onMouseLeave={(e) => closeMenu(e)}
         />
@@ -178,10 +181,14 @@ const HeadNavigationDesktop = ({
         onMouseLeave={(e) => closeMenu(e)}
         data-testid="drop-down-navigation"
       >
-        {/* TODO find how to persist menu in other way */}
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-ignore */}
-        <div ref={bindResizeObserver} submenupersist="1">
+        <div
+          ref={bindResizeObserver}
+          // TODO find how to persist menu in other way
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          // eslint-disable-next-line react/no-unknown-property
+          submenupersist="1"
+        >
           <SubMenu
             isOpen={openMenuState.isOpen}
             openNowAndBefore={openMenuState.openNowAndBefore}

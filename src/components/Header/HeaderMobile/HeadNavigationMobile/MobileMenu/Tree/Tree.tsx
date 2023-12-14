@@ -1,4 +1,4 @@
-import React, {
+import {
   CSSProperties,
   memo,
   MutableRefObject,
@@ -7,11 +7,12 @@ import React, {
 } from 'react'
 import { useSpring, animated } from 'react-spring'
 
-import { ArrowForwardIos } from 'assets/images'
-import { useResizeObserver } from 'shared/hooks'
+import { ArrowForwardIos } from '~assets/images'
+import { useResizeObserver } from '~shared/hooks'
+
 import styles from './Tree.module.css'
 
-type propType = {
+type Props = {
   children?: ReactNode | ReactNode[] | null
   lineClassName?: string
   title?: ReactNode | ReactNode[] | string
@@ -25,7 +26,7 @@ const Tree = ({
   title = '',
   style = {},
   defaultOpen
-}: propType) => {
+}: Props) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
   const [bindResObs, { height: viewHeight }] = useResizeObserver()
   const bindResizeObserver = bindResObs as MutableRefObject<HTMLUListElement>

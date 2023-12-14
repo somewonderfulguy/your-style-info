@@ -5,7 +5,7 @@ import moonIcon from '~assets/images/moon.svg'
 import sunIcon from '~assets/images/sun.svg'
 import styles from './DarkThemeSwitcher.module.css'
 
-type propType = {
+type Props = {
   darkerPalette?: boolean
   labelText?: boolean
 }
@@ -13,7 +13,7 @@ type propType = {
 const DarkThemeSwitcher = ({
   darkerPalette = false,
   labelText = false
-}: propType) => {
+}: Props) => {
   const isDarkTheme = useThemeState()
   const switchTheme = useThemeSwitch()
 

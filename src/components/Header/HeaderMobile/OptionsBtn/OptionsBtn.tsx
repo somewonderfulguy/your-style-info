@@ -1,16 +1,17 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+import { forwardRef, useImperativeHandle, useRef } from 'react'
 import { useSpring, animated } from 'react-spring'
 
-import { useThemeState } from 'contexts'
+import { useThemeState } from '~contexts/themeContext'
+
 import styles from './OptionsBtn.module.css'
 
-type propType = {
+type Props = {
   isOpen?: boolean
   onClick?: () => void
 }
 
 const OptionsBtn = forwardRef(
-  ({ isOpen = false, onClick = () => {} }: propType, ref) => {
+  ({ isOpen = false, onClick = () => {} }: Props, ref) => {
     const optionsBtnDOM = useRef<HTMLButtonElement>(null)
     useImperativeHandle(ref, () => ({ optionsBtnDOM }))
 

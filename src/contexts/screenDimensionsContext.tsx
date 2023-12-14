@@ -1,6 +1,6 @@
-import React, { createContext, ReactNode, useContext } from 'react'
+import { createContext, ReactNode, useContext } from 'react'
 
-import { useResizeObserver } from 'shared/hooks'
+import { useResizeObserver } from '~shared/hooks'
 
 export const ERROR_SCREEN =
   'useScreenDimensions must be used within a ScreenDimensionsProvider'

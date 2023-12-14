@@ -1,12 +1,14 @@
-import React, { MutableRefObject, useEffect, useReducer } from 'react'
+import { MutableRefObject, useEffect, useReducer } from 'react'
 import { animated, useTransition } from 'react-spring'
 
-import { useImageLoadQuery } from 'api'
-import { useIntersectionObserver, useResizeObserver } from 'shared/hooks'
-import { useThemeState, useIsDesktop } from 'contexts'
+import { useImageLoadQuery } from '~api/imageQueries'
+import { useIntersectionObserver, useResizeObserver } from '~shared/hooks'
+import { useThemeState } from '~contexts/themeContext'
+import { useIsDesktop } from '~contexts/screenDimensionsContext'
+
 import styles from './Image.module.css'
 
-type propType = {
+type Props = {
   url: string
   alt: string
   lowresBase64?: string | null
@@ -29,7 +31,7 @@ const Image = ({
   width = '100%',
   height,
   caption
-}: propType) => {
+}: Props) => {
   const isDarkTheme = useThemeState()
   const isDesktop = useIsDesktop()
   const intersectionOffset = isDesktop ? 600 : 350

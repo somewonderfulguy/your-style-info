@@ -1,8 +1,11 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { useSpring, config } from 'react-spring'
 
-import { usePrevious } from 'shared/hooks'
-import { useScreenHeight, useScreenWidth } from 'contexts'
+import { usePrevious } from '~shared/hooks'
+import {
+  useScreenHeight,
+  useScreenWidth
+} from '~contexts/screenDimensionsContext'
 
 export const useFooterAnimation = (
   id: string,
@@ -44,6 +47,8 @@ export const useFooterAnimation = (
   const setFooterSpring = useCallback(
     ({ fadeOut, ...override }) => {
       setFS({
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         to: {
           opacity: fadeOut ? 0 : 1,
           transform: `translate3d(0, ${fadeOut ? 15 : 0}px, 0)`

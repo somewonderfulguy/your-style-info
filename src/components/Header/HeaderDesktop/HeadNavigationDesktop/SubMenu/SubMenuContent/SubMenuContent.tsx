@@ -1,13 +1,15 @@
 import React, { Dispatch, Fragment, memo, useState, useRef } from 'react'
 import { animated, useTransition } from 'react-spring'
 
-import LinkExtended from 'components/LinkExtended'
-import { usePrevious } from 'shared/hooks'
-import { useLocalization, useThemeState } from 'contexts'
-import { primeRoutesType, thumbnailType } from 'constants/index'
+import LinkExtended from '~components/LinkExtended'
+import { usePrevious } from '~shared/hooks'
+import { useThemeState } from '~contexts/themeContext'
+import { useLocalization } from '~contexts/localizationContext'
+import { primeRoutesType, thumbnailType } from '~constants/index'
+
 import styles from './SubMenuContent.module.css'
 
-type propType = {
+type Props = {
   menuItems: primeRoutesType
   basePath?: string
   mainThumbnail?: thumbnailType
@@ -21,7 +23,7 @@ const SubMenuContent = ({
   mainThumbnail = null,
   isOpen = false,
   setMenuOpen
-}: propType) => {
+}: Props) => {
   const isDarkTheme = useThemeState()
   const [, , { data: translations }] = useLocalization()
   const [subItemThumbnail, setSubItemThumbnail] = useState<thumbnailType>(null)

@@ -1,4 +1,4 @@
-import React, {
+import {
   Dispatch,
   memo,
   SetStateAction,
@@ -9,10 +9,12 @@ import React, {
 } from 'react'
 import { useSpring, animated, config } from 'react-spring'
 
-import { LanguageIcon } from 'assets/images'
-import DarkThemeSwitcher from 'components/DarkThemeSwitcher'
-import { useOutsideClick, anyFunctionType } from 'shared'
-import { useLocalization } from 'contexts'
+import { LanguageIcon } from '~assets/images'
+import DarkThemeSwitcher from '~components/DarkThemeSwitcher'
+import { useOutsideClick } from '~shared/hooks'
+import { anyFunctionType } from '~shared/types'
+import { useLocalization } from '~contexts/localizationContext'
+
 import styles from './Options.module.css'
 
 const useScroll = (cb: anyFunctionType) => {
@@ -87,7 +89,7 @@ const Options = ({
           : transform,
         top: menuHeight,
         visibility: opacity.interpolate((o) =>
-          o && o > 0.3 ? 'visible' : 'hidden'
+          o && (o as number) > 0.3 ? 'visible' : 'hidden'
         ),
         position: persistPosition.current ? persistPosition.current : position
       }}

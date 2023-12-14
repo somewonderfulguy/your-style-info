@@ -1,11 +1,13 @@
-import React, { Dispatch, memo, useRef } from 'react'
+import { Dispatch, memo, useRef } from 'react'
 import { animated, useSpring, useTransition } from 'react-spring'
 
-import SubMenuContent from './SubMenuContent'
-import styles from './SubMenu.module.css'
-import { primeRoutesType, thumbnailType } from 'constants/index'
+import { primeRoutesType, thumbnailType } from '~constants/index'
 
-type propType = {
+import SubMenuContent from './SubMenuContent'
+
+import styles from './SubMenu.module.css'
+
+type Props = {
   content: primeRoutesType
   basePath?: string
   isOpen?: boolean
@@ -21,7 +23,7 @@ const SubMenu = ({
   openNowAndBefore = false,
   mainThumbnail = null,
   setMenuOpen
-}: propType) => {
+}: Props) => {
   // old transitions clean up
   const transitionCancelArray = useRef<(() => void)[]>([])
   transitionCancelArray.current.forEach((cancel, idx) => idx >= 1 && cancel())
@@ -53,6 +55,7 @@ const SubMenu = ({
     // TODO find another way to persist menu
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
+    // eslint-disable-next-line react/no-unknown-property
     <div className={styles.subMenu} submenupersist="1">
       {transitions.map(
         ({

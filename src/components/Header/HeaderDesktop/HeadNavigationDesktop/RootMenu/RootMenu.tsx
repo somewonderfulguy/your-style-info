@@ -1,16 +1,18 @@
-import React, { Dispatch, memo, SetStateAction } from 'react'
+import { Dispatch, memo, SetStateAction } from 'react'
 
-import { PRIME_ROUTES } from 'constants/index'
-import LinkExtended from 'components/LinkExtended'
-import { useLocalization } from 'contexts'
-import { subMenuContentType } from '..'
+import { PRIME_ROUTES } from '~constants/index'
+import LinkExtended from '~components/LinkExtended'
+import { useLocalization } from '~contexts/localizationContext'
+
+import { SubMenuContentType } from '..'
+
 import styles from './RootMenu.module.css'
 
 type obj = { [key: string]: string }
 
-type propsType = {
+type Props = {
   setShowMenu: Dispatch<boolean>
-  setSubMenu: Dispatch<SetStateAction<subMenuContentType>>
+  setSubMenu: Dispatch<SetStateAction<SubMenuContentType>>
   activeMenuItem?: string | null
   setActiveMenuItem: Dispatch<SetStateAction<string | null>>
   clearActiveMenuItem: () => void
@@ -26,7 +28,7 @@ const RootMenu = ({
   setActiveMenuItem,
   setRootMenuOpen,
   navigationTranslations
-}: propsType) => {
+}: Props) => {
   const [{ locale }] = useLocalization()
 
   return (
@@ -66,6 +68,7 @@ const RootMenu = ({
             // TODO find another way to persist menu
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
+            // eslint-disable-next-line react/no-unknown-property
             submenupersist={sub ? 1 : 0}
           >
             <LinkExtended

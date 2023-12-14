@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   ReactNode,
   useCallback,
@@ -8,8 +8,8 @@ import React, {
   useReducer
 } from 'react'
 
-import { LOCALES } from 'constants/index'
-import { useLocaleQuery } from 'api'
+import { LOCALES } from '~constants/index'
+import { useLocaleQuery } from '~api/localeQueries'
 
 type localeType = 'en' | 'ru'
 type localeState = {

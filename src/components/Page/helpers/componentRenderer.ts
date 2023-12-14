@@ -1,6 +1,6 @@
-import { getComponent } from '.'
+import { componentType } from '~api/pageQueries'
 
-import { componentType } from 'api'
+import { getComponent } from '.'
 
 export const componentRenderer = (components: componentType[]) =>
   components.map(({ type, ...props }, idx: string | number) =>

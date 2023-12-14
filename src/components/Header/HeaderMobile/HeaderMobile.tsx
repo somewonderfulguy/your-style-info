@@ -1,19 +1,15 @@
-import React, {
-  RefObject,
-  useEffect,
-  useCallback,
-  useRef,
-  useState
-} from 'react'
+import { RefObject, useEffect, useCallback, useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 
-import { useHeaderHeightDispatch } from 'contexts'
+import { useHeaderHeightDispatch } from '~contexts/headerHeightContext'
+
 import { useStickyNavBar } from '../hooks'
 import { useAnimatedAppearing } from './hooks'
 import HamburgerIcon from './HamburgerIcon'
 import HeadNavigationMobile from './HeadNavigationMobile'
 import Options from './Options'
 import OptionsBtn from './OptionsBtn'
+
 import styles from './HeaderMobile.module.css'
 
 const HeaderMobile = () => {

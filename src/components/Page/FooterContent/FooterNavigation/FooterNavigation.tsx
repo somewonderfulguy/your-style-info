@@ -1,8 +1,7 @@
-import React from 'react'
+import LinkExtended from '~components/LinkExtended'
+import { PRIME_ROUTES } from '~constants/index'
+import { useLocalization } from '~contexts/localizationContext'
 
-import LinkExtended from 'components/LinkExtended'
-import { PRIME_ROUTES } from 'constants/index'
-import { useLocalization } from 'contexts'
 import styles from './FooterNavigation.module.css'
 
 const FooterNavigation = () => {

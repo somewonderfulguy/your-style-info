@@ -1,7 +1,5 @@
-import React from 'react'
+type Props = { text?: string }
 
-type propType = { text?: string }
-
-const TextBlock = ({ text = '' }: propType) => <p>{text}</p>
+const TextBlock = ({ text = '' }: Props) => <p>{text}</p>
 
 export default TextBlock

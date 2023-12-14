@@ -1,16 +1,28 @@
-import React, { MutableRefObject, useLayoutEffect, useRef } from 'react'
 import {
-  Redirect,
-  Route,
-  Switch,
+  ComponentClass,
+  MutableRefObject,
+  useLayoutEffect,
+  useRef
+} from 'react'
+import {
+  Redirect as _Redirect,
+  Route as _Route,
+  Switch as _Switch,
   useHistory,
   useLocation,
-  useRouteMatch
+  useRouteMatch,
+  type RedirectProps,
+  type RouteProps,
+  type SwitchProps
 } from 'react-router-dom'
 
-import Page from 'components/Page'
-import { LOCALES } from 'constants/index'
-import { useLocalization } from 'contexts'
+import Page from '~components/Page'
+import { LOCALES } from '~constants/index'
+import { useLocalization } from '~contexts/localizationContext'
+
+const Redirect = _Redirect as unknown as ComponentClass<RedirectProps>
+const Route = _Route as unknown as ComponentClass<RouteProps>
+const Switch = _Switch as unknown as ComponentClass<SwitchProps>
 
 const Routes = () => {
   const pathLocale = '/:locale'

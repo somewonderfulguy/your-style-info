@@ -1,4 +1,4 @@
-import React, {
+import {
   Dispatch,
   forwardRef,
   SetStateAction,
@@ -7,26 +7,26 @@ import React, {
 } from 'react'
 import { useSpring, useSprings, animated } from 'react-spring'
 
-import { PRIME_ROUTES, primeRoutesType } from 'constants/index'
-import { useLocalization } from 'contexts'
-import LinkExtended from 'components/LinkExtended'
-import SocialMediaIcons from 'components/SocialMediaIcons'
+import { PRIME_ROUTES, primeRoutesType } from '~constants/index'
+import { useLocalization } from '~contexts/localizationContext'
+import LinkExtended from '~components/LinkExtended'
+import SocialMediaIcons from '~components/SocialMediaIcons'
 
 import Tree from './Tree'
 
 import styles from './MobileMenu.module.css'
 
-type propType = {
+type Props = {
   isOpen?: boolean
   setMenuOpen: Dispatch<SetStateAction<boolean>>
 }
 
-type firstParam = [
+type FirstParam = [
   string,
   { name: string; sub?: primeRoutesType; inactive?: boolean }
 ]
 const renderItem = (
-  [path, { name, sub, inactive }]: firstParam,
+  [path, { name, sub, inactive }]: FirstParam,
   locale: string,
   setMenuOpen: Dispatch<SetStateAction<boolean>>,
   isSubItem: boolean | undefined
@@ -58,7 +58,7 @@ const renderItem = (
   )
 }
 
-const MobileMenu = forwardRef(({ isOpen, setMenuOpen }: propType, ref) => {
+const MobileMenu = forwardRef(({ isOpen, setMenuOpen }: Props, ref) => {
   const routesEntries = Object.entries(PRIME_ROUTES)
   const [{ locale }] = useLocalization()
 

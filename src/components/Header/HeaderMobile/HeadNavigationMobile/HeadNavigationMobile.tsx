@@ -1,4 +1,4 @@
-import React, { Dispatch, memo, SetStateAction, useEffect, useRef } from 'react'
+import { Dispatch, memo, SetStateAction, useEffect, useRef } from 'react'
 import { useSpring, animated, config } from 'react-spring'
 import {
   disableBodyScroll,
@@ -7,19 +7,16 @@ import {
 } from 'body-scroll-lock'
 
 import MobileMenu from './MobileMenu'
+
 import styles from './HeadNavigationMobile.module.css'
 
-type propType = {
+type Props = {
   menuHeight: number
   isOpen: boolean
   setMenuOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const HeadNavigationMobile = ({
-  menuHeight,
-  isOpen,
-  setMenuOpen
-}: propType) => {
+const HeadNavigationMobile = ({ menuHeight, isOpen, setMenuOpen }: Props) => {
   const subMenuDOM = useRef<HTMLDivElement>(null)
   // used via useImperativeHandle in MobileMenu
   const mobileMenuDOM = useRef<{ resetAnimation: () => void }>()
@@ -61,7 +58,7 @@ const HeadNavigationMobile = ({
           (o) => `rgba(0, 0, 0, ${o ?? 0 / 1.3})`
         ),
         visibility: liningOpacity?.interpolate((o) =>
-          !!o && o > 0 ? 'visible' : 'hidden'
+          !!o && (o as number) > 0 ? 'visible' : 'hidden'
         )
       }}
     >

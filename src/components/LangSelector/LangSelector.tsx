@@ -1,13 +1,15 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { bool } from 'prop-types'
 
-import { useLocalization, useThemeState } from 'contexts'
-import { useOutsideClick } from 'shared/hooks'
-import { LanguageIcon } from 'assets/images'
-import { LANGUAGES, LOCALES } from 'constants/index'
+import { useThemeState } from '~contexts/themeContext'
+import { useLocalization } from '~contexts/localizationContext'
+import { useOutsideClick } from '~shared/hooks'
+import { LanguageIcon } from '~assets/images'
+import { LANGUAGES, LOCALES } from '~constants/index'
 
 import styles from './LangSelector.module.css'
 
+// TODO: replace with TypeScript types
 const propTypes = {
   showAbove: bool,
   gray: bool

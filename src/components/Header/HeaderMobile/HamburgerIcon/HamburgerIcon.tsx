@@ -1,15 +1,16 @@
-import React, { memo, useRef } from 'react'
+import { memo, useRef } from 'react'
 import { useSpring, animated } from 'react-spring'
 
-import { useThemeState } from 'contexts'
+import { useThemeState } from '~contexts/themeContext'
+
 import styles from './HamburgerIcon.module.css'
 
-type propType = {
+type Props = {
   isOpen?: boolean
   onClick?: () => void
 }
 
-const HamburgerIcon = ({ isOpen = false, onClick = () => {} }: propType) => {
+const HamburgerIcon = ({ isOpen = false, onClick = () => {} }: Props) => {
   const isDarkTheme = useThemeState()
   const hamburgerDOM = useRef<HTMLButtonElement>(null)
   const hamburgerHeight = hamburgerDOM.current?.clientHeight ?? 0

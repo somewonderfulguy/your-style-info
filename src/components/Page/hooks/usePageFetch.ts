@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { usePageQuery, pageType } from 'api'
+import { usePageQuery, pageType } from '~api/pageQueries'
 
 export const usePageFetch = (pathname: string) => {
   const [{ id, header, components }, setPageData] = useState<pageType>({
