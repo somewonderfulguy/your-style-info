@@ -81,10 +81,10 @@ const MobileMenu = forwardRef(({ isOpen, setMenuOpen }: propType, ref) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }) as any
 
-    const [menuItemsSprings, setMenuItemsSprings] = useSprings(
-      routesEntries.length,
-      springsFunction(isOpen)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [menuItemsSprings, setMenuItemsSprings] = useSprings(
+    routesEntries.length,
+    springsFunction(isOpen)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) as any
 
   const socialMediaAppearing = useSpring({

@@ -17,7 +17,17 @@
     "downlevelIteration": true,
     "jsx": "react-jsx",
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "paths": {
+      "~api/*": ["api/*"],
+      "~assets/*": ["assets/*"],
+      "~components/*": ["components/*"],
+      "~constants/*": ["constants/*"],
+      "~contexts/*": ["contexts/*"],
+      "~services/*": ["services/*"],
+      "~shared/*": ["shared/*"]
+    }
+    // "types": ["vitest/globals"]
   },
   "include": ["src"]
 }

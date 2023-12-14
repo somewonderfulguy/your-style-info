@@ -1,9 +1,8 @@
-import React from 'react'
+import { useThemeState, useThemeSwitch } from '~contexts/themeContext'
 
-import { useThemeState, useThemeSwitch } from 'contexts'
-
-import moonIcon from 'assets/images/moon.svg'
-import sunIcon from 'assets/images/sun.svg'
+// TODO: colocate images with component
+import moonIcon from '~assets/images/moon.svg'
+import sunIcon from '~assets/images/sun.svg'
 import styles from './DarkThemeSwitcher.module.css'
 
 type propType = {

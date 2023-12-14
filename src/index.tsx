@@ -1,6 +1,5 @@
-import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
-import ApplicationNode from 'ApplicationNode'
+import App from './components/App'
 
-render(<ApplicationNode />, document.getElementById('root'))
+createRoot(document.getElementById('root') as HTMLElement).render(<App />)

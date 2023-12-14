@@ -78,11 +78,11 @@ const SubMenuContent = ({
             className={styles.image}
             style={{
               opacity:
-              // when menu opens / closes opacity.value sometimes becomes NaN and a warning
-              // in console happens - this isNaN check is a simple fix
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              typeof (opacity as any)?.value !== 'undefined' &&
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                // when menu opens / closes opacity.value sometimes becomes NaN and a warning
+                // in console happens - this isNaN check is a simple fix
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                typeof (opacity as any)?.value !== 'undefined' &&
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 isNaN((opacity as any)?.value)
                   ? 1
                   : opacity,

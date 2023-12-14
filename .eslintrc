@@ -1,14 +1,22 @@
 {
-  "plugins": ["jest"],
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "env": { "browser": true, "es2020": true },
+  "plugins": ["react-refresh", "vitest"],
   "extends": [
-    "react-app",
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:jest/style",
-    "plugin:jest/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:vitest/recommended"
   ],
+  "ignorePatterns": ["build", ".eslintrc"],
   "rules": {
+    // "react-refresh/only-export-components": [
+    //   "warn",
+    //   { "allowConstantExport": true }
+    // ]
+
     "strict": ["error", "never"],
 
     // Possible Errors
@@ -49,6 +57,7 @@
     "rest-spread-spacing": ["error", "never"],
 
     // React/JSX Style Guide
+    "react/react-in-jsx-scope": "off",
     "jsx-quotes": ["error", "prefer-double"],
     "react/no-multi-comp": ["error", { "ignoreStateless": true }],
     "react/prefer-stateless-function": [
@@ -82,23 +91,15 @@
     ],
     "react/self-closing-comp": ["error", { "component": true, "html": true }],
     "react/jsx-no-bind": ["error", { "allowArrowFunctions": true }],
-    "react/no-children-prop": "off",
+    "react/no-children-prop": "off"
 
+    // TODO: go to vitest
     // Tests
-    "jest/no-deprecated-functions": "error",
-    "jest/prefer-called-with": "error",
-    "jest/prefer-todo": "error",
-    "jest/valid-title": "error",
-    "jest/no-commented-out-tests": "error",
-    "jest/prefer-to-be": 0
-  },
-  "overrides": [
-    {
-      "files": ["*.test.js", "tests.js"],
-      "rules": {
-        "react/display-name": 0,
-        "react/prop-types": 0
-      }
-    }
-  ]
+    // "jest/no-deprecated-functions": "error",
+    // "jest/prefer-called-with": "error",
+    // "jest/prefer-todo": "error",
+    // "jest/valid-title": "error",
+    // "jest/no-commented-out-tests": "error",
+    // "jest/prefer-to-be": 0
+  }
 }

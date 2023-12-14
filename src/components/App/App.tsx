@@ -10,16 +10,19 @@ import {
 } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
+import Header from '~components/Header'
+import ProgressBar from '~components/ProgressBar'
+import { useThemeState } from '~contexts/themeContext'
+// TODO: colocate ?
+import '~services/resizeObserverPolyfill'
+// TODO: colocate
+import '~assets/styles/common-styles.css'
+import '~assets/styles/fonts.css'
+
 import Routes from './Routes'
-import Header from 'components/Header'
-import ProgressBar from 'components/ProgressBar'
 import withContext from './withContext'
-import { useThemeState } from 'contexts'
-import 'services/resizeObserverPolyfill'
 
 import styles from './ApplicationNode.module.css'
-import 'assets/styles/common-styles.css'
-import 'assets/styles/fonts.css'
 
 // intentionally making cache never stale, so once fetched - always used cache, like desktop app
 export const defaultOptions = {

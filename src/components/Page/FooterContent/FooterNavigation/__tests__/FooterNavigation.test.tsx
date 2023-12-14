@@ -3,13 +3,11 @@ import React, { ReactNode } from 'react'
 import { render, screen } from 'shared/tests'
 import FooterNavigation from '..'
 
-jest.mock(
-  'components/LinkExtended',
-  () =>
+jest.mock('components/LinkExtended', () =>
   // eslint-disable-next-line react/display-name
-    ({ to, children }: { to: string; children: ReactNode }) => (
-      <a href={to}>{children}</a>
-    )
+  ({ to, children }: { to: string; children: ReactNode }) => (
+    <a href={to}>{children}</a>
+  )
 )
 
 test('should match snapshot', () => {

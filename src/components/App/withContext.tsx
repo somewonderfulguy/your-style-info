@@ -1,11 +1,7 @@
-import React from 'react'
-
-import {
-  HeaderHeightProvider,
-  LocalizationProvider,
-  ScreenDimensionsProvider,
-  ThemeProvider
-} from 'contexts'
+import { HeaderHeightProvider } from '~contexts/headerHeightContext'
+import { ScreenDimensionsProvider } from '~contexts/screenDimensionsContext'
+import { ThemeProvider } from '~contexts/themeContext'
+import { LocalizationProvider } from '~contexts/localizationContext'
 
 const withContext = (WrappedComponent) => {
   const Component = (props) => (
