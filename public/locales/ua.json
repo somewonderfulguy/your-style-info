@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "/": "Головна",
+    "/guides-topics": "Гайди та загальні теми",
+    "/colors-how-to": "Як поєднувати кольори",
+    "/how-to-travel": "Як подорожувати",
+    "/black-white-ties": "Дрес-код black і white tie",
+    "/body-types": "Типи комплекцій",
+    "/color-types": "Цветотипи",
+    "/clothes": "Одяг та аксесуари",
+    "/suits-jackets-vests": "Костюми, піджаки, жилети",
+    "/shirts": "Сорочки",
+    "/knitwear": "Трикотаж",
+    "/shoes": "Взуття",
+    "/outerwear": "Верхній одяг",
+    "/accessories": "Аксесуари",
+    "/materials-and-fabrics": "Тканини та матеріали",
+    "/patterns": "Патерни",
+    "/maintenance": "Догляд за одягом",
+    "/underwear": "Нижня білизна",
+    "/socks": "Шкарпетки",
+    "/grooming": "Догляд за собою",
+    "/face-skin-care": "Догляд за шкірою",
+    "/hands-care": "Догляд за руками та нігтями рук",
+    "/brands-stores": "Бренди, магазини",
+    "/glossary": "Глосарій",
+    "/mixed": "Різне"
+  },
+  "subtitle": "Енциклопедія чоловічого стилю",
+  "switchLanguage": {
+    "switchLang": "Змінити мову",
+    "switchLangTo": "Switch language to English"
+  }
+}

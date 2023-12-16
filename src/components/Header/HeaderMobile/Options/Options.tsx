@@ -103,7 +103,7 @@ const Options = ({
         role="menuitem"
         onClick={() => {
           setOptionsOpen(false)
-          setTimeout(() => setLanguage(locale === 'ru' ? 'en' : 'ru'), 100)
+          setTimeout(() => setLanguage(locale === 'ua' ? 'en' : 'ua'), 100)
         }}
       >
         <LanguageIcon width={22} height={22} fill="#696969" />

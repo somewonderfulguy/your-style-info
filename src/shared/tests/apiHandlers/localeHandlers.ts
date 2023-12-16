@@ -2,7 +2,7 @@ import { rest } from 'msw'
 
 import { localeTranslationsType } from 'api'
 import enJson from '../../../../public/locales/en.json'
-import ruJson from '../../../../public/locales/ru.json'
+import uaJson from '../../../../public/locales/ua.json'
 
 const baseUrl = 'http://localhost'
 
@@ -22,8 +22,8 @@ export const getLocaleTranslations = (
         case 'en.json':
           success = enJson
           break
-        case 'ru.json':
-          success = ruJson
+        case 'ua.json':
+          success = uaJson
           break
         default:
           return res(ctx.status(500), ctx.json({ error: 'error' } as errorType))

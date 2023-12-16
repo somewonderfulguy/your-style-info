@@ -76,7 +76,7 @@ const LangSelector = ({ showAbove, gray }) => {
                 type="button"
                 disabled={locale === currentLocale}
                 onClick={() => {
-                  setLocaleState(locale as 'en' | 'ru')
+                  setLocaleState(locale as 'en' | 'ua')
                   setOpen(false)
                 }}
               >

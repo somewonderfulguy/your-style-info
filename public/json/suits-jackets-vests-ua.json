@@ -1,10 +1,10 @@
 {
-  "id": "suits-jackets-vests_ru",
-  "header": "Костюмы, пиджаки, жилетки",
+  "id": "suits-jackets-vests_ua",
+  "header": "Костюми, піджаки, жилетки",
   "components": [
     {
-      "alt": "flannels_and_tweed в костюме",
-      "caption": "flannels_and_tweed в костюме",
+      "alt": "@flannels_and_tweed в костюмі",
+      "caption": "@flannels_and_tweed в костюмі",
       "lowresBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoKCgoKCgsMDAsPEA4QDxYUExMUFiIYGhgaGCIzICUgICUgMy03LCksNy1RQDg4QFFeT0pPXnFlZXGPiI+7u/sBCgoKCgoKCwwMCw8QDhAPFhQTExQWIhgaGBoYIjMgJSAgJSAzLTcsKSw3LVFAODhAUV5PSk9ecWVlcY+Ij7u7+//CABEIABkAFAMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAGBQMH/9oACAEBAAAAALW800b6GChuTsNJ/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwL/2gAIAQIQAAAAo2D/xAAWAQEBAQAAAAAAAAAAAAAAAAACAQP/2gAIAQMQAAAAizf/xAAoEAACAQQBAwEJAAAAAAAAAAABAgMABBESIRMxcQUUIzIzNHOCkbH/2gAIAQEAAT8Ag2KtocNg4NWF4L325OqHEMi685YBlzzjFToOq1euXzQ2luiuQJJDtg91UVeeqlLi1uLSLoSxRoH042K8mmuY7jWUHAdQwHnmr+SaW3j6rB1jfO3Y803vZFzxk4/dQ3cTRpk9gAPAq4+il/H+1H8Sfdq2+UPNf//EABkRAAIDAQAAAAAAAAAAAAAAAAARARASMf/aAAgBAgEBPwDHJYhziv/EABoRAAICAwAAAAAAAAAAAAAAAAABAhEQEkL/2gAIAQMBAT8AU1TWpZ1j/9k=",
       "type": "image",
       "url": "/img/flannels_and_tweed_145062225.jpg",
