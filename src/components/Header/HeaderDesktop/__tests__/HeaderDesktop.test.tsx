@@ -24,13 +24,7 @@ test('renders headers and social media icons', () => {
   const { container } = render(<HeaderDesktop />)
   const header = screen.getByText(/your style/i)
   const subtitle = container.querySelector('p')
-  const socialMedia = [
-    /instagram/i,
-    /facebook/i,
-    /twitter/i,
-    /vkontakte/i,
-    /youtube/i
-  ]
+  const socialMedia = [/instagram/i, /facebook/i, /twitter/i, /youtube/i]
 
   expect(header).toBeInTheDocument()
   expect(subtitle).toBeInTheDocument()
