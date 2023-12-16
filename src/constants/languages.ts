@@ -1,6 +1,6 @@
 export const LANGUAGES = new Map([
   ['en', 'English'],
-  ['ru', 'Русский']
+  ['ua', 'Українська']
 ])
 
 export const LOCALES = Array.from(LANGUAGES.keys())

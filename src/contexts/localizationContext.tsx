@@ -11,7 +11,7 @@ import {
 import { LOCALES } from '~constants/index'
 import { useLocaleQuery } from '~api/localeQueries'
 
-type localeType = 'en' | 'ru'
+type localeType = 'en' | 'ua'
 type localeState = {
   locale: localeType
   upcomingLocale?: localeType | null

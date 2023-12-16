@@ -2,7 +2,7 @@ import { rest } from 'msw'
 
 import { pageType } from 'api'
 import trenchCoatEn from '../../../../public/json/trench-coat-en.json'
-import trenchCoatRu from '../../../../public/json/trench-coat-ru.json'
+import trenchCoatUa from '../../../../public/json/trench-coat-ua.json'
 
 const baseUrl = 'http://localhost'
 
@@ -20,8 +20,8 @@ export const getPage = (options = { isOnce: false, isFail: false }) =>
         case 'trench-coat-en.json':
           success = trenchCoatEn as pageType
           break
-        case 'trench-coat-ru.json':
-          success = trenchCoatRu as pageType
+        case 'trench-coat-ua.json':
+          success = trenchCoatUa as pageType
           break
         default:
           return res(ctx.status(500), ctx.json({ error: 'error' } as errorType))

@@ -1,0 +1,10 @@
+{
+  "id": "face-skin-care_ua",
+  "header": "Догляд за обличчям",
+  "components": [
+    {
+      "type": "text",
+      "text": "Такий шлях."
+    }
+  ]
+}

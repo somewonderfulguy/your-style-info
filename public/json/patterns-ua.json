@@ -1,0 +1,10 @@
+{
+  "id": "pattenrs_ua",
+  "header": "Патерни",
+  "components": [
+    {
+      "type": "text",
+      "text": "Такий шлях."
+    }
+  ]
+}

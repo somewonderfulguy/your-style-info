@@ -20,9 +20,9 @@ expect.addSnapshotSerializer({
   }
 })
 
-const [english, russian] = FULL_LOCALES
+const [english, ukrainian] = FULL_LOCALES
 const englishRegExp = new RegExp(english, 'i')
-const russianRegExp = new RegExp(russian, 'i')
+const ukrainianRegExp = new RegExp(ukrainian, 'i')
 
 const setup = (showAbove?: boolean, gray?: boolean, path = '/') => {
   const utils = render(<LangSelector showAbove={showAbove} gray={gray} />, {
@@ -85,27 +85,29 @@ test('should show/hide menu when clicking on language selector', async () => {
     screen
       .getByRole('menuitem', { name: englishRegExp })
       .querySelector('button')
-  const getRussianMenuItem = () =>
+  const getUkrainianMenuItem = () =>
     screen
-      .getByRole('menuitem', { name: russianRegExp })
+      .getByRole('menuitem', { name: ukrainianRegExp })
       .querySelector('button')
 
   expect(langSelectorBtn).toHaveTextContent(new RegExp(english, 'i'))
   expect(getEnglishMenuItem()).toBeDisabled()
-  expect(getRussianMenuItem()).not.toBeDisabled()
+  expect(getUkrainianMenuItem()).not.toBeDisabled()
   userEvent.click(
     screen
       .getByRole('menu')
       .querySelector('button:not(:disabled)') as HTMLElement
   )
   expect(screen.queryByRole('menu')).not.toBeInTheDocument()
-  await waitFor(() => expect(langSelectorBtn).toHaveTextContent(russianRegExp))
+  await waitFor(() =>
+    expect(langSelectorBtn).toHaveTextContent(ukrainianRegExp)
+  )
 
   // open
   await waitFor(() => expect(langSelectorBtn).not.toBeDisabled())
   userEvent.click(langSelectorBtn)
   expect(getEnglishMenuItem()).not.toBeDisabled()
-  expect(getRussianMenuItem()).toBeDisabled()
+  expect(getUkrainianMenuItem()).toBeDisabled()
 
   // close
   userEvent.click(langSelectorBtn)
@@ -128,7 +130,7 @@ test('header and footer lang selectors, light/dark themes, desktop/mobile', asyn
   }
 
   const [blockHeaderLangSelector, blockFooterLangSelector] =
-    screen.getAllByText(russianRegExp)
+    screen.getAllByText(ukrainianRegExp)
   const headerLangSelector = blockHeaderLangSelector.closest('button')
   const footerLangSelector = blockFooterLangSelector.closest('button')
   const headerLangSelectorWrapper = headerLangSelector?.parentElement
