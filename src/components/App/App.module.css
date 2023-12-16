@@ -1,0 +1,54 @@
+:root {
+  --white: 255, 255, 255;
+  --black: 0, 0, 0;
+
+  /* Fifty Shades of Grey */
+  --brightGray: 240, 240, 240;
+  --lightGray: 211, 211, 211;
+  --gray: 173, 173, 173;
+  --darkGray: 99, 99, 99;
+  --deepGray: 46, 46, 46;
+  --deepDarkGray: 32, 35, 38;
+}
+
+.themeWrapper {
+  --primaryBackground: var(--white);
+  --primaryColor: var(--black);
+  --primaryBorder: var(--gray);
+  --primaryDisabled: var(--lightGray);
+  --primaryHoverHighlight: var(--brightGray);
+
+  background-color: rgb(var(--primaryBackground));
+  color: rgb(var(--primaryColor));
+
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.themeWrapper * {
+  border-color: rgb(var(--primaryBorder));
+}
+
+.themeWrapperDarkMode {
+  --primaryBackground: var(--deepDarkGray);
+  --primaryColor: var(--white);
+  --primaryBorder: var(--darkGray);
+  --primaryDisabled: var(--darkGray);
+  --primaryHoverHighlight: var(--deepGray);
+
+  composes: themeWrapper;
+}
+
+.themeWrapperDarkMode * {
+  border-color: rgb(var(--primaryBorder));
+}
+
+.progressBarContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 5000;
+}

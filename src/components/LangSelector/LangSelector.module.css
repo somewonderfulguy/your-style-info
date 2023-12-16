@@ -1,0 +1,124 @@
+.langSelector {
+  position: relative;
+  display: inline-block;
+}
+
+.langSelectorDark {
+  composes: langSelector;
+}
+
+.langSelector button {
+  font-size: 15px;
+  color: inherit;
+  cursor: pointer;
+}
+
+.langSelectorDark button {
+  font-size: 15px;
+  color: #919191;
+  cursor: pointer;
+}
+
+.gray button {
+  color: #696969;
+}
+
+.langSelectorDark.gray button {
+  color: #919191;
+}
+.langSelectorDark.gray > button {
+  color: #696969;
+}
+
+.langSelectorInner {
+  display: flex;
+  align-items: center;
+
+  opacity: 0.7;
+  transition: opacity 200ms;
+}
+
+.langSelectorInner:hover {
+  opacity: 1;
+}
+
+.langSelectorInner:disabled {
+  opacity: 0.4;
+}
+
+.icon,
+.langSelectorDark.gray .icon {
+  margin-right: 5px;
+  fill: #696969;
+}
+
+.langSelectorDark .icon {
+  fill: #919191;
+}
+
+.langSelector .triangle {
+  margin-left: 5px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgb(105, 105, 105);
+  border-bottom: 0;
+}
+
+.triangleReverse {
+  composes: triangle;
+  transform: rotate(180deg);
+}
+
+.langSelector .dropDown {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+
+  list-style: none;
+  margin: 2px 0;
+  padding: 8px 0;
+
+  border: 1px solid rgba(var(--primaryBorder), 0.6);
+  border-radius: 4px;
+  background-color: rgb(var(--primaryBackground));
+}
+
+.dropDownAbove {
+  composes: dropDown;
+  top: 0;
+  transform: translateY(calc(-100% - 8px));
+}
+
+.dropDownBelow {
+  composes: dropDown;
+  bottom: 0;
+  transform: translateY(calc(100% + 4px));
+}
+
+.dropDown button {
+  width: 100%;
+  padding: 4px 24px;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.dropDown button:hover {
+  background-color: rgba(var(--primaryHoverHighlight), 0.7);
+}
+
+.dropDown button:disabled {
+  cursor: inherit;
+  color: rgb(var(--primaryDisabled));
+}
+
+.dropDown button:disabled:hover {
+  background-color: transparent;
+}
+
+/* TODO FIX ? */
+.dropDown button:active {
+  color: #fff;
+  background-color: #007bff;
+}

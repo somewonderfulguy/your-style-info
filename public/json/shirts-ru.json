@@ -1,0 +1,19 @@
+{
+  "id": "shirts_ru",
+  "header": "Рубашки",
+  "components": [
+    {
+      "type": "text",
+      "text": "Таков путь."
+    },
+    {
+      "alt": "Дэвид Парк в военной рубашке",
+      "caption": "Дэвид Парк в военной рубашке",
+      "lowresBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoKCgoKCgsMDAsPEA4QDxYUExMUFiIYGhgaGCIzICUgICUgMy03LCksNy1RQDg4QFFeT0pPXnFlZXGPiI+7u/sBCgoKCgoKCwwMCw8QDhAPFhQTExQWIhgaGBoYIjMgJSAgJSAzLTcsKSw3LVFAODhAUV5PSk9ecWVlcY+Ij7u7+//CABEIABQAFAMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAGAwUE/9oACAEBAAAAAC+mf3rDk8er/8QAFgEBAQEAAAAAAAAAAAAAAAAABAEC/9oACAECEAAAABaqP//EABUBAQEAAAAAAAAAAAAAAAAAAAME/9oACAEDEAAAAFncf//EACgQAAIBAwIFAwUAAAAAAAAAAAECAwQFEQASExQxMmEGFSEiUVKx0f/aAAgBAQABPwD0vR01bdFFeqMiFBwm6MWyBkdDjVytFNb59kJBQEsU7WUZOB5Hx86S+zoCqRLtz4/uvTqw864dhHOJoyhHc23dkeBqvqOceqVBNucTRFuIWI/LGd3d01DZrzWJxoKKQoxOD26ts78zTqMACT9nVI2+6XJWVWVGdlBHQ694rofojdFX7BRr/8QAGxEAAQQDAAAAAAAAAAAAAAAAAAECAzIQE1L/2gAIAQIBAT8AetjTFwwW2P/EABsRAAIBBQAAAAAAAAAAAAAAAAABAgMQEiEy/9oACAEDAQE/AEoqnsxmLm3/2Q==",
+      "type": "image",
+      "url": "/img/david_park07.jpg",
+      "height": 1021,
+      "width": 1021
+    }
+  ]
+}

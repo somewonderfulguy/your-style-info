@@ -1,0 +1,37 @@
+.layout {
+  display: flex;
+  align-items: center;
+}
+
+.layout > * {
+  margin-right: 10px;
+}
+.layout > *:last-child {
+  margin-right: 0;
+}
+
+.layout > a {
+  opacity: 0.7;
+  transition: opacity 150ms;
+}
+.layout > a:hover {
+  opacity: 1;
+}
+
+.layout > a,
+.layout > a,
+svg {
+  display: block;
+}
+
+.layoutSmall {
+  composes: layout;
+}
+
+.layoutSmall > * {
+  margin-right: 7px;
+}
+
+.layoutSmall > *:last-child {
+  margin-right: 0;
+}

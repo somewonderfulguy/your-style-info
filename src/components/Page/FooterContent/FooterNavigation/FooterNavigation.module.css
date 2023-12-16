@@ -1,0 +1,33 @@
+.list {
+  list-style-type: none;
+  display: grid;
+  grid-template-rows: repeat(4, min-content);
+  grid-auto-flow: column;
+  grid-auto-columns: 250px;
+  gap: 10px;
+}
+
+@media (max-width: 425px) {
+  .list {
+    grid-template-rows: initial;
+    grid-auto-flow: initial;
+    grid-auto-columns: auto;
+  }
+}
+
+.link {
+  color: #919191;
+}
+
+.link:hover {
+  color: lightgray;
+}
+
+.active {
+  color: lightgray;
+  font-weight: 600;
+}
+
+.inactive {
+  color: #4a4a4a;
+}

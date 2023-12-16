@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot difference: 1) default sizes and colour, 2) smaller sizes, lightgray colour 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -1,17 +1,17 @@
+  <DocumentFragment>
+    <div
+-     class="layout"
++     class="layoutSmall"
+    >
+      <a
+        href="https://instagram.com/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Instagram"
+      >
+        <svg
+-         style="fill: #636363;"
++         style="width: 18.9px; height: 18.9px; fill: #919191;"
+        >
+          <path
+            d="InstagramIcon"
+          />
+        </svg>
+@@ -22,11 +22,11 @@
+        style="margin-top: -2px;"
+        target="_blank"
+        title="Facebook"
+      >
+        <svg
+-         style="fill: #636363;"
++         style="width: 17.5px; height: 18.2px; fill: #919191;"
+        >
+          <path
+            d="FacebookIcon"
+          />
+        </svg>
+@@ -37,11 +37,11 @@
+        style="margin-top: -1px;"
+        target="_blank"
+        title="Twitter"
+      >
+        <svg
+-         style="fill: #636363;"
++         style="width: 20.3px; height: 16.8px; fill: #919191;"
+        >
+          <path
+            d="TwitterIcon"
+          />
+        </svg>
+@@ -51,11 +51,11 @@
+        rel="noopener noreferrer"
+        target="_blank"
+        title="VKontakte"
+      >
+        <svg
+-         style="fill: #636363;"
++         style="width: 17.5px; height: 17.5px; fill: #919191;"
+        >
+          <path
+            d="VKontakteIcon"
+          />
+        </svg>
+@@ -65,11 +65,11 @@
+        rel="noopener noreferrer"
+        target="_blank"
+        title="YouTube"
+      >
+        <svg
+-         style="fill: #636363;"
++         style="width: 22.4px; height: 15.4px; fill: #919191;"
+        >
+          <path
+            d="YouTubeIcon"
+          />
+        </svg>
+`;

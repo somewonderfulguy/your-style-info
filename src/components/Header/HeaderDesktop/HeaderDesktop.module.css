@@ -1,0 +1,66 @@
+.header {
+  z-index: 5000;
+}
+
+.aboveNav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hgroup {
+  max-width: 1400px;
+  padding-left: 100px;
+  margin: 40px 0;
+}
+
+.title {
+  font-family: 'Inconsolata', monospace;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.subtitleContainer {
+  font-family: arial;
+  font-size: 15px;
+  color: darkgray;
+  margin: 0;
+
+  position: relative;
+  height: 17px;
+}
+
+.subtitle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+}
+
+.sideControlsContainer {
+  margin: 18px 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.sideControlsSocialMedia {
+  margin-top: 10px;
+}
+
+.sideControlsDarkTheme {
+  margin-top: 11px;
+}
+
+.navContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: rgba(var(--primaryBackground), 0.95);
+  transition-duration: 0.2s;
+}
+
+.fixedNavContainer {
+  composes: navContainer;
+  position: fixed;
+  top: -1px;
+}

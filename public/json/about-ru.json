@@ -1,0 +1,10 @@
+{
+  "id": "about_ru",
+  "header": "О сайте",
+  "components": [
+    {
+      "type": "text",
+      "text": "Lorem ipsum dolor sit amet."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "about_en",
+  "header": "About",
+  "components": [
+    {
+      "type": "text",
+      "text": "Lorem ipsum dolor sit amet."
+    }
+  ]
+}

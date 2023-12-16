@@ -1,0 +1,46 @@
+.list {
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+}
+
+.listDark {
+  composes: list;
+}
+
+.listItem {
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.listItemActive {
+  composes: listItem;
+  background-color: rgb(var(--primaryHoverHighlight));
+}
+
+.listItemActive .link {
+  color: #0a4fff;
+}
+
+.listItemInactive {
+  composes: listItem;
+  color: rgb(var(--primaryDisabled));
+  transition: color 0.2s ease;
+  cursor: inherit;
+  padding: 15px;
+}
+
+.listItemInactive:hover {
+  background-color: transparent;
+}
+
+.link {
+  display: block;
+  padding: 15px;
+}
+
+.activeLink {
+  composes: listItemInactive;
+  color: rgb(var(--primaryColor));
+  margin-bottom: -1px;
+}

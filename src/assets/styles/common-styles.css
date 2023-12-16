@@ -1,0 +1,52 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  /* Correct the line height in all browsers. */
+  line-height: 1.15;
+  /* Prevent adjustments of font size after orientation changes in IE on Windows Phone and in iOS. */
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  display: grid;
+  min-height: 100%;
+  grid-template-rows: auto 1fr auto;
+
+  /* Screens wider than 1920px are not supported. At least for now. */
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+a {
+  /* Remove gaps in links underline in iOS 8+ and Safari 8+. */
+  -webkit-text-decoration-skip: objects;
+
+  text-decoration: none;
+  color: #578cff;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #0a4fff;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}

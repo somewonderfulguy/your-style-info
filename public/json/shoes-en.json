@@ -1,0 +1,15 @@
+{
+  "id": "shoes_en",
+  "header": "Shoes",
+  "components": [
+    {
+      "alt": "Castaner espadrilles from Engelska Herr",
+      "caption": "Castaner espadrilles from Engelska Herr",
+      "lowresBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoKCgoKCgsMDAsPEA4QDxYUExMUFiIYGhgaGCIzICUgICUgMy03LCksNy1RQDg4QFFeT0pPXnFlZXGPiI+7u/sBCgoKCgoKCwwMCw8QDhAPFhQTExQWIhgaGBoYIjMgJSAgJSAzLTcsKSw3LVFAODhAUV5PSk9ecWVlcY+Ij7u7+//CABEIABkAFAMBIgACEQEDEQH/xAAYAAEBAAMAAAAAAAAAAAAAAAAFBgMEB//aAAgBAQAAAADcWYhVXMMTL3XJXP/EABcBAAMBAAAAAAAAAAAAAAAAAAABBAX/2gAIAQIQAAAAzqWf/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAEEBf/aAAgBAxAAAADRkZ//xAAqEAACAQQABAMJAAAAAAAAAAABAgMABAUREiFBcQYTMjEzNDZCYXOCsv/aAAgBAQABPwDICKxu45d649gj7AczWPtYvMeXkQG4l7nrWxWXt74Za2ukIeD3bxnkEVvqrGsElFskgcwnaFOsbdDuuPfs51OkJjYylQmjxEkAdyTTZnDRTR2lnceVuThadF1GVrO5K5XIyLZX00luEQIVYgennqvGfy9N+WL+qHqXsKx/w/7mv//EABsRAAICAwEAAAAAAAAAAAAAAAECABEDECFR/9oACAECAQE/AGQDKrVY0FE55P/EABkRAAIDAQAAAAAAAAAAAAAAAAIRAAEDEP/aAAgBAwEBPwADeJi1cVx8/9k=",
+      "type": "image",
+      "url": "/img/engelskaherr_castaner.jpg",
+      "height": 1350,
+      "width": 1080
+    }
+  ]
+}

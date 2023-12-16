@@ -1,0 +1,10 @@
+{
+  "id": "face-skin-care_en",
+  "header": "Face skin care",
+  "components": [
+    {
+      "type": "text",
+      "text": "Lorem ipsum dolor sit amet."
+    }
+  ]
+}

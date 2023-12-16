@@ -1,0 +1,10 @@
+{
+  "id": "pattenrs_en",
+  "header": "Patterns",
+  "components": [
+    {
+      "type": "text",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id dolor convallis, semper quam a, blandit erat."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "/": "Главная",
+    "/guides-topics": "Гайды и общие темы",
+    "/colors-how-to": "Как сочетать цвета",
+    "/how-to-travel": "Как путешествовать",
+    "/black-white-ties": "Дресс-код black и white tie",
+    "/body-types": "Типы комплекций",
+    "/color-types": "Цветотипы",
+    "/clothes": "Одежда и аксессуары",
+    "/suits-jackets-vests": "Костюмы, пиджаки, жилеты",
+    "/shirts": "Рубашки",
+    "/knitwear": "Трикотаж",
+    "/shoes": "Обувь",
+    "/outerwear": "Верхнаяя одежда",
+    "/accessories": "Аксессуары",
+    "/materials-and-fabrics": "Ткани и материалы",
+    "/patterns": "Паттерны",
+    "/maintenance": "Уход за одеждой",
+    "/underwear": "Нижнее бельше",
+    "/socks": "Носки",
+    "/grooming": "Уход за собой",
+    "/face-skin-care": "Уход за кожей",
+    "/hands-care": "Уход за руками и ногтями рук",
+    "/brands-stores": "Бренды, магазины",
+    "/glossary": "Глоссарий",
+    "/mixed": "Разное"
+  },
+  "subtitle": "Энциклопедия мужского стиля",
+  "switchLanguage": {
+    "switchLang": "Сменить язык",
+    "switchLangTo": "Switch language to English"
+  }
+}

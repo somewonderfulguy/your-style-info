@@ -1,0 +1,143 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.figure {
+  margin: 0;
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.img {
+  max-width: 100%;
+  animation: fadeIn 0.6s;
+}
+
+.imgAbsolute {
+  composes: img;
+  composes: absolute;
+}
+
+.aspectRatioOuter {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.5s;
+}
+
+.aspectRatioOuterError {
+  composes: aspectRatioOuter;
+}
+
+.aspectRatioOuterError:hover .aspectRatioInner {
+  transform: scale(1.1);
+}
+
+.aspectRatioInner {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: transform 1s ease-in-out 0s;
+}
+
+.preloadPlaceholder {
+  composes: absolute;
+
+  background-size: cover;
+  filter: blur(20px);
+  transform: scale(1.05);
+}
+
+.caption {
+  text-align: center;
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.captionDark {
+  composes: caption;
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.errorMessage {
+  composes: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.reloadImageBtn {
+  composes: absolute;
+  z-index: 5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  color: white;
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+  outline: none;
+
+  transition: transform 0.5s ease-in-out 0s;
+}
+
+.outline {
+  composes: absolute;
+  transition: all 0.2s ease;
+}
+
+.outlineDark {
+  composes: outline;
+}
+
+.reloadImageBtn:focus + .outline {
+  border: 1px rgba(33, 150, 243, 0.7) inset;
+  box-shadow: inset 0 0 7px rgb(33, 150, 243);
+}
+
+.reloadImageBtn:focus + .outlineDark {
+  border: 0.5px rgba(33, 150, 243, 0.7) inset;
+  box-shadow: inset 0 0 3px rgb(33, 150, 243);
+}
+
+.reloadImageBtn:hover {
+  transform: scale(1.05);
+}
+
+.reloadTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 18px 0;
+  padding: 0 5px;
+  position: absolute;
+}
+
+.reloadTitleSmaller {
+  composes: reloadTitle;
+  font-size: 17px;
+}
+
+.reloadSubitle {
+  position: absolute;
+  padding: 0 5px;
+}

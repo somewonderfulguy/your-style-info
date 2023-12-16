@@ -1,0 +1,47 @@
+.menuWrapper {
+  padding: 10px;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  border-top: 1px solid lightgray;
+  margin: 0 20px;
+  padding-bottom: 5px;
+}
+
+.lineLink {
+  composes: line;
+  padding-left: 23px;
+}
+
+.inactiveListItems {
+  color: rgb(var(--primaryDisabled));
+}
+
+.subItemLine {
+  composes: line;
+  border: none;
+  margin: 0 29px;
+  padding: 0;
+  font-size: 85%;
+  height: 30px;
+}
+.subItemLine:last-child {
+  margin-bottom: 23px;
+}
+
+.menuWrapper ul {
+  list-style: none;
+}
+
+.menuWrapper ul li:first-child > .line {
+  border-top: none;
+}
+
+.socialMediaContainer {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}

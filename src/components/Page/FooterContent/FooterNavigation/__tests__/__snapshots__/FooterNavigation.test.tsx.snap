@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+<DocumentFragment>
+  <nav>
+    <ul
+      class="list"
+    >
+      <li>
+        <a
+          href="/en/"
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="/en/guides-topics"
+        >
+          Guides & generic topics
+        </a>
+      </li>
+      <li>
+        <a
+          href="/en/clothes"
+        >
+          Clothes & Accessories
+        </a>
+      </li>
+      <li>
+        <a
+          href="/en/grooming"
+        >
+          Grooming
+        </a>
+      </li>
+      <li>
+        <a
+          href="/en/brands-stores"
+        >
+          Brands & stores
+        </a>
+      </li>
+      <li>
+        <a
+          href="/en/glossary"
+        >
+          Glossary
+        </a>
+      </li>
+      <li>
+        <span
+          aria-disabled="true"
+          class="inactive"
+        >
+          Mixed
+        </span>
+      </li>
+    </ul>
+  </nav>
+</DocumentFragment>
+`;
