@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import { localeTranslationsType } from 'api'
+import { LocaleTranslationsType } from 'api'
 import enJson from '../../../../public/locales/en.json'
 import uaJson from '../../../../public/locales/ua.json'
 
@@ -12,12 +12,12 @@ type errorType = { error: 'error' }
 export const getLocaleTranslations = (
   options = { isOnce: false, isFail: false }
 ) =>
-  rest.get<undefined, localeTranslationsType | errorType>(
+  rest.get<undefined, LocaleTranslationsType | errorType>(
     `${baseUrl}/locales/:json`,
     async (req, res, ctx) => {
       const { json } = req.params
 
-      let success: localeTranslationsType
+      let success: LocaleTranslationsType
       switch (json) {
         case 'en.json':
           success = enJson

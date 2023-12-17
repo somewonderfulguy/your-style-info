@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions } from 'react-query'
 
 import { request } from '.'
 
-export type localeTranslationsType = {
+export type LocaleTranslationsType = {
   navigation: { [key: string]: string }
   subtitle: string
   switchLanguage: {
@@ -12,11 +12,11 @@ export type localeTranslationsType = {
 }
 
 const getLocaleTranslations = (locale: string) =>
-  request<localeTranslationsType>(`locales/${locale}.json`)
+  request<LocaleTranslationsType>(`locales/${locale}.json`)
 
 export const useLocaleQuery = (
   locale: string,
-  options: UseQueryOptions<localeTranslationsType> = {}
+  options: UseQueryOptions<LocaleTranslationsType> = {}
 ) =>
   useQuery(['locale', locale], () => getLocaleTranslations(locale), {
     enabled: !!locale,

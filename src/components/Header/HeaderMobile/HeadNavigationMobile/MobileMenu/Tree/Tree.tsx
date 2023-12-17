@@ -13,9 +13,9 @@ import { useResizeObserver } from '~shared/hooks'
 import styles from './Tree.module.css'
 
 type Props = {
-  children?: ReactNode | ReactNode[] | null
+  children?: ReactNode
   lineClassName?: string
-  title?: ReactNode | ReactNode[] | string
+  title?: ReactNode
   style?: CSSProperties
   defaultOpen?: boolean
 }

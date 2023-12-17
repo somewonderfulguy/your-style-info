@@ -1,5 +1,6 @@
 import {
   createContext,
+  Dispatch,
   ReactNode,
   useCallback,
   useContext,
@@ -11,53 +12,49 @@ import {
 import { LOCALES } from '~constants/index'
 import { useLocaleQuery } from '~api/localeQueries'
 
-type localeType = 'en' | 'ua'
-type localeState = {
-  locale: localeType
-  upcomingLocale?: localeType | null
+type LocaleType = 'en' | 'ua'
+type LocaleState = {
+  locale: LocaleType
+  upcomingLocale?: LocaleType | null
 }
-type localeAction = (s: localeState, a: Partial<localeState>) => localeState
+type LocaleAction = (s: LocaleState, a: Partial<LocaleState>) => LocaleState
 
-type dispatchType = React.Dispatch<Partial<localeState>>
+type DispatchType = Dispatch<Partial<LocaleState>>
 
-type contextType = [localeState, dispatchType]
+type ContextType = [LocaleState, DispatchType]
 
-const LocalizationContext = createContext<contextType | undefined>(undefined)
+const LocalizationContext = createContext<ContextType | undefined>(undefined)
 LocalizationContext.displayName = 'LocalizationContext'
 
-const getNavigatorLang = (): localeType => {
+const getNavigatorLang = (): LocaleType => {
   try {
-    return window.navigator.language.slice(0, 2) as localeType
+    return window.navigator.language.slice(0, 2) as LocaleType
   } catch (e) {
     console.error(e)
     return 'en'
   }
 }
 
-const LocalizationProvider = ({
-  children
-}: {
-  children: ReactNode | ReactNode[]
-}) => {
-  const [localeState, setLocaleState] = useReducer<localeAction>(
+const LocalizationProvider = ({ children }: { children: ReactNode }) => {
+  const [LocaleState, setLocaleState] = useReducer<LocaleAction>(
     (s, a) => ({ ...s, ...a }),
     {
       locale:
-        (window.localStorage.getItem('locale') as localeType) ||
+        (window.localStorage.getItem('locale') as LocaleType) ||
         getNavigatorLang(),
       upcomingLocale: null // upcoming locale is for animated transitions
     }
   )
 
   useEffect(() => {
-    localeState.locale &&
-      window.localStorage.setItem('locale', localeState.locale)
-  }, [localeState.locale])
+    LocaleState.locale &&
+      window.localStorage.setItem('locale', LocaleState.locale)
+  }, [LocaleState.locale])
 
   const value = useMemo(
-    () => [localeState, setLocaleState],
-    [localeState]
-  ) as contextType
+    () => [LocaleState, setLocaleState],
+    [LocaleState]
+  ) as ContextType
   return (
     <LocalizationContext.Provider value={value}>
       {children}
@@ -84,7 +81,7 @@ const useLocalization = () => {
   }, [queryData.data, theLocale, setLocaleState])
 
   const setLocale = useCallback(
-    (locale: localeType) => {
+    (locale: LocaleType) => {
       const isLocaleExists = !!LOCALES.find((el) => el === locale)
       if (!isLocaleExists) {
         console.error(
@@ -101,7 +98,7 @@ const useLocalization = () => {
   return useMemo(
     () =>
       [context[0], setLocale, queryData] as [
-        localeState,
+        LocaleState,
         typeof setLocale,
         typeof queryData
       ],
