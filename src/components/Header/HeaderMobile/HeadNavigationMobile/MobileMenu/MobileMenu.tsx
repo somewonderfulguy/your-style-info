@@ -23,10 +23,11 @@ type Props = {
 
 type FirstParam = [
   string,
-  { name: string; sub?: primeRoutesType; inactive?: boolean }
+  { name: string; sub?: primeRoutesType; inactive?: boolean },
+  string?
 ]
 const renderItem = (
-  [path, { name, sub, inactive }]: FirstParam,
+  [path, { name, sub, inactive }, prevPath = '']: FirstParam,
   locale: string,
   setMenuOpen: Dispatch<SetStateAction<boolean>>,
   isSubItem?: boolean,
@@ -34,7 +35,7 @@ const renderItem = (
 ) => {
   const Link = (
     <LinkExtended
-      to={`/${locale}${path}`}
+      to={`/${locale}${prevPath}${path}`}
       children={translations?.[path] ?? name}
       inactive={!!inactive}
       className={inactive ? styles.inactiveListItems : ''}
@@ -48,7 +49,7 @@ const renderItem = (
       children={Object.entries(sub).map(([subPath, menuItemData], i) => (
         <li className={styles.subItemLine} key={i}>
           {renderItem(
-            [`${path}${subPath}`, menuItemData],
+            [subPath, menuItemData, path],
             locale,
             setMenuOpen,
             true,
