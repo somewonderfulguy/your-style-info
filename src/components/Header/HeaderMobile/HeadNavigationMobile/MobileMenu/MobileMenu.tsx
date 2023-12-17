@@ -29,12 +29,13 @@ const renderItem = (
   [path, { name, sub, inactive }]: FirstParam,
   locale: string,
   setMenuOpen: Dispatch<SetStateAction<boolean>>,
-  isSubItem: boolean | undefined
+  isSubItem?: boolean,
+  translations?: { [key: string]: string }
 ) => {
   const Link = (
     <LinkExtended
       to={`/${locale}${path}`}
-      children={name}
+      children={translations?.[path] ?? name}
       inactive={!!inactive}
       className={inactive ? styles.inactiveListItems : ''}
       onClick={() => setMenuOpen(false)}
@@ -44,9 +45,15 @@ const renderItem = (
     <Tree
       key={path}
       title={Link}
-      children={Object.entries(sub).map((entry, i) => (
+      children={Object.entries(sub).map(([subPath, menuItemData], i) => (
         <li className={styles.subItemLine} key={i}>
-          {renderItem(entry, locale, setMenuOpen, true)}
+          {renderItem(
+            [`${path}${subPath}`, menuItemData],
+            locale,
+            setMenuOpen,
+            true,
+            translations
+          )}
         </li>
       ))}
       lineClassName={styles.line}
@@ -58,14 +65,14 @@ const renderItem = (
   )
 }
 
-const MobileMenu = forwardRef(({ isOpen, setMenuOpen }: Props, ref) => {
+const MobileMenu = forwardRef(({ isOpen = false, setMenuOpen }: Props, ref) => {
   const routesEntries = Object.entries(PRIME_ROUTES)
-  const [{ locale }] = useLocalization()
+  const [{ locale }, , { data: translations }] = useLocalization()
 
   const DURATION = 250
   const DELAY = 150
 
-  const springsFunction = (isOpen) => (idx) =>
+  const springsFunction = (isOpen: boolean) => (idx: number) =>
     ({
       config: { duration: DURATION },
       from: {
@@ -119,7 +126,13 @@ const MobileMenu = forwardRef(({ isOpen, setMenuOpen }: Props, ref) => {
       <ul>
         {routesEntries.map((entry, idx) => (
           <animated.li key={entry[0]} style={menuItemsSprings[idx]}>
-            {renderItem(entry, locale, setMenuOpen, false)}
+            {renderItem(
+              entry,
+              locale,
+              setMenuOpen,
+              false,
+              translations?.navigation
+            )}
           </animated.li>
         ))}
       </ul>

@@ -19,7 +19,6 @@ export const usePageQuery = (
   const path =
     rawPath[rawPath.length - 1] === '/' ? rawPath.slice(0, -1) : rawPath
   const url = pagePathPair.get(path)
-  console.log('url', url)
   // if(!url) throw new Error(`unexpected path: ${path}`) // TODO display such errors in UI so the user know that his request didn't work
 
   const TEMP_URL = url?.substring(1) // will not be needed when it comes to real api requests (not local)
