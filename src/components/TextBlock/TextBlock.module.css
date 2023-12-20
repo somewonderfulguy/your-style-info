@@ -1,0 +1,11 @@
+.textBlock {
+  line-height: 32px;
+  font-size: 20px;
+  letter-spacing: -0.003em;
+}
+
+.textBlockMobile {
+  composes: textBlock;
+  line-height: 28px;
+  font-size: 16px;
+}

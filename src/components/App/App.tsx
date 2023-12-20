@@ -22,7 +22,6 @@ import { useThemeState } from '~contexts/themeContext'
 import '~services/resizeObserverPolyfill'
 // TODO: colocate
 import '~assets/styles/common-styles.css'
-import '~assets/styles/fonts.css'
 
 import Routes from './Routes'
 import withContext from './withContext'

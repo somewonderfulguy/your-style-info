@@ -31,7 +31,7 @@ const Page = ({ location: { pathname } }: Props) => {
   const pageContent = useMemo(
     () => (
       <>
-        {header && <h1 style={{ marginTop: 0 }}>{header}</h1>}
+        {header && <h1 className={styles.title}>{header}</h1>}
         {!!components.length && componentRenderer(components)}
       </>
     ),

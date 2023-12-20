@@ -12,6 +12,14 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* global typography */
+body,
+button {
+  font-family: system-ui, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   margin: 0;
 }
