@@ -17,8 +17,6 @@ const DarkThemeSwitcher = ({
   const isDarkTheme = useThemeState()
   const switchTheme = useThemeSwitch()
 
-  console.log(moonIcon)
-
   return (
     // TODO: dynamically change aria label text
     <label
