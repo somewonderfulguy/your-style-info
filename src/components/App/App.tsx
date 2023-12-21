@@ -26,6 +26,7 @@ import '~assets/styles/common-styles.css'
 import Routes from './Routes'
 import withContext from './withContext'
 
+import './App.css'
 import styles from './App.module.css'
 
 // TODO: migrate to latest version of react-router and remove this hack

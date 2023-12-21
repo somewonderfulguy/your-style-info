@@ -18,6 +18,7 @@ export const useLocaleQuery = (
   locale: string,
   options: UseQueryOptions<LocaleTranslationsType> = {}
 ) =>
+  //@ts-expect-error fix later
   useQuery(['locale', locale], () => getLocaleTranslations(locale), {
     enabled: !!locale,
     ...options

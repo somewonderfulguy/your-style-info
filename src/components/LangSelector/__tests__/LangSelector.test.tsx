@@ -12,7 +12,7 @@ import LangSelector from '..'
 import { FULL_LOCALES } from 'constants/index'
 
 expect.addSnapshotSerializer({
-  test(val) {
+  test() {
     return true
   },
   print(val) {
@@ -119,7 +119,6 @@ test('should show/hide menu when clicking on language selector', async () => {
   expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 })
 
-// eslint-disable-next-line jest/expect-expect
 test('header and footer lang selectors, light/dark themes, desktop/mobile', async () => {
   renderWholeApp()
 

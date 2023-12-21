@@ -40,7 +40,7 @@ export const PRIME_ROUTES: primeRoutesType = {
         name: 'How to travel',
         thumbnail: {
           url: '/img/thumbs/travel.png',
-          alt: 'Daniek Craig & Lea Seydoux "travelling" - Spectre movie',
+          alt: 'Daniek Craig & Lea Seydoux "traveling" - Spectre movie',
           background: '#b5a18f'
         }
       },

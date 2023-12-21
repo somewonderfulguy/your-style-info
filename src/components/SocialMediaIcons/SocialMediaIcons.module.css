@@ -19,8 +19,7 @@
 }
 
 .layout > a,
-.layout > a,
-svg {
+.layout > a svg {
   display: block;
 }
 

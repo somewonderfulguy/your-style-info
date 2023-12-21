@@ -11,8 +11,8 @@ test('should return previous value if value updates (null is inital value)', () 
   expect(result.current).toBeNull()
 
   rerender({ initialValue: 'coat' })
-  expect(result.current).toEqual('Trench')
+  expect(result.current).toBe('Trench')
 
   rerender({ initialValue: 'outerwear' })
-  expect(result.current).toEqual('coat')
+  expect(result.current).toBe('coat')
 })
