@@ -2,13 +2,12 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "env": { "browser": true, "es2020": true },
-  "plugins": ["react-refresh", "vitest"],
+  "plugins": ["react-refresh"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:vitest/recommended"
+    "plugin:react-hooks/recommended"
   ],
   "ignorePatterns": ["build", ".eslintrc"],
   "rules": {

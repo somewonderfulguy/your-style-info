@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { bool } from 'prop-types'
 
 import { useThemeState } from '~contexts/themeContext'
 import { useLocalization } from '~contexts/localizationContext'
@@ -9,18 +8,12 @@ import { LANGUAGES, LOCALES } from '~constants/index'
 
 import styles from './LangSelector.module.css'
 
-// TODO: replace with TypeScript types
-const propTypes = {
-  showAbove: bool,
-  gray: bool
+type Props = {
+  showAbove?: boolean
+  gray?: boolean
 }
 
-const defaultProps = {
-  showAbove: false,
-  gray: false
-}
-
-const LangSelector = ({ showAbove, gray }) => {
+const LangSelector = ({ showAbove = false, gray = false }: Props) => {
   const [
     { locale: currentLocale },
     setLocaleState,
@@ -89,8 +82,5 @@ const LangSelector = ({ showAbove, gray }) => {
     </div>
   )
 }
-
-LangSelector.propTypes = propTypes
-LangSelector.defaultProps = defaultProps
 
 export default LangSelector
