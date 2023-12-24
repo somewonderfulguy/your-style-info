@@ -15,7 +15,7 @@ const FooterNavigation = () => {
             <li key={path}>
               {inactive ? (
                 <span className={styles.inactive} aria-disabled>
-                  {name}
+                  {translations?.navigation[path] ?? name}
                 </span>
               ) : (
                 <LinkExtended
