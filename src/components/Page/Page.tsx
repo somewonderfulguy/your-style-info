@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 import { animated, useTransition } from 'react-spring'
 
 import { usePrevious } from '~shared/hooks'
@@ -11,13 +12,10 @@ import { useFooterAnimation, usePageFetch } from './hooks'
 
 import styles from './Page.module.css'
 
-type Props = {
-  location: { pathname: string }
-}
-
-const Page = ({ location: { pathname } }: Props) => {
+const Page = () => {
   const headerHeight = useHeaderHeightState()
   const isDesktop = useIsDesktop()
+  const { pathname } = useLocation()
 
   const previousPath = String(usePrevious(pathname))
   const removeLangInPath = (str: string) => str.replace(/^\/\w{2}/, '')

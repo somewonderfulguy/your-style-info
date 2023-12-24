@@ -1,11 +1,6 @@
-import { ComponentClass, useEffect } from 'react'
+import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import {
-  Router as _Router,
-  BrowserRouter as _BrowserRouter,
-  type RouterProps,
-  type BrowserRouterProps
-} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { useNProgress } from '@tanem/react-nprogress'
 import {
   QueryClient,
@@ -29,11 +24,6 @@ import withContext from './withContext'
 import './App.css'
 import styles from './App.module.css'
 
-// TODO: migrate to latest version of react-router and remove this hack
-const Router = _Router as unknown as ComponentClass<RouterProps>
-const BrowserRouter =
-  _BrowserRouter as unknown as ComponentClass<BrowserRouterProps>
-
 // intentionally making cache never stale, so once fetched - always used cache, like desktop app
 export const defaultOptions = {
   queries: {
@@ -46,7 +36,7 @@ export const defaultOptions = {
 
 const queryClient = new QueryClient({ defaultOptions })
 
-const ApplicationNodeComponent = () => {
+const AppComponent = () => {
   const isDarkTheme = useThemeState()
 
   const isFetching = useIsFetching()
@@ -84,19 +74,16 @@ const ApplicationNodeComponent = () => {
   )
 }
 
-// eslint-disable-next-line react/prop-types
-const ApplicationNode = ({ qClient = queryClient, history, ...props }) => (
+type Props = {
+  qClient?: QueryClient
+}
+
+const App = ({ qClient = queryClient }: Props) => (
   <QueryClientProvider client={qClient}>
-    {history ? (
-      <Router history={history}>
-        <ApplicationNodeComponent {...props} />
-      </Router>
-    ) : (
-      <BrowserRouter>
-        <ApplicationNodeComponent {...props} />
-      </BrowserRouter>
-    )}
+    <Router>
+      <AppComponent />
+    </Router>
   </QueryClientProvider>
 )
 
-export default withContext(ApplicationNode)
+export default withContext(App)

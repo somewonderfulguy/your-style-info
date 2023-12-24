@@ -77,18 +77,6 @@
     "react/jsx-curly-spacing": ["error", { "when": "never", "children": true }],
     "react/jsx-pascal-case": ["error", { "allowAllCaps": false }],
     "react/jsx-boolean-value": ["error", "never"],
-    "react/jsx-wrap-multilines": [
-      "error",
-      {
-        "declaration": "parens-new-line",
-        "assignment": "parens-new-line",
-        "return": "parens-new-line",
-        "arrow": "parens-new-line",
-        "condition": "parens-new-line",
-        "logical": "parens-new-line",
-        "prop": "parens-new-line"
-      }
-    ],
     "react/self-closing-comp": ["error", { "component": true, "html": true }],
     "react/jsx-no-bind": ["error", { "allowArrowFunctions": true }],
     "react/no-children-prop": "off"

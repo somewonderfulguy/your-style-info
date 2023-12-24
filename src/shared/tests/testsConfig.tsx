@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react'
 import { render as rtlRender } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 // @ts-expect-error i wil fix it later
 import { createMemoryHistory } from 'history'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -13,8 +13,7 @@ import {
   ScreenDimensionsProvider,
   ThemeProvider
 } from 'contexts'
-// @ts-expect-error i wil fix it later 3
-import ApplicationNode, { defaultOptions } from 'ApplicationNode'
+import App, { defaultOptions } from '~components/App'
 import { localeHandlers, pageHandlers } from './apiHandlers'
 
 const queryClient = new QueryClient({
@@ -34,7 +33,7 @@ const render = (ui: ReactElement, { route = '/', ...options } = {}) => {
   const history = createMemoryHistory({ initialEntries: [route] })
   const Wrapper = ({ children }: { children: ReactNode | ReactNode[] }) => (
     <QueryClientProvider client={queryClient}>
-      <Router history={history}>
+      <Router>
         <HeaderHeightProvider>
           <LocalizationProvider>
             <ThemeProvider>
@@ -51,16 +50,10 @@ const render = (ui: ReactElement, { route = '/', ...options } = {}) => {
   }
 }
 
-const renderWholeApp = ({ route = '/', ...options } = {}) => {
-  const history = createMemoryHistory({ initialEntries: [route] })
-  return {
-    ...rtlRender(
-      <ApplicationNode qClient={queryClient} history={history} />,
-      options
-    ),
-    history
-  }
-}
+const renderWholeApp = (options = {}) => ({
+  ...rtlRender(<App qClient={queryClient} />, options),
+  history
+})
 
 const renderWithoutProviders = rtlRender
 

@@ -1,5 +1,5 @@
-import { ComponentClass, MouseEvent, ReactNode } from 'react'
-import { RouteComponentProps, withRouter, LinkProps } from 'react-router-dom'
+import { MouseEvent, ReactNode } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { animateScroll as scroll } from 'react-scroll'
 
 import { SCROLL_TOP_DURATION } from '~constants/index'
@@ -20,47 +20,27 @@ type Props = {
   onMouseLeave?: (e: MouseEvent<HTMLSpanElement>) => void
 }
 
-type ExtendedProps = Props & RouteComponentProps
-
 const LinkExtended = ({
-  history,
   activeClassName = '',
   children = <></>,
   className = '',
   inactive = false,
-  location: { pathname },
   to = '/',
   onClick = () => {},
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  staticContext, // exclude from ...rest
   ...rest
-}: ExtendedProps) => {
+}: Props) => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   usePageQuery(to, { enabled: false })
 
   const debouncedOnScrollEnd = debounce(onScrollEnd, SCROLL_TOP_DURATION)
 
   function onScrollEnd() {
-    history.push(to)
+    navigate(to)
     window.removeEventListener('scroll', debouncedOnScrollEnd)
   }
 
-  // FIXME
-  const clickHandler = (e) => {
-    e.preventDefault()
-
-    onClick()
-
-    const isNoScrollNeeded = document.documentElement.scrollTop === 0
-
-    if (isNoScrollNeeded) {
-      history.push(to)
-    } else {
-      scroll.scrollToTop({ duration: SCROLL_TOP_DURATION })
-      window.addEventListener('scroll', debouncedOnScrollEnd)
-    }
-  }
-
-  const isCurrent = pathname === to
+  const isCurrent = pathname.replace(/\/$/, '') === to.replace(/\/$/, '')
 
   if (inactive)
     return (
@@ -69,17 +49,33 @@ const LinkExtended = ({
       </span>
     )
 
+  // TODO: do not put <span /> inside LinkExtended - it is not very straightforward, LinkExtended should be for Link only
   return isCurrent ? (
     <span className={activeClassName} {...rest} onMouseEnter={() => {}}>
       {children}
     </span>
   ) : (
-    <a href={to} onClick={clickHandler} className={className} {...rest}>
+    <a
+      href={to}
+      onClick={(e) => {
+        e.preventDefault()
+        onClick()
+
+        const isNoScrollNeeded = document.documentElement.scrollTop === 0
+
+        if (isNoScrollNeeded) {
+          navigate(to)
+        } else {
+          scroll.scrollToTop({ duration: SCROLL_TOP_DURATION })
+          window.addEventListener('scroll', debouncedOnScrollEnd)
+        }
+      }}
+      className={className}
+      {...rest}
+    >
       {children}
     </a>
   )
 }
 
-export default withRouter(LinkExtended) as unknown as ComponentClass<
-  Props & LinkProps
->
+export default LinkExtended
