@@ -5,7 +5,7 @@ import { useLocalization } from '~contexts/localizationContext'
 import styles from './FooterNavigation.module.css'
 
 const FooterNavigation = () => {
-  const [{ locale }] = useLocalization()
+  const [{ locale }, , { data: translations }] = useLocalization()
 
   return (
     <nav>
@@ -15,7 +15,7 @@ const FooterNavigation = () => {
             <li key={path}>
               {inactive ? (
                 <span className={styles.inactive} aria-disabled>
-                  {name}
+                  {translations?.navigation[path] ?? name}
                 </span>
               ) : (
                 <LinkExtended
@@ -23,7 +23,7 @@ const FooterNavigation = () => {
                   className={styles.link}
                   activeClassName={styles.active}
                 >
-                  {name}
+                  {translations?.navigation[path] ?? name}
                 </LinkExtended>
               )}
             </li>

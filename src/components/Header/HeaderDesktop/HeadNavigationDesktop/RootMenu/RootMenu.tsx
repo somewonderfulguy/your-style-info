@@ -80,7 +80,7 @@ const RootMenu = ({
               // TODO find another way to persist menu
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              submenupersist={sub ? 1 : 0} // TODO consider using refs instead of such attribute (as expample: <Options> & useOutsideClick)
+              submenupersist={sub ? 1 : 0} // TODO consider using refs instead of such attribute (as example: <Options> & useOutsideClick)
               onFocus={() => setRootMenuOpen(true)}
               onClick={() => setShowMenu(false)}
             >

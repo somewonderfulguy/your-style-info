@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -17,7 +16,11 @@
     "downlevelIteration": true,
     "jsx": "react-jsx",
     "strict": true,
+
+    // TODO: enable this
     "noImplicitAny": false,
+
+    "baseUrl": "src",
     "paths": {
       "~api/*": ["api/*"],
       "~assets/*": ["assets/*"],

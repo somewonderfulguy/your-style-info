@@ -22,6 +22,7 @@ export const usePageQuery = (
   // if(!url) throw new Error(`unexpected path: ${path}`) // TODO display such errors in UI so the user know that his request didn't work
 
   const TEMP_URL = url?.substring(1) // will not be needed when it comes to real api requests (not local)
+  //@ts-expect-error fix later
   return useQuery(['page', path], () => getPage(TEMP_URL ?? ''), {
     enabled: !!url,
     ...options
