@@ -1,0 +1,12 @@
+:root {
+  --white: 255, 255, 255;
+  --black: 0, 0, 0;
+
+  /* Fifty Shades of Grey */
+  --brightGray: 240, 240, 240;
+  --lightGray: 211, 211, 211;
+  --gray: 173, 173, 173;
+  --darkGray: 99, 99, 99;
+  --deepGray: 46, 46, 46;
+  --deepDarkGray: 32, 35, 38;
+}

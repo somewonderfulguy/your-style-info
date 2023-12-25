@@ -33,14 +33,14 @@ const DarkThemeSwitcher = ({
         <div
           className={styles.round}
           style={{
-            backgroundImage: `url("${sunIcon}")`,
+            backgroundImage: `url("${sunIcon.src}")`,
             opacity: isDarkTheme ? 0 : 1
           }}
         />
         <div
           className={styles.round}
           style={{
-            backgroundImage: `url("${moonIcon}")`,
+            backgroundImage: `url("${moonIcon.src}")`,
             opacity: isDarkTheme ? 1 : 0,
             zIndex: 1
           }}

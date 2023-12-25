@@ -7,6 +7,7 @@ import { useThemeState } from '~contexts/themeContext'
 import { useLocalization } from '~contexts/localizationContext'
 import { primeRoutesType, thumbnailType } from '~constants/index'
 
+import './SubMenuContent.css'
 import styles from './SubMenuContent.module.css'
 
 type Props = {

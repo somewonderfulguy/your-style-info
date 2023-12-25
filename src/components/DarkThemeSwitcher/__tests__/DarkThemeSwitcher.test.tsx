@@ -51,15 +51,15 @@ test('switching theme should work properly', async () => {
 
   // default (light)
   expect(getHook().result.current).toBeFalsy()
-  expect(window.localStorage.getItem('isDarkTheme')).toEqual('false')
+  expect(window.localStorage.getItem('isDarkTheme')).toBe('false')
 
   // switch to dark
   user.click(themeSwitcher)
   expect(getHook().result.current).toBeTruthy()
-  expect(window.localStorage.getItem('isDarkTheme')).toEqual('true')
+  expect(window.localStorage.getItem('isDarkTheme')).toBe('true')
 
   // switch to light
   user.click(themeSwitcher)
   expect(getHook().result.current).toBeFalsy()
-  expect(window.localStorage.getItem('isDarkTheme')).toEqual('false')
+  expect(window.localStorage.getItem('isDarkTheme')).toBe('false')
 })

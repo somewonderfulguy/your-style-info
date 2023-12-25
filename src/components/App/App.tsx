@@ -21,6 +21,7 @@ import '~assets/styles/common-styles.css'
 import Routes from './Routes'
 import withContext from './withContext'
 
+import './App.css'
 import styles from './App.module.css'
 
 // intentionally making cache never stale, so once fetched - always used cache, like desktop app

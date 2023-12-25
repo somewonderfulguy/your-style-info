@@ -5,9 +5,9 @@
   "author": "Dmitriy Yastrebov",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "react-scripts test",
     "test:once": "react-scripts test --watchAll=false",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
@@ -22,6 +22,7 @@
   "dependencies": {
     "@tanem/react-nprogress": "^3.0.30",
     "body-scroll-lock": "^4.0.0-beta.0",
+    "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.19.1",
@@ -51,7 +52,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "eslint-plugin-vitest": "^0.3.17",
     "husky": "^6.0.0",
     "intersection-observer": "^0.12.0",
     "mq-polyfill": "^1.1.8",
