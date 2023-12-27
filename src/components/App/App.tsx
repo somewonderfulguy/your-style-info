@@ -81,7 +81,6 @@ type Props = {
 const App = ({ qClient = queryClient }: Props) => (
   <QueryClientProvider client={qClient}>
     <Router>
-      {import.meta.env.VITE_TEST_VARIABLE}
       <AppComponent />
     </Router>
   </QueryClientProvider>

@@ -9,7 +9,9 @@
 /coverage
 
 # production
-/build
+/dist
 
 # misc
-*.local
+.idea
+.next
+next-env.d.ts

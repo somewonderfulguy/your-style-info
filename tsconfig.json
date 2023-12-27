@@ -4,22 +4,15 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "downlevelIteration": true,
-    "jsx": "react-jsx",
-    "strict": true,
-
-    // TODO: enable this
-    "noImplicitAny": false,
-
+    "jsx": "preserve",
+    "incremental": true,
     "baseUrl": "src",
     "paths": {
       "~api/*": ["api/*"],
@@ -29,8 +22,20 @@
       "~contexts/*": ["contexts/*"],
       "~services/*": ["services/*"],
       "~shared/*": ["shared/*"]
-    }
-    // "types": ["vitest/globals"]
+    },
+    // TODO: enable this
+    "noImplicitAny": false,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "./src",
+    "./dist/types/**/*.ts",
+    "./next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["./node_modules"]
 }
