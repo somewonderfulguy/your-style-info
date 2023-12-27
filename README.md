@@ -1,15 +1,49 @@
 # Description
 
-TODO: add description
+Application that potentially will be a guide for menswear.
+
+Current state: not even MVP.
+
+What is done:
+
+- basic structure
+- header & footer components
+- basic routing
+- animated menus (desktop & mobile)
+- animated page transitions
+- language switcher
+- theme switcher
+- progressive image loading (if an image is out of viewport, it will be loaded only when it's about to be visible)
+
+What is not done:
+
+- content
+- comments section (Clerk & PlanetScale needed)
+- adequate page layout & font styles
+- main page layout (tiles)
 
 # Quick start
 
-TODO: add quick start
+Development environment:\
+_(page transitions heavily lagging - the problem came with Next.js - was not an issue with CRA & Vite)_
+
+```
+pnpm i
+pnpm dev
+```
+
+Build preview:\
+_(no animation issues)_
+
+```
+pnpm i
+pnpm build
+pnpm start
+```
 
 # Styles
 
 CSS Modules are used for styles.
-<br><br>
 
 # Compressed images
 
@@ -21,6 +55,8 @@ In order to create `lowresBase64` image do following steps:
    <br><br>
 
 # Testing
+
+_(currently broken, awaits fixing and migration to Vitest)_
 
 ## Hooks
 
@@ -34,16 +70,8 @@ In order to create `lowresBase64` image do following steps:
 
 ## Unit and Integration
 
-- **Jest** - testing framework.
+- **Jest** - testing framework. (TODO: migrate to Vitest)
   <br>
   Libs, and plugins for jest:
-  - `eslint-plugin-jest` - ESLint for Jest.
   - [`snapshot-diff`](https://github.com/jest-community/snapshot-diff) - diffing snapshot utility. Takes two values, and return their difference as a string, ready to be snapshotted with `toMatchSnapshot()`.
 - **React Testing Library** - React DOM testing utilities.
-  <br><br>
-
----
-
-TODO:
-
-- describe theming
