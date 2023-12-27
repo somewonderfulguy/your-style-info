@@ -9,6 +9,7 @@ import {
   useIsMutating
 } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { ClerkProvider } from '@clerk/clerk-react'
 
 import Header from '~components/Header'
 import ProgressBar from '~components/ProgressBar'
@@ -23,6 +24,12 @@ import withContext from './withContext'
 
 import './App.css'
 import styles from './App.module.css'
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error('Missing Publishable Key')
+}
 
 // intentionally making cache never stale, so once fetched - always used cache, like desktop app
 export const defaultOptions = {
@@ -79,12 +86,15 @@ type Props = {
 }
 
 const App = ({ qClient = queryClient }: Props) => (
-  <QueryClientProvider client={qClient}>
-    <Router>
-      {import.meta.env.VITE_TEST_VARIABLE}
-      <AppComponent />
-    </Router>
-  </QueryClientProvider>
+  // TODO: add StrictMode
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <QueryClientProvider client={qClient}>
+      <Router>
+        {/* {import.meta.env.VITE_TEST_VARIABLE} */}
+        <AppComponent />
+      </Router>
+    </QueryClientProvider>
+  </ClerkProvider>
 )
 
 export default withContext(App)
