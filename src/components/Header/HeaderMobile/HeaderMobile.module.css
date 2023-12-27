@@ -19,6 +19,7 @@
   margin: 0;
   color: rgb(var(--primaryColor));
   transition: color 0.2s;
+  white-space: nowrap;
 }
 
 .hamburgerContainer {
