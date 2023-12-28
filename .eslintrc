@@ -43,10 +43,10 @@
     "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "@typescript-eslint/no-unused-vars": 1,
+    "@typescript-eslint/no-unused-vars": ["warn"],
 
     // ECMAScript 6
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed"],
     "template-curly-spacing": ["error", "never"],
     "no-duplicate-imports": "error",
     "no-useless-constructor": "error",

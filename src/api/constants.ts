@@ -23,6 +23,8 @@ export const pagePathPair = new Map([
   ['/ua/clothes/outerwear', '/json/outerwear-ua.json'],
   ['/en/clothes/outerwear/trench-coat', '/json/trench-coat-en.json'],
   ['/ua/clothes/outerwear/trench-coat', '/json/trench-coat-ua.json'],
+  ['/en/clothes/outerwear/pea-coat', '/json/pea-coat-en.json'],
+  ['/ua/clothes/outerwear/pea-coat', '/json/pea-coat-ua.json'],
   ['/en/clothes/accessories', '/json/accessories-en.json'],
   ['/ua/clothes/accessories', '/json/accessories-ua.json'],
   ['/en/clothes/materials-and-fabrics', '/json/materials-and-fabrics-en.json'],

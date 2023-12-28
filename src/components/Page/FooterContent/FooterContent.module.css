@@ -22,10 +22,21 @@
   padding-top: 11px;
 }
 
+.tabletTest {
+  display: none;
+}
+
+.mobileTest {
+  display: none;
+}
+
 /* tablet */
 @media (max-width: 1024px) {
   .layout {
     padding: 50px 75px;
+  }
+  .tabletTest {
+    display: block;
   }
 }
 
@@ -45,5 +56,8 @@
     position: absolute;
     right: 0;
     transform: translateY(-100%);
+  }
+  .mobileTest {
+    display: block;
   }
 }
