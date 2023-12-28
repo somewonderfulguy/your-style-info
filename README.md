@@ -51,7 +51,7 @@ In order to create `lowresBase64` image do following steps:
 
 1. Reduce width of the image to `20px` (let height to be set automatically keeping the proportion). Don't save it in super heavy quality.
 2. Go to [this page](https://compressor.io/) and compress image using `lossy` compression type.
-3. Go to [this page](https://elmah.io/tools/base64-image-encoder/) and upload compressed image. Copy the result with `data:image/[TYPE];base64,` in the beggining.
+3. Go to [this page](https://elmah.io/tools/base64-image-encoder/) and upload compressed image. Copy the result with `data:image/[TYPE];base64,` in the beginning.
    <br><br>
 
 # Testing

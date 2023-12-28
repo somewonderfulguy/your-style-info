@@ -42,5 +42,7 @@ export const pagePathPair = new Map([
   ['/en/brands-stores', '/json/brands-stores-en.json'],
   ['/ua/brands-stores', '/json/brands-stores-ua.json'],
   ['/en/glossary', '/json/glossary-en.json'],
-  ['/ua/glossary', '/json/glossary-ua.json']
+  ['/ua/glossary', '/json/glossary-ua.json'],
+  ['/en/about', '/json/about-en.json'],
+  ['/ua/about', '/json/about-ua.json']
 ])
