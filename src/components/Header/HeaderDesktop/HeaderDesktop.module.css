@@ -1,16 +1,15 @@
 .header {
   z-index: 5000;
+  width: 100%;
 }
 
 .aboveNav {
   display: flex;
   justify-content: space-between;
-}
-
-.hgroup {
-  max-width: 1400px;
-  padding-left: 100px;
-  margin: 40px 0;
+  align-items: center;
+  max-width: 1200px;
+  padding: 18px 30px;
+  margin: 0 auto;
 }
 
 .title {
@@ -37,18 +36,15 @@
 }
 
 .sideControlsContainer {
-  margin: 18px 30px 0 0;
+  /* margin: 18px 30px 0 0; */
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-}
-
-.sideControlsSocialMedia {
-  margin-top: 10px;
+  gap: 10px;
 }
 
 .sideControlsDarkTheme {
-  margin-top: 11px;
+  margin-bottom: 7px;
 }
 
 .navContainer {

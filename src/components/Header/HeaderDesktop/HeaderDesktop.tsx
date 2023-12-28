@@ -71,75 +71,76 @@ const HeaderDesktop = () => {
       style={{ paddingBottom: navbarHeight }}
       ref={headerDOM}
     >
-      <div className={styles.aboveNav}>
-        <div className={styles.hgroup}>
-          <animated.h1 className={styles.title} style={firstAppearing}>
-            Your Style
-          </animated.h1>
-          <animated.p
-            className={styles.subtitleContainer}
-            style={secondAppearing}
-          >
-            {transitions.map(
-              ({ item, key, props }) =>
-                item !== subtitleSelector && (
-                  <animated.span
-                    key={key}
-                    style={props}
-                    className={styles.subtitle}
-                  >
-                    {item}
-                  </animated.span>
-                )
-            )}
-          </animated.p>
+      <div className={styles.grid}>
+        <div className={styles.aboveNav}>
+          <div>
+            <animated.h1 className={styles.title} style={firstAppearing}>
+              Your Style
+            </animated.h1>
+            <animated.p
+              className={styles.subtitleContainer}
+              style={secondAppearing}
+            >
+              {transitions.map(
+                ({ item, key, props }) =>
+                  item !== subtitleSelector && (
+                    <animated.span
+                      key={key}
+                      style={props}
+                      className={styles.subtitle}
+                    >
+                      {item}
+                    </animated.span>
+                  )
+              )}
+            </animated.p>
+          </div>
+          <div className={styles.sideControlsContainer}>
+            <animated.div
+              style={{
+                opacity: secondAppearing.opacity,
+                transform: secondAppearing.reverseTransform,
+                zIndex: 1
+              }}
+            >
+              <LangSelector />
+            </animated.div>
+            <animated.div
+              style={{
+                opacity: thirdAppearing.opacity,
+                transform: thirdAppearing.reverseTransform
+              }}
+            >
+              <SocialMediaIcons small color="lightgray" />
+            </animated.div>
+            <animated.div
+              className={styles.sideControlsDarkTheme}
+              style={{
+                opacity: forthAppearing.opacity,
+                transform: forthAppearing.reverseTransform
+              }}
+            >
+              <DarkThemeSwitcher />
+            </animated.div>
+          </div>
         </div>
-        <div className={styles.sideControlsContainer}>
-          <animated.div
-            style={{
-              opacity: secondAppearing.opacity,
-              transform: secondAppearing.reverseTransform,
-              zIndex: 1
-            }}
-          >
-            <LangSelector />
-          </animated.div>
-          <animated.div
-            className={styles.sideControlsSocialMedia}
-            style={{
-              opacity: thirdAppearing.opacity,
-              transform: thirdAppearing.reverseTransform
-            }}
-          >
-            <SocialMediaIcons small color="lightgray" />
-          </animated.div>
-          <animated.div
-            className={styles.sideControlsDarkTheme}
-            style={{
-              opacity: forthAppearing.opacity,
-              transform: forthAppearing.reverseTransform
-            }}
-          >
-            <DarkThemeSwitcher />
-          </animated.div>
-        </div>
-      </div>
 
-      <animated.nav
-        ref={navBarDOM}
-        style={{
-          opacity: forthAppearing.opacity,
-          top: isFixed ? menuTop : 'initial'
-        }}
-        className={isFixed ? styles.fixedNavContainer : styles.navContainer}
-        onMouseEnter={() => setPersistRootMenu(true)}
-        onMouseLeave={() => setPersistRootMenu(false)}
-      >
-        <HeadNavigationDesktop
-          setRootMenuOpen={setRootMenuOpen}
-          setPersistRootMenu={setPersistRootMenu}
-        />
-      </animated.nav>
+        <animated.nav
+          ref={navBarDOM}
+          style={{
+            opacity: forthAppearing.opacity,
+            top: isFixed ? menuTop : 'initial'
+          }}
+          className={isFixed ? styles.fixedNavContainer : styles.navContainer}
+          onMouseEnter={() => setPersistRootMenu(true)}
+          onMouseLeave={() => setPersistRootMenu(false)}
+        >
+          <HeadNavigationDesktop
+            setRootMenuOpen={setRootMenuOpen}
+            setPersistRootMenu={setPersistRootMenu}
+          />
+        </animated.nav>
+      </div>
     </header>
   )
 }

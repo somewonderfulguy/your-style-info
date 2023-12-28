@@ -8,6 +8,7 @@ import {
 
 import { throttle } from '~shared/utils'
 
+// TODO: implement also onResize callback to avoid using useEffect
 export function useResizeObserver(
   delay = 0,
   initialBounds = { left: 0, top: 0, width: 0, height: 0 }
