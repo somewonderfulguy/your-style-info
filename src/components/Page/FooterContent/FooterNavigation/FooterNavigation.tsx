@@ -1,15 +1,25 @@
 import LinkExtended from '~components/LinkExtended'
 import { PRIME_ROUTES } from '~constants/index'
 import { useLocalization } from '~contexts/localizationContext'
+import classNames from '~shared/utils/classNames'
 
 import styles from './FooterNavigation.module.css'
 
-const FooterNavigation = () => {
+type Props = {
+  isSmaller: boolean
+}
+
+const FooterNavigation = ({ isSmaller }: Props) => {
   const [{ locale }, , { data: translations }] = useLocalization()
 
   return (
     <nav>
-      <ul className={styles.list}>
+      <ul
+        className={classNames(
+          !isSmaller && styles.list,
+          isSmaller && styles.listShrank
+        )}
+      >
         {Object.entries(PRIME_ROUTES) &&
           Object.entries(PRIME_ROUTES).map(([path, { name, inactive }]) => (
             <li key={path}>
