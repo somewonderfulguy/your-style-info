@@ -16,7 +16,7 @@ type Props = {
 const LangSelector = ({ showAbove = false, gray = false }: Props) => {
   const [
     { locale: currentLocale },
-    setLocaleState,
+    setLocale,
     { isLoading: isLanguageLoading, data: localeData }
   ] = useLocalization()
 
@@ -69,7 +69,7 @@ const LangSelector = ({ showAbove = false, gray = false }: Props) => {
                 type="button"
                 disabled={locale === currentLocale}
                 onClick={() => {
-                  setLocaleState(locale as 'en' | 'ua')
+                  setLocale(locale as 'en' | 'ua')
                   setOpen(false)
                 }}
               >

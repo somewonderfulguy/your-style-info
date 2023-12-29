@@ -6,13 +6,15 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useReducer
+  useReducer,
+  useRef
 } from 'react'
+import { useLocation, useNavigate, useMatch } from 'react-router-dom'
 
 import { LOCALES } from '~constants/index'
 import { useLocaleQuery } from '~api/localeQueries'
 
-type LocaleType = 'en' | 'ua'
+export type LocaleType = 'en' | 'ua'
 type LocaleState = {
   locale: LocaleType
   upcomingLocale?: LocaleType | null
@@ -26,6 +28,7 @@ type ContextType = [LocaleState, DispatchType]
 const LocalizationContext = createContext<ContextType | undefined>(undefined)
 LocalizationContext.displayName = 'LocalizationContext'
 
+// TODO investigate, if Navigator lang is not en/ua
 const getNavigatorLang = (): LocaleType => {
   try {
     return window.navigator.language.slice(0, 2) as LocaleType
@@ -36,8 +39,17 @@ const getNavigatorLang = (): LocaleType => {
 }
 
 const LocalizationProvider = ({ children }: { children: ReactNode }) => {
+  const match = useMatch('/:locale/*')
+
+  const localStateChange = useRef(false)
   const [LocaleState, setLocaleState] = useReducer<LocaleAction>(
-    (s, a) => ({ ...s, ...a }),
+    (state, newState) => {
+      const { upcomingLocale } = newState
+      if (upcomingLocale) {
+        window.localStorage.setItem('locale', upcomingLocale)
+      }
+      return { ...state, ...newState }
+    },
     {
       locale:
         (window.localStorage.getItem('locale') as LocaleType) ||
@@ -46,10 +58,21 @@ const LocalizationProvider = ({ children }: { children: ReactNode }) => {
     }
   )
 
+  const urlLocale = match?.params.locale as LocaleType
+
+  // necessary useEffect to handle external url change such as back/forward browser buttons or direct url change
   useEffect(() => {
-    LocaleState.locale &&
-      window.localStorage.setItem('locale', LocaleState.locale)
-  }, [LocaleState.locale])
+    if (localStateChange.current) {
+      localStateChange.current = false
+      return
+    }
+
+    if (urlLocale && urlLocale !== LocaleState.locale) {
+      // it seems weird, to set state twice, but it's necessary for animation
+      setLocaleState({ upcomingLocale: urlLocale })
+      setTimeout(() => setLocaleState({ locale: urlLocale }))
+    }
+  }, [LocaleState.locale, urlLocale])
 
   const value = useMemo(
     () => [LocaleState, setLocaleState],
@@ -70,15 +93,14 @@ const useLocalization = () => {
     )
   }
 
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
   const [{ locale, upcomingLocale }, setLocaleState] = context
 
-  // on init there's no upcomingLocale - using locale instead
+  // on init there's no `upcomingLocale` - using `locale` instead
   const theLocale = upcomingLocale || locale
   const queryData = useLocaleQuery(theLocale)
-
-  useEffect(() => {
-    setLocaleState({ locale: theLocale })
-  }, [queryData.data, theLocale, setLocaleState])
 
   const setLocale = useCallback(
     (locale: LocaleType) => {
@@ -90,15 +112,25 @@ const useLocalization = () => {
           )}. Set 'en' locale as fallback.`
         )
       }
-      setLocaleState({ upcomingLocale: isLocaleExists ? locale : 'en' })
+
+      const urlLocale = pathname.substring(0, 3).replaceAll('/', '')
+
+      if (urlLocale !== locale) {
+        navigate(pathname.replace(/^\/\w{2}/, `/${locale}`))
+        const newLocale = isLocaleExists ? locale : 'en'
+
+        // it seems weird, to set state twice, but it's necessary for animation
+        setLocaleState({ upcomingLocale: newLocale })
+        setTimeout(() => setLocaleState({ locale: newLocale }))
+      }
     },
-    [setLocaleState]
+    [setLocaleState, pathname, navigate]
   )
 
   return useMemo(
     () =>
       [context[0], setLocale, queryData] as [
-        LocaleState,
+        (typeof context)[0],
         typeof setLocale,
         typeof queryData
       ],

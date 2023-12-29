@@ -36,13 +36,14 @@ export const defaultOptions = {
 
 const queryClient = new QueryClient({ defaultOptions })
 
-const AppComponent = () => {
+const AppComponent = withContext(() => {
   const isDarkTheme = useThemeState()
 
   const isFetching = useIsFetching()
   const isMutating = useIsMutating()
   const isLoading = !!isFetching || !!isMutating
 
+  // TODO: do it synchronously
   const className = isDarkTheme
     ? styles.themeWrapperDarkMode
     : styles.themeWrapper
@@ -72,7 +73,7 @@ const AppComponent = () => {
       <ReactQueryDevtools position="bottom-right" />
     </>
   )
-}
+})
 
 type Props = {
   qClient?: QueryClient
@@ -86,4 +87,4 @@ const App = ({ qClient = queryClient }: Props) => (
   </QueryClientProvider>
 )
 
-export default withContext(App)
+export default App

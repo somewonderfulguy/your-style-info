@@ -1,4 +1,3 @@
-import { useLayoutEffect, useRef } from 'react'
 import {
   useNavigate,
   Route,
@@ -11,16 +10,10 @@ import { useLocalization } from '~contexts/localizationContext'
 // TODO: if selected non existing locale or no locale at all - redirect to default locale
 // TODO: if wrong page - redirect to 404 (create 404 page)
 
-const Reroute = () => {
+const EmptyPathReroute = () => {
   const navigate = useNavigate()
   const [{ locale }] = useLocalization()
-  const prevLocale = useRef<string>(null)
-  useLayoutEffect(() => {
-    if (!locale || locale === prevLocale.current) return
-    setTimeout(() => {
-      navigate(`/${locale}`, { replace: true })
-    }, 0)
-  }, [navigate, locale])
+  navigate(`/${locale}`, { replace: true })
   return null
 }
 
@@ -28,7 +21,7 @@ const Routes = () => (
   <ReactRouterRoutes>
     <Route path="/:locale/:page/*" element={<Page />} />
     <Route path="/:locale" element={<Page />} />
-    <Route path="/*" element={<Reroute />} />
+    <Route path="/*" element={<EmptyPathReroute />} />
   </ReactRouterRoutes>
 )
 

@@ -46,7 +46,7 @@ const Options = ({
   optionsBtnDOM
 }: propsType) => {
   const optionsRef = useRef(null)
-  const [{ locale }, setLanguage, { data }] = useLocalization()
+  const [{ locale }, setLocale, { data }] = useLocalization()
   const switchLanguage = data?.switchLanguage
 
   const persistPosition = useRef<'fixed' | 'absolute' | null>(null)
@@ -103,7 +103,7 @@ const Options = ({
         role="menuitem"
         onClick={() => {
           setOptionsOpen(false)
-          setTimeout(() => setLanguage(locale === 'ua' ? 'en' : 'ua'), 100)
+          setLocale(locale === 'ua' ? 'en' : 'ua')
         }}
       >
         <LanguageIcon width={22} height={22} fill="#696969" />
