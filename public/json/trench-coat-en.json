@@ -9,7 +9,8 @@
       "type": "image",
       "url": "/img/trench-coat-01.jpg",
       "height": 666,
-      "width": 1024
+      "width": 1024,
+      "contentWidth": "feature"
     },
     {
       "type": "text",

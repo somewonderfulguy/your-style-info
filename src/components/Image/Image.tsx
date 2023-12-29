@@ -5,7 +5,9 @@ import { useImageLoadQuery } from '~api/imageQueries'
 import { useIntersectionObserver, useResizeObserver } from '~shared/hooks'
 import { useThemeState } from '~contexts/themeContext'
 import { useIsDesktop } from '~contexts/screenDimensionsContext'
+import classNames from '~shared/utils/classNames'
 
+import pageStyles from '~components/Page/Page.module.css'
 import styles from './Image.module.css'
 
 type Props = {
@@ -15,8 +17,10 @@ type Props = {
   width?: number | string
   height: number
   caption?: string
+  contentWidth?: 'content' | 'popup' | 'feature' | 'full'
 }
 
+// TODO: is it possible to use css aspect-ratio property?
 export const getAspectRatio = (width: number, height: number) =>
   (height / width) * 100
 
@@ -30,12 +34,13 @@ const Image = ({
   lowresBase64 = null,
   width = '100%',
   height,
-  caption
+  caption,
+  contentWidth = 'content'
 }: Props) => {
   const isDarkTheme = useThemeState()
   const isDesktop = useIsDesktop()
   const intersectionOffset = isDesktop ? 600 : 350
-  const [bindInterObs, isIntersecting, disconnectInersection] =
+  const [bindInterObs, isIntersecting, disconnectIntersection] =
     useIntersectionObserver({
       rootMargin: `${intersectionOffset}px 0px ${intersectionOffset}px 0px`
     })
@@ -99,8 +104,8 @@ const Image = ({
   })
 
   useEffect(() => {
-    if (isIntersecting) disconnectInersection()
-  }, [disconnectInersection, isIntersecting])
+    if (isIntersecting) disconnectIntersection()
+  }, [disconnectIntersection, isIntersecting])
 
   useEffect(() => {
     let timerTitle: NodeJS.Timeout | undefined
@@ -124,10 +129,13 @@ const Image = ({
   }, [isError])
 
   return (
-    <figure className={styles.figure} ref={bindIntersectionObserver}>
+    <figure
+      className={classNames(styles.figure, pageStyles[contentWidth])}
+      ref={bindIntersectionObserver}
+    >
       <div className={styles.imageContainer} ref={bindResizeObserver}>
         <div
-          style={{ maxWidth: width }}
+          style={{ ...(contentWidth === 'content' && { maxWidth: width }) }}
           className={
             isError ? styles.aspectRatioOuterError : styles.aspectRatioOuter
           }
@@ -202,7 +210,12 @@ const Image = ({
           )}
         </div>
         {isSuccess && (
-          <img src={url} alt={alt} className={styles.imgAbsolute} />
+          <img
+            src={url}
+            alt={alt}
+            className={styles.imgAbsolute}
+            style={{ ...(contentWidth !== 'content' && { width: '100%' }) }}
+          />
         )}
       </div>
       {caption && (
