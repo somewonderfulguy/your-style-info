@@ -23,8 +23,6 @@
 }
 
 .page {
-  height: 100%;
-
   --gap: clamp(1rem, 6vw, 3rem);
   --full: minmax(var(--gap), 1fr);
   --feature: minmax(0, 230px);

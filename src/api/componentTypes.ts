@@ -1,10 +1,15 @@
-export enum componentTypes {
-  image = 'image',
-  text = 'text'
+export enum ComponentType {
+  Image = 'image',
+  Text = 'text'
 }
 
-export type imageComponent = {
-  type: componentTypes.image
+export type BaseComponent = {
+  type: ComponentType
+  contentWidth?: 'content' | 'popup' | 'feature' | 'full'
+}
+
+export type ImageComponent = BaseComponent & {
+  type: ComponentType.Image
   url: string
   lowresBase64: string
   alt: string
@@ -13,7 +18,14 @@ export type imageComponent = {
   width: number
 }
 
-export type textComponent = {
-  type: componentTypes.text
+export type TextComponent = BaseComponent & {
+  type: ComponentType.Text
   text: string
+}
+
+export type AnyComponent = ImageComponent | TextComponent
+
+export type ComponentPropsMapping = {
+  [ComponentType.Image]: Omit<ImageComponent, 'type'>
+  [ComponentType.Text]: Omit<TextComponent, 'type'>
 }
