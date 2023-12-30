@@ -19,11 +19,14 @@ ThemeDispatchContext.displayName = 'ThemeDispatchContext'
 
 const ThemeProvider = ({ children }: { children: ReactNode | ReactNode[] }) => {
   const preferDarkQuery = '(prefers-color-scheme: dark)'
-  const [isDarkTheme, setDarkTheme] = useState(
-    () =>
-      window.localStorage.getItem('isDarkTheme') === 'true' ||
-      (window.matchMedia(preferDarkQuery).matches ? true : false)
-  )
+  const [isDarkTheme, setDarkTheme] = useState(() => {
+    const isDarkTheme = window.localStorage.getItem('isDarkTheme')
+    if (isDarkTheme !== null) {
+      return JSON.parse(isDarkTheme)
+    } else {
+      return window.matchMedia(preferDarkQuery).matches
+    }
+  })
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(preferDarkQuery)
