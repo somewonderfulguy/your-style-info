@@ -2,10 +2,13 @@
   line-height: 32px;
   font-size: 20px;
   letter-spacing: -0.003em;
+  margin-top: 0;
+  margin-bottom: 2em;
 }
 
 .textBlockMobile {
   composes: textBlock;
   line-height: 28px;
   font-size: 16px;
+  margin-bottom: 1.5em;
 }

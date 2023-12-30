@@ -17,6 +17,12 @@
 
 .figure {
   margin: 0;
+  margin-bottom: 2em;
+}
+
+.figureMobile {
+  composes: figure;
+  margin-bottom: 1.5em;
 }
 
 .imageContainer {

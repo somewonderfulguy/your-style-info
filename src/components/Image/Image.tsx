@@ -121,7 +121,10 @@ const Image = ({
 
   return (
     <figure
-      className={classNames(styles.figure, pageStyles[contentWidth])}
+      className={classNames(
+        isDesktop ? styles.figure : styles.figureMobile,
+        pageStyles[contentWidth]
+      )}
       ref={bindIntersectionObserver}
     >
       <div className={styles.imageContainer} ref={bindResizeObserver}>
