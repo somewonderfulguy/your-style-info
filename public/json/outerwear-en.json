@@ -13,7 +13,7 @@
     },
     {
       "type": "text",
-      "text": "Lorem ipsum dolor sit amet."
+      "children": "Lorem ipsum dolor sit amet."
     }
   ]
 }

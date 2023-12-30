@@ -1,8 +1,14 @@
-// type Props = {}
+import { HeadingComponent } from '~api/componentTypes'
 
-// eslint-disable-next-line arrow-body-style
-const Heading = () => {
-  return <h1>Heading</h1>
+import pageStyles from '~components/Page/Page.module.css'
+
+const Heading = ({
+  children,
+  level = 2,
+  contentWidth = 'content'
+}: HeadingComponent) => {
+  const HTag = `h${level}` as keyof JSX.IntrinsicElements
+  return <HTag className={pageStyles[contentWidth]}>{children}</HTag>
 }
 
 export default Heading

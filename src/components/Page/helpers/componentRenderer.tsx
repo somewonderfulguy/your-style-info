@@ -2,9 +2,11 @@ import {
   AnyComponent,
   ComponentPropsMapping,
   ComponentType,
+  HeadingComponent,
   ImageComponent,
   TextComponent
 } from '~api/componentTypes'
+import Heading from '~components/Heading'
 import Image from '~components/Image'
 import TextBlock from '~components/TextBlock'
 
@@ -20,6 +22,9 @@ export function createComponent<T extends ComponentType>(
 ) {
   switch (type) {
     // keep in alphabetical order
+
+    case ComponentType.Heading:
+      return <Heading key={idx} {...(props as HeadingComponent)} />
 
     case ComponentType.Image:
       return <Image key={idx} {...(props as ImageComponent)} />

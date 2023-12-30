@@ -1,6 +1,7 @@
 import { MutableRefObject, useEffect, useReducer } from 'react'
 import { animated, useTransition } from 'react-spring'
 
+import { ImageComponent } from '~api/componentTypes'
 import { useImageLoadQuery } from '~api/imageQueries'
 import { useIntersectionObserver, useResizeObserver } from '~shared/hooks'
 import { useThemeState } from '~contexts/themeContext'
@@ -9,16 +10,6 @@ import classNames from '~shared/utils/classNames'
 
 import pageStyles from '~components/Page/Page.module.css'
 import styles from './Image.module.css'
-
-type Props = {
-  url: string
-  alt: string
-  lowresBase64?: string | null
-  width?: number | string
-  height: number
-  caption?: string
-  contentWidth?: 'content' | 'popup' | 'feature' | 'full'
-}
 
 // TODO: is it possible to use css aspect-ratio property?
 export const getAspectRatio = (width: number, height: number) =>
@@ -36,7 +27,7 @@ const Image = ({
   height,
   caption,
   contentWidth = 'content'
-}: Props) => {
+}: ImageComponent) => {
   const isDarkTheme = useThemeState()
   const isDesktop = useIsDesktop()
   const intersectionOffset = isDesktop ? 600 : 350
