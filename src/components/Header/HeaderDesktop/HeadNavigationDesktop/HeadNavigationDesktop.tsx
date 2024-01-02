@@ -75,8 +75,9 @@ const HeadNavigationDesktop = ({
 
   const closeMenu = (e: MouseEvent) => {
     if (
-      (e?.relatedTarget as HTMLLIElement)?.getAttribute?.('submenupersist') ===
-      '1'
+      (e?.relatedTarget as HTMLLIElement)?.getAttribute?.(
+        'data-submenupersist'
+      ) === '1'
     )
       return
     setMenuOpen(false)
@@ -160,11 +161,7 @@ const HeadNavigationDesktop = ({
         )}
         <div
           className={styles.borderBottom}
-          // TODO find how to persist menu in other way
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          // eslint-disable-next-line react/no-unknown-property
-          submenupersist="1"
+          data-submenupersist="1"
           onMouseLeave={(e) => closeMenu(e)}
         />
       </div>
@@ -181,14 +178,7 @@ const HeadNavigationDesktop = ({
         onMouseLeave={(e) => closeMenu(e)}
         data-testid="drop-down-navigation"
       >
-        <div
-          ref={bindResizeObserver}
-          // TODO find how to persist menu in other way
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          // eslint-disable-next-line react/no-unknown-property
-          submenupersist="1"
-        >
+        <div ref={bindResizeObserver} data-submenupersist="1">
           <SubMenu
             isOpen={openMenuState.isOpen}
             openNowAndBefore={openMenuState.openNowAndBefore}

@@ -58,29 +58,24 @@ const RootMenu = ({
             onMouseLeave={(e) => {
               if (
                 (e?.relatedTarget as HTMLLIElement)?.getAttribute?.(
-                  'submenupersist'
+                  'data-submenupersist'
                 ) === '1'
               )
                 return
               setShowMenu(false)
               clearActiveMenuItem()
             }}
-            // TODO find another way to persist menu
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            // eslint-disable-next-line react/no-unknown-property
-            submenupersist={sub ? 1 : 0}
+            data-submenupersist={sub ? 1 : 0}
           >
             <LinkExtended
-              // FIXME that's weeeeird implement in other way
               to={`/${locale}${path}`}
               className={inactive ? '' : styles.link}
               activeClassName={styles.activeLink}
               inactive={inactive}
-              // TODO find another way to persist menu
+              data-submenupersist={sub ? 1 : 0}
+              // FIXME - onFocus is not working
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              submenupersist={sub ? 1 : 0} // TODO consider using refs instead of such attribute (as example: <Options> & useOutsideClick)
               onFocus={() => setRootMenuOpen(true)}
               onClick={() => setShowMenu(false)}
             >

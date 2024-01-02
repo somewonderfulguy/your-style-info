@@ -52,11 +52,7 @@ const SubMenu = ({
   }) as any
 
   return (
-    // TODO find another way to persist menu
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line react/no-unknown-property
-    <div className={styles.subMenu} submenupersist="1">
+    <div className={styles.subMenu} data-submenupersist="1">
       {transitions.map(
         ({
           item: menuItems,
