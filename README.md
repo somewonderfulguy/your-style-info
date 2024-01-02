@@ -17,11 +17,10 @@ What is done:
 - theme switcher
 - progressive image loading (if an image is out of viewport, it will be loaded only when it's about to be visible)
 
-What is not done:
+What is not done (closest plans):
 
-- content
+- content (parse content using [`html-to-react`](https://www.npmjs.com/package/html-to-react))
 - comments section (Clerk & PlanetScale needed)
-- adequate page layout & font styles
 - main page layout (tiles)
 
 # Quick start
@@ -58,7 +57,7 @@ In order to create `lowresBase64` image do following steps:
 
 # Testing
 
-_(currently broken, awaits fixing and migration to Vitest)_
+_(currently broken, awaits fixing and migration to Vitest, then, readme will be updated)_
 
 ## Hooks
 

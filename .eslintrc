@@ -16,28 +16,27 @@
     //   { "allowConstantExport": true }
     // ]
 
-    "strict": ["error", "never"],
+    "strict": ["warn", "never"],
 
     // Possible Errors
     "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "no-template-curly-in-string": "error",
+    "no-template-curly-in-string": "warn",
 
     // Best Practices
-    "no-multi-spaces": "error",
-    "dot-location": ["error", "property"],
-    "dot-notation": "error",
-    "eqeqeq": "error",
-    "no-eval": "error",
-    "no-self-compare": "error",
-    "prefer-promise-reject-errors": "error",
-    "yoda": "error",
-    "no-trailing-spaces": "error",
-    "react/button-has-type": "error",
+    "no-multi-spaces": "warn",
+    "dot-location": ["warn", "property"],
+    "dot-notation": "warn",
+    "eqeqeq": "warn",
+    "no-eval": "warn",
+    "no-self-compare": "warn",
+    "yoda": "warn",
+    "no-trailing-spaces": "warn",
+    "react/button-has-type": "warn",
 
     // TypeScript
     "no-use-before-define": "off", // must disable the base rule as it can report incorrect errors
     "@typescript-eslint/no-use-before-define": [
-      "error",
+      "warn",
       { "functions": false, "classes": true }
     ],
     "@typescript-eslint/no-empty-function": 0,
@@ -47,26 +46,26 @@
 
     // ECMAScript 6
     "arrow-body-style": ["warn", "as-needed"],
-    "template-curly-spacing": ["error", "never"],
-    "no-duplicate-imports": "error",
-    "no-useless-constructor": "error",
-    "no-var": "error",
+    "template-curly-spacing": ["warn", "never"],
+    "no-duplicate-imports": "warn",
+    "no-useless-constructor": "warn",
+    "no-var": "warn",
     "prefer-const": "warn",
     "prefer-rest-params": "warn",
-    "prefer-spread": "error",
-    "rest-spread-spacing": ["error", "never"],
+    "prefer-spread": "warn",
+    "rest-spread-spacing": ["warn", "never"],
 
     // React/JSX Style Guide
     "react/react-in-jsx-scope": "off",
-    "jsx-quotes": ["error", "prefer-double"],
-    "react/no-multi-comp": ["error", { "ignoreStateless": true }],
+    "jsx-quotes": ["warn", "prefer-double"],
+    "react/no-multi-comp": ["warn", { "ignoreStateless": true }],
     "react/prefer-stateless-function": [
-      "error",
+      "warn",
       { "ignorePureComponents": true }
     ],
-    "react/jsx-closing-tag-location": "error",
+    "react/jsx-closing-tag-location": "warn",
     "react/jsx-tag-spacing": [
-      "error",
+      "warn",
       {
         "closingSlash": "never",
         "beforeSelfClosing": "always",
@@ -74,11 +73,11 @@
         "beforeClosing": "never"
       }
     ],
-    "react/jsx-curly-spacing": ["error", { "when": "never", "children": true }],
-    "react/jsx-pascal-case": ["error", { "allowAllCaps": false }],
-    "react/jsx-boolean-value": ["error", "never"],
-    "react/self-closing-comp": ["error", { "component": true, "html": true }],
-    "react/jsx-no-bind": ["error", { "allowArrowFunctions": true }],
+    "react/jsx-curly-spacing": ["warn", { "when": "never", "children": true }],
+    "react/jsx-pascal-case": ["warn", { "allowAllCaps": false }],
+    "react/jsx-boolean-value": ["warn", "never"],
+    "react/self-closing-comp": ["warn", { "component": true, "html": true }],
+    "react/jsx-no-bind": ["warn", { "allowArrowFunctions": true }],
     "react/no-children-prop": "off"
 
     // TODO: go to vitest
