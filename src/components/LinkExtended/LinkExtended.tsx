@@ -4,7 +4,7 @@ import { animateScroll as scroll } from 'react-scroll'
 
 import { SCROLL_TOP_DURATION } from '~constants/index'
 import { debounce } from '~shared/utils'
-import { usePageQuery } from '~api/pageQueries'
+import { usePageQuery } from '~api/pageApi'
 
 // TODO refactor how navigation works - should first wait for content being loaded, then scroll top, then perform animation
 

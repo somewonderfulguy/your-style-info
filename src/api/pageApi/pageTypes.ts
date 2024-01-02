@@ -1,3 +1,9 @@
+export type PageType = {
+  id: string
+  header: string
+  components: AnyComponent[]
+}
+
 export enum ComponentType {
   // keep in alphabetical order
   Heading = 'heading',

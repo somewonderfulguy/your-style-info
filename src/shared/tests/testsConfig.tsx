@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { BrowserRouter as Router } from 'react-router-dom'
 // @ts-expect-error i wil fix it later
 import { createMemoryHistory } from 'history'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setupServer } from 'msw/node'
 
 import {

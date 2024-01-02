@@ -7,8 +7,8 @@ import {
   QueryClientProvider,
   useIsFetching,
   useIsMutating
-} from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import Header from '~components/Header'
 import ProgressBar from '~components/ProgressBar'
@@ -70,7 +70,7 @@ const AppComponent = withContext(() => {
         )}
       <Header />
       <Routes />
-      <ReactQueryDevtools position="bottom-right" />
+      <ReactQueryDevtools />
     </>
   )
 })

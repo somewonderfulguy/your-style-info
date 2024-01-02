@@ -1,8 +1,8 @@
 import { MutableRefObject, useEffect, useReducer } from 'react'
 import { animated, useTransition } from 'react-spring'
 
-import { ImageComponent } from '~api/componentTypes'
-import { useImageLoadQuery } from '~api/imageQueries'
+import { ImageComponent } from '~api/pageApi'
+import { useImageLoadQuery } from '~api/imageApi'
 import { useIntersectionObserver, useResizeObserver } from '~shared/hooks'
 import { useThemeState } from '~contexts/themeContext'
 import { useIsDesktop } from '~contexts/screenDimensionsContext'

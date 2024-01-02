@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import { pageType } from 'api'
+import { PageType } from '~api/pageApi'
 import trenchCoatEn from '../../../../public/json/trench-coat-en.json'
 import trenchCoatUa from '../../../../public/json/trench-coat-ua.json'
 
@@ -10,18 +10,18 @@ type errorType = { error: 'error' }
 
 // TODO reduce boilerplate!
 export const getPage = (options = { isOnce: false, isFail: false }) =>
-  rest.get<undefined, pageType | errorType>(
+  rest.get<undefined, PageType | errorType>(
     `${baseUrl}/json/:file`,
     async (req, res, ctx) => {
       const { file } = req.params
 
-      let success: pageType
+      let success: PageType
       switch (file) {
         case 'trench-coat-en.json':
-          success = trenchCoatEn as pageType
+          success = trenchCoatEn as PageType
           break
         case 'trench-coat-ua.json':
-          success = trenchCoatUa as pageType
+          success = trenchCoatUa as PageType
           break
         default:
           return res(ctx.status(500), ctx.json({ error: 'error' } as errorType))

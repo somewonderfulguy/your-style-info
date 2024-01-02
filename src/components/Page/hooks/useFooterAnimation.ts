@@ -19,7 +19,7 @@ export const useFooterAnimation = (
 
   const [page, setPage] = useState<{
     id: string | null
-    content: ReactNode | null
+    content: ReactNode
   }>({ id: null, content: null })
   const screenHeight = useScreenHeight()
   const screenWidth = useScreenWidth()

@@ -33,6 +33,7 @@ const DarkThemeSwitcher = ({
         <div
           className={styles.round}
           style={{
+            // TODO: consider use as react component so, it will be inlined without request to image
             backgroundImage: `url("${sunIcon.src}")`,
             opacity: isDarkTheme ? 0 : 1
           }}

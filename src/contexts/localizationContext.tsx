@@ -12,7 +12,7 @@ import {
 import { useLocation, useNavigate, useMatch } from 'react-router-dom'
 
 import { LOCALES } from '~constants/index'
-import { useLocaleQuery } from '~api/localeQueries'
+import { useLocaleQuery } from '~api/localeApi'
 
 export type LocaleType = 'en' | 'ua'
 type LocaleState = {

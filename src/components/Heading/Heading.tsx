@@ -1,4 +1,4 @@
-import { HeadingComponent } from '~api/componentTypes'
+import { HeadingComponent } from '~api/pageApi'
 import classNames from '~shared/utils/classNames'
 
 import pageStyles from '~components/Page/Page.module.css'

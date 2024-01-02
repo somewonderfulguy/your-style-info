@@ -12,6 +12,7 @@ import {
 } from 'react'
 import { animated, useSpring, useTransition } from 'react-spring'
 
+import { LocaleTranslationsType } from '~api/localeApi'
 import {
   primeRoutesType,
   ROOT_MENU_THUMBS,
@@ -54,11 +55,14 @@ const HeadNavigationDesktop = ({
   setRootMenuOpen,
   setPersistRootMenu
 }: Props) => {
-  const [, , { data: translations }] = useLocalization()
+  const [translations, setTranslations] = useState<LocaleTranslationsType>()
+  const [, , { data }] = useLocalization()
   const [openMenuState, setMenuOpen] = useReducer(
     openMenuReducer,
     openMenuInitialState
   )
+  // yes, state duplication, needed for sleek animation without jumping (& displaying old translations while new are loading)
+  useEffect(() => void (data && setTranslations(data)), [data])
 
   const [subMenuContent, setSubMenuContent] = useState<SubMenuContentType>({
     content: {},

@@ -5,7 +5,7 @@ import {
   HeadingComponent,
   ImageComponent,
   TextComponent
-} from '~api/componentTypes'
+} from '~api/pageApi'
 import Heading from '~components/Heading'
 import Image from '~components/Image'
 import TextBlock from '~components/TextBlock'

@@ -1,5 +1,5 @@
 import { useIsDesktop } from '~contexts/screenDimensionsContext'
-import { TextComponent } from '~api/componentTypes'
+import { TextComponent } from '~api/pageApi'
 
 import styles from './TextBlock.module.css'
 
