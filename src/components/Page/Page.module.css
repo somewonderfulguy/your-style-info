@@ -27,13 +27,14 @@
   --full: minmax(var(--gap), 1fr);
   --feature: minmax(0, 230px);
   --popout: minmax(0, 2rem);
+  --content: min(680px, 100% - var(--gap) * 2);
 
   display: grid;
   grid-template-columns:
     [full-start] var(--full)
     [feature-start] var(--feature)
     [popout-start] var(--popout)
-    [content-start] min(680px, 100% - var(--gap) * 2) [content-end]
+    [content-start] var(--content) [content-end]
     var(--popout) [popout-end]
     var(--feature) [feature-end]
     var(--full) [full-end];

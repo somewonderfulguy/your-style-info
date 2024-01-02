@@ -4,6 +4,8 @@ Application that potentially will be a guide for menswear.
 
 Current state: not even MVP.
 
+It is an SPA application, built with Next.js. The routing of SPA is done with `react-router-dom`. As SPA has animated page transitions, so with this Next.js routing is not used. Next.js planned to be used for preloading `react-query` initial data, authorization (with Clerk), database connection (with PlanetScale) and for tRPC typing. The application is deployed on Vercel.
+
 What is done:
 
 - basic structure
