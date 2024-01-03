@@ -7,7 +7,7 @@ import {
 } from 'react'
 import { useSpring, useSprings, animated } from 'react-spring'
 
-import { PRIME_ROUTES, primeRoutesType } from '~constants/index'
+import { PRIME_ROUTES, PrimeRoutesType } from '~constants/index'
 import { useLocalization } from '~contexts/localizationContext'
 import LinkExtended from '~components/LinkExtended'
 import SocialMediaIcons from '~components/SocialMediaIcons'
@@ -23,7 +23,7 @@ type Props = {
 
 type FirstParam = [
   string,
-  { name: string; sub?: primeRoutesType; inactive?: boolean },
+  { name: string; sub?: PrimeRoutesType; inactive?: boolean },
   string?
 ]
 const renderItem = (

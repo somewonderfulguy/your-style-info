@@ -5,15 +5,15 @@ import LinkExtended from '~components/LinkExtended'
 import { usePrevious } from '~shared/hooks'
 import { useThemeState } from '~contexts/themeContext'
 import { useLocalization } from '~contexts/localizationContext'
-import { primeRoutesType, thumbnailType } from '~constants/index'
+import { PrimeRoutesType, ThumbnailType } from '~constants/index'
 
 import './SubMenuContent.css'
 import styles from './SubMenuContent.module.css'
 
 type Props = {
-  menuItems: primeRoutesType
+  menuItems: PrimeRoutesType
   basePath?: string
-  mainThumbnail?: thumbnailType
+  mainThumbnail?: ThumbnailType
   isOpen?: boolean
   setMenuOpen: Dispatch<boolean>
 }
@@ -27,7 +27,7 @@ const SubMenuContent = ({
 }: Props) => {
   const isDarkTheme = useThemeState()
   const [, , { data: translations }] = useLocalization()
-  const [subItemThumbnail, setSubItemThumbnail] = useState<thumbnailType>(null)
+  const [subItemThumbnail, setSubItemThumbnail] = useState<ThumbnailType>(null)
   const prevOpen = usePrevious(isOpen)
 
   // old transitions clean up

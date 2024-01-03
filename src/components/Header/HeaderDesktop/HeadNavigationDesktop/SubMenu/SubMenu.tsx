@@ -1,18 +1,18 @@
 import { Dispatch, memo, useRef } from 'react'
 import { animated, useSpring, useTransition } from 'react-spring'
 
-import { primeRoutesType, thumbnailType } from '~constants/index'
+import { PrimeRoutesType, ThumbnailType } from '~constants/index'
 
 import SubMenuContent from './SubMenuContent'
 
 import styles from './SubMenu.module.css'
 
 type Props = {
-  content: primeRoutesType
+  content: PrimeRoutesType
   basePath?: string
   isOpen?: boolean
   openNowAndBefore?: boolean
-  mainThumbnail?: thumbnailType
+  mainThumbnail?: ThumbnailType
   setMenuOpen: Dispatch<boolean>
 }
 
