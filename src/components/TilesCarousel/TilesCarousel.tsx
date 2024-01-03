@@ -8,8 +8,7 @@ import classNames from '~shared/utils/classNames'
 
 const TilesCarousel = ({
   contentWidth = 'content'
-}: TilesCarouselComponent) => {
-  return (
+}: TilesCarouselComponent) => (
     <>
       <div />
       <div className={classNames(styles.grid, pageStyles[contentWidth])}>
@@ -25,6 +24,5 @@ const TilesCarousel = ({
       </div>
     </>
   )
-}
 
 export default TilesCarousel

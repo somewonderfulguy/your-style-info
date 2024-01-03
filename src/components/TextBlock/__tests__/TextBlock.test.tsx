@@ -1,11 +1,14 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { TextComponent } from '~api/pageApi'
 
 import TextBlock from '..'
 
 test('should match snapshot', () => {
   const { asFragment } = render(
-    <TextBlock text="Buying cheap shoes is not money saving. It's madness." />
+    <TextBlock type={'text' as TextComponent['type']}>
+      {`Buying cheap shoes is not money saving. It's madness.`}
+    </TextBlock>
   )
   expect(asFragment()).toMatchSnapshot()
 })

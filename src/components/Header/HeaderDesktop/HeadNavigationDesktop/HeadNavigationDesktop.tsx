@@ -14,9 +14,9 @@ import { animated, useSpring, useTransition } from 'react-spring'
 
 import { LocaleTranslationsType } from '~api/localeApi'
 import {
-  primeRoutesType,
+  PrimeRoutesType,
   ROOT_MENU_THUMBS,
-  thumbnailType
+  ThumbnailType
 } from '~constants/index'
 import { useLocalization } from '~contexts/localizationContext'
 import { imgPreload } from '~shared/utils'
@@ -41,9 +41,9 @@ const openMenuReducer = (
 })
 
 export type SubMenuContentType = {
-  content: primeRoutesType
+  content: PrimeRoutesType
   basePath: string
-  mainThumbnail: thumbnailType
+  mainThumbnail: ThumbnailType
 }
 
 type Props = {
