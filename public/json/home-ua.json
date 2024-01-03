@@ -2,17 +2,34 @@
   "id": "home_ua",
   "components": [
     {
-      "alt": "Стильні дядьки",
-      "caption": "",
-      "lowresBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoKCgoKCgsMDAsPEA4QDxYUExMUFiIYGhgaGCIzICUgICUgMy03LCksNy1RQDg4QFFeT0pPXnFlZXGPiI+7u/sBCgoKCgoKCwwMCw8QDhAPFhQTExQWIhgaGBoYIjMgJSAgJSAzLTcsKSw3LVFAODhAUV5PSk9ecWVlcY+Ij7u7+//CABEIABQAFAMBIgACEQEDEQH/xAAYAAACAwAAAAAAAAAAAAAAAAAEBgIFB//aAAgBAQAAAABIE1hOCcr2YP8A/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAIAQIQAAAAhL//xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/2gAIAQMQAAAA2x//xAAjEAACAQQBBQADAAAAAAAAAAABAgMABBESBQYUISIxFjJB/9oACAEBAAE/APZ3e2Xj7JnBZGbU7bZ+7U/HseQktLd1kRFdo2x9VRnNdKWXZ8NFDLruHYmksrtZwru80RddvddGBxn+5yKtYIo+UmER0TtVjbBOQ050+mrG8SzieKcD9yUAJ8JjxVv0xwr5PaYKt4wxr8T4dmXKS5kJ2O9cNxlpFaypGrIonfADGv/EABgRAQADAQAAAAAAAAAAAAAAAAEAAhEQ/9oACAECAQE/ACpkwhz/xAAZEQACAwEAAAAAAAAAAAAAAAACEQABEDH/2gAIAQMBAT8AE29vs//Z",
-      "type": "image",
-      "url": "/img/your-style-01.jpg",
-      "height": 723,
-      "width": 723
+      "children": "Рекомендовані",
+      "level": 2,
+      "type": "heading"
     },
     {
-      "type": "text",
-      "children": "Ідейні міркування вищого порядку, а також подальший розвиток різних форм діяльності тягне за собою процес впровадження та модернізації суттєвих фінансових та адміністративних умов. Завдання організації, особливо початок повсякденної роботи з формування позиції забезпечує широкому колу (фахівців) участь у формуванні нових пропозицій. З іншого боку, зміцнення та розвиток структури вимагають визначення та уточнення напрямів прогресивного розвитку. Ідейні міркування вищого порядку, а також консультація з широким активом дозволяє виконувати важливі завдання щодо розробки позицій, які займають учасники щодо поставлених завдань."
+      "contentWidth": "popout",
+      "items": [],
+      "type": "tilesCarousel"
+    },
+    {
+      "children": "Останні",
+      "level": 2,
+      "type": "heading"
+    },
+    {
+      "contentWidth": "popout",
+      "items": [],
+      "type": "tilesCarousel"
+    },
+    {
+      "children": "Популярні",
+      "level": 2,
+      "type": "heading"
+    },
+    {
+      "contentWidth": "popout",
+      "items": [],
+      "type": "tilesCarousel"
     }
   ]
 }

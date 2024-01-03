@@ -23,6 +23,7 @@
     "@tanem/react-nprogress": "^3.0.30",
     "@tanstack/react-query": "^5.17.0",
     "body-scroll-lock": "^4.0.0-beta.0",
+    "embla-carousel-react": "8.0.0-rc18",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

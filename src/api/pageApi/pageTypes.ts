@@ -8,14 +8,19 @@ export enum ComponentType {
   // keep in alphabetical order
   Heading = 'heading',
   Image = 'image',
-  Text = 'text'
+  Text = 'text',
+  TilesCarousel = 'tilesCarousel'
 }
 
-export type AnyComponent = ImageComponent | TextComponent
+export type AnyComponent =
+  | HeadingComponent
+  | ImageComponent
+  | TextComponent
+  | TilesCarouselComponent
 
 export type BaseComponent = {
   type: ComponentType
-  contentWidth?: 'feature' | 'full' | 'content' | 'popup'
+  contentWidth?: 'content' | 'popout' | 'feature' | 'full'
 }
 
 export type ComponentPropsMapping = {
@@ -23,6 +28,7 @@ export type ComponentPropsMapping = {
   [ComponentType.Heading]: Omit<HeadingComponent, 'type'>
   [ComponentType.Image]: Omit<ImageComponent, 'type'>
   [ComponentType.Text]: Omit<TextComponent, 'type'>
+  [ComponentType.TilesCarousel]: Omit<TilesCarouselComponent, 'type'>
 }
 
 // keep all components in alphabetical order
@@ -46,4 +52,9 @@ export type ImageComponent = BaseComponent & {
 export type TextComponent = BaseComponent & {
   type: ComponentType.Text
   children: string
+}
+
+export type TilesCarouselComponent = BaseComponent & {
+  type: ComponentType.TilesCarousel
+  items: []
 }

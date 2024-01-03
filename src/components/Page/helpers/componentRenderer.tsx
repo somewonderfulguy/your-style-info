@@ -4,15 +4,17 @@ import {
   ComponentType,
   HeadingComponent,
   ImageComponent,
-  TextComponent
+  TextComponent,
+  TilesCarouselComponent
 } from '~api/pageApi'
 import Heading from '~components/Heading'
 import Image from '~components/Image'
 import TextBlock from '~components/TextBlock'
+import TilesCarousel from '~components/TilesCarousel'
 
 export const componentRenderer = (components: AnyComponent[]) =>
-  components.map(({ type, ...props }, idx: string | number) =>
-    createComponent(type, props, idx)
+  components.map((props, idx: string | number) =>
+    createComponent(props.type, props, idx)
   )
 
 export function createComponent<T extends ComponentType>(
@@ -31,6 +33,9 @@ export function createComponent<T extends ComponentType>(
 
     case ComponentType.Text:
       return <TextBlock key={idx} {...(props as TextComponent)} />
+
+    case ComponentType.TilesCarousel:
+      return <TilesCarousel key={idx} {...(props as TilesCarouselComponent)} />
 
     default:
       console.warn(`Unknown component type provided: ${type}`)
