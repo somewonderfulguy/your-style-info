@@ -10,7 +10,7 @@ import { usePageQuery } from '~api/pageApi'
 
 type Props = {
   activeClassName?: string
-  children?: ReactNode | ReactNode[]
+  children?: ReactNode
   className?: string
   inactive?: boolean
   to?: string

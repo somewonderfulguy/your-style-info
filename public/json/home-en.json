@@ -7,7 +7,7 @@
       "type": "heading"
     },
     {
-      "contentWidth": "feature",
+      "contentWidth": "popout",
       "items": [],
       "type": "tilesCarousel"
     },
@@ -17,7 +17,11 @@
       "type": "heading"
     },
     {
-      "contentWidth": "feature",
+      "type": "text",
+      "children": "Most recent content (new or updated) across all categories."
+    },
+    {
+      "contentWidth": "popout",
       "items": [],
       "type": "tilesCarousel"
     },
@@ -27,7 +31,11 @@
       "type": "heading"
     },
     {
-      "contentWidth": "feature",
+      "type": "text",
+      "children": "Most popular content across all categories."
+    },
+    {
+      "contentWidth": "popout",
       "items": [],
       "type": "tilesCarousel"
     }

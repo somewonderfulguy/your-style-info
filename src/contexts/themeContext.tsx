@@ -17,7 +17,7 @@ ThemeStateContext.displayName = 'ThemeStateContext'
 const ThemeDispatchContext = createContext<dispatchType | undefined>(undefined)
 ThemeDispatchContext.displayName = 'ThemeDispatchContext'
 
-const ThemeProvider = ({ children }: { children: ReactNode | ReactNode[] }) => {
+const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const preferDarkQuery = '(prefers-color-scheme: dark)'
   const [isDarkTheme, setDarkTheme] = useState(() => {
     const isDarkTheme = window.localStorage.getItem('isDarkTheme')

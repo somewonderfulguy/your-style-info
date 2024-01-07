@@ -1,14 +1,8 @@
-import {
-  CSSProperties,
-  memo,
-  MutableRefObject,
-  ReactNode,
-  useState
-} from 'react'
+import { CSSProperties, memo, ReactNode, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 
 import { ArrowForwardIos } from '~assets/images'
-import { useResizeObserver } from '~shared/hooks'
+import useResizeObserver from '~shared/hooks/useResizeObserver'
 
 import styles from './Tree.module.css'
 
@@ -28,8 +22,8 @@ const Tree = ({
   defaultOpen
 }: Props) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
-  const [bindResObs, { height: viewHeight }] = useResizeObserver()
-  const bindResizeObserver = bindResObs as MutableRefObject<HTMLUListElement>
+  const [bindResizeObserver, { height: viewHeight }] =
+    useResizeObserver<HTMLUListElement>()
 
   const { height, opacity, transform } = useSpring({
     from: { height: 0, opacity: 0, transform: 'translate3d(20px, 0, 0)' },

@@ -15,11 +15,7 @@ const HeaderHeightDispatchContext = createContext<
 >(undefined)
 HeaderHeightDispatchContext.displayName = 'HeaderHeightDispatchContext'
 
-const HeaderHeightProvider = ({
-  children
-}: {
-  children: ReactNode | ReactNode[]
-}) => {
+const HeaderHeightProvider = ({ children }: { children: ReactNode }) => {
   const [headerHeight, setHeaderHeight] = useState(0)
   return (
     <HeaderHeightStateContext.Provider value={headerHeight}>

@@ -3,7 +3,8 @@ import { animated, useTransition } from 'react-spring'
 
 import { ImageComponent } from '~api/pageApi'
 import { useImageLoadQuery } from '~api/imageApi'
-import { useIntersectionObserver, useResizeObserver } from '~shared/hooks'
+import { useIntersectionObserver } from '~shared/hooks'
+import useResizeObserver from '~shared/hooks/useResizeObserver'
 import { useThemeState } from '~contexts/themeContext'
 import { useIsDesktop } from '~contexts/screenDimensionsContext'
 import classNames from '~shared/utils/classNames'
@@ -46,8 +47,8 @@ const Image = ({
     enabled: Boolean(!!url && isIntersecting)
   })
 
-  const [bindResObs, { width: imageWidth }] = useResizeObserver()
-  const bindResizeObserver = bindResObs as MutableRefObject<HTMLDivElement>
+  const [bindResizeObserver, { width: imageWidth }] =
+    useResizeObserver<HTMLDivElement>()
   const isSmallerSize = imageWidth < 424
 
   type delayedType = {

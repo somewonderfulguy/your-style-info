@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext } from 'react'
 
-import { useResizeObserver } from '~shared/hooks'
+import useResizeObserver from '~shared/hooks/useResizeObserver'
 
 export const ERROR_SCREEN =
   'useScreenDimensions must be used within a ScreenDimensionsProvider'
@@ -16,11 +16,7 @@ IsDesktopContext.displayName = 'IsDesktopContext'
 
 export const DESKTOP_BOUNDARY = 1024
 
-const ScreenDimensionsProvider = ({
-  children
-}: {
-  children: ReactNode | ReactNode[]
-}) => {
+const ScreenDimensionsProvider = ({ children }: { children: ReactNode }) => {
   const [bindResizeObserver, bounds] = useResizeObserver(undefined, {
     left: 0,
     top: 0,

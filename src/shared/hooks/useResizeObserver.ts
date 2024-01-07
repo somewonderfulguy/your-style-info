@@ -1,23 +1,22 @@
 import {
   MutableRefObject,
   useCallback,
-  useEffect,
+  useLayoutEffect,
   useRef,
   useState
 } from 'react'
 
 import { throttle } from '~shared/utils'
 
-// TODO: implement also onResize callback to avoid using useEffect
-export function useResizeObserver(
+const useResizeObserver = <T extends HTMLElement>(
   delay = 0,
   initialBounds = { left: 0, top: 0, width: 0, height: 0 }
-) {
-  const elemRef = useRef<Element>(null)
+) => {
+  const elemRef = useRef<HTMLElement>(null)
   const [bounds, setBounds] = useState(initialBounds)
 
   const observer = throttle(
-    ([entry]) =>
+    /* istanbul ignore next */ ([entry]) =>
       setBounds(
         Array.isArray(entry) ? entry[0].contentRect : entry.contentRect
       ),
@@ -29,15 +28,14 @@ export function useResizeObserver(
     [resizeObserver]
   )
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (elemRef.current) {
       resizeObserver.observe(elemRef.current)
     }
     return disconnect
   }, [resizeObserver, disconnect])
 
-  return [elemRef, bounds ?? initialBounds] as [
-    MutableRefObject<Element>,
-    typeof initialBounds
-  ]
+  return [elemRef, bounds] as [MutableRefObject<T>, typeof initialBounds]
 }
+
+export default useResizeObserver

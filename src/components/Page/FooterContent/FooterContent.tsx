@@ -1,17 +1,14 @@
-import { MutableRefObject } from 'react'
-
 import DarkThemeSwitcher from '~components/DarkThemeSwitcher'
 import LangSelector from '~components/LangSelector'
 import SocialMediaIcons from '~components/SocialMediaIcons'
-import { useResizeObserver } from '~shared/hooks'
+import useResizeObserver from '~shared/hooks/useResizeObserver'
 
 import FooterNavigation from './FooterNavigation'
 
 import styles from './FooterContent.module.css'
 
 const FooterContent = () => {
-  const [ref, { width }] = useResizeObserver()
-  const bindResizeObserver = ref as MutableRefObject<HTMLDivElement>
+  const [bindResizeObserver, { width }] = useResizeObserver<HTMLDivElement>()
 
   return (
     <div className={styles.layout} ref={bindResizeObserver}>

@@ -1,7 +1,6 @@
 import {
   Dispatch,
   MouseEvent,
-  MutableRefObject,
   SetStateAction,
   useCallback,
   useEffect,
@@ -20,7 +19,7 @@ import {
 } from '~constants/index'
 import { useLocalization } from '~contexts/localizationContext'
 import { imgPreload } from '~shared/utils'
-import { useResizeObserver } from '~shared/hooks'
+import useResizeObserver from '~shared/hooks/useResizeObserver'
 
 import RootMenu from './RootMenu'
 import SubMenu from './SubMenu'
@@ -107,8 +106,8 @@ const HeadNavigationDesktop = ({
 
   // drop-down menu height
   const prevHeight = useRef(0)
-  const [bindResObs, { height: newSubMenuHeight }] = useResizeObserver()
-  const bindResizeObserver = bindResObs as MutableRefObject<HTMLDivElement>
+  const [bindResizeObserver, { height: newSubMenuHeight }] =
+    useResizeObserver<HTMLDivElement>()
   useLayoutEffect(() => {
     prevHeight.current = newSubMenuHeight
   }, [newSubMenuHeight])

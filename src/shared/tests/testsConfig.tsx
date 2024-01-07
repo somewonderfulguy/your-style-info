@@ -31,7 +31,7 @@ server.listen({ onUnhandledRequest: 'error' })
 
 const render = (ui: ReactElement, { route = '/', ...options } = {}) => {
   const history = createMemoryHistory({ initialEntries: [route] })
-  const Wrapper = ({ children }: { children: ReactNode | ReactNode[] }) => (
+  const Wrapper = ({ children }: { children: ReactNode }) => (
     <QueryClientProvider client={queryClient}>
       <Router>
         <HeaderHeightProvider>
