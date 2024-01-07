@@ -3,16 +3,25 @@
   margin-bottom: 32px;
 }
 
-.container {
+.cardContainer {
   display: flex;
   gap: 20px;
 }
 
 .card {
-  overflow: hidden;
   position: relative;
   height: 300px;
-  min-width: 300px;
+  transition: background-size 0.5s ease;
+  background-size: 100%;
+  background-position: center;
+}
+.card > img {
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+}
+.card:hover {
+  background-size: 110%;
 }
 
 .cardInfo {
@@ -21,6 +30,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 
   padding: 20px;
 
@@ -42,9 +52,23 @@
 .cardInfo > * {
   margin: 0;
 }
-.card img {
-  transition: transform 0.5s ease;
+
+.cardAdditionalInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  background-color: hsla(60, 56%, 91%, 0.1);
+  color: #fff;
+
+  padding: 10px 20px;
+
+  display: flex;
+  justify-content: space-between;
 }
-.card:hover img {
-  transform: scale(1.1);
+
+.dates {
+  text-align: end;
 }

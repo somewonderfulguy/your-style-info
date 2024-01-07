@@ -7,6 +7,10 @@
       "type": "heading"
     },
     {
+      "type": "text",
+      "children": "Recommended content by the creator of this site."
+    },
+    {
       "contentWidth": "popout",
       "items": [],
       "type": "tilesCarousel"
@@ -18,7 +22,7 @@
     },
     {
       "type": "text",
-      "children": "Most recent content (new or updated) across all categories."
+      "children": "Most recent content (new or updated)."
     },
     {
       "contentWidth": "popout",
@@ -32,7 +36,7 @@
     },
     {
       "type": "text",
-      "children": "Most popular content across all categories."
+      "children": "Most popular articles among the readers."
     },
     {
       "contentWidth": "popout",

@@ -7,6 +7,10 @@
       "type": "heading"
     },
     {
+      "type": "text",
+      "children": "Рекомендовані статті творцем цього сайту."
+    },
+    {
       "contentWidth": "popout",
       "items": [],
       "type": "tilesCarousel"
@@ -17,6 +21,10 @@
       "type": "heading"
     },
     {
+      "type": "text",
+      "children": "Найновіший вміст (новий або оновлений)."
+    },
+    {
       "contentWidth": "popout",
       "items": [],
       "type": "tilesCarousel"
@@ -25,6 +33,10 @@
       "children": "Популярні",
       "level": 2,
       "type": "heading"
+    },
+    {
+      "type": "text",
+      "children": "Найбільш популярні статті серед читачів."
     },
     {
       "contentWidth": "popout",
