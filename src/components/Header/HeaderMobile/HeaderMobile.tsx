@@ -29,7 +29,7 @@ const HeaderMobile = () => {
     null) as Element
 
   useEffect(() => {
-    setHeaderHeight(headerHeight)
+    setHeaderHeight(headerDOM.current?.offsetHeight ?? 0)
     return () => setHeaderHeight(0)
   }, [headerHeight, setHeaderHeight])
 
