@@ -107,7 +107,9 @@ const Options = ({
         }}
       >
         <LanguageIcon width={22} height={22} fill="#696969" />
-        <span className={styles.langTxt}>{switchLanguage?.switchLangTo}</span>
+        <span className={styles.langTxt}>
+          {(switchLanguage as { [key: string]: string })?.switchLangTo}
+        </span>
       </button>
       <div role="menuitem">
         <DarkThemeSwitcher labelText />

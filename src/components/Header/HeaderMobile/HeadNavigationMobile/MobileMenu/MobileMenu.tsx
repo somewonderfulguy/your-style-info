@@ -132,7 +132,7 @@ const MobileMenu = forwardRef(({ isOpen = false, setMenuOpen }: Props, ref) => {
               locale,
               setMenuOpen,
               false,
-              translations?.navigation
+              translations?.navigation as { [key: string]: string }
             )}
           </animated.li>
         ))}

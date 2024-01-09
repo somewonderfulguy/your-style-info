@@ -47,7 +47,10 @@ const LangSelector = ({ showAbove = false, gray = false }: Props) => {
         className={styles.langSelectorInner}
         type="button"
         disabled={isLanguageLoading}
-        aria-label={localeData?.switchLanguage.switchLang ?? 'Switch language'}
+        aria-label={
+          (localeData?.switchLanguage as { [key: string]: string })
+            .switchLang ?? 'Switch language'
+        }
         aria-expanded={isOpen}
         aria-haspopup
         data-testid="langSelector"

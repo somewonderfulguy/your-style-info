@@ -89,7 +89,7 @@ const HeaderDesktop = () => {
                       style={props}
                       className={styles.subtitle}
                     >
-                      {item}
+                      {item as string}
                     </animated.span>
                   )
               )}
