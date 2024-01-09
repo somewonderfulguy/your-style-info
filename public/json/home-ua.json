@@ -12,7 +12,36 @@
     },
     {
       "contentWidth": "popout",
-      "items": [],
+      "items": [
+        {
+          "comments": 3,
+          "created": "Mon Nov 11 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "In depth trench coat guide. How to wear, where to buy, detailed description, history.",
+          "image": "/img/thumbs/trench_thumb.jpg",
+          "link": "/clothes/outerwear/trench-coat",
+          "title": "Trench coat",
+          "views": 23
+        },
+        {
+          "comments": 14,
+          "created": "Mon Dec 14 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "Learn how to clean up your suede shoes and keep them in good condition.",
+          "image": "/img/thumbs/baudoin_lange_thumb.jpg",
+          "link": "/clothes/shoes",
+          "title": "Suede shoes care",
+          "updated": "Mon Jan 04 2024 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "views": 51
+        },
+        {
+          "comments": 5,
+          "created": "Mon Jan 07 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "Guide on how to clean your white leather sneakers.",
+          "image": "/img/thumbs/white_sneakers_thumb.jpg",
+          "link": "/clothes/shoes",
+          "title": "White leather sneakers cleaning",
+          "views": 34
+        }
+      ],
       "type": "tilesCarousel"
     },
     {
@@ -26,7 +55,36 @@
     },
     {
       "contentWidth": "popout",
-      "items": [],
+      "items": [
+        {
+          "comments": 5,
+          "created": "Mon Jan 07 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "Guide on how to clean your white leather sneakers.",
+          "image": "/img/thumbs/white_sneakers_thumb.jpg",
+          "link": "/clothes/shoes",
+          "title": "White leather sneakers cleaning",
+          "views": 34
+        },
+        {
+          "comments": 14,
+          "created": "Mon Dec 14 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "Learn how to clean up your suede shoes and keep them in good condition.",
+          "image": "/img/thumbs/baudoin_lange_thumb.jpg",
+          "link": "/clothes/shoes",
+          "title": "Suede shoes care",
+          "updated": "Mon Jan 04 2024 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "views": 51
+        },
+        {
+          "comments": 3,
+          "created": "Mon Nov 11 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "In depth trench coat guide. How to wear, where to buy, detailed description, history.",
+          "image": "/img/thumbs/trench_thumb.jpg",
+          "link": "/clothes/outerwear/trench-coat",
+          "title": "Trench coat",
+          "views": 23
+        }
+      ],
       "type": "tilesCarousel"
     },
     {
@@ -40,7 +98,36 @@
     },
     {
       "contentWidth": "popout",
-      "items": [],
+      "items": [
+        {
+          "comments": 14,
+          "created": "Mon Dec 14 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "Learn how to clean up your suede shoes and keep them in good condition.",
+          "image": "/img/thumbs/baudoin_lange_thumb.jpg",
+          "link": "/clothes/shoes",
+          "title": "Suede shoes care",
+          "updated": "Mon Jan 04 2024 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "views": 51
+        },
+        {
+          "comments": 5,
+          "created": "Mon Jan 07 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "Guide on how to clean your white leather sneakers.",
+          "image": "/img/thumbs/white_sneakers_thumb.jpg",
+          "link": "/clothes/shoes",
+          "title": "White leather sneakers cleaning",
+          "views": 34
+        },
+        {
+          "comments": 3,
+          "created": "Mon Nov 11 2023 22:15:23 GMT+0200 (Eastern European Standard Time)",
+          "description": "In depth trench coat guide. How to wear, where to buy, detailed description, history.",
+          "image": "/img/thumbs/trench_thumb.jpg",
+          "link": "/clothes/outerwear/trench-coat",
+          "title": "Trench coat",
+          "views": 23
+        }
+      ],
       "type": "tilesCarousel"
     }
   ]

@@ -56,5 +56,14 @@ export type TextComponent = BaseComponent & {
 
 export type TilesCarouselComponent = BaseComponent & {
   type: ComponentType.TilesCarousel
-  items: []
+  items: Array<{
+    title: string
+    description: string
+    link: string
+    image: string
+    comments: number
+    views: number
+    created: string
+    updated: string
+  }>
 }

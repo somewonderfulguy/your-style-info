@@ -1,8 +1,3 @@
-export type LocaleTranslationsType = {
-  navigation: { [key: string]: string }
-  subtitle: string
-  switchLanguage: {
-    switchLang: string
-    switchLangTo: string
-  }
-}
+type ValueType = { [key: string]: string | ValueType }
+
+export type LocaleTranslationsType = ValueType

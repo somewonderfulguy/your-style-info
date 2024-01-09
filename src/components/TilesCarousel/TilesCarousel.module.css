@@ -1,6 +1,12 @@
-.wrapper {
-  overflow: hidden;
+.root {
+  position: relative;
+  height: 300px;
   margin-bottom: 32px;
+}
+
+.carouselContainer {
+  overflow: hidden;
+  position: absolute;
 }
 
 .cardContainer {
@@ -71,4 +77,17 @@
 
 .dates {
   text-align: end;
+}
+
+.grid {
+  display: grid;
+  grid-auto-flow: column;
+  height: 300px;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.grid > div {
+  width: 300px;
+  background-color: green;
 }
