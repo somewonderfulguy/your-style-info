@@ -6,7 +6,7 @@ import {
   useState
 } from 'react'
 
-import { throttle } from '~shared/utils'
+import throttle from '~shared/utils/throttle'
 
 const useResizeObserver = <T extends HTMLElement>(
   delay = 0,
