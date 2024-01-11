@@ -12,12 +12,13 @@ import { useSpring, animated, config } from 'react-spring'
 import { LanguageIcon } from '~assets/images'
 import DarkThemeSwitcher from '~components/DarkThemeSwitcher'
 import { useOutsideClick } from '~shared/hooks'
-import { anyFunctionType } from '~shared/types'
+import { AnyFunctionType } from '~types/common'
 import { useLocalization } from '~contexts/localizationContext'
 
 import styles from './Options.module.css'
 
-const useScroll = (cb: anyFunctionType) => {
+// TODO: no any!
+const useScroll = (cb: AnyFunctionType) => {
   useEffect(() => {
     const scrollHandler = () => cb()
     window.addEventListener('scroll', scrollHandler)

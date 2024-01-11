@@ -1,10 +1,11 @@
 import { MutableRefObject, useEffect } from 'react'
 
-import { anyFunctionType } from '..'
+import { AnyFunctionType } from '~types/common'
 
 export const useOutsideClick = (
   ref: MutableRefObject<Element | null>,
-  cb: anyFunctionType,
+  // todo: generic ?
+  cb: AnyFunctionType,
   ignoreElements: Element[] = []
 ) => {
   useEffect(() => {

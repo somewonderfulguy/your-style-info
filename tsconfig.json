@@ -21,7 +21,8 @@
       "~constants/*": ["constants/*"],
       "~contexts/*": ["contexts/*"],
       "~services/*": ["services/*"],
-      "~shared/*": ["shared/*"]
+      "~shared/*": ["shared/*"],
+      "~types/*": ["types/*"]
     },
     // TODO: enable this
     "noImplicitAny": false,
